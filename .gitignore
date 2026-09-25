@@ -19,3 +19,9 @@ Thumbs.db
 __pycache__/
 *.py[cod]
 .pytest_cache/
+
+# Flutter generated files
+.dart_tool/
+.flutter-plugins-dependencies
+build/
+**/flutter/ephemeral/
