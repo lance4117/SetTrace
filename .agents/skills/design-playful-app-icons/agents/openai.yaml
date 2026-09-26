@@ -1,0 +1,4 @@
+interface:
+  display_name: "Playful App Icon Designer"
+  short_description: "Create bold, playful, production-ready app icons"
+  default_prompt: "Use $design-playful-app-icons to create three distinctive app icon directions and refine the strongest one."

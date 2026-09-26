@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" role="img" aria-label="SetTrace adaptive icon transparent foreground">
+  <g transform="translate(512 512) scale(0.75) translate(-512 -512)">
+    <g transform="rotate(-18 512 512)">
+      <rect x="272" y="428" width="480" height="168" rx="28" fill="#42D6A4"/>
+      <rect x="136" y="382" width="86" height="260" rx="22" fill="#42D6A4"/>
+      <rect x="202" y="310" width="132" height="404" rx="38" fill="#42D6A4"/>
+      <rect x="690" y="310" width="132" height="404" rx="38" fill="#42D6A4"/>
+      <rect x="802" y="382" width="86" height="260" rx="22" fill="#42D6A4"/>
+      <circle cx="352" cy="512" r="31" fill="#E8FBF4"/>
+      <circle cx="458" cy="512" r="31" fill="#E8FBF4"/>
+      <circle cx="564" cy="512" r="31" fill="#E8FBF4"/>
+      <circle cx="670" cy="512" r="31" fill="none" stroke="#E8FBF4" stroke-width="18"/>
+    </g>
+  </g>
+</svg>

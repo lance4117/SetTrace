@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "design-playful-app-icons": {
+      "source": "chunkithwang/design-playful-app-icons",
+      "sourceType": "github",
+      "skillPath": "skills/design-playful-app-icons/SKILL.md",
+      "computedHash": "bf0f5ccecaeec08fe7e6d42fe24cb77daee8be91d52bbf3cb6f67915f34040a5"
+    }
+  }
+}

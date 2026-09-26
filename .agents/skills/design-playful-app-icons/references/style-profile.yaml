@@ -1,0 +1,268 @@
+version: 1
+
+identity:
+  summary: "A bold, friendly app icon built around one product-specific object, mascot, or glyph."
+  emotional_range:
+    - cheerful
+    - curious
+    - clever
+    - energetic
+    - mildly_mischievous
+  avoid_tones:
+    - corporate_generic
+    - childish_without_product_meaning
+    - cinematic_dark
+    - photorealistic
+
+brief:
+  formula: "object + action + emotion"
+  concept_count: 3
+  concept_difference_rule: "Change metaphor or silhouette, not only palette."
+
+composition:
+  aspect_ratio: "1:1"
+  focal_subject_count: 1
+  supporting_prop_max: 1
+  subject_canvas_occupancy:
+    min: 0.70
+    max: 0.85
+  critical_feature_margin:
+    min: 0.08
+    max: 0.15
+  preferred_views:
+    - frontal
+    - slight_three_quarter
+  stable_mark_alignment: centered
+  playful_alignment: "mild tilt or asymmetric crop"
+  crop_rule: "Crop only noncritical extensions; protect eyes, mouth, and signature detail."
+
+geometry:
+  major_part_count:
+    min: 2
+    max: 5
+  primitives:
+    - circle
+    - capsule
+    - rounded_rectangle
+    - soft_wedge
+    - inflated_organic_shape
+  exaggeration_count: 1
+  exaggeration_options:
+    - oversized_eyes
+    - broad_head
+    - compact_body
+    - large_functional_prop
+    - wide_smile
+    - unusual_tilt
+  thin_linework: forbidden
+  tiny_decorative_details: forbidden
+
+face:
+  enabled_when: "The expression strengthens the product metaphor."
+  feature_count:
+    min: 1
+    max: 3
+  eye_families:
+    - paired_dots
+    - white_shapes_with_dark_pupils
+    - half_lidded
+    - large_glossy
+  mouth_families:
+    - short_curve
+    - small_open_smile
+    - tiny_asymmetric_mark
+  attitude_rule: "Direct pupils, eyelids, tilt, or pose; avoid perfectly neutral placement."
+  realistic_anatomy: forbidden
+
+color:
+  role_count_max: 3
+  roles:
+    - dominant
+    - contrast_or_adjacent
+    - neutral
+  gradient_stop_count:
+    min: 2
+    max: 3
+  gradient_rule: "Use gradients for volume or a deliberate warm-cool transition, never as filler."
+  grayscale_rule: "Maintain obvious foreground and background separation."
+  accent_rule: "Reserve the brightest accent for the face, focal edge, or one functional detail."
+  base_tokens:
+    ink_black: "#121212"
+    ink_blue_black: "#1C212C"
+    soft_white: "#F8F6F5"
+    muted_white: "#E8DBE0"
+    electric_violet: "#AC46EA"
+    deep_violet: "#4237C6"
+    night_violet: "#1D105D"
+    cobalt_blue: "#1865EE"
+    sky_blue: "#3FA1F9"
+    acid_lime: "#60F32E"
+    leaf_green: "#4AC742"
+    coral_orange: "#F95E2B"
+    warm_red: "#F2494A"
+    clear_yellow: "#FDDA34"
+    amber: "#F9A523"
+  palette_presets:
+    playful_lime:
+      dominant: "#60F32E"
+      contrast: "#121212"
+      neutral: "#F8F6F5"
+      best_for: "Fast, social, novel, or energetic products."
+    violet_tech:
+      dominant: "#4237C6"
+      contrast: "#3FA1F9"
+      neutral: "#F8F6F5"
+      optional_accent: "#FDDA34"
+      best_for: "Creative, technical, or expressive tools."
+    coral_friendly:
+      dominant: "#F95E2B"
+      contrast: "#FDDA34"
+      neutral: "#F8F6F5"
+      ink: "#121212"
+      best_for: "Wellness, food, habits, or warm consumer products."
+    blue_trust:
+      dominant: "#1865EE"
+      contrast: "#3FA1F9"
+      neutral: "#F8F6F5"
+      ink: "#1C212C"
+      best_for: "Utility, travel, communication, or organization."
+    dark_professional:
+      dominant: "#121212"
+      contrast: "#AC46EA"
+      neutral: "#F8F6F5"
+      optional_accent: "#3FA1F9"
+      best_for: "Professional tools and abstract marks."
+
+background:
+  allowed:
+    - solid_high_chroma
+    - restrained_two_stop_gradient
+    - quiet_neutral
+  radial_lift: "Use only to separate the subject."
+  patterns: "Avoid unless extremely low contrast and semantically useful."
+  edge_to_edge: required
+  visible_text: forbidden
+
+material_and_light:
+  materials:
+    - clean_vector_fill
+    - soft_plastic
+    - clay
+    - rubber
+    - frosted_acrylic
+  primary_light_direction:
+    - upper_left
+    - top
+  highlight: "Broad and soft."
+  cast_shadow: "Short, diffuse, and subordinate to the silhouette."
+  ambient_occlusion: "Use only at meaningful overlaps."
+  bevel_rule: "Keep bevels broad enough to survive at 60 px."
+  special_effect_max: 1
+  allowed_special_effects:
+    - translucent_edge
+    - iridescent_edge
+    - restrained_glow
+  forbidden:
+    - hard_chrome
+    - realistic_fur
+    - pores
+    - scratches
+    - excessive_bloom
+    - deep_cinematic_darkness
+
+signature_hook:
+  count: 1
+  options:
+    - expressive_gaze
+    - shape_pun
+    - asymmetric_crop
+    - purposeful_prop
+    - exaggerated_proportion
+
+lanes:
+  flat_outlined_mascot:
+    best_for:
+      - social
+      - education
+      - playful_utility
+      - creator_tools
+    construction: "Broad flat shapes, a heavy smooth dark contour, and two or three facial marks."
+    depth: "Flat separation with at most a restrained contact shadow."
+    avoid:
+      - thin_outline
+      - sticker_clutter
+      - complex_texture
+  soft_3d_object_character:
+    best_for:
+      - productivity
+      - fitness
+      - finance
+      - food
+      - consumer_utility
+    construction: "Rounded object volume, broad bevels, simple face, overlap, and soft contact shadow."
+    depth: "Use bevel, value contrast, and ambient occlusion instead of a contour."
+    avoid:
+      - generic_gloss
+      - photorealism
+      - excessive_layers
+  gradient_silhouette_mascot:
+    best_for:
+      - expressive_consumer_apps
+      - new_brands
+      - communication
+    construction: "One large organic silhouette with a controlled warm-cool gradient and minimal face."
+    depth: "Preserve a crisp outer edge; use gradient and one soft base shadow."
+    avoid:
+      - muddy_edges
+      - weak_product_metaphor
+      - random_color_stops
+  minimal_dimensional_glyph:
+    best_for:
+      - professional_tools
+      - established_brands
+      - abstract_utilities
+    construction: "One letter-like or abstract mark with restrained relief and strong value contrast."
+    depth: "Use shallow extrusion, one bevel family, and a quiet background."
+    avoid:
+      - generic_monogram
+      - excessive_symmetry
+      - unnecessary_face
+
+originality:
+  artist_or_brand_names: forbidden
+  imitation_phrases: forbidden
+  existing_logos_or_characters: forbidden
+  originality_dimensions:
+    - metaphor
+    - silhouette
+    - pose
+    - facial_construction
+    - palette_relationship
+    - crop
+    - prop
+    - material
+  minimum_distinct_dimensions: 3
+
+production:
+  review_sizes_px:
+    - 1024
+    - 180
+    - 60
+    - 32
+  remove_if_lost_below_px: 60
+  checks:
+    - grayscale_contrast
+    - solid_black_silhouette
+    - light_launcher_background
+    - dark_launcher_background
+  ios:
+    canvas_px: 1024
+    color_space: sRGB
+    opacity: opaque
+    transparency: forbidden
+    baked_corner_mask: forbidden
+  android:
+    layers:
+      - foreground
+      - background
+    safe_zone: "Verify against the current adaptive-icon platform template."
