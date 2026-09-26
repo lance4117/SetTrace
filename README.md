@@ -1,17 +1,84 @@
-# settrace
+# 训练本（SetTrace）
 
-A new Flutter project.
+<img src="docs/design/SetTrace_App_Icon.png" alt="训练本图标" width="112" />
 
-## Getting Started
+**选好今天的计划，专心训练，点一下记录每组。**
 
-This project is a starting point for a Flutter application.
+训练本是一款轻量、离线优先的健身训练记录 App。它围绕“今天练什么 → 按计划训练 → 快速记录 → 查看历史”设计，让用户自由定义训练内容，并在训练中清楚知道当前组、下一动作和休息剩余时间。当前版本以 Android 为首要目标，核心功能无需账号、网络或后端服务。
 
-A few resources to get you started if this is your first Flutter project:
+## 当前功能
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+- **自定义计划**：创建、改名、删除多个训练计划；为计划添加任意名称的动作并拖动排序。
+- **配置动作**：设置默认组数、组间休息、动作后休息，以及可选的默认重量。休息时间按 30 秒调整，重量仅作为训练提示。
+- **逐组训练**：进入训练准备页后开始；训练页展示当前动作、组数进度、下一动作和完整动作列表。每组只记录完成状态与完成时间，一次点击即可完成当前组。
+- **休息与纠错**：自动按配置进入组间或动作间休息，支持跳过、增减 30 秒、撤销上一组，以及修改本次训练后续的组数和休息配置。
+- **可靠恢复**：训练进度和休息截止时间保存在本机；切到后台或重启 App 后可继续未完成的训练。退出训练前会确认，已完成的部分可保存为记录。
+- **历史与统计**：按日期查看训练和详情；显示本周、本月训练次数、最近一次训练，以及月度时长和完成组数。历史使用当次训练的快照，不受后来修改或删除计划的影响。
+- **浅色与深色主题**：支持跟随系统、浅色、深色三种模式，并记住选择。
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 使用流程
+
+1. 在“计划”中新建训练计划，添加动作并设置组数和休息时间。
+2. 打开计划详情，在准备页确认动作顺序后开始训练。
+3. 每完成一组点击“完成本组”；休息倒计时结束后继续下一组或下一动作。
+4. 结束训练并保存，随后在“记录”中查看当天训练与简单统计。
+
+## 技术与数据
+
+项目使用 **Flutter / Dart** 开发 Android App。界面按语义色 Token 实现浅色和深色主题；计划、会话与历史保存在设备上的 **SQLite** 数据库中，主题选择保存在 `shared_preferences` 中。
+
+开始训练时，App 会复制计划和动作配置，形成独立的本次训练快照。每次完成、撤销或编辑训练进度后都会持久化；休息剩余时间由保存的绝对截止时间计算。数据库 v1 的表和时间单位见 [本地数据库说明](lib/core/database/README.md)。
+
+当前版本只在 Android 上完成运行验收。Flutter 项目保留跨平台扩展空间，但其他平台尚未作为交付目标。
+
+## 本地运行
+
+准备好 Flutter SDK、Android SDK 和可用的 Android 模拟器或设备后，在项目根目录执行：
+
+```bash
+flutter pub get
+flutter devices
+flutter run
+```
+
+常用检查与构建命令：
+
+```bash
+flutter analyze
+flutter test
+flutter build apk --debug
+```
+
+Debug APK 输出在 `build/app/outputs/flutter-apk/app-debug.apk`。Android 工程使用 `android/app/build.gradle.kts` 中指定的 NDK 版本；首次构建时请确保 Android SDK 能安装该版本。
+
+## 项目结构
+
+```text
+lib/
+├── app/                 # 应用入口导航、主题
+├── core/database/       # SQLite 建库与迁移
+├── core/widgets/        # 跨页面共用控件
+└── features/
+    ├── plans/           # 计划与动作管理
+    ├── workout/         # 训练会话与休息
+    ├── history/         # 历史记录与统计
+    └── settings/        # 主题设置
+test/                    # 数据库、训练逻辑与 Widget 测试
+docs/design/             # UI 设计说明和参考图
+docs/qa/                 # Android MVP 验收记录
+openspec/specs/          # 当前能力规格
+openspec/changes/archive/ # 已完成的 OpenSpec 变更
+```
+
+## 设计与规格
+
+- [UI 设计规范与 Flutter 实现说明](docs/design/SetTrace_UI_Design_System_and_Flutter_Spec.md)
+- [浅色高保真图](<docs/design/High-Fi Light.png>)、[深色高保真图](<docs/design/High-Fi Dark.png>)、[主题 Token 图](<docs/design/Design Tokens · Theme Reference.png>)
+- [Android MVP 验收记录](docs/qa/android-mvp-acceptance.md)
+- [OpenSpec 能力规格](openspec/specs/)
+
+设计稿中的“预计训练时长”没有可靠的计算规则，因此当前版本不展示估算值。训练页的完整动作列表、结束确认以及记录详情以功能完整性为准补充。
+
+## 当前范围
+
+训练本专注本机训练记录。当前版本没有登录、云同步、社区、课程、AI 推荐、饮食管理、穿戴设备接入或后台通知。卸载 App 或清除应用数据会移除本地记录；数据导出与备份尚未实现。
