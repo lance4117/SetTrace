@@ -1,0 +1,12 @@
+{
+  "selection_ACBD": true,
+  "selection_preserves_sets_and_rest": true,
+  "cancel_no_write": true,
+  "drag_save_ADCB": true,
+  "save_preserves_rest": true,
+  "restart_preserves_snapshot": true,
+  "partial_D_continues_group2": true,
+  "partial_locked_D_future_B_moves": true,
+  "undo_D_only_and_keeps_order": true,
+  "partial_save_final_order_and_groups": true
+}

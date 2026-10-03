@@ -1,0 +1,25 @@
+--------- beginning of main
+09-26 08:38:55.740 10025 10048 I flutter : [IMPORTANT:flutter/shell/platform/android/android_context_gl_impeller.cc(104)] Using the Impeller rendering backend (OpenGLES).
+09-26 08:38:55.880 10025 10055 I flutter : The Dart VM service is listening on http://127.0.0.1:33163/1R0BK97UumU=/
+09-26 08:43:28.021 10350 10379 I flutter : [IMPORTANT:flutter/shell/platform/android/android_context_gl_impeller.cc(104)] Using the Impeller rendering backend (OpenGLES).
+09-26 08:43:28.474 10350 10386 I flutter : The Dart VM service is listening on http://127.0.0.1:41111/6iKLj3oe6Tg=/
+09-26 08:43:46.350 10415 10445 I flutter : [IMPORTANT:flutter/shell/platform/android/android_context_gl_impeller.cc(104)] Using the Impeller rendering backend (OpenGLES).
+09-26 08:43:46.493 10415 10451 I flutter : The Dart VM service is listening on http://127.0.0.1:33165/s1rD7QkyuU4=/
+09-26 08:47:04.683 10705 10759 I flutter : [IMPORTANT:flutter/shell/platform/android/android_context_gl_impeller.cc(104)] Using the Impeller rendering backend (OpenGLES).
+09-26 08:47:04.807 10705 10766 I flutter : The Dart VM service is listening on http://127.0.0.1:41473/2kRx8TXMw5E=/
+09-26 08:47:16.613 10805 10828 I flutter : [IMPORTANT:flutter/shell/platform/android/android_context_gl_impeller.cc(104)] Using the Impeller rendering backend (OpenGLES).
+09-26 08:47:16.698 10805 10834 I flutter : The Dart VM service is listening on http://127.0.0.1:40289/kEzA4zBe0lo=/
+10-03 08:15:23.554 12080 12139 I flutter : [IMPORTANT:flutter/shell/platform/android/android_context_gl_impeller.cc(104)] Using the Impeller rendering backend (OpenGLES).
+10-03 08:15:24.133 12080 12150 I flutter : The Dart VM service is listening on http://127.0.0.1:36545/miUMxuHr3RA=/
+10-03 09:08:06.267 14282 14348 I flutter : [IMPORTANT:flutter/shell/platform/android/android_context_gl_impeller.cc(104)] Using the Impeller rendering backend (OpenGLES).
+10-03 09:08:06.297 14282 14354 I flutter : The Dart VM service is listening on http://127.0.0.1:40279/sDG6jXRMFfE=/
+10-03 09:09:25.418 14443 14465 I flutter : [IMPORTANT:flutter/shell/platform/android/android_context_gl_impeller.cc(104)] Using the Impeller rendering backend (OpenGLES).
+10-03 09:09:25.507 14443 14471 I flutter : The Dart VM service is listening on http://127.0.0.1:33855/NovBPnRxz_c=/
+10-03 09:10:16.152 14591 14626 I flutter : [IMPORTANT:flutter/shell/platform/android/android_context_gl_impeller.cc(104)] Using the Impeller rendering backend (OpenGLES).
+10-03 09:10:16.281 14591 14632 I flutter : The Dart VM service is listening on http://127.0.0.1:40607/rCceE2XN5zM=/
+10-03 09:10:55.050 14695 14726 I flutter : The Dart VM service is listening on http://127.0.0.1:33361/-SCqm2jdOxI=/
+10-03 09:10:55.287 14695 14720 I flutter : [IMPORTANT:flutter/shell/platform/android/android_context_gl_impeller.cc(104)] Using the Impeller rendering backend (OpenGLES).
+10-03 09:14:53.167 15369 15393 I flutter : [IMPORTANT:flutter/shell/platform/android/android_context_gl_impeller.cc(104)] Using the Impeller rendering backend (OpenGLES).
+10-03 09:14:53.340 15369 15399 I flutter : The Dart VM service is listening on http://127.0.0.1:44525/4PpJgOmPVsY=/
+10-03 09:21:16.849 16645 16765 I flutter : [IMPORTANT:flutter/shell/platform/android/android_context_gl_impeller.cc(104)] Using the Impeller rendering backend (OpenGLES).
+10-03 09:21:17.150 16645 16772 I flutter : The Dart VM service is listening on http://127.0.0.1:34823/qu6ijZLDJ3Y=/

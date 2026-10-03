@@ -1,0 +1,7 @@
+{
+  "plans": true,
+  "plan_exercises": true,
+  "workout_sessions": true,
+  "session_exercises": true,
+  "session_sets": true
+}

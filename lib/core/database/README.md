@@ -1,17 +1,41 @@
-# Local database v1
+# Local database v2
 
-SetTrace keeps its core data in one SQLite database (`settrace.db`). The five
-tables are `plans`, `plan_exercises`, `workout_sessions`, `session_exercises`,
-and `session_sets`. The session tables are snapshots: editing or deleting a
-plan does not rewrite an ongoing or saved workout.
+SetTrace keeps plans, plan exercises, workout sessions, session exercises and
+session sets in SQLite. Session exercises and sets remain independent snapshots:
+editing or deleting the source plan never changes a session's data.
 
-All timestamps are UTC milliseconds since epoch. `started_local_date` is a
-`YYYY-MM-DD` key captured using the device's local calendar when a workout
-starts. A workout crossing midnight belongs to its start date. Rest values and
-saved workout duration use integer seconds; a plan's rest values are multiples
-of 30 seconds. Weight, when present, is a default hint in kilograms and is not
-recorded per set. A null `completed_at` means the set has not been completed.
+All timestamps are UTC milliseconds since epoch. Rest configuration and saved
+workout duration are integer seconds. Training dates use the device's local
+calendar at session start. A null completed_at means an unfinished set.
 
-Database upgrades belong in `AppDatabase._upgrade`; released user data must
-not be handled by deleting and recreating the database. The partial unique
-index on `workout_sessions` permits only one `in_progress` row.
+## Identity, ordering and completion
+
+workout_sessions.current_session_exercise_id refers to the stable ID of an
+exercise belonging to that session. The repository validates ownership in each
+write transaction. current_exercise_order remains a synchronized display
+projection; it is not used as the identity of the current exercise.
+
+session_exercises.sort_order is a contiguous, one-based session order. Only
+exercises with zero completed sets can change places; other slots are locked.
+Reordering temporarily uses negative orders inside a transaction to preserve the
+unique (session_id, sort_order) constraint. No intermediate order is committed.
+
+session_sets.completed_sequence is an internal completion order per session.
+Completing a set allocates max(sequence) + 1 in the same transaction. Undo uses
+this order, even when completed_at values tie, and clears both fields. It is
+not an exercise timer or a user-facing workout metric.
+
+## v1 migration and rollback
+
+New databases and upgraded databases have the same v2 structure. Upgrade adds
+the two nullable integer columns without deleting or recreating tables.
+The v1 cursor is checked against the first unfinished group in its fixed order.
+Valid cursors retain their rest deadline; inconsistent ones follow the existing
+cursor repair rules. Completed sessions keep their recorded data. Completion
+sequences are backfilled by completed_at then set ID within each session,
+preserving the v1 tie-breaking rule. Old timestamps and workout durations do
+not change. A failed upgrade rolls back rather than discarding user data.
+
+A v1 application does not support opening a v2 database. A rollback release
+must retain v2 support and may disable reordering; do not restore a stale
+database over newer workouts or ask the user to uninstall the app.

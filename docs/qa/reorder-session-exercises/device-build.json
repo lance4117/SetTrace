@@ -1,0 +1,15 @@
+{
+  "android": "16",
+  "api": "36",
+  "model": "sdk_gphone64_x86_64",
+  "emulator": "Pixel_7_Pro",
+  "apk_sha256": "c88003b2ba77246d0832f03e44f587ae6f430fc99c63394c522eb8f8166e4557",
+  "tested_size": "1080x2400",
+  "densities": [
+    480,
+    402
+  ],
+  "font_scale": 1.3,
+  "physical_device": false,
+  "app_version": "0.1.0+1"
+}
