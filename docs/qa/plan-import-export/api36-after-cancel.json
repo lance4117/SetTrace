@@ -1,0 +1,33 @@
+{
+  "device": "emulator-5580",
+  "phase": "after-cancel",
+  "plans": [
+    {
+      "name": "QA 练背",
+      "exercises": [
+        {
+          "name": "坐姿划船",
+          "targetSets": 3,
+          "restBetweenSetsSeconds": 90,
+          "restAfterExerciseSeconds": 0,
+          "defaultWeightKg": null
+        },
+        {
+          "name": "高位下拉",
+          "targetSets": 4,
+          "restBetweenSetsSeconds": 120,
+          "restAfterExerciseSeconds": 150,
+          "defaultWeightKg": 45.5
+        }
+      ]
+    },
+    {
+      "name": "QA 空计划",
+      "exercises": []
+    }
+  ],
+  "backupFiles": [
+    "训练计划备份-2026-10-03-121653-973.settrace.json",
+    "训练计划备份-2026-10-03-121720-379.settrace.json"
+  ]
+}

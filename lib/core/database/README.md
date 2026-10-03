@@ -39,3 +39,14 @@ not change. A failed upgrade rolls back rather than discarding user data.
 A v1 application does not support opening a v2 database. A rollback release
 must retain v2 support and may disable reordering; do not restore a stale
 database over newer workouts or ask the user to uninstall the app.
+
+## Plan import and export
+
+SQLite remains the only live plan store. Export reads selected plans and their
+ordered exercises in one transaction and creates a temporary JSON snapshot.
+Import validates all plans before a single write transaction. New IDs and current
+creation timestamps are allocated locally; exercise order is one-based.
+Name collisions return an updated preview before any inserts. Any insert failure
+rolls back the whole batch. Existing plans, session snapshots, rest deadlines and
+history are untouched. The database version and tables do not change.
+See docs/plan-transfer-format.md for the portable format and its limits.

@@ -1,10 +1,88 @@
 import 'package:sqflite/sqflite.dart';
 
 import 'plan_models.dart';
+import 'plan_transfer.dart';
 
 class PlanRepository {
   const PlanRepository(this.db);
   final Database db;
+  Future<List<TransferPlan>> exportPlans(Set<int> selectedIds) async {
+    if (selectedIds.isEmpty) throw const PlanTransferException('请至少选择一个计划');
+    return db.transaction((txn) async {
+      final rows = await txn.query('plans', orderBy: 'created_at ASC, id ASC');
+      final selected = rows
+          .where((row) => selectedIds.contains(row['id']))
+          .toList();
+      if (selected.length != selectedIds.length) {
+        throw const PlanTransferException('选中的计划已被删除，请返回重新选择');
+      }
+      final plans = <TransferPlan>[];
+      for (final row in selected) {
+        final exercises = await txn.query(
+          'plan_exercises',
+          where: 'plan_id = ?',
+          whereArgs: [row['id']],
+          orderBy: 'sort_order ASC',
+        );
+        plans.add(
+          TransferPlan.fromPlan(
+            WorkoutPlan(
+              id: row['id'] as int,
+              name: row['name'] as String,
+              exercises: exercises.map(PlanExercise.fromRow).toList(),
+            ),
+          ),
+        );
+      }
+      return plans;
+    });
+  }
+
+  Future<List<TransferPlan>> previewImport(List<TransferPlan> plans) async {
+    final rows = await db.query('plans', columns: ['name']);
+    return resolveImportNames(plans, rows.map((row) => row['name'] as String));
+  }
+
+  Future<List<int>> importPlans(List<TransferPlan> plans) async {
+    // The source byte limit is checked by decode; validate edited fields here.
+    // Re-encoding with export indentation must not reject a valid compact input.
+    const PlanTransferCodec().validatePlans(plans);
+    return db.transaction((txn) async {
+      final rows = await txn.query('plans', columns: ['name']);
+      final resolved = resolveImportNames(
+        plans,
+        rows.map((row) => row['name'] as String),
+      );
+      if (Iterable<int>.generate(plans.length)
+          .any((i) => resolved[i].name != plans[i].name.trim())) {
+        throw ImportNameConflict(resolved);
+      }
+      final now = DateTime.now().toUtc().millisecondsSinceEpoch;
+      final ids = <int>[];
+      for (final plan in plans) {
+        final id = await txn.insert('plans', {
+          'name': plan.name.trim(),
+          'created_at': now,
+          'updated_at': now,
+        });
+        ids.add(id);
+        for (var i = 0; i < plan.exercises.length; i++) {
+          final e = plan.exercises[i];
+          await txn.insert('plan_exercises', {
+            'plan_id': id,
+            'name': e.name.trim(),
+            'sort_order': i + 1,
+            'target_sets': e.targetSets,
+            'rest_between_sets_seconds': e.restBetweenSetsSeconds,
+            'rest_after_exercise_seconds': e.restAfterExerciseSeconds,
+            'default_weight_kg': e.defaultWeightKg,
+          });
+        }
+      }
+      return ids;
+    });
+  }
+
 
   Future<List<WorkoutPlan>> listPlans() async {
     final rows = await db.query('plans', orderBy: 'created_at ASC, id ASC');

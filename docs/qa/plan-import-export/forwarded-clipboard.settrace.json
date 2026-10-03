@@ -1,0 +1,30 @@
+{
+  "format": "settrace.training-plans",
+  "schemaVersion": 1,
+  "exportedAt": "2026-10-03T12:27:51.176995Z",
+  "plans": [
+    {
+      "name": "QA 练背",
+      "exercises": [
+        {
+          "name": "坐姿划船",
+          "targetSets": 3,
+          "restBetweenSetsSeconds": 90,
+          "restAfterExerciseSeconds": 0,
+          "defaultWeightKg": null
+        },
+        {
+          "name": "高位下拉",
+          "targetSets": 4,
+          "restBetweenSetsSeconds": 120,
+          "restAfterExerciseSeconds": 150,
+          "defaultWeightKg": 45.5
+        }
+      ]
+    },
+    {
+      "name": "QA 空计划",
+      "exercises": []
+    }
+  ]
+}

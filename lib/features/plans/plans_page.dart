@@ -8,6 +8,8 @@ import '../workout/workout_repository.dart';
 import 'exercise_editor_page.dart';
 import 'plan_models.dart';
 import 'plan_repository.dart';
+import 'plan_transfer_pages.dart';
+import 'plan_transfer_platform.dart';
 
 typedef OpenWorkout = Future<void> Function(WorkoutSessionData session);
 
@@ -49,11 +51,12 @@ class _PlanNameDialogState extends State<_PlanNameDialog> {
 
 class PlansPage extends StatefulWidget {
   const PlansPage({super.key, required this.plans, required this.workouts,
-    required this.onOpenWorkout});
+    required this.onOpenWorkout, this.transferPlatform});
 
   final PlanRepository plans;
   final WorkoutRepository workouts;
   final OpenWorkout onOpenWorkout;
+  final PlanTransferPlatform? transferPlatform;
 
   @override
   State<PlansPage> createState() => _PlansPageState();
@@ -63,6 +66,31 @@ class _PlansPageState extends State<PlansPage> {
   List<WorkoutPlan> items = [];
   WorkoutSessionData? active;
   bool loading = true;
+  late final transferPlatform =
+      widget.transferPlatform ?? AndroidPlanTransferPlatform();
+  Future<void> transfer(String mode) async {
+    if (mode == 'export') {
+      await Navigator.of(context).push(
+        MaterialPageRoute<void>(
+          builder: (_) =>
+              PlanExportPage(plans: widget.plans, platform: transferPlatform),
+        ),
+      );
+    } else {
+      final count = await Navigator.of(context).push<int>(
+        MaterialPageRoute(
+          builder: (_) =>
+              PlanImportPage(plans: widget.plans, platform: transferPlatform),
+        ),
+      );
+      if (mounted && count != null) {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text('成功导入 $count 个计划')));
+      }
+    }
+    await refresh();
+  }
+
 
   @override
   void initState() {
@@ -107,6 +135,14 @@ class _PlansPageState extends State<PlansPage> {
           const Expanded(child: Text('训练计划', style: TextStyle(
             fontSize: 28, fontWeight: FontWeight.w700))),
           TextButton(onPressed: create, child: const Text('＋ 新建')),
+          PopupMenuButton<String>(
+            tooltip: '计划导入导出',
+            onSelected: transfer,
+            itemBuilder: (_) => const [
+              PopupMenuItem(value: 'import', child: Text('导入计划')),
+              PopupMenuItem(value: 'export', child: Text('导出计划')),
+            ],
+          ),
         ]),
         const SizedBox(height: 16),
         Text('今天练什么？', style: TextStyle(color: colors.textSecondary)),

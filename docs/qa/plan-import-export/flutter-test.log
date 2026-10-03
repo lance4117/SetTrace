@@ -1,0 +1,95 @@
+Resolving dependencies...
+Downloading packages...
+  code_assets 1.2.1 (2.1.0 available)
+  cupertino_icons 1.0.9 (2.0.0 available)
+  hooks 2.0.2 (2.2.0 available)
+  material_color_utilities 0.13.0 (0.13.1 available)
+  meta 1.18.3 (1.19.0 available)
+  native_toolchain_c 0.19.2 (0.19.5 available)
+  record_use 0.6.0 (1.1.1 available)
+  sqlite3 3.5.2 (3.7.0 available)
+  test_api 0.7.12 (0.7.14 available)
+  vector_math 2.4.0 (2.4.3 available)
+Got dependencies!
+10 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+00:00 +0: loading D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/database_migration_test.dart
+00:00 +0: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/database_migration_test.dart: v1 to v2 preserves zero data and corrects only invalid cursor
+00:00 +1: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/database_migration_test.dart: v1 to v2 preserves zero data and corrects only invalid cursor
+00:00 +2: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/database_migration_test.dart: v1 to v2 preserves zero data and corrects only invalid cursor
+00:00 +3: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/database_test.dart: plan exercises persist seconds and drag order
+00:00 +4: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/database_migration_test.dart: v1 to v2 preserves between_sets data and corrects only invalid cursor
+00:00 +5: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/database_migration_test.dart: v1 to v2 preserves between_sets data and corrects only invalid cursor
+00:00 +6: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/database_migration_test.dart: v1 to v2 preserves between_sets data and corrects only invalid cursor
+00:00 +7: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/database_migration_test.dart: v1 to v2 preserves between_sets data and corrects only invalid cursor
+00:00 +8: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/database_migration_test.dart: v1 to v2 preserves between_sets data and corrects only invalid cursor
+00:00 +9: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/database_migration_test.dart: v1 to v2 preserves between_sets data and corrects only invalid cursor
+00:00 +10: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_codec_test.dart: size uses UTF-8 bytes and permits the exact boundary
+00:00 +11: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_codec_test.dart: size uses UTF-8 bytes and permits the exact boundary
+00:00 +12: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_codec_test.dart: size uses UTF-8 bytes and permits the exact boundary
+00:00 +13: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_codec_test.dart: size uses UTF-8 bytes and permits the exact boundary
+00:00 +14: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_codec_test.dart: size uses UTF-8 bytes and permits the exact boundary
+00:00 +15: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_codec_test.dart: size uses UTF-8 bytes and permits the exact boundary
+00:00 +16: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_codec_test.dart: size uses UTF-8 bytes and permits the exact boundary
+00:00 +17: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_codec_test.dart: size uses UTF-8 bytes and permits the exact boundary
+00:00 +18: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_codec_test.dart: size uses UTF-8 bytes and permits the exact boundary
+00:00 +19: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_codec_test.dart: size uses UTF-8 bytes and permits the exact boundary
+00:00 +20: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_codec_test.dart: size uses UTF-8 bytes and permits the exact boundary
+00:00 +21: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_repository_test.dart: imports fresh identities persist and never touch existing sessions or plans
+00:00 +22: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_repository_test.dart: imports fresh identities persist and never touch existing sessions or plans
+00:00 +23: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_repository_test.dart: imports fresh identities persist and never touch existing sessions or plans
+00:00 +24: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_repository_test.dart: imports fresh identities persist and never touch existing sessions or plans
+00:00 +25: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: home menu works with empty plans and never reads clipboard automatically
+00:00 +26: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: home menu works with empty plans and never reads clipboard automatically
+00:01 +27: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: home menu works with empty plans and never reads clipboard automatically
+00:01 +28: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: home menu works with empty plans and never reads clipboard automatically
+00:01 +28: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/database_migration_test.dart: failed migration rolls back version and added columns, retaining plans
+error SqfliteFfiException(sqlite_error: 1, , SqliteException(1): while executing, no such table: session_sets, SQL logic error (code 1)
+  Causing statement: ALTER TABLE session_sets ADD COLUMN completed_sequence INTEGER, parameters: }) DatabaseException(SqliteException(1): while executing, no such table: session_sets, SQL logic error (code 1)
+  Causing statement: ALTER TABLE session_sets ADD COLUMN completed_sequence INTEGER, parameters: ) sql 'ALTER TABLE session_sets ADD COLUMN completed_sequence INTEGER' {details: {database: {path: C:\Users\Lance\AppData\Local\Temp\settrace_migration_d8d3114a\legacy.db, id: 26, readOnly: false, singleInstance: true}}} during open, closing...
+00:01 +29: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: home menu works with empty plans and never reads clipboard automatically
+00:01 +30: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: home menu works with empty plans and never reads clipboard automatically
+00:01 +31: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: home menu works with empty plans and never reads clipboard automatically
+00:01 +32: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: home menu works with empty plans and never reads clipboard automatically
+00:01 +33: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: home menu works with empty plans and never reads clipboard automatically
+00:01 +34: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: home menu works with empty plans and never reads clipboard automatically
+00:02 +35: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: home menu works with empty plans and never reads clipboard automatically
+00:02 +36: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: home menu works with empty plans and never reads clipboard automatically
+00:02 +37: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: home menu works with empty plans and never reads clipboard automatically
+00:02 +38: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: home menu works with empty plans and never reads clipboard automatically
+00:02 +39: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: home menu works with empty plans and never reads clipboard automatically
+00:02 +40: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: home menu works with empty plans and never reads clipboard automatically
+00:02 +41: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: home menu works with empty plans and never reads clipboard automatically
+00:02 +42: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: home menu works with empty plans and never reads clipboard automatically
+00:02 +43: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: home menu works with empty plans and never reads clipboard automatically
+00:02 +44: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: home menu works with empty plans and never reads clipboard automatically
+00:02 +45: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: home menu works with empty plans and never reads clipboard automatically
+00:02 +46: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: home menu works with empty plans and never reads clipboard automatically
+00:02 +47: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: home menu works with empty plans and never reads clipboard automatically
+00:02 +48: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: home menu works with empty plans and never reads clipboard automatically
+00:02 +49: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: home menu works with empty plans and never reads clipboard automatically
+00:03 +50: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: home menu works with empty plans and never reads clipboard automatically
+00:04 +51: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: zero-rest current B changes to C without extra completion or plan edits
+00:04 +52: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: selection, both channels, errors and busy duplicate prevention
+00:05 +53: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: selection, both channels, errors and busy duplicate prevention
+00:05 +54: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: partial current action stays pinned and locks its drag handle
+00:07 +55: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: cancelled file, malformed input and preview cancellation create nothing
+00:08 +56: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: cancelled file, malformed input and preview cancellation create nothing
+00:09 +57: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: full drag save persists only candidate order
+00:10 +58: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: rename, transaction retry, conflict review and homepage refresh
+00:12 +59: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: rename, transaction retry, conflict review and homepage refresh
+00:12 +60: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: save failure retry and double taps submit once
+00:13 +61: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: save failure retry and double taps submit once
+00:13 +62: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: save failure retry and double taps submit once
+00:14 +63: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: readable export and preview at 430.0, dark=false, 1.3 font scale
+00:14 +64: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: sorting invalidates an older delayed lifecycle read
+00:15 +65: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: sorting invalidates an older delayed lifecycle read
+00:16 +66: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: existing exercise editor remains accessible
+00:17 +67: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: fewer than two candidates hides selection and sorting entry
+00:18 +68: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: history preserves final order and groups for complete=false
+00:18 +69: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: history preserves final order and groups for complete=true
+00:18 +70: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: 360.0dp scaled sorting stays readable in dark=false
+00:19 +71: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: 360.0dp scaled sorting stays readable in dark=true
+00:20 +72: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: 430.0dp scaled sorting stays readable in dark=false
+00:21 +73: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: 430.0dp scaled sorting stays readable in dark=true
+00:22 +74: All tests passed!
