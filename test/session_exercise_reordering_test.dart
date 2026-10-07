@@ -447,7 +447,7 @@ void main() {
         await tester.pumpWidget(
           MaterialApp(
             theme: AppTheme.light,
-            home: HistoryDetailPage(session: data),
+            home: HistoryDetailPage(session: data, workouts: workouts),
           ),
         );
         await tester.pump();

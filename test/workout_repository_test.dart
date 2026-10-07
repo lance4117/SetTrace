@@ -285,4 +285,144 @@ void main() {
       expect(edited.currentSetNumber, 1);
     },
   );
+  Future<int> savedWorkout(int planId, {bool complete = false}) async {
+    final session = await workouts.start(planId);
+    for (final exercise in session.exercises) {
+      for (var number = 1; number <= exercise.targetSets; number++) {
+        if ((await workouts.getSession(session.id))!.resting) {
+          await workouts.skipRest(session.id);
+        }
+        await workouts.completeSet(
+          session.id,
+          expectedExerciseId: exercise.id,
+          expectedSetNumber: number,
+        );
+        if (!complete) break;
+      }
+      if (!complete) break;
+    }
+    now = now.add(const Duration(minutes: 30));
+    await workouts.finish(session.id);
+    return session.id;
+  }
+
+  for (final complete in [false, true]) {
+    test(
+      'delete history cascades and preserves other data complete=$complete',
+      () async {
+        final plan = await seedPlan();
+        final target = await savedWorkout(plan, complete: complete);
+        final other = await savedWorkout(plan);
+        final active = await workouts.start(plan);
+        final tables = [
+          'plans',
+          'plan_exercises',
+          'workout_sessions',
+          'session_exercises',
+          'session_sets',
+        ];
+        final before = <String, List<Map<String, Object?>>>{};
+        for (final table in tables) {
+          before[table] = await database.db.query(table, orderBy: 'id');
+        }
+        final exerciseIds = before['session_exercises']!
+            .where((row) => row['session_id'] == target)
+            .map((r) => r['id'])
+            .toSet();
+        await expectLater(workouts.discard(target), throwsStateError);
+        await workouts.deleteHistory(target);
+        for (final table in tables) {
+          final expected = before[table]!
+              .where(
+                (row) => switch (table) {
+                  'workout_sessions' => row['id'] != target,
+                  'session_exercises' => row['session_id'] != target,
+                  'session_sets' => !exerciseIds.contains(
+                    row['session_exercise_id'],
+                  ),
+                  _ => true,
+                },
+              )
+              .toList();
+          expect(
+            await database.db.query(table, orderBy: 'id'),
+            expected,
+            reason: table,
+          );
+        }
+        expect((await workouts.listHistory()).single.id, other);
+        expect((await workouts.getActive())!.id, active.id);
+        expect(await database.db.rawQuery('PRAGMA foreign_key_check'), isEmpty);
+        await database.close();
+        database = await AppDatabase.open(
+          filePath: filePath,
+          factory: databaseFactoryFfi,
+        );
+        workouts = WorkoutRepository(database.db, clock: () => now);
+        expect(await workouts.getSession(target), isNull);
+        expect((await workouts.listHistory()).single.id, other);
+        expect((await workouts.getActive())!.id, active.id);
+        expect(await database.db.rawQuery('PRAGMA foreign_key_check'), isEmpty);
+      },
+    );
+  }
+
+  test(
+    'delete history rejects active and missing targets without writes',
+    () async {
+      final active = await workouts.start(await seedPlan());
+      final before = await database.db.query('workout_sessions');
+      await expectLater(
+        workouts.deleteHistory(active.id),
+        throwsA(
+          isA<HistoryDeleteException>().having(
+            (e) => e.reason,
+            'reason',
+            HistoryDeleteFailure.notSaved,
+          ),
+        ),
+      );
+      await expectLater(
+        workouts.deleteHistory(999999),
+        throwsA(
+          isA<HistoryDeleteException>().having(
+            (e) => e.reason,
+            'reason',
+            HistoryDeleteFailure.notFound,
+          ),
+        ),
+      );
+      expect(await database.db.query('workout_sessions'), before);
+      expect((await workouts.getActive())!.id, active.id);
+    },
+  );
+
+  test('cascade failure rolls back all data and can be retried', () async {
+    final target = await savedWorkout(await seedPlan());
+    final before = <String, List<Map<String, Object?>>>{};
+    for (final table in [
+      'workout_sessions',
+      'session_exercises',
+      'session_sets',
+    ]) {
+      before[table] = await database.db.query(table, orderBy: 'id');
+    }
+    await database.db.execute(
+      "CREATE TEMP TRIGGER fail_history_delete "
+      "BEFORE DELETE ON session_sets BEGIN SELECT RAISE(ABORT, 'test failure'); END",
+    );
+    await expectLater(
+      workouts.deleteHistory(target),
+      throwsA(isA<DatabaseException>()),
+    );
+    for (final entry in before.entries) {
+      expect(await database.db.query(entry.key, orderBy: 'id'), entry.value);
+    }
+    expect(await database.db.rawQuery('PRAGMA foreign_key_check'), isEmpty);
+    await database.db.execute('DROP TRIGGER fail_history_delete');
+    await workouts.deleteHistory(target);
+    expect(await workouts.listHistory(), isEmpty);
+    expect(await database.db.query('session_exercises'), isEmpty);
+    expect(await database.db.query('session_sets'), isEmpty);
+  });
 }

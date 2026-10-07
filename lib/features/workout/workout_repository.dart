@@ -4,6 +4,13 @@ import 'package:sqflite/sqflite.dart';
 
 import 'workout_models.dart';
 
+enum HistoryDeleteFailure { notFound, notSaved }
+
+class HistoryDeleteException implements Exception {
+  const HistoryDeleteException(this.reason);
+  final HistoryDeleteFailure reason;
+}
+
 class WorkoutRepository {
   WorkoutRepository(this.db, {DateTime Function()? clock})
     : clock = clock ?? DateTime.now;
@@ -485,6 +492,31 @@ class WorkoutRepository {
         where: 'id = ?',
         whereArgs: [sessionId],
       );
+    });
+  }
+
+  Future<void> deleteHistory(int sessionId) async {
+    await db.transaction((txn) async {
+      final rows = await txn.query(
+        'workout_sessions',
+        columns: ['status'],
+        where: 'id = ?',
+        whereArgs: [sessionId],
+      );
+      if (rows.isEmpty) {
+        throw const HistoryDeleteException(HistoryDeleteFailure.notFound);
+      }
+      if (rows.single['status'] != 'completed') {
+        throw const HistoryDeleteException(HistoryDeleteFailure.notSaved);
+      }
+      final deleted = await txn.delete(
+        'workout_sessions',
+        where: "id = ? AND status = 'completed'",
+        whereArgs: [sessionId],
+      );
+      if (deleted != 1) {
+        throw const HistoryDeleteException(HistoryDeleteFailure.notFound);
+      }
     });
   }
 

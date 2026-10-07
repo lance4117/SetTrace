@@ -50,3 +50,15 @@ Name collisions return an updated preview before any inserts. Any insert failure
 rolls back the whole batch. Existing plans, session snapshots, rest deadlines and
 history are untouched. The database version and tables do not change.
 See docs/plan-transfer-format.md for the portable format and its limits.
+
+
+## Deleting saved history
+
+`WorkoutRepository.deleteHistory(id)` accepts only an existing `completed`
+session (including an early-saved partial workout). Validation and deletion run
+in one transaction; missing or active targets are rejected without writes.
+Deleting the session cascades through `session_exercises` and `session_sets`,
+including unfinished sets. A cascade error rolls back the entire transaction.
+Source plans, plan exercises, other history, and the active session are untouched.
+No schema change or migration is required. The history UI recalculates existing
+statistics from the remaining sessions; no separate accumulated total is stored.
