@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
 
+import '../../l10n/localization.dart';
+
 import '../../app/theme/app_theme.dart';
 import '../../core/widgets/app_card.dart';
 import '../workout/workout_models.dart';
 import '../workout/workout_repository.dart';
 import 'history_stats.dart';
-
-String durationLabel(int seconds) {
-  final hours = seconds ~/ 3600;
-  final minutes = (seconds % 3600) ~/ 60;
-  return hours == 0 ? '$minutes 分钟' : '$hours 小时 $minutes 分钟';
-}
 
 class HistoryPage extends StatefulWidget {
   const HistoryPage({
@@ -31,8 +27,8 @@ class _HistoryPageState extends State<HistoryPage> {
   bool loading = true;
   int refreshGeneration = 0;
   final removedSessionIds = <int>{};
-  String? refreshError;
-  String? removalNotice;
+  LocalizedMessage? refreshError;
+  LocalizedMessage? removalNotice;
 
   @override
   void initState() {
@@ -63,9 +59,10 @@ class _HistoryPageState extends State<HistoryPage> {
       if (!mounted || generation != refreshGeneration) return;
       setState(() {
         loading = false;
-        refreshError = removalNotice == null
-            ? '记录加载失败，请重试'
-            : '$removalNotice，刷新失败，请重试';
+        final notice = removalNotice;
+        refreshError = notice == null
+            ? (l) => l.historyLoadFailed
+            : (l) => l.historyRefreshFailed(notice(l));
       });
     }
   }
@@ -85,10 +82,11 @@ class _HistoryPageState extends State<HistoryPage> {
       sessions = sessions.where((s) => s.id != session.id).toList();
       loading = false;
       refreshError = null;
-      removalNotice = deleted ? '记录已删除' : '记录已不存在';
+      removalNotice = deleted
+          ? (l) => l.historyDeleted
+          : (l) => l.historyMissing;
     });
-    ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text(removalNotice!)));
+    showAppSnackBar(context, removalNotice!);
     await refresh();
   }
 
@@ -106,58 +104,79 @@ class _HistoryPageState extends State<HistoryPage> {
     }
     return SafeArea(
       child: ListView(
-        padding: const EdgeInsets.all(24),
+        padding: EdgeInsets.all(24),
         children: [
-          const Text(
-            '训练记录',
+          Text(
+            context.l10n.historyTitle,
             style: TextStyle(fontSize: 28, fontWeight: FontWeight.w700),
           ),
-          const SizedBox(height: 20),
-          Row(
-            children: [
-              Expanded(child: _stat(context, '${stats.weekCount}', '本周训练')),
-              const SizedBox(width: 8),
-              Expanded(child: _stat(context, '${stats.monthCount}', '本月训练')),
-            ],
-          ),
-          const SizedBox(height: 8),
+          SizedBox(height: 20),
           Row(
             children: [
               Expanded(
                 child: _stat(
                   context,
-                  durationLabel(stats.monthDurationSeconds),
-                  '所选月份时长',
+                  context.formats.number(stats.weekCount),
+                  context.l10n.thisWeek,
                 ),
               ),
-              const SizedBox(width: 8),
+              SizedBox(width: 8),
               Expanded(
-                child: _stat(context, '${stats.monthCompletedSets}', '所选月份完成组'),
+                child: _stat(
+                  context,
+                  context.formats.number(stats.monthCount),
+                  context.l10n.thisMonth,
+                ),
               ),
             ],
           ),
-          const SizedBox(height: 16),
+          SizedBox(height: 8),
+          Row(
+            children: [
+              Expanded(
+                child: _stat(
+                  context,
+                  context.formats.duration(stats.monthDurationSeconds),
+                  context.l10n.monthDuration,
+                ),
+              ),
+              SizedBox(width: 8),
+              Expanded(
+                child: _stat(
+                  context,
+                  context.formats.number(stats.monthCompletedSets),
+                  context.l10n.monthSets,
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 16),
           Text(
             stats.latest == null
-                ? '最近训练：暂无'
-                : '最近训练：${stats.latest!.planName} · ${durationLabel(stats.latest!.durationSeconds ?? 0)}',
+                ? context.l10n.noRecentWorkout
+                : context.l10n.recentWorkout(
+                    stats.latest!.planName,
+                    context.formats.duration(
+                      stats.latest!.durationSeconds ?? 0,
+                    ),
+                  ),
             style: TextStyle(color: colors.textSecondary),
           ),
-          const SizedBox(height: 20),
+          SizedBox(height: 20),
           Row(
             children: [
               IconButton(
                 onPressed: () => setState(
                   () => month = DateTime(month.year, month.month - 1),
                 ),
-                icon: const Icon(Icons.chevron_left),
-                tooltip: '上个月',
+                icon: Icon(Icons.chevron_left),
+                tooltip: context.l10n.previousMonth,
               ),
               Expanded(
                 child: Center(
                   child: Text(
-                    '${month.year} 年 ${month.month} 月',
-                    style: const TextStyle(fontWeight: FontWeight.w700),
+                    context.formats.month(month),
+                    style: TextStyle(fontWeight: FontWeight.w700),
                   ),
                 ),
               ),
@@ -165,36 +184,34 @@ class _HistoryPageState extends State<HistoryPage> {
                 onPressed: () => setState(
                   () => month = DateTime(month.year, month.month + 1),
                 ),
-                icon: const Icon(Icons.chevron_right),
-                tooltip: '下个月',
+                icon: Icon(Icons.chevron_right),
+                tooltip: context.l10n.nextMonth,
               ),
             ],
           ),
-          const SizedBox(height: 12),
+          SizedBox(height: 12),
           if (refreshError != null)
             AppCard(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(refreshError!),
+                  Text(refreshError!(context.l10n)),
                   TextButton(
                     onPressed: refresh,
-                    style: TextButton.styleFrom(
-                      minimumSize: const Size(48, 48),
-                    ),
-                    child: const Text('重试刷新'),
+                    style: TextButton.styleFrom(minimumSize: Size(48, 48)),
+                    child: Text(context.l10n.retryRefresh),
                   ),
                 ],
               ),
             ),
           if (loading)
-            const Center(child: CircularProgressIndicator())
+            Center(child: CircularProgressIndicator())
           else if (grouped.isEmpty)
             Padding(
-              padding: const EdgeInsets.only(top: 56),
+              padding: EdgeInsets.only(top: 56),
               child: Center(
                 child: Text(
-                  '这个月还没有训练记录',
+                  context.l10n.noHistoryMonth,
                   style: TextStyle(color: colors.textSecondary),
                 ),
               ),
@@ -202,9 +219,9 @@ class _HistoryPageState extends State<HistoryPage> {
           else
             for (final entry in grouped.entries) ...[
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10),
+                padding: EdgeInsets.symmetric(vertical: 10),
                 child: Text(
-                  entry.key,
+                  context.formats.date(DateTime.parse(entry.key)),
                   style: TextStyle(color: colors.textSecondary),
                 ),
               ),
@@ -220,25 +237,30 @@ class _HistoryPageState extends State<HistoryPage> {
                           children: [
                             Text(
                               session.planName,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w700,
                               ),
                             ),
-                            const SizedBox(height: 6),
+                            SizedBox(height: 6),
                             Text(
-                              '${durationLabel(session.durationSeconds ?? 0)} · '
-                              '${session.exercises.length} 个动作 · ${session.completedSets} 组',
+                              context.l10n.historySummary(
+                                context.formats.duration(
+                                  session.durationSeconds ?? 0,
+                                ),
+                                session.exercises.length,
+                                session.completedSets,
+                              ),
                               style: TextStyle(color: colors.textSecondary),
                             ),
                           ],
                         ),
                       ),
-                      const Icon(Icons.chevron_right),
+                      Icon(Icons.chevron_right),
                     ],
                   ),
                 ),
-                const SizedBox(height: 10),
+                SizedBox(height: 10),
               ],
             ],
         ],
@@ -247,16 +269,16 @@ class _HistoryPageState extends State<HistoryPage> {
   }
 
   Widget _stat(BuildContext context, String value, String label) => AppCard(
-    padding: const EdgeInsets.all(12),
+    padding: EdgeInsets.all(12),
     child: Column(
       children: [
         Text(
           value,
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
-          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
         ),
-        const SizedBox(height: 4),
+        SizedBox(height: 4),
         Text(
           label,
           style: TextStyle(
@@ -285,7 +307,7 @@ class HistoryDetailPage extends StatefulWidget {
 class _HistoryDetailPageState extends State<HistoryDetailPage> {
   bool confirming = false;
   bool deleting = false;
-  String? deleteError;
+  LocalizedMessage? deleteError;
   WorkoutSessionData get session => widget.session;
 
   Future<void> delete() async {
@@ -298,6 +320,7 @@ class _HistoryDetailPageState extends State<HistoryDetailPage> {
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (dialogContext) {
+        final context = dialogContext;
         void close(bool value) {
           if (closed) return;
           closed = true;
@@ -305,25 +328,27 @@ class _HistoryDetailPageState extends State<HistoryDetailPage> {
         }
 
         return AlertDialog(
-          title: const Text('删除这条训练记录？'),
+          title: Text(context.l10n.deleteHistoryTitle),
           scrollable: true,
           content: Text(
-            '${session.planName}\n${session.startedLocalDate}\n\n'
-            '删除后无法恢复，相关训练统计将同步更新。',
+            context.l10n.deleteHistoryNote(
+              session.planName,
+              context.formats.date(DateTime.parse(session.startedLocalDate)),
+            ),
           ),
           actions: [
             TextButton(
               onPressed: () => close(false),
-              style: TextButton.styleFrom(minimumSize: const Size(48, 48)),
-              child: const Text('取消'),
+              style: TextButton.styleFrom(minimumSize: Size(48, 48)),
+              child: Text(context.l10n.cancel),
             ),
             TextButton(
               onPressed: () => close(true),
               style: TextButton.styleFrom(
-                minimumSize: const Size(48, 48),
+                minimumSize: Size(48, 48),
                 foregroundColor: Theme.of(context).colorScheme.error,
               ),
-              child: const Text('删除'),
+              child: Text(context.l10n.delete),
             ),
           ],
         );
@@ -348,14 +373,14 @@ class _HistoryDetailPageState extends State<HistoryDetailPage> {
       }
       setState(() {
         deleting = false;
-        deleteError = '只能删除已保存的训练，正在进行的训练不会被删除。';
+        deleteError = (l) => l.activeHistoryDelete;
       });
       return;
     } catch (_) {
       if (!mounted) return;
       setState(() {
         deleting = false;
-        deleteError = '删除失败，请重试。';
+        deleteError = (l) => l.historyDeleteFailed;
       });
       return;
     }
@@ -375,20 +400,16 @@ class _HistoryDetailPageState extends State<HistoryDetailPage> {
   @override
   Widget build(BuildContext context) {
     final colors = context.appColors;
-    String time(DateTime date) {
-      final local = date.toLocal();
-      return '${local.hour.toString().padLeft(2, '0')}:'
-          '${local.minute.toString().padLeft(2, '0')}';
-    }
+    String time(DateTime date) => context.formats.time(date);
 
     return PopScope<bool>(
       canPop: !deleting,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('训练详情'),
+          title: Text(context.l10n.workoutDetails),
           actions: [
             if (deleting)
-              const Padding(
+              Padding(
                 padding: EdgeInsets.all(16),
                 child: SizedBox(
                   width: 24,
@@ -397,46 +418,53 @@ class _HistoryDetailPageState extends State<HistoryDetailPage> {
                 ),
               ),
             PopupMenuButton<String>(
-              tooltip: '训练记录操作',
+              tooltip: context.l10n.historyMenu,
               style: IconButton.styleFrom(
-                minimumSize: const Size(48, 48),
+                minimumSize: Size(48, 48),
                 visualDensity: VisualDensity.standard,
               ),
               enabled: !confirming && !deleting,
               onSelected: (_) => delete(),
-              itemBuilder: (_) => const [
-                PopupMenuItem(value: 'delete', height: 48, child: Text('删除记录')),
+              itemBuilder: (_) => [
+                PopupMenuItem(
+                  value: 'delete',
+                  height: 48,
+                  child: Text(context.l10n.deleteHistory),
+                ),
               ],
             ),
           ],
         ),
         body: SafeArea(
           child: ListView(
-            padding: const EdgeInsets.all(24),
+            padding: EdgeInsets.all(24),
             children: [
               if (deleteError != null) ...[
-                Text(deleteError!),
+                Text(deleteError!(context.l10n)),
                 TextButton(
                   onPressed: delete,
-                  style: TextButton.styleFrom(minimumSize: const Size(48, 48)),
-                  child: const Text('重试删除'),
+                  style: TextButton.styleFrom(minimumSize: Size(48, 48)),
+                  child: Text(context.l10n.retryDelete),
                 ),
-                const SizedBox(height: 16),
+                SizedBox(height: 16),
               ],
               Text(
                 session.planName,
-                style: const TextStyle(
-                  fontSize: 26,
-                  fontWeight: FontWeight.w700,
-                ),
+                style: TextStyle(fontSize: 26, fontWeight: FontWeight.w700),
               ),
-              const SizedBox(height: 8),
+              SizedBox(height: 8),
               Text(
-                '${session.startedLocalDate} · ${time(session.startedAt)}–'
-                '${time(session.endedAt!)} · ${durationLabel(session.durationSeconds ?? 0)}',
+                context.l10n.historyTimeRange(
+                  context.formats.date(
+                    DateTime.parse(session.startedLocalDate),
+                  ),
+                  time(session.startedAt),
+                  time(session.endedAt!),
+                  context.formats.duration(session.durationSeconds ?? 0),
+                ),
                 style: TextStyle(color: colors.textSecondary),
               ),
-              const SizedBox(height: 24),
+              SizedBox(height: 24),
               for (final exercise in session.exercises) ...[
                 AppCard(
                   child: Column(
@@ -444,27 +472,35 @@ class _HistoryDetailPageState extends State<HistoryDetailPage> {
                     children: [
                       Text(
                         exercise.name,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w700,
                         ),
                       ),
-                      const SizedBox(height: 8),
+                      SizedBox(height: 8),
                       Text(
-                        '完成 ${exercise.completedSets} / ${exercise.targetSets} 组',
+                        context.l10n.completedSets(
+                          exercise.completedSets,
+                          exercise.targetSets,
+                        ),
                         style: TextStyle(color: colors.textSecondary),
                       ),
                       for (final set in exercise.sets)
                         Padding(
-                          padding: const EdgeInsets.only(top: 6),
+                          padding: EdgeInsets.only(top: 6),
                           child: Text(
-                            '第 ${set.number} 组 · ${set.completedAt == null ? '未完成' : time(set.completedAt!)}',
+                            context.l10n.setResult(
+                              set.number,
+                              set.completedAt == null
+                                  ? context.l10n.notCompleted
+                                  : time(set.completedAt!),
+                            ),
                           ),
                         ),
                     ],
                   ),
                 ),
-                const SizedBox(height: 12),
+                SizedBox(height: 12),
               ],
             ],
           ),

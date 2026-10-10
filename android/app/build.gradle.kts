@@ -50,6 +50,9 @@ flutter {
 }
 
 dependencies {
+    // Keep the integration_test runner and Android tests on the same version.
+    debugImplementation("androidx.test:runner:1.6.2")
+    debugImplementation("androidx.test:rules:1.6.1")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test:runner:1.6.2")
     androidTestImplementation("androidx.test.ext:junit:1.2.1")

@@ -1,3 +1,5 @@
+import 'package:settrace/l10n/generated/app_localizations_zh.dart';
+
 import 'dart:convert';
 import 'dart:io';
 
@@ -103,9 +105,9 @@ void main() {
           () => codec.decode(jsonEncode(data)),
           throwsA(
             isA<PlanTransferException>().having(
-              (e) => e.message,
-              'location',
-              contains('第 1 个动作'),
+              (e) => e.location.exercise,
+              'exercise index',
+              1,
             ),
           ),
         );
@@ -161,9 +163,9 @@ void main() {
       () => codec.decode('中' * (PlanTransferCodec.maxBytes ~/ 3 + 1)),
       throwsA(
         isA<PlanTransferException>().having(
-          (e) => e.message,
+          (e) => e.code,
           'size',
-          contains('2 MiB'),
+          PlanTransferFailure.fileTooLarge,
         ),
       ),
     );
@@ -184,7 +186,9 @@ void main() {
         TransferPlan(name: long, exercises: []),
         TransferPlan(name: long, exercises: []),
       ];
-      final resolved = resolveImportNames(plans, [long]);
+      final resolved = resolveImportNames(plans, [
+        long,
+      ], suffixFor: AppLocalizationsZh().importSuffix);
       expect(resolved[0].name.endsWith('（导入）'), isTrue);
       expect(resolved[1].name.endsWith('（导入2）'), isTrue);
       expect(resolved.map((p) => p.name.characters.length), [40, 40]);
@@ -195,6 +199,7 @@ void main() {
             TransferPlan(name: '练背', exercises: []),
           ],
           ['练背', '练背（导入）'],
+          suffixFor: AppLocalizationsZh().importSuffix,
         ).map((p) => p.name),
         ['练背（导入2）', '练背（导入3）'],
       );

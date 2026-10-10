@@ -21,14 +21,14 @@ void main() {
       return {
         'status': 'success',
         'fileName': 'backup-2.settrace.json',
-        'location': '下载',
+        'location': 'downloads',
       };
     });
     final result = await AndroidPlanTransferPlatform().saveFile('snapshot');
     expect(calls.single.method, 'saveFile');
     expect(calls.single.arguments, {'text': 'snapshot'});
     expect(result.fileName, 'backup-2.settrace.json');
-    expect(result.location, '下载');
+    expect(result.location, 'downloads');
   });
   test(
     'cancelled picker returns null and errors never return old text',
@@ -37,14 +37,14 @@ void main() {
       messenger.setMockMethodCallHandler(channel, (_) async => result);
       final platform = AndroidPlanTransferPlatform();
       expect(await platform.pickFile(), isNull);
-      result = {'status': 'error', 'message': '文件已删除'};
+      result = {'status': 'error', 'code': 'fileReadFailed'};
       await expectLater(
         platform.pickFile(),
         throwsA(
           isA<PlanTransferException>().having(
-            (e) => e.message,
-            'message',
-            '文件已删除',
+            (e) => e.code,
+            'code',
+            PlanTransferFailure.fileReadFailed,
           ),
         ),
       );
@@ -131,9 +131,9 @@ void main() {
       platform.copyText('text'),
       throwsA(
         isA<PlanTransferException>().having(
-          (e) => e.message,
-          'message',
-          isNot(contains('native stack')),
+          (e) => e.code,
+          'code',
+          PlanTransferFailure.clipboardCopyFailed,
         ),
       ),
     );
@@ -142,4 +142,31 @@ void main() {
       throwsA(isA<PlanTransferException>()),
     );
   });
+  test(
+    'permission and unknown native codes map safely without leaking messages',
+    () async {
+      for (final code in ['permissionDenied', 'unknownNativeCode']) {
+        messenger.setMockMethodCallHandler(
+          channel,
+          (_) async => {
+            'status': 'error',
+            'code': code,
+            'message': '原生 secret stack trace',
+          },
+        );
+        await expectLater(
+          AndroidPlanTransferPlatform().saveFile('valid'),
+          throwsA(
+            isA<PlanTransferException>().having(
+              (e) => e.code,
+              'code',
+              code == 'permissionDenied'
+                  ? PlanTransferFailure.permissionDenied
+                  : PlanTransferFailure.fileOperationFailed,
+            ),
+          ),
+        );
+      }
+    },
+  );
 }

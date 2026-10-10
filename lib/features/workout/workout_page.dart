@@ -3,6 +3,9 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
+import '../../l10n/localization.dart';
+import '../../l10n/error_messages.dart';
+
 import '../../app/theme/app_theme.dart';
 import '../../core/widgets/app_button.dart';
 import '../../core/widgets/app_card.dart';
@@ -37,7 +40,7 @@ class _WorkoutPageState extends State<WorkoutPage> with WidgetsBindingObserver {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
     reload();
-    ticker = Timer.periodic(const Duration(seconds: 1), (_) {
+    ticker = Timer.periodic(Duration(seconds: 1), (_) {
       if (!mounted) return;
       setState(() => now = DateTime.now());
       final end = session?.restEndAt;
@@ -80,11 +83,10 @@ class _WorkoutPageState extends State<WorkoutPage> with WidgetsBindingObserver {
       if (mounted &&
           generation == loadGeneration &&
           revision == writeRevision) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('加载失败：$error'),
-            action: SnackBarAction(label: '重试', onPressed: reload),
-          ),
+        showAppSnackBar(
+          context,
+          (l) => failureText(l, error, fallback: l.loadFailed),
+          onRetry: reload,
         );
       }
     }
@@ -93,7 +95,7 @@ class _WorkoutPageState extends State<WorkoutPage> with WidgetsBindingObserver {
   Future<WorkoutSessionData> write(
     Future<WorkoutSessionData> Function() operation,
   ) async {
-    if (busy) throw StateError('正在保存，请稍后');
+    if (busy) throw StateError('saveInProgress');
     ++writeRevision;
     ++loadGeneration;
     setState(() => busy = true);
@@ -124,8 +126,7 @@ class _WorkoutPageState extends State<WorkoutPage> with WidgetsBindingObserver {
       if (updated.allSetsCompleted && mounted) await askExit();
     } catch (error) {
       if (mounted) {
-        ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text('操作失败：$error')));
+        showAppSnackBar(context, (l) => failureText(l, error));
         await reload();
       }
     }
@@ -159,31 +160,38 @@ class _WorkoutPageState extends State<WorkoutPage> with WidgetsBindingObserver {
     if (busy || session == null || !mounted) return;
     final choice = await showDialog<String>(
       context: context,
-      builder: (dialogContext) => AlertDialog(
-        title: Text(session!.allSetsCompleted ? '完成训练？' : '结束这次训练？'),
-        content: Text(
-          session!.completedSets == 0
-              ? '尚未完成任何一组。可继续训练或丢弃本次会话。'
-              : '已完成 ${session!.completedSets} 组。可以保存已完成内容，稍后在记录中查看。',
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(dialogContext, 'continue'),
-            child: const Text('继续训练'),
+      builder: (dialogContext) => Builder(
+        builder: (context) => AlertDialog(
+          scrollable: true,
+          title: Text(
+            session!.allSetsCompleted
+                ? context.l10n.finishWorkoutTitle
+                : context.l10n.endWorkoutTitle,
           ),
-          TextButton(
-            onPressed: () => Navigator.pop(dialogContext, 'discard'),
-            child: Text(
-              '丢弃',
-              style: TextStyle(color: dialogContext.appColors.danger),
-            ),
+          content: Text(
+            session!.completedSets == 0
+                ? context.l10n.emptyWorkoutExit
+                : context.l10n.exitCompletedNote(session!.completedSets),
           ),
-          if (session!.completedSets > 0)
+          actions: [
             TextButton(
-              onPressed: () => Navigator.pop(dialogContext, 'save'),
-              child: const Text('保存已完成'),
+              onPressed: () => Navigator.pop(dialogContext, 'continue'),
+              child: Text(context.l10n.resumeWorkout),
             ),
-        ],
+            TextButton(
+              onPressed: () => Navigator.pop(dialogContext, 'discard'),
+              child: Text(
+                context.l10n.discard,
+                style: TextStyle(color: dialogContext.appColors.danger),
+              ),
+            ),
+            if (session!.completedSets > 0)
+              TextButton(
+                onPressed: () => Navigator.pop(dialogContext, 'save'),
+                child: Text(context.l10n.saveCompleted),
+              ),
+          ],
+        ),
       ),
     );
     if (!mounted) return;
@@ -194,19 +202,22 @@ class _WorkoutPageState extends State<WorkoutPage> with WidgetsBindingObserver {
       if (session!.completedSets > 0) {
         final confirmed = await showDialog<bool>(
           context: context,
-          builder: (dialogContext) => AlertDialog(
-            title: const Text('确认丢弃？'),
-            content: const Text('已完成的组记录会永久删除。'),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(dialogContext, false),
-                child: const Text('取消'),
-              ),
-              TextButton(
-                onPressed: () => Navigator.pop(dialogContext, true),
-                child: const Text('确认丢弃'),
-              ),
-            ],
+          builder: (dialogContext) => Builder(
+            builder: (context) => AlertDialog(
+              scrollable: true,
+              title: Text(context.l10n.confirmDiscardTitle),
+              content: Text(context.l10n.confirmDiscardNote),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(dialogContext, false),
+                  child: Text(context.l10n.cancel),
+                ),
+                TextButton(
+                  onPressed: () => Navigator.pop(dialogContext, true),
+                  child: Text(context.l10n.confirmDiscard),
+                ),
+              ],
+            ),
           ),
         );
         if (confirmed != true) return;
@@ -223,23 +234,23 @@ class _WorkoutPageState extends State<WorkoutPage> with WidgetsBindingObserver {
       isScrollControlled: true,
       builder: (sheetContext) => SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(24),
+          padding: EdgeInsets.all(24),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                '本次训练动作',
+              Text(
+                sheetContext.l10n.sessionExercises,
                 style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
               ),
-              const SizedBox(height: 12),
+              SizedBox(height: 12),
               if (data.canReorder)
                 TextButton(
                   onPressed: () {
                     Navigator.pop(sheetContext);
                     showOrder();
                   },
-                  child: const Text('调整剩余顺序'),
+                  child: Text(sheetContext.l10n.reorderRemaining),
                 ),
               Flexible(
                 child: ListView(
@@ -249,11 +260,16 @@ class _WorkoutPageState extends State<WorkoutPage> with WidgetsBindingObserver {
                       ListTile(
                         title: Text(exercise.name),
                         subtitle: Text(
-                          '${exercise.completedSets} / ${exercise.targetSets} 组 · '
-                          '组间 ${exercise.restBetweenSetsSeconds ~/ 30 * 0.5} 分钟',
+                          sheetContext.l10n.exerciseProgressRest(
+                            exercise.completedSets,
+                            exercise.targetSets,
+                            sheetContext.formats.decimal(
+                              exercise.restBetweenSetsSeconds / 60,
+                            ),
+                          ),
                         ),
                         trailing: !exercise.completed
-                            ? const Icon(Icons.edit_outlined)
+                            ? Icon(Icons.edit_outlined)
                             : null,
                         onTap: exercise.completed
                             ? null
@@ -292,41 +308,44 @@ class _WorkoutPageState extends State<WorkoutPage> with WidgetsBindingObserver {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text(data?.planName ?? '训练中'),
+          title: Text(data?.planName ?? context.l10n.workoutInProgress),
           leading: IconButton(
             onPressed: busy ? null : askExit,
-            icon: const Icon(Icons.arrow_back),
-            tooltip: '结束或返回',
+            icon: Icon(Icons.arrow_back),
+            tooltip: context.l10n.endOrReturn,
           ),
           actions: [
             TextButton(
               onPressed: data == null || busy ? null : askExit,
-              child: const Text('退出'),
+              child: Text(context.l10n.exitWorkout),
             ),
           ],
         ),
         body: data == null
-            ? const Center(child: CircularProgressIndicator())
+            ? Center(child: CircularProgressIndicator())
             : SafeArea(
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(24, 8, 24, 16),
-                  child: Column(
+                  padding: EdgeInsets.fromLTRB(24, 8, 24, 16),
+                  child: ListView(
                     children: [
-                      Row(
+                      Wrap(
+                        spacing: 12,
+                        crossAxisAlignment: WrapCrossAlignment.center,
                         children: [
-                          Expanded(
-                            child: Text(
-                              '动作 ${data.currentExerciseOrder} / ${data.exercises.length}',
-                              style: TextStyle(color: colors.textSecondary),
+                          Text(
+                            context.l10n.exercisePosition(
+                              data.currentExerciseOrder,
+                              data.exercises.length,
                             ),
+                            style: TextStyle(color: colors.textSecondary),
                           ),
                           TextButton(
                             onPressed: busy ? null : showExercises,
-                            child: const Text('全部动作与编辑'),
+                            child: Text(context.l10n.allExercisesEdit),
                           ),
                         ],
                       ),
-                      const SizedBox(height: 8),
+                      SizedBox(height: 8),
                       LinearProgressIndicator(
                         value: data.totalSets == 0
                             ? 0
@@ -336,15 +355,13 @@ class _WorkoutPageState extends State<WorkoutPage> with WidgetsBindingObserver {
                         color: colors.accentPressed,
                         backgroundColor: colors.surfaceAlt,
                       ),
-                      const SizedBox(height: 24),
-                      Expanded(
-                        child: data.resting
-                            ? _rest(context, data)
-                            : _training(context, data),
-                      ),
+                      SizedBox(height: 24),
+                      data.resting
+                          ? _rest(context, data)
+                          : _training(context, data),
                       if (data.completedSets > 0)
                         AppButton(
-                          label: '撤销上一组',
+                          label: context.l10n.undoLastSet,
                           primary: false,
                           onPressed: busy
                               ? null
@@ -363,123 +380,124 @@ class _WorkoutPageState extends State<WorkoutPage> with WidgetsBindingObserver {
   Widget _training(BuildContext context, WorkoutSessionData data) {
     final colors = context.appColors;
     final exercise = data.currentExercise;
-    return LayoutBuilder(
-      builder: (context, constraints) => ListView(
-        children: [
-          SizedBox(height: math.max(0, constraints.maxHeight - 530)),
-          AppCard(
-            borderColor: colors.accent,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
+    return ListView(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      children: [
+        AppCard(
+          borderColor: colors.accent,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                exercise.name,
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.w700),
+              ),
+              if (exercise.defaultWeightKg != null) ...[
+                SizedBox(height: 6),
                 Text(
-                  exercise.name,
-                  style: const TextStyle(
-                    fontSize: 24,
+                  context.formats.weightLabel(exercise.defaultWeightKg),
+                  style: TextStyle(color: colors.textSecondary),
+                ),
+              ],
+              SizedBox(height: 28),
+              Center(
+                child: Text(
+                  '${data.currentSetNumber.toString().padLeft(2, '0')} / '
+                  '${exercise.targetSets.toString().padLeft(2, '0')}',
+                  textScaler: MediaQuery.textScalerOf(context)
+                      .clamp(maxScaleFactor: 1.4),
+                  style: TextStyle(
+                    fontSize: 52,
                     fontWeight: FontWeight.w700,
+                    color: colors.accentPressed,
                   ),
                 ),
-                if (exercise.defaultWeightKg != null) ...[
-                  const SizedBox(height: 6),
-                  Text(
-                    '${exercise.defaultWeightKg} kg',
-                    style: TextStyle(color: colors.textSecondary),
-                  ),
-                ],
-                const SizedBox(height: 28),
-                Center(
-                  child: Text(
-                    '${data.currentSetNumber.toString().padLeft(2, '0')} / '
-                    '${exercise.targetSets.toString().padLeft(2, '0')}',
-                    textScaler: MediaQuery.textScalerOf(context)
-                        .clamp(maxScaleFactor: 1.4),
-                    style: TextStyle(
-                      fontSize: 52,
-                      fontWeight: FontWeight.w700,
-                      color: colors.accentPressed,
-                    ),
-                  ),
+              ),
+              SizedBox(height: 16),
+              Center(
+                child: Wrap(
+                  spacing: 14,
+                  runSpacing: 10,
+                  children: [
+                    for (final set in exercise.sets)
+                      Icon(
+                        set.completed ? Icons.circle : Icons.circle_outlined,
+                        size: 19,
+                        color: set.completed
+                            ? colors.accentPressed
+                            : colors.textTertiary,
+                      ),
+                  ],
                 ),
-                const SizedBox(height: 16),
-                Center(
-                  child: Wrap(
-                    spacing: 14,
-                    runSpacing: 10,
-                    children: [
-                      for (final set in exercise.sets)
-                        Icon(
-                          set.completed ? Icons.circle : Icons.circle_outlined,
-                          size: 19,
-                          color: set.completed
-                              ? colors.accentPressed
-                              : colors.textTertiary,
+              ),
+              SizedBox(height: 12),
+              Center(
+                child: Text(
+                  data.allSetsCompleted
+                      ? context.l10n.allSetsCompleted
+                      : context.l10n.currentSet(data.currentSetNumber),
+                  style: TextStyle(color: colors.textSecondary),
+                ),
+              ),
+              SizedBox(height: 24),
+              AppButton(
+                label: data.allSetsCompleted
+                    ? context.l10n.saveWorkout
+                    : context.l10n.completeSet,
+                onPressed: busy
+                    ? null
+                    : data.allSetsCompleted
+                    ? askExit
+                    : () => mutate(
+                        () => widget.workouts.completeSet(
+                          data.id,
+                          expectedExerciseId: data.currentExercise.id,
+                          expectedSetNumber: data.currentSetNumber,
                         ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 12),
-                Center(
-                  child: Text(
-                    data.allSetsCompleted
-                        ? '全部组已完成'
-                        : '当前第 ${data.currentSetNumber} 组',
-                    style: TextStyle(color: colors.textSecondary),
-                  ),
-                ),
-                const SizedBox(height: 24),
-                AppButton(
-                  label: data.allSetsCompleted ? '保存训练' : '完成本组',
-                  onPressed: busy
-                      ? null
-                      : data.allSetsCompleted
-                      ? askExit
-                      : () => mutate(
-                          () => widget.workouts.completeSet(
-                            data.id,
-                            expectedExerciseId: data.currentExercise.id,
-                            expectedSetNumber: data.currentSetNumber,
-                          ),
-                        ),
-                ),
-              ],
-            ),
+                      ),
+              ),
+            ],
           ),
-          if (data.canReorder) ...[
-            const SizedBox(height: 8),
-            Text(
-              data.currentExercise.movable
-                  ? '当前动作尚无完成组，可换成其他待练动作。'
-                  : '当前动作继续完成，可安排后续动作。',
-              style: TextStyle(color: colors.textSecondary),
-            ),
-            TextButton(
-              onPressed: busy ? null : () => showOrder(selectNext: true),
-              child: const Text('更换下一动作'),
-            ),
-          ],
-          const SizedBox(height: 12),
-          AppCard(
-            backgroundColor: colors.accentSoft,
-            borderColor: colors.accentSoft,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  '下一动作',
-                  style: TextStyle(color: colors.textSecondary, fontSize: 12),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  data.nextExercise == null
-                      ? '这是最后一个动作'
-                      : '${data.nextExercise!.name} · ${data.nextExercise!.targetSets} 组',
-                  style: const TextStyle(fontWeight: FontWeight.w700),
-                ),
-              ],
-            ),
+        ),
+        if (data.canReorder) ...[
+          SizedBox(height: 8),
+          Text(
+            data.currentExercise.movable
+                ? context.l10n.currentExerciseMovable
+                : context.l10n.currentExerciseFixed,
+            style: TextStyle(color: colors.textSecondary),
+          ),
+          TextButton(
+            onPressed: busy ? null : () => showOrder(selectNext: true),
+            child: Text(context.l10n.changeNext),
           ),
         ],
-      ),
+        SizedBox(height: 12),
+        AppCard(
+          backgroundColor: colors.accentSoft,
+          borderColor: colors.accentSoft,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                context.l10n.nextExercise,
+                style: TextStyle(color: colors.textSecondary, fontSize: 12),
+              ),
+              SizedBox(height: 4),
+              Text(
+                data.nextExercise == null
+                    ? context.l10n.lastExercise
+                    : context.l10n.exerciseSets(
+                        data.nextExercise!.name,
+                        data.nextExercise!.targetSets,
+                      ),
+                style: TextStyle(fontWeight: FontWeight.w700),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 
@@ -492,14 +510,18 @@ class _WorkoutPageState extends State<WorkoutPage> with WidgetsBindingObserver {
     final display =
         '${(remaining ~/ 60).toString().padLeft(2, '0')}:'
         '${(remaining % 60).toString().padLeft(2, '0')}';
-    return Column(
+    return ListView(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
       children: [
-        const Spacer(),
+        SizedBox(height: 16),
         Text(
-          data.restKind == 'between_exercises' ? '动作间休息' : '组间休息',
+          data.restKind == 'between_exercises'
+              ? context.l10n.betweenExercises
+              : context.l10n.betweenSets,
           style: TextStyle(color: colors.textSecondary),
         ),
-        const SizedBox(height: 24),
+        SizedBox(height: 24),
         FittedBox(
           child: Text(
             display,
@@ -510,24 +532,27 @@ class _WorkoutPageState extends State<WorkoutPage> with WidgetsBindingObserver {
             ),
           ),
         ),
-        const SizedBox(height: 14),
+        SizedBox(height: 14),
         Text(
-          '下一组：${data.currentExercise.name} · '
-          '${data.currentSetNumber} / ${data.currentExercise.targetSets}',
+          context.l10n.nextSet(
+            data.currentExercise.name,
+            data.currentSetNumber,
+            data.currentExercise.targetSets,
+          ),
           textAlign: TextAlign.center,
           style: TextStyle(color: colors.textSecondary),
         ),
         if (data.canReorder)
           TextButton(
             onPressed: busy ? null : () => showOrder(selectNext: true),
-            child: const Text('更换下一动作'),
+            child: Text(context.l10n.changeNext),
           ),
-        const Spacer(),
+        SizedBox(height: 16),
         Row(
           children: [
             Expanded(
               child: AppButton(
-                label: '−30 秒',
+                label: context.l10n.subtractRest,
                 primary: false,
                 onPressed: busy
                     ? null
@@ -536,19 +561,19 @@ class _WorkoutPageState extends State<WorkoutPage> with WidgetsBindingObserver {
                       ),
               ),
             ),
-            const SizedBox(width: 8),
+            SizedBox(width: 8),
             Expanded(
               child: AppButton(
-                label: '跳过',
+                label: context.l10n.skip,
                 onPressed: busy
                     ? null
                     : () => mutate(() => widget.workouts.skipRest(data.id)),
               ),
             ),
-            const SizedBox(width: 8),
+            SizedBox(width: 8),
             Expanded(
               child: AppButton(
-                label: '+30 秒',
+                label: context.l10n.addRest,
                 primary: false,
                 onPressed: busy
                     ? null
@@ -558,7 +583,7 @@ class _WorkoutPageState extends State<WorkoutPage> with WidgetsBindingObserver {
             ),
           ],
         ),
-        const SizedBox(height: 20),
+        SizedBox(height: 20),
       ],
     );
   }
@@ -599,8 +624,10 @@ class _SessionExerciseEditorPageState extends State<SessionExerciseEditorPage> {
       if (mounted) Navigator.pop(context);
     } catch (error) {
       if (mounted) {
-        ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text('保存失败：$error')));
+        showAppSnackBar(
+          context,
+          (l) => failureText(l, error, fallback: l.saveFailed),
+        );
       }
     } finally {
       if (mounted) setState(() => saving = false);
@@ -609,57 +636,66 @@ class _SessionExerciseEditorPageState extends State<SessionExerciseEditorPage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(title: Text('本次编辑 · ${widget.exercise.name}')),
+    appBar: AppBar(
+      title: Text(context.l10n.sessionEditTitle(widget.exercise.name)),
+    ),
     body: SafeArea(
       child: Padding(
-        padding: const EdgeInsets.all(24),
+        padding: EdgeInsets.all(24),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
               child: ListView(
                 children: [
-                  const Text('目标组数'),
-                  const SizedBox(height: 12),
+                  Text(context.l10n.targetSets),
+                  SizedBox(height: 12),
                   StepPicker(
                     value: sets,
                     min: math.max(1, widget.exercise.completedSets),
                     max: 100,
                     step: 1,
-                    label: (value) => '$value 组',
+                    label: (value) => context.l10n.setCount(value),
                     onChanged: (value) => setState(() => sets = value),
                   ),
-                  const SizedBox(height: 24),
-                  const Text('组间休息'),
-                  const SizedBox(height: 12),
+                  SizedBox(height: 24),
+                  Text(context.l10n.betweenSets),
+                  SizedBox(height: 12),
                   StepPicker(
                     value: between,
                     min: 0,
                     max: 3600,
                     step: 30,
-                    label: (value) => '${(value / 60).toStringAsFixed(1)} min',
+                    label: (value) => context.l10n.minutesShort(
+                      context.formats.decimal(value / 60),
+                    ),
                     onChanged: (value) => setState(() => between = value),
                   ),
-                  const SizedBox(height: 24),
-                  const Text('动作后休息'),
-                  const SizedBox(height: 12),
+                  SizedBox(height: 24),
+                  Text(context.l10n.afterExerciseShort),
+                  SizedBox(height: 12),
                   StepPicker(
                     value: after,
                     min: 0,
                     max: 3600,
                     step: 30,
-                    label: (value) => '${(value / 60).toStringAsFixed(1)} min',
+                    label: (value) => context.l10n.minutesShort(
+                      context.formats.decimal(value / 60),
+                    ),
                     onChanged: (value) => setState(() => after = value),
                   ),
-                  const SizedBox(height: 16),
+                  SizedBox(height: 16),
                   Text(
-                    '只修改本次训练；已开始的休息时间不变。',
+                    context.l10n.sessionEditNote,
                     style: TextStyle(color: context.appColors.textSecondary),
                   ),
                 ],
               ),
             ),
-            AppButton(label: '保存本次配置', onPressed: saving ? null : save),
+            AppButton(
+              label: context.l10n.saveSessionConfig,
+              onPressed: saving ? null : save,
+            ),
           ],
         ),
       ),

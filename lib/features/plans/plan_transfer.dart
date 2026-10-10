@@ -4,11 +4,58 @@ import 'package:characters/characters.dart';
 
 import 'plan_models.dart';
 
+enum PlanTransferFailure {
+  fileTooLarge,
+  emptyContent,
+  damagedContent,
+  wrongFormat,
+  unsupportedVersion,
+  noImportPlans,
+  selectPlans,
+  invalidObject,
+  invalidName,
+  invalidInteger,
+  invalidRest,
+  invalidWeight,
+  invalidExercises,
+  clipboardCopyFailed,
+  clipboardReadFailed,
+  clipboardEmpty,
+  fileBusy,
+  fileIncomplete,
+  fileOperationFailed,
+  fileUnsupported,
+  fileNotDownloads,
+  fileReadFailed,
+  fileEmpty,
+  filePickerFailed,
+  permissionDenied,
+  fileSaveFailed,
+  plansChanged,
+}
+
+enum PlanTransferField { name, exercises, sets, betweenRest, afterRest, weight }
+
+class PlanTransferLocation {
+  const PlanTransferLocation({this.plan = 0, this.exercise = 0, this.field});
+  final int plan, exercise;
+  final PlanTransferField? field;
+  PlanTransferLocation withField(PlanTransferField value) =>
+      PlanTransferLocation(plan: plan, exercise: exercise, field: value);
+}
+
 class PlanTransferException implements Exception {
-  const PlanTransferException(this.message);
-  final String message;
+  const PlanTransferException(
+    this.code, {
+    this.location = const PlanTransferLocation(),
+    this.min = 0,
+    this.max = 0,
+  });
+  final PlanTransferFailure code;
+  final PlanTransferLocation location;
+  final int min, max;
   @override
-  String toString() => message;
+  String toString() => 'PlanTransferException(${code.name})';
 }
 
 class TransferExercise {
@@ -72,7 +119,7 @@ class PlanTransferCodec {
   static const format = 'settrace.training-plans';
   static void checkSize(String text) {
     if (text.length > maxBytes || utf8.encode(text).length > maxBytes) {
-      throw const PlanTransferException('计划内容超过 2 MiB，请减少计划数量后重试');
+      throw const PlanTransferException(PlanTransferFailure.fileTooLarge);
     }
   }
 
@@ -93,27 +140,29 @@ class PlanTransferCodec {
     checkSize(text);
     var cleaned = text.trim();
     if (cleaned.startsWith('\uFEFF')) cleaned = cleaned.substring(1).trim();
-    if (cleaned.isEmpty) throw const PlanTransferException('没有计划内容，请粘贴文本或选择文件');
+    if (cleaned.isEmpty) {
+      throw const PlanTransferException(PlanTransferFailure.emptyContent);
+    }
     Object? json;
     try {
       json = jsonDecode(cleaned);
     } on FormatException {
-      throw const PlanTransferException('计划内容损坏，请使用完整的计划导出文本或文件');
+      throw const PlanTransferException(PlanTransferFailure.damagedContent);
     }
-    final root = _object(json, '计划内容');
+    final root = _object(json, const PlanTransferLocation());
     if (root['format'] != format) {
-      throw const PlanTransferException('无法识别此文件，请选择训练本导出的计划');
+      throw const PlanTransferException(PlanTransferFailure.wrongFormat);
     }
     if (root['schemaVersion'] is! int || root['schemaVersion'] != 1) {
-      throw const PlanTransferException('计划格式版本不受支持，请更新应用后重试');
+      throw const PlanTransferException(PlanTransferFailure.unsupportedVersion);
     }
     final values = root['plans'];
     if (values is! List || values.isEmpty) {
-      throw const PlanTransferException('没有可导入的计划');
+      throw const PlanTransferException(PlanTransferFailure.noImportPlans);
     }
     final plans = <TransferPlan>[];
     for (var i = 0; i < values.length; i++) {
-      plans.add(_plan(values[i], '第 ${i + 1} 个计划'));
+      plans.add(_plan(values[i], PlanTransferLocation(plan: i + 1)));
     }
     final stamp = root['exportedAt'];
     return PlanTransferDocument(
@@ -123,28 +172,58 @@ class PlanTransferCodec {
   }
 
   void validatePlans(List<TransferPlan> plans) {
-    if (plans.isEmpty) throw const PlanTransferException('请至少选择一个计划');
+    if (plans.isEmpty) {
+      throw const PlanTransferException(PlanTransferFailure.selectPlans);
+    }
     for (var i = 0; i < plans.length; i++) {
-      _plan(plans[i].toJson(), '第 ${i + 1} 个计划');
+      _plan(plans[i].toJson(), PlanTransferLocation(plan: i + 1));
     }
   }
 
-  TransferPlan _plan(Object? value, String path) {
+  TransferPlan _plan(Object? value, PlanTransferLocation path) {
     final json = _object(value, path);
-    final name = _name(json['name'], 40, '$path 的名称');
+    final name = _name(
+      json['name'],
+      40,
+      path.withField(PlanTransferField.name),
+    );
     final list = json['exercises'];
-    if (list is! List) throw PlanTransferException('「$name」缺少有效的动作列表');
+    if (list is! List) {
+      throw PlanTransferException(
+        PlanTransferFailure.invalidExercises,
+        location: path,
+      );
+    }
     final exercises = <TransferExercise>[];
     for (var i = 0; i < list.length; i++) {
-      final location = '「$name」第 ${i + 1} 个动作';
+      final location = PlanTransferLocation(plan: path.plan, exercise: i + 1);
       final item = _object(list[i], location);
-      final exerciseName = _name(item['name'], 60, '$location 名称');
-      final sets = _integer(item['targetSets'], 1, 100, '$location 组数');
-      final between = _rest(item['restBetweenSetsSeconds'], '$location 组间休息');
-      final after = _rest(item['restAfterExerciseSeconds'], '$location 动作后休息');
+      final exerciseName = _name(
+        item['name'],
+        60,
+        location.withField(PlanTransferField.name),
+      );
+      final sets = _integer(
+        item['targetSets'],
+        1,
+        100,
+        location.withField(PlanTransferField.sets),
+      );
+      final between = _rest(
+        item['restBetweenSetsSeconds'],
+        location.withField(PlanTransferField.betweenRest),
+      );
+      final after = _rest(
+        item['restAfterExerciseSeconds'],
+        location.withField(PlanTransferField.afterRest),
+      );
       final weight = item['defaultWeightKg'];
-      if (weight != null && (weight is! num || !weight.isFinite || weight <= 0)) {
-        throw PlanTransferException('$location 重量必须为空或有效的正数');
+      if (weight != null &&
+          (weight is! num || !weight.isFinite || weight <= 0)) {
+        throw PlanTransferException(
+          PlanTransferFailure.invalidWeight,
+          location: location.withField(PlanTransferField.weight),
+        );
       }
       exercises.add(
         TransferExercise(
@@ -159,40 +238,61 @@ class PlanTransferCodec {
     return TransferPlan(name: name, exercises: exercises);
   }
 
-  Map<String, dynamic> _object(Object? value, String path) {
+  Map<String, dynamic> _object(Object? value, PlanTransferLocation path) {
     if (value is! Map<String, dynamic>) {
-      throw PlanTransferException('$path 必须是有效的对象');
+      throw PlanTransferException(
+        PlanTransferFailure.invalidObject,
+        location: path,
+      );
     }
     return value;
   }
 
-  String _name(Object? value, int max, String path) {
+  String _name(Object? value, int max, PlanTransferLocation path) {
     if (value is! String ||
         value.trim().isEmpty ||
         value.trim().characters.length > max) {
-      throw PlanTransferException('$path 必须为 1–$max 个字符');
+      throw PlanTransferException(
+        PlanTransferFailure.invalidName,
+        location: path,
+        min: 1,
+        max: max,
+      );
     }
     return value.trim();
   }
 
-  int _integer(Object? value, int min, int max, String path) {
+  int _integer(Object? value, int min, int max, PlanTransferLocation path) {
     if (value is! int || value < min || value > max) {
-      throw PlanTransferException('$path 必须为 $min–$max 的整数');
+      throw PlanTransferException(
+        PlanTransferFailure.invalidInteger,
+        location: path,
+        min: min,
+        max: max,
+      );
     }
     return value;
   }
 
-  int _rest(Object? value, String path) {
+  int _rest(Object? value, PlanTransferLocation path) {
     final seconds = _integer(value, 0, 3600, path);
-    if (seconds % 30 != 0) throw PlanTransferException('$path 必须为 30 秒的倍数');
+    if (seconds % 30 != 0) {
+      throw PlanTransferException(
+        PlanTransferFailure.invalidRest,
+        location: path,
+      );
+    }
     return seconds;
   }
 }
 
+typedef ImportSuffix = String Function(int number);
+
 List<TransferPlan> resolveImportNames(
   List<TransferPlan> plans,
-  Iterable<String> existing,
-) {
+  Iterable<String> existing, {
+  required ImportSuffix suffixFor,
+}) {
   const PlanTransferCodec().validatePlans(plans);
   final used = existing.map((name) => name.trim()).toSet();
   return plans.map((plan) {
@@ -200,11 +300,13 @@ List<TransferPlan> resolveImportNames(
     var name = original;
     var suffixNumber = 1;
     while (used.contains(name)) {
-      final suffix = suffixNumber == 1 ? '（导入）' : '（导入$suffixNumber）';
+      final suffix = suffixFor(suffixNumber++);
+      if (suffix.trim().isEmpty || suffix.characters.length >= 40) {
+        throw StateError('invalidImportSuffix');
+      }
       name =
           original.characters.take(40 - suffix.characters.length).toString() +
           suffix;
-      suffixNumber++;
     }
     used.add(name);
     return plan.withName(name);

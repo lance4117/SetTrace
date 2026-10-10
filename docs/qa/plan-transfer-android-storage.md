@@ -49,3 +49,8 @@ adb -s <serial> shell am instrument -w -e class 'com.settrace.settrace.PlanFiles
 Dart 平台 5 项测试确认 native success/cancelled/error 的映射、重复请求防护、实际名称反馈、私有位置不能伪报成功及超限在调用前被拒绝。原生 I/O 在后台执行，结果回到主线程；Activity 销毁使 pending 请求取消，AtomicBoolean 保证一次完成。
 
 本次执行范围是 API 28、36 模拟器及故障注入；没有把厂商真机、其他每个 API 版本或实际磁盘耗尽标记为已实测。
+
+
+## 本地化后的桥接协议（2026-10-10）
+
+`add-app-localization` 将目录身份改为 `downloads`、错误改为稳定 `code`，Flutter 按当前语言显示 Downloads／下载目录和失败原因。原生新备份名为 `SetTrace-plans-<timestamp>.settrace.json`，真实查询结果仍决定实际名称。前面的 2026-10-03 文件名与截图属于当时版本；最新中英文、权限拒绝和取消结果见 [本地化验收](localization-acceptance.md)。旧中文文件名备份仍按 JSON v1 内容恢复。

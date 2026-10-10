@@ -1,3 +1,5 @@
+import 'package:settrace/l10n/generated/app_localizations.dart';
+
 import 'dart:async';
 import 'dart:convert';
 
@@ -21,7 +23,11 @@ class FakePlatform implements PlanTransferPlatform {
   @override
   Future<void> copyText(String text) async {
     copies++;
-    if (failCopy) throw const PlanTransferException('复制失败，请重试');
+    if (failCopy) {
+      throw const PlanTransferException(
+        PlanTransferFailure.clipboardCopyFailed,
+      );
+    }
     copied = text;
   }
 
@@ -37,9 +43,11 @@ class FakePlatform implements PlanTransferPlatform {
   Future<SavedPlanFile> saveFile(String text) async {
     saves++;
     if (hold != null) await hold!.future;
-    if (failSave) throw const PlanTransferException('下载目录写入失败');
+    if (failSave) {
+      throw const PlanTransferException(PlanTransferFailure.fileSaveFailed);
+    }
     saved = text;
-    return const SavedPlanFile('actual-2.settrace.json', '下载');
+    return const SavedPlanFile('actual-2.settrace.json', 'downloads');
   }
 }
 
@@ -89,6 +97,9 @@ void main() {
   Future<void> home(WidgetTester tester) async {
     await tester.pumpWidget(
       MaterialApp(
+        locale: const Locale('zh'),
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
         theme: AppTheme.light,
         home: Scaffold(
           body: PlansPage(
@@ -115,6 +126,9 @@ void main() {
     addTearDown(tester.view.resetDevicePixelRatio);
     await tester.pumpWidget(
       MaterialApp(
+        locale: const Locale('zh'),
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
         theme: dark ? AppTheme.dark : AppTheme.light,
         builder: (_, child) => MediaQuery(
           data: MediaQueryData(
@@ -140,7 +154,7 @@ void main() {
       await settle(tester);
       expect(find.text('没有可导出的计划'), findsOneWidget);
       expect(platform.saves, 0);
-      await tester.pageBack();
+      await tester.tap(find.byType(BackButton));
       await settle(tester);
       await tester.tap(find.byTooltip('计划导入导出'));
       await settle(tester);
@@ -190,7 +204,7 @@ void main() {
       platform.failSave = true;
       await tester.tap(find.text('导出到文件'));
       await settle(tester);
-      expect(find.text('下载目录写入失败'), findsOneWidget);
+      expect(find.text('无法保存到下载目录，请检查可用空间后重试'), findsOneWidget);
       platform.failCopy = true;
       await tester.tap(find.text('复制到剪贴板'));
       await settle(tester);

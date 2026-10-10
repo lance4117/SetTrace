@@ -26,7 +26,9 @@ class AndroidPlanTransferPlatform implements PlanTransferPlatform {
     try {
       await Clipboard.setData(ClipboardData(text: text));
     } catch (_) {
-      throw const PlanTransferException('复制失败，请重试或选择导出到文件');
+      throw const PlanTransferException(
+        PlanTransferFailure.clipboardCopyFailed,
+      );
     }
   }
 
@@ -35,7 +37,9 @@ class AndroidPlanTransferPlatform implements PlanTransferPlatform {
     try {
       return (await Clipboard.getData(Clipboard.kTextPlain))?.text;
     } catch (_) {
-      throw const PlanTransferException('无法读取剪贴板，请手动粘贴计划文本');
+      throw const PlanTransferException(
+        PlanTransferFailure.clipboardReadFailed,
+      );
     }
   }
 
@@ -43,26 +47,33 @@ class AndroidPlanTransferPlatform implements PlanTransferPlatform {
     String method, [
     Object? arguments,
   ]) async {
-    if (_fileBusy) throw const PlanTransferException('文件操作正在进行，请稍候');
+    if (_fileBusy) {
+      throw const PlanTransferException(PlanTransferFailure.fileBusy);
+    }
     _fileBusy = true;
     try {
       final result = await channel.invokeMapMethod<Object?, Object?>(
         method,
         arguments,
       );
-      if (result == null) throw const PlanTransferException('文件操作未完成，请重试');
+      if (result == null) {
+        throw const PlanTransferException(PlanTransferFailure.fileIncomplete);
+      }
       if (result['status'] == 'error') {
+        final code = PlanTransferFailure.values
+            .where((v) => v.name == result['code'])
+            .firstOrNull;
         throw PlanTransferException(
-          result['message'] is String
-              ? result['message'] as String
-              : '文件操作失败，请重试',
+          code ?? PlanTransferFailure.fileOperationFailed,
         );
       }
       return result;
     } on PlatformException {
-      throw const PlanTransferException('文件操作失败，请重试');
+      throw const PlanTransferException(
+        PlanTransferFailure.fileOperationFailed,
+      );
     } on MissingPluginException {
-      throw const PlanTransferException('当前平台暂不支持计划文件操作');
+      throw const PlanTransferException(PlanTransferFailure.fileUnsupported);
     } finally {
       _fileBusy = false;
     }
@@ -74,10 +85,10 @@ class AndroidPlanTransferPlatform implements PlanTransferPlatform {
     final result = await _invoke('saveFile', {'text': text});
     if (result['status'] != 'success' ||
         result['fileName'] is! String ||
-        result['location'] != '下载') {
-      throw const PlanTransferException('文件未保存到下载目录，请重试');
+        result['location'] != 'downloads') {
+      throw const PlanTransferException(PlanTransferFailure.fileNotDownloads);
     }
-    return SavedPlanFile(result['fileName'] as String, '下载');
+    return SavedPlanFile(result['fileName'] as String, 'downloads');
   }
 
   @override
@@ -85,11 +96,13 @@ class AndroidPlanTransferPlatform implements PlanTransferPlatform {
     final result = await _invoke('pickFile');
     if (result['status'] == 'cancelled') return null;
     if (result['status'] != 'success' || result['text'] is! String) {
-      throw const PlanTransferException('无法读取文件，请重新选择');
+      throw const PlanTransferException(PlanTransferFailure.fileReadFailed);
     }
     final text = result['text'] as String;
     PlanTransferCodec.checkSize(text);
-    if (text.trim().isEmpty) throw const PlanTransferException('文件为空，请重新选择');
+    if (text.trim().isEmpty) {
+      throw const PlanTransferException(PlanTransferFailure.fileEmpty);
+    }
     return text;
   }
 }

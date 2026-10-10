@@ -76,7 +76,7 @@ class PlanFilesBridgeInstrumentedTest {
             assertEquals("error", read(Uri.fromFile(file))["status"])
             // File URI supplies no metadata size; this exercises the streaming cap.
             file.writeBytes(ByteArray(PlanFilesBridge.MAX_BYTES + 1) { 65 })
-            assertTrue((read(Uri.fromFile(file))["message"] as String).contains("2 MiB"))
+            assertEquals("fileTooLarge", read(Uri.fromFile(file))["code"])
             file.writeBytes(byteArrayOf(0xC3.toByte(), 0x28))
             assertEquals("error", read(Uri.fromFile(file))["status"])
             file.delete()

@@ -4,9 +4,15 @@ import 'package:flutter/services.dart';
 import '../../app/theme/app_theme.dart';
 
 class StepPicker extends StatefulWidget {
-  const StepPicker({super.key, required this.value, required this.min,
-    required this.max, required this.step, required this.label,
-    required this.onChanged});
+  const StepPicker({
+    super.key,
+    required this.value,
+    required this.min,
+    required this.max,
+    required this.step,
+    required this.label,
+    required this.onChanged,
+  });
 
   final int value, min, max, step;
   final String Function(int) label;
@@ -24,7 +30,10 @@ class _StepPickerState extends State<StepPicker> {
   void initState() {
     super.initState();
     currentIndex = (widget.value - widget.min) ~/ widget.step;
-    controller = PageController(initialPage: currentIndex, viewportFraction: 0.36);
+    controller = PageController(
+      initialPage: currentIndex,
+      viewportFraction: 0.36,
+    );
   }
 
   @override
@@ -50,10 +59,12 @@ class _StepPickerState extends State<StepPicker> {
     final colors = context.appColors;
     final count = (widget.max - widget.min) ~/ widget.step + 1;
     return Container(
-      height: 52,
-      decoration: BoxDecoration(color: colors.surfaceAlt,
+      height: (40 * MediaQuery.textScalerOf(context).scale(1)).clamp(52, 120),
+      decoration: BoxDecoration(
+        color: colors.surfaceAlt,
         border: Border.all(color: colors.border),
-        borderRadius: BorderRadius.circular(12)),
+        borderRadius: BorderRadius.circular(12),
+      ),
       child: PageView.builder(
         controller: controller,
         itemCount: count,
@@ -73,13 +84,16 @@ class _StepPickerState extends State<StepPicker> {
               color: selected ? colors.accent : colors.surfaceAlt,
               borderRadius: BorderRadius.circular(11),
             ),
-            child: Text(widget.label(widget.min + index * widget.step),
-              maxLines: 1,
+            child: Text(
+              widget.label(widget.min + index * widget.step),
+              maxLines: 2,
+              textAlign: TextAlign.center,
               style: TextStyle(
                 color: selected ? colors.onAccent : colors.textSecondary,
                 fontWeight: selected ? FontWeight.w700 : FontWeight.w400,
                 fontSize: selected ? 16 : 13,
-              )),
+              ),
+            ),
           );
         },
       ),

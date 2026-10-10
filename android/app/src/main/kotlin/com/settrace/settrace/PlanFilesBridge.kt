@@ -64,13 +64,13 @@ class PlanFilesBridge(private val activity: Activity, messenger: BinaryMessenger
 
     override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
         if (disposed) { result.success(mapOf("status" to "cancelled")); return }
-        if (pending != null) { result.success(mapOf("status" to "error", "message" to "文件操作正在进行，请稍候")); return }
+        if (pending != null) { result.success(mapOf("status" to "error", "code" to "fileBusy")); return }
         when (call.method) {
             "saveFile" -> {
                 val text = call.argument<String>("text")
-                if (text == null || text.isBlank()) { result.success(error("没有可导出的计划内容")); return }
+                if (text == null || text.isBlank()) { result.success(error("emptyContent")); return }
                 val bytes = text.toByteArray(Charsets.UTF_8)
-                if (bytes.size > MAX_BYTES) { result.success(error("计划内容超过 2 MiB，请减少计划数量")); return }
+                if (bytes.size > MAX_BYTES) { result.success(error("fileTooLarge")); return }
                 val request = Request(result, "save", bytes)
                 pending = request
                 if (Build.VERSION.SDK_INT <= 28 && activity.checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
@@ -87,7 +87,7 @@ class PlanFilesBridge(private val activity: Activity, messenger: BinaryMessenger
                         addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
                     }
                     activity.startActivityForResult(intent, PICK)
-                } catch (_: Exception) { finish(request, error("无法打开文件选择器，请使用粘贴文本")) }
+                } catch (_: Exception) { finish(request, error("filePickerFailed")) }
             }
             else -> result.notImplemented()
         }
@@ -96,7 +96,7 @@ class PlanFilesBridge(private val activity: Activity, messenger: BinaryMessenger
         if (code != PERMISSION) return false
         val request = pending?.takeIf { it.kind == "save" } ?: return true
         if (grants.isNotEmpty() && grants[0] == PackageManager.PERMISSION_GRANTED) save(request)
-        else finish(request, error("未获得下载目录写入权限，请重试或复制到剪贴板"))
+        else finish(request, error("permissionDenied"))
         return true
     }
     fun onActivityResult(code: Int, resultCode: Int, data: Intent?): Boolean {
@@ -109,23 +109,23 @@ class PlanFilesBridge(private val activity: Activity, messenger: BinaryMessenger
                 val size = activity.contentResolver.query(uri, arrayOf(OpenableColumns.SIZE), null, null, null)?.use { cursor ->
                     if (cursor.moveToFirst() && !cursor.isNull(0)) cursor.getLong(0) else null
                 }
-                if (size != null && size > MAX_BYTES) throw IllegalArgumentException("计划内容超过 2 MiB，请选择较小的文件")
+                if (size != null && size > MAX_BYTES) throw FileFailure("fileTooLarge")
                 val bytes = activity.contentResolver.openInputStream(uri)?.use { input ->
                     val output = ByteArrayOutputStream()
                     val buffer = ByteArray(8192)
                     var count: Int
                     while (input.read(buffer).also { count = it } != -1) {
-                        if (Thread.currentThread().isInterrupted) throw IllegalStateException("已取消文件读取")
-                        if (output.size() + count > MAX_BYTES) throw IllegalArgumentException("计划内容超过 2 MiB，请选择较小的文件")
+                        if (Thread.currentThread().isInterrupted) throw IllegalStateException("cancelled")
+                        if (output.size() + count > MAX_BYTES) throw FileFailure("fileTooLarge")
                         output.write(buffer, 0, count)
                     }
                     output.toByteArray()
-                } ?: throw IllegalStateException("无法读取文件，请重新选择")
-                if (bytes.isEmpty()) throw IllegalArgumentException("文件为空，请重新选择")
+                } ?: throw IllegalStateException("fileReadFailed")
+                if (bytes.isEmpty()) throw FileFailure("fileEmpty")
                 val text = Charsets.UTF_8.newDecoder().onMalformedInput(CodingErrorAction.REPORT).onUnmappableCharacter(CodingErrorAction.REPORT).decode(ByteBuffer.wrap(bytes)).toString()
                 finish(request, mapOf("status" to "success", "text" to text))
-            } catch (e: IllegalArgumentException) { finish(request, error(e.message ?: "文件内容无效")) }
-            catch (_: Exception) { finish(request, error("无法读取文件，请重新选择有效的 UTF-8 计划文件")) }
+            } catch (e: FileFailure) { finish(request, error(e.code)) }
+            catch (_: Exception) { finish(request, error("fileReadFailed")) }
         }
         return true
     }
@@ -133,11 +133,11 @@ class PlanFilesBridge(private val activity: Activity, messenger: BinaryMessenger
         io.execute {
             try {
                 val stamp = SimpleDateFormat("yyyy-MM-dd-HHmmss-SSS", Locale.ROOT).format(Date())
-                val name = "训练计划备份-$stamp.settrace.json"
+                val name = "SetTrace-plans-$stamp.settrace.json"
                 val entry = if (Build.VERSION.SDK_INT >= 29) mediaEntry(name) else legacyEntry(name)
                 val actual = writeDownload(entry, request.bytes!!)
-                finish(request, mapOf("status" to "success", "fileName" to actual, "location" to "下载"))
-            } catch (_: Exception) { finish(request, error("无法保存到下载目录，请检查可用空间后重试")) }
+                finish(request, mapOf("status" to "success", "fileName" to actual, "location" to "downloads"))
+            } catch (_: Exception) { finish(request, error("fileSaveFailed")) }
         }
     }
     private fun mediaEntry(proposed: String): DownloadEntry {
@@ -194,7 +194,8 @@ class PlanFilesBridge(private val activity: Activity, messenger: BinaryMessenger
         while (exists(numberedName(name, index))) index++
         return numberedName(name, index)
     }
-    private fun error(message: String) = mapOf("status" to "error", "message" to message)
+    private class FileFailure(val code: String) : IllegalArgumentException(code)
+    private fun error(code: String) = mapOf("status" to "error", "code" to code)
     private fun finish(request: Request, value: Map<String, Any>) {
         main.post {
             if (request.completed.compareAndSet(false, true)) {

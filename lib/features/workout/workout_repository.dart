@@ -1,3 +1,5 @@
+import 'workout_failure.dart';
+
 import 'dart:math' as math;
 
 import 'package:sqflite/sqflite.dart';
@@ -96,7 +98,7 @@ class WorkoutRepository {
         limit: 1,
       );
       if (active.isNotEmpty) {
-        throw StateError('An unfinished workout already exists');
+        throw WorkoutStateException(WorkoutFailure.activeExists);
       }
       final plans = await txn.query(
         'plans',
@@ -104,7 +106,9 @@ class WorkoutRepository {
         whereArgs: [planId],
         limit: 1,
       );
-      if (plans.isEmpty) throw StateError('Plan not found');
+      if (plans.isEmpty) {
+        throw WorkoutStateException(WorkoutFailure.planNotFound);
+      }
       final configured = await txn.query(
         'plan_exercises',
         where: 'plan_id = ?',
@@ -112,7 +116,7 @@ class WorkoutRepository {
         orderBy: 'sort_order ASC',
       );
       if (configured.isEmpty) {
-        throw StateError('Add an exercise before starting');
+        throw WorkoutStateException(WorkoutFailure.emptyPlan);
       }
       final now = clock();
       final local = now.toLocal();
@@ -173,11 +177,11 @@ class WorkoutRepository {
     await db.transaction((txn) async {
       final session = await _activeRow(txn, sessionId);
       if (session['rest_end_at'] != null) {
-        throw StateError('Rest is still active');
+        throw WorkoutStateException(WorkoutFailure.restActive);
       }
       if (session['current_session_exercise_id'] != expectedExerciseId ||
           session['current_set_number'] != expectedSetNumber) {
-        throw StateError('Workout position has changed');
+        throw WorkoutStateException(WorkoutFailure.positionChanged);
       }
       final exercise = (await txn.query(
         'session_exercises',
@@ -203,7 +207,9 @@ class WorkoutRepository {
         where: 'session_exercise_id = ? AND set_number = ? AND completed_at IS NULL',
         whereArgs: [expectedExerciseId, expectedSetNumber],
       );
-      if (changed != 1) throw StateError('Set already completed');
+      if (changed != 1) {
+        throw WorkoutStateException(WorkoutFailure.setAlreadyCompleted);
+      }
       final pending = await _pendingSets(txn, sessionId);
       final same = pending
           .where((row) => row['exercise_id'] == expectedExerciseId)
@@ -246,7 +252,7 @@ class WorkoutRepository {
       await _activeRow(txn, sessionId);
       final data = (await _readSession(txn, sessionId))!;
       if (data.reorderToken != expectedToken) {
-        throw StateError('训练状态已变化，请重新加载后排序');
+        throw WorkoutStateException(WorkoutFailure.workoutChanged);
       }
       final candidates = data.movableExercises;
       final existing = candidates.map((e) => e.id).toSet();
@@ -254,7 +260,7 @@ class WorkoutRepository {
           orderedIds.length != existing.length ||
           orderedIds.toSet().length != existing.length ||
           !orderedIds.toSet().containsAll(existing)) {
-        throw ArgumentError('排序必须包含所有待练动作各一次，不能移动已记录组的动作');
+        throw WorkoutValidationException(WorkoutFailure.invalidOrder);
       }
       final slots = candidates.map((e) => e.sortOrder).toList();
       for (var i = 0; i < orderedIds.length; i++) {
@@ -311,7 +317,7 @@ class WorkoutRepository {
       ''',
         [sessionId],
       );
-      if (rows.isEmpty) throw StateError('No completed set to undo');
+      if (rows.isEmpty) throw WorkoutStateException(WorkoutFailure.noSetToUndo);
       final last = rows.first;
       await txn.update(
         'session_sets',
@@ -338,12 +344,12 @@ class WorkoutRepository {
 
   Future<WorkoutSessionData> adjustRest(int sessionId, int deltaSeconds) async {
     if (deltaSeconds % 30 != 0) {
-      throw ArgumentError('Rest adjustment must use 30 seconds');
+      throw WorkoutValidationException(WorkoutFailure.invalidConfiguration);
     }
     await db.transaction((txn) async {
       final row = await _activeRow(txn, sessionId);
       final end = row['rest_end_at'] as int?;
-      if (end == null) throw StateError('No active rest');
+      if (end == null) throw WorkoutStateException(WorkoutFailure.noRest);
       final updated = end + deltaSeconds * 1000;
       if (updated <= _nowMs) {
         await _clearRest(txn, sessionId);
@@ -362,7 +368,9 @@ class WorkoutRepository {
   Future<WorkoutSessionData> skipRest(int sessionId) async {
     await db.transaction((txn) async {
       final row = await _activeRow(txn, sessionId);
-      if (row['rest_end_at'] == null) throw StateError('No active rest');
+      if (row['rest_end_at'] == null) {
+        throw WorkoutStateException(WorkoutFailure.noRest);
+      }
       await _clearRest(txn, sessionId);
     });
     return (await getSession(sessionId))!;
@@ -395,7 +403,7 @@ class WorkoutRepository {
         restAfterExerciseSeconds < 0 ||
         restBetweenSetsSeconds % 30 != 0 ||
         restAfterExerciseSeconds % 30 != 0) {
-      throw ArgumentError('Invalid set or rest value');
+      throw WorkoutValidationException(WorkoutFailure.invalidConfiguration);
     }
     await db.transaction((txn) async {
       await _activeRow(txn, sessionId);
@@ -405,7 +413,9 @@ class WorkoutRepository {
         whereArgs: [exerciseId, sessionId],
         limit: 1,
       );
-      if (rows.isEmpty) throw StateError('Exercise not found');
+      if (rows.isEmpty) {
+        throw WorkoutStateException(WorkoutFailure.exerciseNotFound);
+      }
       final exercise = rows.first;
       final countRows = await txn.rawQuery(
         '''
@@ -416,10 +426,10 @@ class WorkoutRepository {
       );
       final completed = countRows.first['count'] as int;
       if (completed == exercise['target_sets']) {
-        throw StateError('Completed exercise cannot be changed');
+        throw WorkoutStateException(WorkoutFailure.completedExercise);
       }
       if (targetSets < completed) {
-        throw ArgumentError('Target cannot be smaller than completed sets');
+        throw WorkoutValidationException(WorkoutFailure.targetBelowCompleted);
       }
       final oldTarget = exercise['target_sets'] as int;
       if (targetSets > oldTarget) {
@@ -463,7 +473,7 @@ class WorkoutRepository {
         [sessionId],
       );
       if ((completed.first['count'] as int) == 0) {
-        throw StateError('An empty workout cannot be saved');
+        throw WorkoutStateException(WorkoutFailure.emptyWorkout);
       }
       final now = _nowMs;
       final duration = math.max(0, (now - (row['started_at'] as int)) ~/ 1000);
@@ -542,7 +552,7 @@ class WorkoutRepository {
       limit: 1,
     );
     if (rows.isEmpty || rows.first['status'] != 'in_progress') {
-      throw StateError('Active workout not found');
+      throw WorkoutStateException(WorkoutFailure.activeNotFound);
     }
     return rows.first;
   }

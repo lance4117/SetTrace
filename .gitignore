@@ -24,4 +24,5 @@ __pycache__/
 .dart_tool/
 .flutter-plugins-dependencies
 build/
+lib/l10n/generated/
 **/flutter/ephemeral/

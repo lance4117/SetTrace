@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../../l10n/localization.dart';
+import '../../l10n/error_messages.dart';
+
 import '../../app/theme/app_theme.dart';
 import '../../core/widgets/app_button.dart';
 import '../../core/widgets/app_card.dart';
@@ -7,9 +10,6 @@ import 'plan_models.dart';
 import 'plan_repository.dart';
 import 'plan_transfer.dart';
 import 'plan_transfer_platform.dart';
-
-String transferError(Object error, String fallback) =>
-    error is PlanTransferException ? error.message : fallback;
 
 class PlanExportPage extends StatefulWidget {
   const PlanExportPage({
@@ -27,7 +27,7 @@ class _PlanExportPageState extends State<PlanExportPage> {
   List<WorkoutPlan> items = [];
   Set<int> selected = {};
   bool loading = true, busy = false, successful = false;
-  String? message;
+  LocalizedMessage? message;
   @override
   void initState() {
     super.initState();
@@ -48,7 +48,7 @@ class _PlanExportPageState extends State<PlanExportPage> {
       if (mounted) {
         setState(() {
           loading = false;
-          message = '无法加载计划，请返回后重试';
+          message = (l) => l.plansLoadFailed;
         });
       }
     }
@@ -63,16 +63,16 @@ class _PlanExportPageState extends State<PlanExportPage> {
     });
     try {
       final plans = await widget.plans.exportPlans(Set.of(selected));
-      final text = const PlanTransferCodec().encode(
+      final text = PlanTransferCodec().encode(
         PlanTransferDocument(plans, exportedAt: DateTime.now().toUtc()),
       );
-      final String result;
+      final LocalizedMessage result;
       if (file) {
         final saved = await widget.platform.saveFile(text);
-        result = '已保存到下载目录：${saved.fileName}';
+        result = (l) => l.fileSaved(saved.fileName);
       } else {
         await widget.platform.copyText(text);
-        result = '已复制 ${plans.length} 个计划';
+        result = (l) => l.copySuccess(plans.length);
       }
       if (mounted) {
         setState(() {
@@ -81,7 +81,12 @@ class _PlanExportPageState extends State<PlanExportPage> {
         });
       }
     } catch (error) {
-      if (mounted) setState(() => message = transferError(error, '导出失败，请重试'));
+      if (mounted) {
+        setState(
+          () =>
+              message = (l) => failureText(l, error, fallback: l.exportFailed),
+        );
+      }
     } finally {
       if (mounted) setState(() => busy = false);
     }
@@ -92,87 +97,86 @@ class _PlanExportPageState extends State<PlanExportPage> {
     canPop: !busy,
     child: Scaffold(
       appBar: AppBar(
-        title: const Text('导出计划'),
+        title: Text(context.l10n.exportPlans),
         automaticallyImplyLeading: !busy,
       ),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(24, 8, 24, 16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          padding: EdgeInsets.fromLTRB(24, 8, 24, 16),
+          child: ListView(
             children: [
               Text(
-                '训练计划备份包含计划及动作配置，不包含训练记录。',
+                context.l10n.exportNote,
                 style: TextStyle(color: context.appColors.textSecondary),
               ),
-              const SizedBox(height: 8),
+              SizedBox(height: 8),
               Wrap(
                 spacing: 12,
                 crossAxisAlignment: WrapCrossAlignment.center,
                 children: [
-                  Text('已选 ${selected.length} 个计划'),
+                  Text(context.l10n.selectedPlans(selected.length)),
                   TextButton(
-                    style: TextButton.styleFrom(
-                      minimumSize: const Size(48, 48),
-                    ),
+                    style: TextButton.styleFrom(minimumSize: Size(48, 48)),
                     onPressed: busy || loading
                         ? null
                         : () => setState(
                             () => selected = items.map((p) => p.id).toSet(),
                           ),
-                    child: const Text('全选'),
+                    child: Text(context.l10n.selectAll),
                   ),
                   TextButton(
-                    style: TextButton.styleFrom(
-                      minimumSize: const Size(48, 48),
-                    ),
+                    style: TextButton.styleFrom(minimumSize: Size(48, 48)),
                     onPressed: busy || loading
                         ? null
                         : () => setState(() => selected = {}),
-                    child: const Text('取消全选'),
+                    child: Text(context.l10n.deselectAll),
                   ),
                 ],
               ),
-              Expanded(
-                child: loading
-                    ? const Center(child: CircularProgressIndicator())
-                    : items.isEmpty
-                    ? const Center(child: Text('没有可导出的计划'))
-                    : ListView(
-                        children: [
-                          for (final plan in items)
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 10),
-                              child: AppCard(
-                                padding: EdgeInsets.zero,
-                                child: CheckboxListTile(
-                                  value: selected.contains(plan.id),
-                                  controlAffinity:
-                                      ListTileControlAffinity.leading,
-                                  onChanged: busy
-                                      ? null
-                                      : (value) => setState(() {
-                                          if (value == true) {
-                                            selected.add(plan.id);
-                                          } else {
-                                            selected.remove(plan.id);
-                                          }
-                                        }),
-                                  title: Text(plan.name),
-                                  subtitle: Text(
-                                    '${plan.exercises.length} 个动作 · ${plan.totalSets} 组',
+
+              loading
+                  ? Center(child: CircularProgressIndicator())
+                  : items.isEmpty
+                  ? Center(child: Text(context.l10n.noExportPlans))
+                  : ListView(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      children: [
+                        for (final plan in items)
+                          Padding(
+                            padding: EdgeInsets.only(bottom: 10),
+                            child: AppCard(
+                              padding: EdgeInsets.zero,
+                              child: CheckboxListTile(
+                                value: selected.contains(plan.id),
+                                controlAffinity:
+                                    ListTileControlAffinity.leading,
+                                onChanged: busy
+                                    ? null
+                                    : (value) => setState(() {
+                                        if (value == true) {
+                                          selected.add(plan.id);
+                                        } else {
+                                          selected.remove(plan.id);
+                                        }
+                                      }),
+                                title: Text(plan.name),
+                                subtitle: Text(
+                                  context.l10n.exerciseSummary(
+                                    plan.exercises.length,
+                                    plan.totalSets,
                                   ),
                                 ),
                               ),
                             ),
-                        ],
-                      ),
-              ),
+                          ),
+                      ],
+                    ),
               if (message != null)
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8),
+                  padding: EdgeInsets.symmetric(vertical: 8),
                   child: Text(
-                    message!,
+                    message!(context.l10n),
                     style: TextStyle(
                       color: successful
                           ? context.appColors.accent
@@ -181,20 +185,20 @@ class _PlanExportPageState extends State<PlanExportPage> {
                   ),
                 ),
               if (busy)
-                const Padding(
+                Padding(
                   padding: EdgeInsets.only(bottom: 12),
                   child: LinearProgressIndicator(),
                 ),
               AppButton(
-                label: '复制到剪贴板',
+                label: context.l10n.copyClipboard,
                 primary: false,
                 onPressed: busy || selected.isEmpty
                     ? null
                     : () => output(false),
               ),
-              const SizedBox(height: 12),
+              SizedBox(height: 12),
               AppButton(
-                label: '导出到文件',
+                label: context.l10n.exportFile,
                 onPressed: busy || selected.isEmpty ? null : () => output(true),
               ),
             ],
@@ -222,7 +226,8 @@ class _PlanImportPageState extends State<PlanImportPage> {
   List<TransferPlan>? preview;
   List<TextEditingController> names = [];
   bool busy = false;
-  String? message;
+  ImportSuffix? previewSuffix;
+  LocalizedMessage? message;
   @override
   void dispose() {
     input.dispose();
@@ -241,8 +246,12 @@ class _PlanImportPageState extends State<PlanImportPage> {
   }
 
   Future<void> prepare(String text) async {
-    final parsed = const PlanTransferCodec().decode(text);
-    final resolved = await widget.plans.previewImport(parsed.plans);
+    final parsed = PlanTransferCodec().decode(text);
+    previewSuffix = context.l10n.importSuffix;
+    final resolved = await widget.plans.previewImport(
+      parsed.plans,
+      suffixFor: previewSuffix!,
+    );
     if (mounted) showPreview(resolved);
   }
 
@@ -255,7 +264,12 @@ class _PlanImportPageState extends State<PlanImportPage> {
     try {
       await action();
     } catch (error) {
-      if (mounted) setState(() => message = transferError(error, '导入失败，请重试'));
+      if (mounted) {
+        setState(
+          () =>
+              message = (l) => failureText(l, error, fallback: l.importFailed),
+        );
+      }
     } finally {
       if (mounted) setState(() => busy = false);
     }
@@ -264,7 +278,7 @@ class _PlanImportPageState extends State<PlanImportPage> {
   Future<void> paste() => perform(() async {
     final text = await widget.platform.readClipboard();
     if (text == null || text.trim().isEmpty) {
-      throw const PlanTransferException('剪贴板没有计划文本，请手动粘贴或选择文件');
+      throw PlanTransferException(PlanTransferFailure.clipboardEmpty);
     }
     PlanTransferCodec.checkSize(text);
     if (mounted) input.text = text;
@@ -278,22 +292,28 @@ class _PlanImportPageState extends State<PlanImportPage> {
       for (var i = 0; i < preview!.length; i++)
         preview![i].withName(names[i].text),
     ];
-    const PlanTransferCodec().validatePlans(edited);
-    final resolved = await widget.plans.previewImport(edited);
+    PlanTransferCodec().validatePlans(edited);
+    final resolved = await widget.plans.previewImport(
+      edited,
+      suffixFor: previewSuffix!,
+    );
     if (!mounted) return;
     if (Iterable<int>.generate(edited.length)
         .any((i) => edited[i].name != resolved[i].name)) {
       showPreview(resolved);
-      setState(() => message = '名称存在冲突，已调整为副本名称，请检查后再次确认');
+      setState(() => message = (l) => l.nameConflict);
       return;
     }
     try {
-      final ids = await widget.plans.importPlans(edited);
+      final ids = await widget.plans.importPlans(
+        edited,
+        suffixFor: previewSuffix!,
+      );
       if (mounted) Navigator.pop(context, ids.length);
     } on ImportNameConflict catch (conflict) {
       if (mounted) {
         showPreview(conflict.plans);
-        setState(() => message = '名称已被占用，已更新预览，请再次确认');
+        setState(() => message = (l) => l.nameTaken);
       }
     }
   });
@@ -315,144 +335,175 @@ class _PlanImportPageState extends State<PlanImportPage> {
       canPop: !busy,
       child: Scaffold(
         appBar: AppBar(
-          title: Text(current == null ? '导入计划' : '导入预览'),
+          title: Text(
+            current == null
+                ? context.l10n.importPlans
+                : context.l10n.importPreview,
+          ),
           automaticallyImplyLeading: !busy,
           actions: [
             TextButton(
-              style: TextButton.styleFrom(minimumSize: const Size(48, 48)),
+              style: TextButton.styleFrom(minimumSize: Size(48, 48)),
               onPressed: busy ? null : () => Navigator.pop(context),
-              child: const Text('取消'),
+              child: Text(context.l10n.cancel),
             ),
           ],
         ),
         body: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(24, 8, 24, 16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            padding: EdgeInsets.fromLTRB(24, 8, 24, 16),
+            child: ListView(
               children: [
-                Expanded(
-                  child: current == null
-                      ? ListView(
-                          children: [
-                            const Text('粘贴别人分享的计划文本，或选择本地计划文件。'),
-                            const SizedBox(height: 16),
-                            TextField(
-                              key: const ValueKey('plan-import-text'),
-                              controller: input,
-                              minLines: 6,
-                              maxLines: 10,
-                              enabled: !busy,
-                              decoration: const InputDecoration(
-                                hintText: '在这里粘贴计划文本',
-                                border: OutlineInputBorder(),
-                              ),
+                current == null
+                    ? ListView(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        children: [
+                          Text(context.l10n.importHint),
+                          SizedBox(height: 16),
+                          TextField(
+                            key: ValueKey('plan-import-text'),
+                            controller: input,
+                            minLines: 6,
+                            maxLines: 10,
+                            enabled: !busy,
+                            decoration: InputDecoration(
+                              hintText: context.l10n.importTextHint,
+                              border: OutlineInputBorder(),
                             ),
-                            Align(
-                              alignment: Alignment.centerRight,
-                              child: TextButton(
-                                style: TextButton.styleFrom(
-                                  minimumSize: const Size(48, 48),
-                                ),
-                                onPressed: busy ? null : paste,
-                                child: const Text('粘贴'),
+                          ),
+                          Align(
+                            alignment: Alignment.centerRight,
+                            child: TextButton(
+                              style: TextButton.styleFrom(
+                                minimumSize: Size(48, 48),
                               ),
+                              onPressed: busy ? null : paste,
+                              child: Text(context.l10n.paste),
                             ),
-                          ],
-                        )
-                      : ListView(
-                          children: [
-                            Text('将新增 ${current.length} 个计划，同名计划创建副本。'),
-                            const SizedBox(height: 12),
-                            for (var i = 0; i < current.length; i++)
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: 12),
-                                child: AppCard(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      TextField(
-                                        key: ValueKey('import-name-$i'),
-                                        controller: names[i],
-                                        maxLength: 40,
-                                        enabled: !busy,
-                                        decoration: const InputDecoration(
-                                          labelText: '计划名称',
-                                        ),
+                          ),
+                        ],
+                      )
+                    : ListView(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        children: [
+                          Text(context.l10n.importPreviewNote(current.length)),
+                          SizedBox(height: 12),
+                          for (var i = 0; i < current.length; i++)
+                            Padding(
+                              padding: EdgeInsets.only(bottom: 12),
+                              child: AppCard(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    TextField(
+                                      key: ValueKey('import-name-$i'),
+                                      controller: names[i],
+                                      maxLength: 40,
+                                      enabled: !busy,
+                                      decoration: InputDecoration(
+                                        labelText: context.l10n.planName,
                                       ),
-                                      Text(
-                                        '${current[i].exercises.length} 个动作 · ${current[i].totalSets} 组',
+                                    ),
+                                    Text(
+                                      context.l10n.exerciseSummary(
+                                        current[i].exercises.length,
+                                        current[i].totalSets,
                                       ),
-                                      if (current[i].exercises.isEmpty)
-                                        const Padding(
-                                          padding: EdgeInsets.only(top: 8),
-                                          child: Text('空计划，添加动作后可开始训练'),
+                                    ),
+                                    if (current[i].exercises.isEmpty)
+                                      Padding(
+                                        padding: EdgeInsets.only(top: 8),
+                                        child: Text(context.l10n.emptyPlanNote),
+                                      ),
+                                    if (current[i].exercises.isNotEmpty)
+                                      ExpansionTile(
+                                        tilePadding: EdgeInsets.zero,
+                                        title: Text(
+                                          context.l10n.viewExerciseConfig,
                                         ),
-                                      if (current[i].exercises.isNotEmpty)
-                                        ExpansionTile(
-                                          tilePadding: EdgeInsets.zero,
-                                          title: const Text('查看动作配置'),
-                                          children: [
-                                            for (
-                                              var j = 0;
-                                              j < current[i].exercises.length;
-                                              j++
-                                            )
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                  bottom: 12,
-                                                ),
-                                                child: SizedBox(
-                                                  width: double.infinity,
-                                                  child: Text(
-                                                    '${j + 1}. ${current[i].exercises[j].name}\n${current[i].exercises[j].targetSets} 组 · 组间休息 ${current[i].exercises[j].restBetweenSetsSeconds} 秒\n动作后休息 ${current[i].exercises[j].restAfterExerciseSeconds} 秒 · 重量 ${current[i].exercises[j].defaultWeightKg == null ? '未设置' : '${current[i].exercises[j].defaultWeightKg} kg'}',
+                                        children: [
+                                          for (
+                                            var j = 0;
+                                            j < current[i].exercises.length;
+                                            j++
+                                          )
+                                            Padding(
+                                              padding: EdgeInsets.only(
+                                                bottom: 12,
+                                              ),
+                                              child: SizedBox(
+                                                width: double.infinity,
+                                                child: Text(
+                                                  context.l10n.transferExerciseDetails(
+                                                    j + 1,
+                                                    current[i]
+                                                        .exercises[j]
+                                                        .name,
+                                                    current[i]
+                                                        .exercises[j]
+                                                        .targetSets,
+                                                    current[i]
+                                                        .exercises[j]
+                                                        .restBetweenSetsSeconds,
+                                                    current[i]
+                                                        .exercises[j]
+                                                        .restAfterExerciseSeconds,
+                                                    context.formats.weightLabel(
+                                                      current[i]
+                                                          .exercises[j]
+                                                          .defaultWeightKg,
+                                                    ),
                                                   ),
                                                 ),
                                               ),
-                                          ],
-                                        ),
-                                    ],
-                                  ),
+                                            ),
+                                        ],
+                                      ),
+                                  ],
                                 ),
                               ),
-                          ],
-                        ),
-                ),
+                            ),
+                        ],
+                      ),
                 if (message != null)
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    padding: EdgeInsets.symmetric(vertical: 8),
                     child: Text(
-                      message!,
+                      message!(context.l10n),
                       style: TextStyle(color: context.appColors.danger),
                     ),
                   ),
                 if (busy)
-                  const Padding(
+                  Padding(
                     padding: EdgeInsets.only(bottom: 12),
                     child: LinearProgressIndicator(),
                   ),
                 if (current == null) ...[
                   AppButton(
-                    label: '从文件选择',
+                    label: context.l10n.chooseFile,
                     primary: false,
                     onPressed: busy ? null : pick,
                   ),
-                  const SizedBox(height: 12),
+                  SizedBox(height: 12),
                   AppButton(
-                    label: '预览计划',
+                    label: context.l10n.previewPlans,
                     onPressed: busy
                         ? null
                         : () => perform(() => prepare(input.text)),
                   ),
                 ] else ...[
                   AppButton(
-                    label: '重新选择',
+                    label: context.l10n.chooseAgain,
                     primary: false,
                     onPressed: busy ? null : reset,
                   ),
-                  const SizedBox(height: 12),
-                  AppButton(label: '确认导入', onPressed: busy ? null : confirm),
+                  SizedBox(height: 12),
+                  AppButton(
+                    label: context.l10n.confirmImport,
+                    onPressed: busy ? null : confirm,
+                  ),
                 ],
               ],
             ),

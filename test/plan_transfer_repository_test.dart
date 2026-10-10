@@ -1,3 +1,6 @@
+import 'package:settrace/l10n/generated/app_localizations_en.dart';
+import 'package:settrace/l10n/generated/app_localizations_zh.dart';
+
 import 'dart:convert';
 import 'dart:io';
 
@@ -84,9 +87,13 @@ void main() {
     final originalRows = await table('plan_exercises');
     final preview = await repo.previewImport(
       await repo.exportPlans({original}),
+      suffixFor: AppLocalizationsZh().importSuffix,
     );
     expect(preview.single.name, '练背（导入）');
-    final ids = await repo.importPlans(preview);
+    final ids = await repo.importPlans(
+      preview,
+      suffixFor: AppLocalizationsZh().importSuffix,
+    );
     expect(ids.single, isNot(original));
     expect(
       await table('plan_exercises'),
@@ -119,11 +126,14 @@ void main() {
     'new collision after preview saves nothing and returns a new preview',
     () async {
       final plans = [TransferPlan(name: '练腿', exercises: [])];
-      final preview = await repo.previewImport(plans);
+      final preview = await repo.previewImport(
+        plans,
+        suffixFor: AppLocalizationsZh().importSuffix,
+      );
       await repo.createPlan('练腿');
       final before = await table('plans');
       await expectLater(
-        repo.importPlans(preview),
+        repo.importPlans(preview, suffixFor: AppLocalizationsZh().importSuffix),
         throwsA(
           isA<ImportNameConflict>().having(
             (e) => e.plans.single.name,
@@ -159,7 +169,7 @@ void main() {
         ),
       ];
       await expectLater(
-        repo.importPlans(plans),
+        repo.importPlans(plans, suffixFor: AppLocalizationsZh().importSuffix),
         throwsA(isA<DatabaseException>()),
       );
       expect(await table('plans'), plansBefore);
@@ -194,13 +204,54 @@ void main() {
         throwsA(isA<PlanTransferException>()),
       );
       final parsed = codec.decode(source);
-      final preview = await repo.previewImport(parsed.plans);
-      final ids = await repo.importPlans(preview);
+      final preview = await repo.previewImport(
+        parsed.plans,
+        suffixFor: AppLocalizationsZh().importSuffix,
+      );
+      final ids = await repo.importPlans(
+        preview,
+        suffixFor: AppLocalizationsZh().importSuffix,
+      );
       final restored = (await repo.getPlan(ids.single))!;
       expect(restored.name, '大计划');
       expect(restored.exercises, hasLength(14000));
       expect(restored.exercises.last.sortOrder, 14000);
       expect(restored.exercises.last.restBetweenSetsSeconds, 0);
+    },
+  );
+  test(
+    'English suffix is pinned for preview and transaction conflict review',
+    () async {
+      final original = await seed();
+      final suffix = AppLocalizationsEn().importSuffix;
+      final source = await repo.exportPlans({original});
+      final preview = await repo.previewImport([
+        ...source,
+        ...source,
+      ], suffixFor: suffix);
+      expect(preview.map((p) => p.name), ['练背 (imported)', '练背 (imported 2)']);
+      await repo.createPlan(
+        preview.first.name,
+      ); // A new conflict after preview.
+      final before = await table('plans');
+      List<TransferPlan>? updated;
+      try {
+        await repo.importPlans(preview, suffixFor: suffix);
+        fail('Conflict must return to preview instead of saving silently');
+      } on ImportNameConflict catch (error) {
+        updated = error.plans;
+      }
+      expect(await table('plans'), before);
+      expect(updated.first.name, '练背 (imported) (imported)');
+      final ids = await repo.importPlans(updated, suffixFor: suffix);
+      expect((await repo.getPlan(ids.first))!.name, updated.first.name);
+      expect((await repo.getPlan(original))!.name, '练背');
+      final restored = const PlanTransferCodec().decode(
+        const PlanTransferCodec().encode(
+          PlanTransferDocument(await repo.exportPlans({ids.first})),
+        ),
+      );
+      expect(restored.plans.single.exercises.last.defaultWeightKg, 45.5);
     },
   );
 }

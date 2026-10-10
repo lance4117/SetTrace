@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 
+import '../../l10n/localization.dart';
+import '../../l10n/error_messages.dart';
+
 import '../../app/theme/app_theme.dart';
 import '../../core/widgets/app_button.dart';
 import 'workout_models.dart';
+import 'workout_failure.dart';
 
 class SessionOrderSheet extends StatefulWidget {
   const SessionOrderSheet({
@@ -25,7 +29,7 @@ class _SessionOrderSheetState extends State<SessionOrderSheet> {
   late WorkoutSessionData baseline = widget.session;
   late List<SessionExercise> draft = [...baseline.exercises];
   bool saving = false;
-  String? error;
+  LocalizedMessage? error;
 
   List<int> get candidateIds =>
       draft.where((e) => e.movable).map((e) => e.id).toList();
@@ -66,7 +70,7 @@ class _SessionOrderSheetState extends State<SessionOrderSheet> {
     } catch (failure) {
       if (mounted) {
         setState(() {
-          error = '保存失败：$failure';
+          error = (l) => failureText(l, failure, fallback: l.saveFailed);
         });
       }
     } finally {
@@ -82,7 +86,9 @@ class _SessionOrderSheetState extends State<SessionOrderSheet> {
     });
     try {
       final data = await widget.onReload();
-      if (data == null || !data.inProgress) throw StateError('本次训练已结束');
+      if (data == null || !data.inProgress) {
+        throw WorkoutStateException(WorkoutFailure.sessionEnded);
+      }
       if (mounted) {
         setState(() {
           baseline = data;
@@ -92,7 +98,7 @@ class _SessionOrderSheetState extends State<SessionOrderSheet> {
     } catch (failure) {
       if (mounted) {
         setState(() {
-          error = '重新加载失败：$failure';
+          error = (l) => failureText(l, failure, fallback: l.loadFailed);
         });
       }
     } finally {
@@ -110,27 +116,26 @@ class _SessionOrderSheetState extends State<SessionOrderSheet> {
         child: SizedBox(
           height: MediaQuery.sizeOf(context).height * 0.8,
           child: Padding(
-            padding: const EdgeInsets.all(24),
+            padding: EdgeInsets.all(24),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  widget.selectNext ? '更换下一动作' : '调整剩余顺序',
-                  style: const TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.w700,
-                  ),
+                  widget.selectNext
+                      ? context.l10n.changeNext
+                      : context.l10n.reorderRemaining,
+                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
                 ),
-                const SizedBox(height: 8),
+                SizedBox(height: 8),
                 Text(
                   widget.selectNext
                       ? baseline.currentExercise.movable
-                            ? '替换当前待练动作，不记录额外完成组。'
-                            : '当前动作做完后练；当前组数和休息保持。'
-                      : '拖动待练动作；已记录组的动作固定。只影响本次训练。',
+                            ? context.l10n.replaceCurrentNote
+                            : context.l10n.chooseFollowingNote
+                      : context.l10n.reorderSessionNote,
                   style: TextStyle(color: colors.textSecondary),
                 ),
-                const SizedBox(height: 12),
+                SizedBox(height: 12),
                 Expanded(
                   child: widget.selectNext
                       ? ListView(
@@ -139,8 +144,10 @@ class _SessionOrderSheetState extends State<SessionOrderSheet> {
                               ListTile(
                                 key: ValueKey('select-next-${exercise.id}'),
                                 title: Text(exercise.name),
-                                subtitle: Text('${exercise.targetSets} 组 · 待练'),
-                                trailing: const Icon(Icons.chevron_right),
+                                subtitle: Text(
+                                  context.l10n.pendingSets(exercise.targetSets),
+                                ),
+                                trailing: Icon(Icons.chevron_right),
                                 onTap: saving || !baseline.canReorder
                                     ? null
                                     : () {
@@ -151,9 +158,9 @@ class _SessionOrderSheetState extends State<SessionOrderSheet> {
                                       },
                               ),
                             if (!baseline.canReorder)
-                              const Padding(
+                              Padding(
                                 padding: EdgeInsets.all(16),
-                                child: Text('没有其他可换序的待练动作'),
+                                child: Text(context.l10n.noReorderCandidates),
                               ),
                           ],
                         )
@@ -164,15 +171,19 @@ class _SessionOrderSheetState extends State<SessionOrderSheet> {
                           itemBuilder: (context, index) {
                             final exercise = draft[index];
                             final state = exercise.completed
-                                ? '已完成'
+                                ? context.l10n.completed
                                 : exercise.movable
-                                ? '待练'
-                                : '进行中';
+                                ? context.l10n.pending
+                                : context.l10n.inProgress;
                             return ListTile(
                               key: ValueKey('order-row-${exercise.id}'),
                               title: Text(exercise.name),
                               subtitle: Text(
-                                '$state · ${exercise.completedSets} / ${exercise.targetSets} 组',
+                                context.l10n.orderProgress(
+                                  state,
+                                  exercise.completedSets,
+                                  exercise.targetSets,
+                                ),
                               ),
                               trailing:
                                   exercise.movable &&
@@ -182,15 +193,17 @@ class _SessionOrderSheetState extends State<SessionOrderSheet> {
                                       index: index,
                                       key: ValueKey('drag-${exercise.id}'),
                                       child: Semantics(
-                                        label: '拖动${exercise.name}',
-                                        child: const SizedBox(
+                                        label: context.l10n.dragExercise(
+                                          exercise.name,
+                                        ),
+                                        child: SizedBox(
                                           width: 48,
                                           height: 48,
                                           child: Icon(Icons.drag_handle),
                                         ),
                                       ),
                                     )
-                                  : const SizedBox(
+                                  : SizedBox(
                                       width: 48,
                                       height: 48,
                                       child: Icon(Icons.lock_outline),
@@ -200,28 +213,31 @@ class _SessionOrderSheetState extends State<SessionOrderSheet> {
                         ),
                 ),
                 if (error != null) ...[
-                  Text(error!, style: TextStyle(color: colors.danger)),
+                  Text(
+                    error!(context.l10n),
+                    style: TextStyle(color: colors.danger),
+                  ),
                   TextButton(
                     onPressed: saving ? null : reload,
-                    child: const Text('重新加载'),
+                    child: Text(context.l10n.reload),
                   ),
                 ],
-                if (saving) const LinearProgressIndicator(),
-                const SizedBox(height: 12),
+                if (saving) LinearProgressIndicator(),
+                SizedBox(height: 12),
                 Row(
                   children: [
                     Expanded(
                       child: AppButton(
-                        label: '取消',
+                        label: context.l10n.cancel,
                         primary: false,
                         onPressed: saving ? null : () => Navigator.pop(context),
                       ),
                     ),
                     if (!widget.selectNext) ...[
-                      const SizedBox(width: 8),
+                      SizedBox(width: 8),
                       Expanded(
                         child: AppButton(
-                          label: '保存顺序',
+                          label: context.l10n.saveOrder,
                           onPressed: saving || !baseline.canReorder
                               ? null
                               : () => save(candidateIds),

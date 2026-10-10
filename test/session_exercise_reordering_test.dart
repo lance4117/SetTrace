@@ -1,3 +1,5 @@
+import 'package:settrace/l10n/generated/app_localizations.dart';
+
 import 'dart:async';
 import 'dart:io';
 
@@ -124,6 +126,9 @@ void main() {
   }) async {
     await tester.pumpWidget(
       MaterialApp(
+        locale: const Locale('zh'),
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
         theme: theme ?? AppTheme.light,
         builder: (context, child) => MediaQuery(
           data: MediaQuery.of(context)
@@ -153,6 +158,12 @@ void main() {
   }
 
   Future<void> openFull(WidgetTester tester) async {
+    await tester.scrollUntilVisible(
+      find.text('全部动作与编辑'),
+      -200,
+      scrollable: find.byType(Scrollable).first,
+    );
+    await tester.pumpAndSettle();
     await tester.tap(find.text('全部动作与编辑'));
     await flush(tester);
     await tester.tap(find.text('调整剩余顺序'));
@@ -338,7 +349,7 @@ void main() {
       find.byKey(ValueKey('select-next-${data.exercises[2].id}')),
     );
     await flush(tester);
-    expect(find.textContaining('模拟保存失败'), findsOneWidget);
+    expect(find.textContaining('保存失败，请重试'), findsOneWidget);
     expect(
       (await tester.runAsync(() => workouts.getSession(data.id)))!.reorderToken,
       data.reorderToken,
@@ -392,6 +403,12 @@ void main() {
   testWidgets('existing exercise editor remains accessible', (tester) async {
     final data = await seed(tester);
     await mount(tester, data);
+    await tester.scrollUntilVisible(
+      find.text('全部动作与编辑'),
+      -200,
+      scrollable: find.byType(Scrollable).first,
+    );
+    await tester.pumpAndSettle();
     await tester.tap(find.text('全部动作与编辑'));
     await flush(tester);
     await tester.tap(find.widgetWithText(ListTile, 'B'));
@@ -412,6 +429,12 @@ void main() {
     ))!;
     await mount(tester, data);
     expect(find.text('更换下一动作'), findsNothing);
+    await tester.scrollUntilVisible(
+      find.text('全部动作与编辑'),
+      -200,
+      scrollable: find.byType(Scrollable).first,
+    );
+    await tester.pumpAndSettle();
     await tester.tap(find.text('全部动作与编辑'));
     await flush(tester);
     expect(find.text('调整剩余顺序'), findsNothing);
@@ -446,6 +469,9 @@ void main() {
         data = (await tester.runAsync(() => workouts.finish(data.id)))!;
         await tester.pumpWidget(
           MaterialApp(
+            locale: const Locale('zh'),
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            supportedLocales: AppLocalizations.supportedLocales,
             theme: AppTheme.light,
             home: HistoryDetailPage(session: data, workouts: workouts),
           ),
