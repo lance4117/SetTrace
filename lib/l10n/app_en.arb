@@ -1,0 +1,1367 @@
+{
+  "@@locale": "en",
+  "languageSelfName": "English",
+  "@languageSelfName": {
+    "description": "Application text in lib/l10n/language_settings.dart. Chinese source context: 中文. Translate whole messages; preserve user names."
+  },
+  "settings": "Settings",
+  "@settings": {
+    "description": "Application text in lib/features/settings/settings_page.dart, lib/core/widgets/app_bottom_nav.dart. Chinese source context: 设置. Translate whole messages; preserve user names."
+  },
+  "appearance": "Appearance",
+  "@appearance": {
+    "description": "Application text in lib/features/settings/settings_page.dart. Chinese source context: 外观. Translate whole messages; preserve user names."
+  },
+  "language": "Language",
+  "@language": {
+    "description": "Application text in lib/features/settings/settings_page.dart. Chinese source context: 语言. Translate whole messages; preserve user names."
+  },
+  "systemTheme": "System default",
+  "@systemTheme": {
+    "description": "Application text in lib/features/settings/settings_page.dart. Chinese source context: 跟随系统. Translate whole messages; preserve user names."
+  },
+  "lightTheme": "Light",
+  "@lightTheme": {
+    "description": "Application text in lib/features/settings/settings_page.dart. Chinese source context: 浅色. Translate whole messages; preserve user names."
+  },
+  "darkTheme": "Dark",
+  "@darkTheme": {
+    "description": "Application text in lib/features/settings/settings_page.dart. Chinese source context: 深色. Translate whole messages; preserve user names."
+  },
+  "localDataNote": "Your workout data stays on this device.",
+  "@localDataNote": {
+    "description": "Application text in lib/features/settings/settings_page.dart. Chinese source context: 训练数据仅保存在本机。. Translate whole messages; preserve user names."
+  },
+  "plansTab": "Plans",
+  "@plansTab": {
+    "description": "Application text in lib/core/widgets/app_bottom_nav.dart. Chinese source context: 计划. Translate whole messages; preserve user names."
+  },
+  "historyTab": "History",
+  "@historyTab": {
+    "description": "Application text in lib/core/widgets/app_bottom_nav.dart. Chinese source context: 记录. Translate whole messages; preserve user names."
+  },
+  "cancel": "Cancel",
+  "@cancel": {
+    "description": "Application text in lib/features/history/history_page.dart, lib/features/plans/exercise_editor_page.dart, lib/features/plans/plans_page.dart, lib/features/plans/plan_transfer_pages.dart, lib/features/workout/session_order_sheet.dart, lib/features/workout/workout_page.dart. Chinese source context: 取消. Translate whole messages; preserve user names."
+  },
+  "save": "Save",
+  "@save": {
+    "description": "Application text in lib/features/plans/plans_page.dart. Chinese source context: 保存. Translate whole messages; preserve user names."
+  },
+  "delete": "Delete",
+  "@delete": {
+    "description": "Application text in lib/features/history/history_page.dart, lib/features/plans/exercise_editor_page.dart, lib/features/plans/plans_page.dart, lib/features/plans/plan_repository.dart, lib/features/workout/workout_repository.dart. Chinese source context: 删除. Translate whole messages; preserve user names."
+  },
+  "retry": "Retry",
+  "@retry": {
+    "description": "Application text in lib/l10n/localization.dart. Chinese source context: 重试. Translate whole messages; preserve user names."
+  },
+  "newPlanTitle": "Create a plan",
+  "@newPlanTitle": {
+    "description": "Application text in lib/features/plans/plans_page.dart. Chinese source context: 新建训练计划. Translate whole messages; preserve user names."
+  },
+  "renamePlanTitle": "Rename plan",
+  "@renamePlanTitle": {
+    "description": "Application text in lib/features/plans/plans_page.dart. Chinese source context: 编辑计划名称. Translate whole messages; preserve user names."
+  },
+  "planNameHint": "For example: Back day",
+  "@planNameHint": {
+    "description": "Application text in lib/features/plans/plans_page.dart. Chinese source context: 例如：练背. Translate whole messages; preserve user names."
+  },
+  "plansTitle": "Workout plans",
+  "@plansTitle": {
+    "description": "Application text in lib/features/plans/plans_page.dart. Chinese source context: 训练计划. Translate whole messages; preserve user names."
+  },
+  "newPlan": "＋ New",
+  "@newPlan": {
+    "description": "Application text in lib/features/plans/plans_page.dart. Chinese source context: ＋ 新建. Translate whole messages; preserve user names."
+  },
+  "transferMenu": "Import or export plans",
+  "@transferMenu": {
+    "description": "Application text in lib/features/plans/plans_page.dart. Chinese source context: 计划导入导出. Translate whole messages; preserve user names."
+  },
+  "importPlans": "Import plans",
+  "@importPlans": {
+    "description": "Application text in lib/features/plans/plans_page.dart, lib/features/plans/plan_transfer_pages.dart. Chinese source context: 导入计划. Translate whole messages; preserve user names."
+  },
+  "exportPlans": "Export plans",
+  "@exportPlans": {
+    "description": "Application text in lib/features/plans/plans_page.dart, lib/features/plans/plan_transfer_pages.dart. Chinese source context: 导出计划. Translate whole messages; preserve user names."
+  },
+  "whatToTrain": "What are you training today?",
+  "@whatToTrain": {
+    "description": "Application text in lib/features/plans/plans_page.dart. Chinese source context: 今天练什么？. Translate whole messages; preserve user names."
+  },
+  "resumeWorkout": "Resume workout",
+  "@resumeWorkout": {
+    "description": "Application text in lib/features/plans/plans_page.dart, lib/features/workout/workout_page.dart. Chinese source context: 继续训练. Translate whole messages; preserve user names."
+  },
+  "noPlansYet": "No plans yet. Create your first one.",
+  "@noPlansYet": {
+    "description": "Application text in lib/features/plans/plans_page.dart. Chinese source context: 还没有训练计划，先新建一个吧. Translate whole messages; preserve user names."
+  },
+  "noExercises": "No exercises yet",
+  "@noExercises": {
+    "description": "Application text in lib/features/plans/plans_page.dart. Chinese source context: 还没有动作. Translate whole messages; preserve user names."
+  },
+  "planDetails": "Plan details",
+  "@planDetails": {
+    "description": "Application text in lib/features/plans/plans_page.dart. Chinese source context: 计划详情. Translate whole messages; preserve user names."
+  },
+  "rename": "Rename",
+  "@rename": {
+    "description": "Application text in lib/features/plans/plans_page.dart. Chinese source context: 修改名称. Translate whole messages; preserve user names."
+  },
+  "deletePlan": "Delete plan",
+  "@deletePlan": {
+    "description": "Application text in lib/features/plans/plans_page.dart. Chinese source context: 删除计划. Translate whole messages; preserve user names."
+  },
+  "deletePlanTitle": "Delete this plan?",
+  "@deletePlanTitle": {
+    "description": "Application text in lib/features/plans/plans_page.dart. Chinese source context: 删除这个计划？. Translate whole messages; preserve user names."
+  },
+  "deletePlanNote": "Your saved workouts and current workout will be kept.",
+  "@deletePlanNote": {
+    "description": "Application text in lib/features/plans/plans_page.dart. Chinese source context: 已有训练记录和进行中的训练不会被删除。. Translate whole messages; preserve user names."
+  },
+  "reorderPlanHint": "Drag the handles on the left to reorder exercises.",
+  "@reorderPlanHint": {
+    "description": "Application text in lib/features/plans/plans_page.dart. Chinese source context: 长按左侧把手调整动作顺序. Translate whole messages; preserve user names."
+  },
+  "noExercisesAdd": "No exercises yet. Add one below.",
+  "@noExercisesAdd": {
+    "description": "Application text in lib/features/plans/plans_page.dart. Chinese source context: 还没有动作，点击下方添加. Translate whole messages; preserve user names."
+  },
+  "addExerciseAction": "＋ Add exercise",
+  "@addExerciseAction": {
+    "description": "Application text in lib/features/plans/plans_page.dart. Chinese source context: ＋ 添加动作. Translate whole messages; preserve user names."
+  },
+  "startWorkout": "Start workout",
+  "@startWorkout": {
+    "description": "Application text in lib/features/plans/plans_page.dart. Chinese source context: 开始训练. Translate whole messages; preserve user names."
+  },
+  "activeWorkoutTitle": "A workout is already in progress",
+  "@activeWorkoutTitle": {
+    "description": "Application text in lib/features/plans/plans_page.dart. Chinese source context: 已有未完成训练. Translate whole messages; preserve user names."
+  },
+  "stayHere": "Stay here",
+  "@stayHere": {
+    "description": "Application text in lib/features/plans/plans_page.dart. Chinese source context: 留在此处. Translate whole messages; preserve user names."
+  },
+  "resumeOriginal": "Resume that workout",
+  "@resumeOriginal": {
+    "description": "Application text in lib/features/plans/plans_page.dart. Chinese source context: 继续原训练. Translate whole messages; preserve user names."
+  },
+  "prepareWorkout": "Before you start",
+  "@prepareWorkout": {
+    "description": "Application text in lib/features/plans/plans_page.dart. Chinese source context: 准备训练. Translate whole messages; preserve user names."
+  },
+  "exerciseOrder": "Exercise order",
+  "@exerciseOrder": {
+    "description": "Application text in lib/features/plans/plans_page.dart. Chinese source context: 动作顺序. Translate whole messages; preserve user names."
+  },
+  "exerciseInvalid": "Enter an exercise name. If you enter a weight, use a positive number with one decimal point or comma.",
+  "@exerciseInvalid": {
+    "description": "Exercise editor validation: a name is required; weight may be blank, otherwise finite and positive. Both decimal point and comma are accepted."
+  },
+  "deleteExerciseTitle": "Delete this exercise?",
+  "@deleteExerciseTitle": {
+    "description": "Application text in lib/features/plans/exercise_editor_page.dart. Chinese source context: 删除动作？. Translate whole messages; preserve user names."
+  },
+  "deleteExerciseNote": "This removes the exercise from this plan. Saved workouts will be kept.",
+  "@deleteExerciseNote": {
+    "description": "Application text in lib/features/plans/exercise_editor_page.dart. Chinese source context: 只会从计划中删除，已有训练记录不会改变。. Translate whole messages; preserve user names."
+  },
+  "addExercise": "Add exercise",
+  "@addExercise": {
+    "description": "Application text in lib/features/plans/exercise_editor_page.dart. Chinese source context: 添加动作. Translate whole messages; preserve user names."
+  },
+  "editExercise": "Edit exercise",
+  "@editExercise": {
+    "description": "Application text in lib/features/plans/exercise_editor_page.dart. Chinese source context: 编辑动作. Translate whole messages; preserve user names."
+  },
+  "exerciseName": "Exercise name",
+  "@exerciseName": {
+    "description": "Application text in lib/features/plans/exercise_editor_page.dart. Chinese source context: 动作名称. Translate whole messages; preserve user names."
+  },
+  "exerciseNameHint": "For example: Seated row",
+  "@exerciseNameHint": {
+    "description": "Application text in lib/features/plans/exercise_editor_page.dart. Chinese source context: 例如：坐姿划船. Translate whole messages; preserve user names."
+  },
+  "setsLabel": "Sets",
+  "@setsLabel": {
+    "description": "Application text in lib/l10n/error_messages.dart, lib/features/plans/exercise_editor_page.dart. Chinese source context: 组数. Translate whole messages; preserve user names."
+  },
+  "betweenSets": "Rest between sets",
+  "@betweenSets": {
+    "description": "Rest between sets within one exercise, measured in seconds in storage."
+  },
+  "afterExercise": "Rest after exercise",
+  "@afterExercise": {
+    "description": "Rest after completing an exercise, before starting the next exercise."
+  },
+  "weightLabel": "Weight (optional, kg)",
+  "@weightLabel": {
+    "description": "Application text in lib/features/plans/exercise_editor_page.dart, lib/features/plans/plan_transfer_pages.dart, lib/features/workout/workout_page.dart. Chinese source context: 重量（可选，kg）. Translate whole messages; preserve user names."
+  },
+  "pickerHint": "Swipe to adjust. Each step gives light haptic feedback.",
+  "@pickerHint": {
+    "description": "Application text in lib/features/plans/exercise_editor_page.dart. Chinese source context: 左右滑动切换档位 · 每跨一档轻震反馈. Translate whole messages; preserve user names."
+  },
+  "saveExercise": "Save exercise",
+  "@saveExercise": {
+    "description": "Application text in lib/features/plans/exercise_editor_page.dart. Chinese source context: 保存动作. Translate whole messages; preserve user names."
+  },
+  "finishWorkoutTitle": "Save this workout?",
+  "@finishWorkoutTitle": {
+    "description": "All target sets completed: confirmation before saving this session as history."
+  },
+  "endWorkoutTitle": "End this workout?",
+  "@endWorkoutTitle": {
+    "description": "Application text in lib/features/workout/workout_page.dart. Chinese source context: 结束这次训练？. Translate whole messages; preserve user names."
+  },
+  "emptyWorkoutExit": "You have not completed any sets. Resume the workout or discard it.",
+  "@emptyWorkoutExit": {
+    "description": "No sets completed: offer continuing or discarding; saving is unavailable."
+  },
+  "discard": "Discard",
+  "@discard": {
+    "description": "End-workout action: discard this session and its completed-set records. Saved past workouts are unaffected."
+  },
+  "saveCompleted": "Save completed sets",
+  "@saveCompleted": {
+    "description": "End-workout confirmation: persist completed sets as a history record and end the session; incomplete sets are not marked complete."
+  },
+  "confirmDiscardTitle": "Discard this workout?",
+  "@confirmDiscardTitle": {
+    "description": "Application text in lib/features/workout/workout_page.dart. Chinese source context: 确认丢弃？. Translate whole messages; preserve user names."
+  },
+  "confirmDiscardNote": "Your completed sets in this workout will be permanently deleted.",
+  "@confirmDiscardNote": {
+    "description": "Second confirmation before permanently deleting completed sets in the current session. This does not delete old history."
+  },
+  "confirmDiscard": "Discard workout",
+  "@confirmDiscard": {
+    "description": "Application text in lib/features/workout/workout_page.dart. Chinese source context: 确认丢弃. Translate whole messages; preserve user names."
+  },
+  "sessionExercises": "Exercises in this workout",
+  "@sessionExercises": {
+    "description": "Application text in lib/features/workout/workout_page.dart. Chinese source context: 本次训练动作. Translate whole messages; preserve user names."
+  },
+  "reorderRemaining": "Reorder remaining exercises",
+  "@reorderRemaining": {
+    "description": "Application text in lib/features/workout/session_order_sheet.dart, lib/features/workout/workout_page.dart. Chinese source context: 调整剩余顺序. Translate whole messages; preserve user names."
+  },
+  "workoutInProgress": "Workout in progress",
+  "@workoutInProgress": {
+    "description": "Application text in lib/features/workout/workout_page.dart. Chinese source context: 训练中. Translate whole messages; preserve user names."
+  },
+  "endOrReturn": "End or return to workout",
+  "@endOrReturn": {
+    "description": "Application text in lib/features/workout/workout_page.dart. Chinese source context: 结束或返回. Translate whole messages; preserve user names."
+  },
+  "exitWorkout": "Exit",
+  "@exitWorkout": {
+    "description": "Application text in lib/features/workout/workout_page.dart. Chinese source context: 退出. Translate whole messages; preserve user names."
+  },
+  "allExercisesEdit": "View and edit exercises",
+  "@allExercisesEdit": {
+    "description": "Application text in lib/features/workout/workout_page.dart. Chinese source context: 全部动作与编辑. Translate whole messages; preserve user names."
+  },
+  "undoLastSet": "Undo last set",
+  "@undoLastSet": {
+    "description": "Undo the most recently completed set in the current workout; not plan configuration or older history."
+  },
+  "allSetsCompleted": "All sets completed",
+  "@allSetsCompleted": {
+    "description": "Application text in lib/features/workout/workout_page.dart. Chinese source context: 全部组已完成. Translate whole messages; preserve user names."
+  },
+  "saveWorkout": "Save workout",
+  "@saveWorkout": {
+    "description": "Application text in lib/features/workout/workout_page.dart. Chinese source context: 保存训练. Translate whole messages; preserve user names."
+  },
+  "completeSet": "Complete set",
+  "@completeSet": {
+    "description": "Application text in lib/features/workout/workout_page.dart. Chinese source context: 完成本组. Translate whole messages; preserve user names."
+  },
+  "currentExerciseMovable": "No sets completed for this exercise yet. You can switch to another exercise.",
+  "@currentExerciseMovable": {
+    "description": "Application text in lib/features/workout/workout_page.dart. Chinese source context: 当前动作尚无完成组，可换成其他待练动作。. Translate whole messages; preserve user names."
+  },
+  "currentExerciseFixed": "Finish this exercise first. You can still reorder the exercises that follow.",
+  "@currentExerciseFixed": {
+    "description": "Application text in lib/features/workout/workout_page.dart. Chinese source context: 当前动作继续完成，可安排后续动作。. Translate whole messages; preserve user names."
+  },
+  "changeNext": "Change next exercise",
+  "@changeNext": {
+    "description": "Application text in lib/features/workout/session_order_sheet.dart, lib/features/workout/workout_page.dart. Chinese source context: 更换下一动作. Translate whole messages; preserve user names."
+  },
+  "nextExercise": "Next exercise",
+  "@nextExercise": {
+    "description": "Application text in lib/features/workout/workout_page.dart. Chinese source context: 下一动作. Translate whole messages; preserve user names."
+  },
+  "lastExercise": "This is your last exercise.",
+  "@lastExercise": {
+    "description": "Application text in lib/features/workout/workout_page.dart. Chinese source context: 这是最后一个动作. Translate whole messages; preserve user names."
+  },
+  "betweenExercises": "Rest between exercises",
+  "@betweenExercises": {
+    "description": "Application text in lib/features/workout/workout_page.dart. Chinese source context: 动作间休息. Translate whole messages; preserve user names."
+  },
+  "subtractRest": "−30 sec",
+  "@subtractRest": {
+    "description": "Application text in lib/features/workout/workout_page.dart. Chinese source context: −30 秒. Translate whole messages; preserve user names."
+  },
+  "skip": "Skip",
+  "@skip": {
+    "description": "Application text in lib/l10n/language_settings.dart, lib/features/workout/workout_page.dart. Chinese source context: 跳过. Translate whole messages; preserve user names."
+  },
+  "addRest": "+30 sec",
+  "@addRest": {
+    "description": "Application text in lib/features/workout/workout_page.dart. Chinese source context: +30 秒. Translate whole messages; preserve user names."
+  },
+  "targetSets": "Target sets",
+  "@targetSets": {
+    "description": "Application text in lib/features/history/history_page.dart, lib/features/plans/exercise_editor_page.dart, lib/features/plans/plans_page.dart, lib/features/plans/plan_models.dart, lib/features/plans/plan_repository.dart, lib/features/plans/plan_transfer.dart, lib/features/plans/plan_transfer_pages.dart, lib/features/workout/session_order_sheet.dart, lib/features/workout/workout_models.dart, lib/features/workout/workout_page.dart. Chinese source context: 目标组数. Translate whole messages; preserve user names."
+  },
+  "afterExerciseShort": "Rest after exercise",
+  "@afterExerciseShort": {
+    "description": "Application text in lib/l10n/error_messages.dart, lib/features/workout/workout_page.dart. Chinese source context: 动作后休息. Translate whole messages; preserve user names."
+  },
+  "sessionEditNote": "Changes apply only to this workout. The current rest timer stays unchanged.",
+  "@sessionEditNote": {
+    "description": "This editor changes only the current session. It does not modify the plan or completed sets."
+  },
+  "saveSessionConfig": "Save workout settings",
+  "@saveSessionConfig": {
+    "description": "Application text in lib/features/workout/workout_page.dart. Chinese source context: 保存本次配置. Translate whole messages; preserve user names."
+  },
+  "replaceCurrentNote": "Switch to another exercise without recording any extra sets.",
+  "@replaceCurrentNote": {
+    "description": "Application text in lib/features/workout/session_order_sheet.dart. Chinese source context: 替换当前待练动作，不记录额外完成组。. Translate whole messages; preserve user names."
+  },
+  "chooseFollowingNote": "Choose what comes after this exercise. Current sets and rest stay unchanged.",
+  "@chooseFollowingNote": {
+    "description": "Application text in lib/features/workout/session_order_sheet.dart. Chinese source context: 当前动作做完后练；当前组数和休息保持。. Translate whole messages; preserve user names."
+  },
+  "reorderSessionNote": "Drag unstarted exercises to reorder them. Exercises with completed sets stay in place. Changes apply only to this workout.",
+  "@reorderSessionNote": {
+    "description": "Application text in lib/features/workout/session_order_sheet.dart. Chinese source context: 拖动待练动作；已记录组的动作固定。只影响本次训练。. Translate whole messages; preserve user names."
+  },
+  "noReorderCandidates": "No other unstarted exercises to reorder.",
+  "@noReorderCandidates": {
+    "description": "Application text in lib/features/workout/session_order_sheet.dart. Chinese source context: 没有其他可换序的待练动作. Translate whole messages; preserve user names."
+  },
+  "completed": "Completed",
+  "@completed": {
+    "description": "Application text in lib/features/workout/session_order_sheet.dart, lib/features/workout/workout_models.dart, lib/features/workout/workout_page.dart. Chinese source context: 已完成. Translate whole messages; preserve user names."
+  },
+  "pending": "Not started",
+  "@pending": {
+    "description": "Application text in lib/features/workout/session_order_sheet.dart. Chinese source context: 待练. Translate whole messages; preserve user names."
+  },
+  "inProgress": "In progress",
+  "@inProgress": {
+    "description": "Application text in lib/features/workout/session_order_sheet.dart. Chinese source context: 进行中. Translate whole messages; preserve user names."
+  },
+  "reload": "Reload",
+  "@reload": {
+    "description": "Application text in lib/app/app.dart, lib/features/workout/session_order_sheet.dart. Chinese source context: 重新加载. Translate whole messages; preserve user names."
+  },
+  "saveOrder": "Save order",
+  "@saveOrder": {
+    "description": "Application text in lib/features/workout/session_order_sheet.dart. Chinese source context: 保存顺序. Translate whole messages; preserve user names."
+  },
+  "historyTitle": "Workout history",
+  "@historyTitle": {
+    "description": "Application text in lib/features/history/history_page.dart. Chinese source context: 训练记录. Translate whole messages; preserve user names."
+  },
+  "thisWeek": "Workouts this week",
+  "@thisWeek": {
+    "description": "Application text in lib/features/history/history_page.dart. Chinese source context: 本周训练. Translate whole messages; preserve user names."
+  },
+  "thisMonth": "Workouts this month",
+  "@thisMonth": {
+    "description": "Application text in lib/features/history/history_page.dart. Chinese source context: 本月训练. Translate whole messages; preserve user names."
+  },
+  "monthDuration": "Time in selected month",
+  "@monthDuration": {
+    "description": "Application text in lib/features/history/history_page.dart. Chinese source context: 所选月份时长. Translate whole messages; preserve user names."
+  },
+  "monthSets": "Sets in selected month",
+  "@monthSets": {
+    "description": "Application text in lib/features/history/history_page.dart. Chinese source context: 所选月份完成组. Translate whole messages; preserve user names."
+  },
+  "noRecentWorkout": "No recent workout",
+  "@noRecentWorkout": {
+    "description": "Application text in lib/features/history/history_page.dart. Chinese source context: 最近训练：暂无. Translate whole messages; preserve user names."
+  },
+  "previousMonth": "Previous month",
+  "@previousMonth": {
+    "description": "Application text in lib/features/history/history_page.dart. Chinese source context: 上个月. Translate whole messages; preserve user names."
+  },
+  "nextMonth": "Next month",
+  "@nextMonth": {
+    "description": "Application text in lib/features/history/history_page.dart. Chinese source context: 下个月. Translate whole messages; preserve user names."
+  },
+  "retryRefresh": "Retry refresh",
+  "@retryRefresh": {
+    "description": "Application text in lib/features/history/history_page.dart. Chinese source context: 重试刷新. Translate whole messages; preserve user names."
+  },
+  "noHistoryMonth": "No workouts this month",
+  "@noHistoryMonth": {
+    "description": "Application text in lib/features/history/history_page.dart. Chinese source context: 这个月还没有训练记录. Translate whole messages; preserve user names."
+  },
+  "historyDeleted": "Workout deleted",
+  "@historyDeleted": {
+    "description": "Current-language feedback after transactional deletion of a saved history record and its completed sets."
+  },
+  "historyMissing": "This workout no longer exists",
+  "@historyMissing": {
+    "description": "Application text in lib/features/history/history_page.dart. Chinese source context: 记录已不存在. Translate whole messages; preserve user names."
+  },
+  "historyLoadFailed": "Could not load your workout history. Try again.",
+  "@historyLoadFailed": {
+    "description": "Application text in lib/features/history/history_page.dart. Chinese source context: 记录加载失败，请重试. Translate whole messages; preserve user names."
+  },
+  "deleteHistoryTitle": "Delete this workout?",
+  "@deleteHistoryTitle": {
+    "description": "Application text in lib/features/history/history_page.dart. Chinese source context: 删除这条训练记录？. Translate whole messages; preserve user names."
+  },
+  "activeHistoryDelete": "Only saved workouts can be deleted. Your current workout will be kept.",
+  "@activeHistoryDelete": {
+    "description": "Application text in lib/features/history/history_page.dart. Chinese source context: 只能删除已保存的训练，正在进行的训练不会被删除。. Translate whole messages; preserve user names."
+  },
+  "historyDeleteFailed": "Could not delete this workout. Try again.",
+  "@historyDeleteFailed": {
+    "description": "Application text in lib/features/history/history_page.dart. Chinese source context: 删除失败，请重试。. Translate whole messages; preserve user names."
+  },
+  "workoutDetails": "Workout details",
+  "@workoutDetails": {
+    "description": "Application text in lib/features/history/history_page.dart. Chinese source context: 训练详情. Translate whole messages; preserve user names."
+  },
+  "historyMenu": "Workout actions",
+  "@historyMenu": {
+    "description": "Application text in lib/features/history/history_page.dart. Chinese source context: 训练记录操作. Translate whole messages; preserve user names."
+  },
+  "deleteHistory": "Delete workout",
+  "@deleteHistory": {
+    "description": "Application text in lib/features/history/history_page.dart. Chinese source context: 删除记录. Translate whole messages; preserve user names."
+  },
+  "retryDelete": "Retry delete",
+  "@retryDelete": {
+    "description": "Application text in lib/features/history/history_page.dart. Chinese source context: 重试删除. Translate whole messages; preserve user names."
+  },
+  "notCompleted": "Not completed",
+  "@notCompleted": {
+    "description": "Application text in lib/features/history/history_page.dart. Chinese source context: 未完成. Translate whole messages; preserve user names."
+  },
+  "exportNote": "Backups contain your plans and exercise settings, but not your workout history.",
+  "@exportNote": {
+    "description": "Application text in lib/features/plans/plan_transfer_pages.dart. Chinese source context: 训练计划备份包含计划及动作配置，不包含训练记录。. Translate whole messages; preserve user names."
+  },
+  "selectAll": "Select all",
+  "@selectAll": {
+    "description": "Application text in lib/features/plans/plan_transfer_pages.dart. Chinese source context: 全选. Translate whole messages; preserve user names."
+  },
+  "deselectAll": "Deselect all",
+  "@deselectAll": {
+    "description": "Application text in lib/features/plans/plan_transfer_pages.dart. Chinese source context: 取消全选. Translate whole messages; preserve user names."
+  },
+  "noExportPlans": "No plans to export",
+  "@noExportPlans": {
+    "description": "Application text in lib/features/plans/plan_transfer_pages.dart. Chinese source context: 没有可导出的计划. Translate whole messages; preserve user names."
+  },
+  "copyClipboard": "Copy to clipboard",
+  "@copyClipboard": {
+    "description": "Application text in lib/features/plans/plan_transfer_pages.dart. Chinese source context: 复制到剪贴板. Translate whole messages; preserve user names."
+  },
+  "exportFile": "Export to file",
+  "@exportFile": {
+    "description": "Application text in lib/features/plans/plan_transfer_pages.dart. Chinese source context: 导出到文件. Translate whole messages; preserve user names."
+  },
+  "importPreview": "Import preview",
+  "@importPreview": {
+    "description": "Application text in lib/features/plans/plan_transfer_pages.dart. Chinese source context: 导入预览. Translate whole messages; preserve user names."
+  },
+  "importHint": "Paste shared plan text or choose a local plan file.",
+  "@importHint": {
+    "description": "Application text in lib/features/plans/plan_transfer_pages.dart. Chinese source context: 粘贴别人分享的计划文本，或选择本地计划文件。. Translate whole messages; preserve user names."
+  },
+  "importTextHint": "Paste plan text here",
+  "@importTextHint": {
+    "description": "Application text in lib/features/plans/plan_transfer_pages.dart. Chinese source context: 在这里粘贴计划文本. Translate whole messages; preserve user names."
+  },
+  "paste": "Paste",
+  "@paste": {
+    "description": "Application text in lib/features/plans/plan_transfer_pages.dart. Chinese source context: 粘贴. Translate whole messages; preserve user names."
+  },
+  "planName": "Plan name",
+  "@planName": {
+    "description": "Application text in lib/features/history/history_page.dart, lib/features/plans/plans_page.dart, lib/features/plans/plan_transfer_pages.dart, lib/features/workout/workout_models.dart, lib/features/workout/workout_page.dart. Chinese source context: 计划名称. Translate whole messages; preserve user names."
+  },
+  "emptyPlanNote": "This plan is empty. Add an exercise before starting a workout.",
+  "@emptyPlanNote": {
+    "description": "Application text in lib/features/plans/plan_transfer_pages.dart. Chinese source context: 空计划，添加动作后可开始训练. Translate whole messages; preserve user names."
+  },
+  "viewExerciseConfig": "View exercise settings",
+  "@viewExerciseConfig": {
+    "description": "Application text in lib/features/plans/plan_transfer_pages.dart. Chinese source context: 查看动作配置. Translate whole messages; preserve user names."
+  },
+  "weightNotSet": "Not set",
+  "@weightNotSet": {
+    "description": "Application text in lib/l10n/localization.dart. Chinese source context: 未设置. Translate whole messages; preserve user names."
+  },
+  "chooseFile": "Choose a file",
+  "@chooseFile": {
+    "description": "Application text in lib/features/plans/plan_transfer_pages.dart. Chinese source context: 从文件选择. Translate whole messages; preserve user names."
+  },
+  "previewPlans": "Preview plans",
+  "@previewPlans": {
+    "description": "Application text in lib/features/plans/plan_transfer_pages.dart. Chinese source context: 预览计划. Translate whole messages; preserve user names."
+  },
+  "chooseAgain": "Choose again",
+  "@chooseAgain": {
+    "description": "Application text in lib/features/plans/plan_transfer_pages.dart. Chinese source context: 重新选择. Translate whole messages; preserve user names."
+  },
+  "confirmImport": "Import plans",
+  "@confirmImport": {
+    "description": "Application text in lib/features/plans/plan_transfer_pages.dart. Chinese source context: 确认导入. Translate whole messages; preserve user names."
+  },
+  "nameConflict": "Some names are already in use. Review the updated names and confirm again.",
+  "@nameConflict": {
+    "description": "Application text in lib/features/plans/plan_transfer_pages.dart. Chinese source context: 名称存在冲突，已调整为副本名称，请检查后再次确认. Translate whole messages; preserve user names."
+  },
+  "nameTaken": "A name was taken while you were reviewing. Check the updated preview and confirm again.",
+  "@nameTaken": {
+    "description": "Application text in lib/features/plans/plan_transfer_pages.dart. Chinese source context: 名称已被占用，已更新预览，请再次确认. Translate whole messages; preserve user names."
+  },
+  "planNameRequired": "Enter a plan name.",
+  "@planNameRequired": {
+    "description": "Application text in lib/l10n/error_messages.dart, lib/features/plans/plans_page.dart. Chinese source context: 计划名称不能为空. Translate whole messages; preserve user names."
+  },
+  "plansLoadFailed": "Could not load plans. Go back and try again.",
+  "@plansLoadFailed": {
+    "description": "Application text in lib/features/plans/plan_transfer_pages.dart. Chinese source context: 无法加载计划，请返回后重试. Translate whole messages; preserve user names."
+  },
+  "exportFailed": "Could not export plans. Try again.",
+  "@exportFailed": {
+    "description": "Application text in lib/features/plans/plan_transfer_pages.dart. Chinese source context: 导出失败，请重试. Translate whole messages; preserve user names."
+  },
+  "importFailed": "Could not import plans. Try again.",
+  "@importFailed": {
+    "description": "Application text in lib/features/plans/plan_transfer_pages.dart. Chinese source context: 导入失败，请重试. Translate whole messages; preserve user names."
+  },
+  "operationFailed": "Could not complete this action. Try again.",
+  "@operationFailed": {
+    "description": "Application text in lib/l10n/error_messages.dart. Chinese source context: 操作失败，请重试。. Translate whole messages; preserve user names."
+  },
+  "loadFailed": "Could not load this workout. Try again.",
+  "@loadFailed": {
+    "description": "Application text in lib/features/workout/session_order_sheet.dart, lib/features/workout/workout_page.dart. Chinese source context: 加载失败，请重试。. Translate whole messages; preserve user names."
+  },
+  "saveFailed": "Could not save your changes. Try again.",
+  "@saveFailed": {
+    "description": "Application text in lib/features/plans/exercise_editor_page.dart, lib/features/workout/session_order_sheet.dart, lib/features/workout/workout_page.dart. Chinese source context: 保存失败，请重试。. Translate whole messages; preserve user names."
+  },
+  "languageSaveFailed": "Could not save your language choice. Try again.",
+  "@languageSaveFailed": {
+    "description": "Application text in lib/features/settings/settings_page.dart. Chinese source context: 无法保存语言选择，请重试。. Translate whole messages; preserve user names."
+  },
+  "fileTooLarge": "Plan content exceeds 2 MiB. Use fewer plans or a smaller file.",
+  "@fileTooLarge": {
+    "description": "Application text in lib/l10n/error_messages.dart, lib/features/plans/plan_transfer.dart. Chinese source context: 计划内容超过 2 MiB，请减少计划数量后重试. Translate whole messages; preserve user names."
+  },
+  "emptyContent": "No plan content. Paste plan text or choose a file.",
+  "@emptyContent": {
+    "description": "Application text in lib/l10n/error_messages.dart, lib/features/plans/plan_transfer.dart. Chinese source context: 没有计划内容，请粘贴文本或选择文件. Translate whole messages; preserve user names."
+  },
+  "damagedContent": "The plan content is damaged. Use the complete exported text or file.",
+  "@damagedContent": {
+    "description": "Application text in lib/l10n/error_messages.dart, lib/features/plans/plan_transfer.dart. Chinese source context: 计划内容损坏，请使用完整的计划导出文本或文件. Translate whole messages; preserve user names."
+  },
+  "wrongFormat": "This file is not a SetTrace plan backup.",
+  "@wrongFormat": {
+    "description": "Application text in lib/l10n/error_messages.dart, lib/features/plans/plan_transfer.dart. Chinese source context: 无法识别此文件，请选择 SetTrace 导出的计划. Translate whole messages; preserve user names."
+  },
+  "unsupportedVersion": "This plan format version is not supported. Update the app and try again.",
+  "@unsupportedVersion": {
+    "description": "Application text in lib/l10n/error_messages.dart, lib/features/plans/plan_transfer.dart. Chinese source context: 计划格式版本不受支持，请更新应用后重试. Translate whole messages; preserve user names."
+  },
+  "noImportPlans": "No plans to import.",
+  "@noImportPlans": {
+    "description": "Application text in lib/l10n/error_messages.dart, lib/features/plans/plan_transfer.dart. Chinese source context: 没有可导入的计划. Translate whole messages; preserve user names."
+  },
+  "selectPlans": "Select at least one plan.",
+  "@selectPlans": {
+    "description": "Application text in lib/l10n/error_messages.dart, lib/features/plans/plan_repository.dart, lib/features/plans/plan_transfer.dart. Chinese source context: 请至少选择一个计划. Translate whole messages; preserve user names."
+  },
+  "clipboardCopyFailed": "Could not copy plans. Try again or export to a file.",
+  "@clipboardCopyFailed": {
+    "description": "Application text in lib/l10n/error_messages.dart, lib/features/plans/plan_transfer_platform.dart. Chinese source context: 复制失败，请重试或选择导出到文件. Translate whole messages; preserve user names."
+  },
+  "clipboardReadFailed": "Could not read the clipboard. Paste your plan text manually.",
+  "@clipboardReadFailed": {
+    "description": "Application text in lib/l10n/error_messages.dart, lib/features/plans/plan_transfer_platform.dart. Chinese source context: 无法读取剪贴板，请手动粘贴计划文本. Translate whole messages; preserve user names."
+  },
+  "clipboardEmpty": "No plan text in the clipboard. Paste text manually or choose a file.",
+  "@clipboardEmpty": {
+    "description": "Application text in lib/l10n/error_messages.dart, lib/features/plans/plan_transfer_pages.dart. Chinese source context: 剪贴板没有计划文本，请手动粘贴或选择文件. Translate whole messages; preserve user names."
+  },
+  "fileBusy": "A file operation is already in progress. Please wait.",
+  "@fileBusy": {
+    "description": "Application text in lib/l10n/error_messages.dart, lib/features/plans/plan_transfer_platform.dart. Chinese source context: 文件操作正在进行，请稍候. Translate whole messages; preserve user names."
+  },
+  "fileIncomplete": "The file operation did not finish. Try again.",
+  "@fileIncomplete": {
+    "description": "Application text in lib/l10n/error_messages.dart, lib/features/plans/plan_transfer_platform.dart. Chinese source context: 文件操作未完成，请重试. Translate whole messages; preserve user names."
+  },
+  "fileOperationFailed": "The file operation failed. Try again.",
+  "@fileOperationFailed": {
+    "description": "Application text in lib/l10n/error_messages.dart, lib/features/plans/plan_transfer_platform.dart. Chinese source context: 文件操作失败，请重试. Translate whole messages; preserve user names."
+  },
+  "fileUnsupported": "Plan file operations are not supported on this platform.",
+  "@fileUnsupported": {
+    "description": "Application text in lib/l10n/error_messages.dart, lib/features/plans/plan_transfer_platform.dart. Chinese source context: 当前平台暂不支持计划文件操作. Translate whole messages; preserve user names."
+  },
+  "fileNotDownloads": "The file was not saved to Downloads. Try again.",
+  "@fileNotDownloads": {
+    "description": "Application text in lib/l10n/error_messages.dart, lib/features/plans/plan_transfer_platform.dart. Chinese source context: 文件未保存到下载目录，请重试. Translate whole messages; preserve user names."
+  },
+  "fileReadFailed": "Could not read this file. Choose a valid UTF-8 plan file.",
+  "@fileReadFailed": {
+    "description": "Application text in lib/l10n/error_messages.dart, lib/features/plans/plan_transfer_platform.dart. Chinese source context: 无法读取文件，请重新选择有效的 UTF-8 计划文件. Translate whole messages; preserve user names."
+  },
+  "fileEmpty": "This file is empty. Choose another file.",
+  "@fileEmpty": {
+    "description": "Application text in lib/l10n/error_messages.dart, lib/features/plans/plan_transfer_platform.dart. Chinese source context: 文件为空，请重新选择. Translate whole messages; preserve user names."
+  },
+  "filePickerFailed": "Could not open the file picker. Paste plan text instead.",
+  "@filePickerFailed": {
+    "description": "Application text in lib/l10n/error_messages.dart. Chinese source context: 无法打开文件选择器，请使用粘贴文本. Translate whole messages; preserve user names."
+  },
+  "permissionDenied": "Allow access to save in Downloads, or copy plans to the clipboard.",
+  "@permissionDenied": {
+    "description": "Application text in lib/l10n/error_messages.dart. Chinese source context: 未获得下载目录写入权限，请重试或复制到剪贴板. Translate whole messages; preserve user names."
+  },
+  "fileSaveFailed": "Could not save to Downloads. Check available storage and try again.",
+  "@fileSaveFailed": {
+    "description": "Application text in lib/l10n/error_messages.dart. Chinese source context: 无法保存到下载目录，请检查可用空间后重试. Translate whole messages; preserve user names."
+  },
+  "plansChanged": "A selected plan was deleted. Go back and select plans again.",
+  "@plansChanged": {
+    "description": "Application text in lib/l10n/error_messages.dart, lib/features/plans/plan_repository.dart. Chinese source context: 选中的计划已被删除，请返回重新选择. Translate whole messages; preserve user names."
+  },
+  "workoutChanged": "This workout has changed. Reload it before reordering.",
+  "@workoutChanged": {
+    "description": "Application text in lib/l10n/error_messages.dart, lib/features/workout/workout_repository.dart. Chinese source context: 训练状态已变化，请重新加载后排序. Translate whole messages; preserve user names."
+  },
+  "invalidOrder": "Include every unstarted exercise once. Exercises with completed sets must stay in place.",
+  "@invalidOrder": {
+    "description": "Application text in lib/l10n/error_messages.dart, lib/features/plans/plan_repository.dart, lib/features/workout/workout_repository.dart. Chinese source context: 排序必须包含所有待练动作各一次，不能移动已记录组的动作. Translate whole messages; preserve user names."
+  },
+  "sessionEnded": "This workout has ended. Return to your plans.",
+  "@sessionEnded": {
+    "description": "Application text in lib/l10n/error_messages.dart, lib/features/workout/session_order_sheet.dart. Chinese source context: 本次训练已结束. Translate whole messages; preserve user names."
+  },
+  "activeExists": "Resume or end your current workout before starting another.",
+  "@activeExists": {
+    "description": "Application text in lib/l10n/error_messages.dart, lib/features/workout/workout_repository.dart. Chinese source context: 已有未完成训练，请先继续或结束。. Translate whole messages; preserve user names."
+  },
+  "emptyPlan": "Add an exercise before starting a workout.",
+  "@emptyPlan": {
+    "description": "Application text in lib/l10n/error_messages.dart, lib/features/workout/workout_repository.dart. Chinese source context: 请先添加动作再开始训练。. Translate whole messages; preserve user names."
+  },
+  "restActive": "Rest is still in progress. Wait or skip it.",
+  "@restActive": {
+    "description": "Application text in lib/l10n/error_messages.dart, lib/features/workout/workout_repository.dart. Chinese source context: 休息仍在进行，请等待或跳过。. Translate whole messages; preserve user names."
+  },
+  "positionChanged": "Your workout progress has changed. Try again.",
+  "@positionChanged": {
+    "description": "Application text in lib/l10n/error_messages.dart, lib/features/workout/workout_repository.dart. Chinese source context: 训练进度已变化，请重试。. Translate whole messages; preserve user names."
+  },
+  "setAlreadyCompleted": "This set is already completed. Refresh the workout.",
+  "@setAlreadyCompleted": {
+    "description": "Application text in lib/l10n/error_messages.dart, lib/features/workout/workout_repository.dart. Chinese source context: 本组已经完成，请刷新。. Translate whole messages; preserve user names."
+  },
+  "noSetToUndo": "There are no completed sets to undo.",
+  "@noSetToUndo": {
+    "description": "Application text in lib/l10n/error_messages.dart, lib/features/workout/workout_repository.dart. Chinese source context: 没有可撤销的已完成组。. Translate whole messages; preserve user names."
+  },
+  "noRest": "There is no active rest timer.",
+  "@noRest": {
+    "description": "Application text in lib/l10n/error_messages.dart, lib/features/workout/workout_repository.dart. Chinese source context: 当前没有进行中的休息。. Translate whole messages; preserve user names."
+  },
+  "invalidConfiguration": "Check the number of sets and rest times.",
+  "@invalidConfiguration": {
+    "description": "Application text in lib/l10n/error_messages.dart, lib/features/workout/workout_repository.dart. Chinese source context: 组数或休息时间无效，请检查。. Translate whole messages; preserve user names."
+  },
+  "exerciseNotFound": "This exercise no longer exists. Refresh the workout.",
+  "@exerciseNotFound": {
+    "description": "Application text in lib/l10n/error_messages.dart, lib/features/workout/workout_repository.dart. Chinese source context: 动作已不存在，请刷新。. Translate whole messages; preserve user names."
+  },
+  "completedExercise": "Completed exercises cannot be edited.",
+  "@completedExercise": {
+    "description": "Application text in lib/l10n/error_messages.dart, lib/features/workout/workout_repository.dart. Chinese source context: 已完成的动作不能修改。. Translate whole messages; preserve user names."
+  },
+  "targetBelowCompleted": "The target cannot be lower than the number of completed sets.",
+  "@targetBelowCompleted": {
+    "description": "Application text in lib/l10n/error_messages.dart, lib/features/workout/workout_repository.dart. Chinese source context: 目标组数不能小于已完成组数。. Translate whole messages; preserve user names."
+  },
+  "emptyWorkout": "Complete at least one set before saving this workout.",
+  "@emptyWorkout": {
+    "description": "Application text in lib/l10n/error_messages.dart, lib/features/workout/workout_repository.dart. Chinese source context: 未完成任何一组，无法保存训练。. Translate whole messages; preserve user names."
+  },
+  "activeNotFound": "This workout is no longer active. Return to your plans.",
+  "@activeNotFound": {
+    "description": "Application text in lib/l10n/error_messages.dart, lib/features/workout/workout_repository.dart. Chinese source context: 进行中的训练已不存在，请返回计划。. Translate whole messages; preserve user names."
+  },
+  "setCount": "{count, plural, one{{count} set} other{{count} sets}}",
+  "@setCount": {
+    "description": "Application text in lib/features/plans/exercise_editor_page.dart, lib/features/workout/workout_page.dart. Chinese source context: {count} 组. Translate whole messages; preserve user names.",
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "decimalPattern",
+        "description": "Number of items; use locale plural rules."
+      }
+    }
+  },
+  "exerciseSummary": "{exercises, plural, one{{exercises} exercise} other{{exercises} exercises}} · {sets, plural, one{{sets} set} other{{sets} sets}}",
+  "@exerciseSummary": {
+    "description": "Application text in lib/features/plans/plans_page.dart, lib/features/plans/plan_transfer_pages.dart. Chinese source context: {exercises} 个动作 · {sets} 组. Translate whole messages; preserve user names.",
+    "placeholders": {
+      "exercises": {
+        "type": "num",
+        "format": "decimalPattern",
+        "description": "exercises: data supplied by the display layer, not a resource key."
+      },
+      "sets": {
+        "type": "num",
+        "format": "decimalPattern",
+        "description": "sets: data supplied by the display layer, not a resource key."
+      }
+    }
+  },
+  "importSuccess": "{count, plural, one{Imported {count} plan} other{Imported {count} plans}}",
+  "@importSuccess": {
+    "description": "Application text in lib/features/plans/plans_page.dart. Chinese source context: 成功导入 {count} 个计划. Translate whole messages; preserve user names.",
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "decimalPattern",
+        "description": "Number of items; use locale plural rules."
+      }
+    }
+  },
+  "copySuccess": "{count, plural, one{Copied {count} plan} other{Copied {count} plans}}",
+  "@copySuccess": {
+    "description": "Application text in lib/features/plans/plan_transfer_pages.dart. Chinese source context: 已复制 {count} 个计划. Translate whole messages; preserve user names.",
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "decimalPattern",
+        "description": "Number of items; use locale plural rules."
+      }
+    }
+  },
+  "selectedPlans": "{count, plural, one{{count} plan selected} other{{count} plans selected}}",
+  "@selectedPlans": {
+    "description": "Application text in lib/features/plans/plan_transfer_pages.dart. Chinese source context: 已选 {count} 个计划. Translate whole messages; preserve user names.",
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "decimalPattern",
+        "description": "Number of items; use locale plural rules."
+      }
+    }
+  },
+  "importPreviewNote": "{count, plural, one{This will add {count} plan. Duplicate names will get a new name.} other{This will add {count} plans. Duplicate names will get new names.}}",
+  "@importPreviewNote": {
+    "description": "Application text in lib/features/plans/plan_transfer_pages.dart. Chinese source context: 将新增 {count} 个计划，同名计划创建副本。. Translate whole messages; preserve user names.",
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "decimalPattern",
+        "description": "Number of items; use locale plural rules."
+      }
+    }
+  },
+  "fileSaved": "Saved to Downloads: {fileName}",
+  "@fileSaved": {
+    "description": "Successful native public Downloads write. Display the actual returned filename verbatim; never translate it.",
+    "placeholders": {
+      "fileName": {
+        "type": "String",
+        "description": "Actual filename returned by Android; preserve verbatim."
+      }
+    }
+  },
+  "unfinishedPlan": "In progress · {name}",
+  "@unfinishedPlan": {
+    "description": "Application text in lib/features/plans/plans_page.dart. Chinese source context: 尚未完成 · {name}. Translate whole messages; preserve user names.",
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "description": "User-entered name; preserve verbatim."
+      }
+    }
+  },
+  "exerciseCurrentSet": "{name} · Set {number}",
+  "@exerciseCurrentSet": {
+    "description": "Application text in lib/features/plans/plans_page.dart. Chinese source context: {name} · 第 {number} 组. Translate whole messages; preserve user names.",
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "description": "User-entered name; preserve verbatim."
+      },
+      "number": {
+        "type": "num",
+        "format": "decimalPattern",
+        "description": "One-based index or import conflict suffix number."
+      }
+    }
+  },
+  "exerciseSets": "{name} · {sets, plural, one{{sets} set} other{{sets} sets}}",
+  "@exerciseSets": {
+    "description": "Application text in lib/features/workout/workout_page.dart. Chinese source context: {name} · {sets} 组. Translate whole messages; preserve user names.",
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "description": "User-entered name; preserve verbatim."
+      },
+      "sets": {
+        "type": "num",
+        "format": "decimalPattern",
+        "description": "sets: data supplied by the display layer, not a resource key."
+      }
+    }
+  },
+  "exerciseRest": "{sets, plural, one{{sets} set} other{{sets} sets}} · Rest {minutes} min between sets",
+  "@exerciseRest": {
+    "description": "Application text in lib/features/plans/plans_page.dart. Chinese source context: {sets} 组 · 组间 {minutes} min. Translate whole messages; preserve user names.",
+    "placeholders": {
+      "sets": {
+        "type": "num",
+        "format": "decimalPattern",
+        "description": "sets: data supplied by the display layer, not a resource key."
+      },
+      "minutes": {
+        "type": "String",
+        "description": "minutes: data supplied by the display layer, not a resource key."
+      }
+    }
+  },
+  "exerciseProgressRest": "{total, plural, one{{completed} / {total} set} other{{completed} / {total} sets}} · Rest {minutes} min between sets",
+  "@exerciseProgressRest": {
+    "description": "Application text in lib/features/workout/workout_page.dart. Chinese source context: {completed} / {total} 组 · 组间 {minutes} 分钟. Translate whole messages; preserve user names.",
+    "placeholders": {
+      "completed": {
+        "type": "num",
+        "format": "decimalPattern",
+        "description": "completed: data supplied by the display layer, not a resource key."
+      },
+      "total": {
+        "type": "num",
+        "format": "decimalPattern",
+        "description": "total: data supplied by the display layer, not a resource key."
+      },
+      "minutes": {
+        "type": "String",
+        "description": "minutes: data supplied by the display layer, not a resource key."
+      }
+    }
+  },
+  "exercisePreview": "{index}. {name}    {sets, plural, one{{sets} set} other{{sets} sets}}",
+  "@exercisePreview": {
+    "description": "Application text in lib/features/plans/plans_page.dart. Chinese source context: {index}  {name}    {sets} 组. Translate whole messages; preserve user names.",
+    "placeholders": {
+      "index": {
+        "type": "num",
+        "format": "decimalPattern",
+        "description": "index: data supplied by the display layer, not a resource key."
+      },
+      "name": {
+        "type": "String",
+        "description": "User-entered name; preserve verbatim."
+      },
+      "sets": {
+        "type": "num",
+        "format": "decimalPattern",
+        "description": "sets: data supplied by the display layer, not a resource key."
+      }
+    }
+  },
+  "resumePlanNote": "Resume or end “{name}” first.",
+  "@resumePlanNote": {
+    "description": "Application text in lib/features/plans/plans_page.dart. Chinese source context: 请先继续或结束「{name}」。. Translate whole messages; preserve user names.",
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "description": "User-entered name; preserve verbatim."
+      }
+    }
+  },
+  "exitCompletedNote": "{count, plural, one{You have completed {count} set. Save it to view in your history.} other{You have completed {count} sets. Save them to view in your history.}}",
+  "@exitCompletedNote": {
+    "description": "Describe completed set count and the consequences of saving or discarding when leaving an incomplete workout.",
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "decimalPattern",
+        "description": "Number of items; use locale plural rules."
+      }
+    }
+  },
+  "exercisePosition": "Exercise {current} / {total}",
+  "@exercisePosition": {
+    "description": "Application text in lib/features/workout/workout_page.dart. Chinese source context: 动作 {current} / {total}. Translate whole messages; preserve user names.",
+    "placeholders": {
+      "current": {
+        "type": "num",
+        "format": "decimalPattern",
+        "description": "current: data supplied by the display layer, not a resource key."
+      },
+      "total": {
+        "type": "num",
+        "format": "decimalPattern",
+        "description": "total: data supplied by the display layer, not a resource key."
+      }
+    }
+  },
+  "currentSet": "Current set: {number}",
+  "@currentSet": {
+    "description": "Application text in lib/features/workout/workout_page.dart. Chinese source context: 当前第 {number} 组. Translate whole messages; preserve user names.",
+    "placeholders": {
+      "number": {
+        "type": "num",
+        "format": "decimalPattern",
+        "description": "One-based index or import conflict suffix number."
+      }
+    }
+  },
+  "nextSet": "Next set: {name} · {current} / {total}",
+  "@nextSet": {
+    "description": "Application text in lib/features/workout/workout_page.dart. Chinese source context: 下一组：{name} · {current} / {total}. Translate whole messages; preserve user names.",
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "description": "User-entered name; preserve verbatim."
+      },
+      "current": {
+        "type": "num",
+        "format": "decimalPattern",
+        "description": "current: data supplied by the display layer, not a resource key."
+      },
+      "total": {
+        "type": "num",
+        "format": "decimalPattern",
+        "description": "total: data supplied by the display layer, not a resource key."
+      }
+    }
+  },
+  "sessionEditTitle": "Edit for this workout · {name}",
+  "@sessionEditTitle": {
+    "description": "Application text in lib/features/workout/workout_page.dart. Chinese source context: 本次编辑 · {name}. Translate whole messages; preserve user names.",
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "description": "User-entered name; preserve verbatim."
+      }
+    }
+  },
+  "pendingSets": "{sets, plural, one{{sets} set} other{{sets} sets}} · Not started",
+  "@pendingSets": {
+    "description": "Application text in lib/features/workout/session_order_sheet.dart. Chinese source context: {sets} 组 · 待练. Translate whole messages; preserve user names.",
+    "placeholders": {
+      "sets": {
+        "type": "num",
+        "format": "decimalPattern",
+        "description": "sets: data supplied by the display layer, not a resource key."
+      }
+    }
+  },
+  "orderProgress": "{state} · {total, plural, one{{completed} / {total} set} other{{completed} / {total} sets}}",
+  "@orderProgress": {
+    "description": "Application text in lib/features/workout/session_order_sheet.dart. Chinese source context: {state} · {completed} / {total} 组. Translate whole messages; preserve user names.",
+    "placeholders": {
+      "state": {
+        "type": "String",
+        "description": "state: data supplied by the display layer, not a resource key."
+      },
+      "completed": {
+        "type": "num",
+        "format": "decimalPattern",
+        "description": "completed: data supplied by the display layer, not a resource key."
+      },
+      "total": {
+        "type": "num",
+        "format": "decimalPattern",
+        "description": "total: data supplied by the display layer, not a resource key."
+      }
+    }
+  },
+  "dragExercise": "Drag {name}",
+  "@dragExercise": {
+    "description": "Application text in lib/features/workout/session_order_sheet.dart. Chinese source context: 拖动{name}. Translate whole messages; preserve user names.",
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "description": "User-entered name; preserve verbatim."
+      }
+    }
+  },
+  "minutesDuration": "{minutes, plural, one{{minutes} minute} other{{minutes} minutes}}",
+  "@minutesDuration": {
+    "description": "History elapsed duration rounded down to minutes, not a live rest countdown.",
+    "placeholders": {
+      "minutes": {
+        "type": "num",
+        "format": "decimalPattern",
+        "description": "minutes: data supplied by the display layer, not a resource key."
+      }
+    }
+  },
+  "hoursDuration": "{hours, plural, one{{hours} hour} other{{hours} hours}} {minutes, plural, one{{minutes} minute} other{{minutes} minutes}}",
+  "@hoursDuration": {
+    "description": "History elapsed whole hours and remaining whole minutes. English grammar for each quantity independently.",
+    "placeholders": {
+      "hours": {
+        "type": "num",
+        "format": "decimalPattern",
+        "description": "hours: data supplied by the display layer, not a resource key."
+      },
+      "minutes": {
+        "type": "num",
+        "format": "decimalPattern",
+        "description": "minutes: data supplied by the display layer, not a resource key."
+      }
+    }
+  },
+  "minutesShort": "{minutes} min",
+  "@minutesShort": {
+    "description": "Application text in lib/features/plans/exercise_editor_page.dart, lib/features/workout/workout_page.dart. Chinese source context: {minutes} min. Translate whole messages; preserve user names.",
+    "placeholders": {
+      "minutes": {
+        "type": "String",
+        "description": "minutes: data supplied by the display layer, not a resource key."
+      }
+    }
+  },
+  "weightKg": "{weight} kg",
+  "@weightKg": {
+    "description": "Application text in lib/l10n/localization.dart. Chinese source context: {weight} kg. Translate whole messages; preserve user names.",
+    "placeholders": {
+      "weight": {
+        "type": "String",
+        "description": "Already localized weight label, in kg."
+      }
+    }
+  },
+  "weightHint": "For example: {weight}",
+  "@weightHint": {
+    "description": "Optional kg weight entry. example uses current locale decimal format; one dot or comma is accepted, grouping is not.",
+    "placeholders": {
+      "weight": {
+        "type": "String",
+        "description": "Already localized weight label, in kg."
+      }
+    }
+  },
+  "recentWorkout": "Latest workout: {name} · {duration}",
+  "@recentWorkout": {
+    "description": "Application text in lib/features/history/history_page.dart. Chinese source context: 最近训练：{name} · {duration}. Translate whole messages; preserve user names.",
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "description": "User-entered name; preserve verbatim."
+      },
+      "duration": {
+        "type": "String",
+        "description": "duration: data supplied by the display layer, not a resource key."
+      }
+    }
+  },
+  "historySummary": "{duration} · {exercises, plural, one{{exercises} exercise} other{{exercises} exercises}} · {sets, plural, one{{sets} set} other{{sets} sets}}",
+  "@historySummary": {
+    "description": "Application text in lib/features/history/history_page.dart. Chinese source context: {duration} · {exercises} 个动作 · {sets} 组. Translate whole messages; preserve user names.",
+    "placeholders": {
+      "duration": {
+        "type": "String",
+        "description": "duration: data supplied by the display layer, not a resource key."
+      },
+      "exercises": {
+        "type": "num",
+        "format": "decimalPattern",
+        "description": "exercises: data supplied by the display layer, not a resource key."
+      },
+      "sets": {
+        "type": "num",
+        "format": "decimalPattern",
+        "description": "sets: data supplied by the display layer, not a resource key."
+      }
+    }
+  },
+  "historyRefreshFailed": "{notice}. Could not refresh. Try again.",
+  "@historyRefreshFailed": {
+    "description": "Application text in lib/features/history/history_page.dart. Chinese source context: {notice}，刷新失败，请重试. Translate whole messages; preserve user names.",
+    "placeholders": {
+      "notice": {
+        "type": "String",
+        "description": "notice: data supplied by the display layer, not a resource key."
+      }
+    }
+  },
+  "deleteHistoryNote": "{name}\n{date}\n\nThis cannot be undone. Your workout statistics will be updated.",
+  "@deleteHistoryNote": {
+    "description": "Application text in lib/features/history/history_page.dart. Chinese source context: {name}\n{date}\n\n删除后无法恢复，相关训练统计将同步更新。. Translate whole messages; preserve user names.",
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "description": "User-entered name; preserve verbatim."
+      },
+      "date": {
+        "type": "String",
+        "description": "date: data supplied by the display layer, not a resource key."
+      }
+    }
+  },
+  "historyTimeRange": "{date} · {start}–{end} · {duration}",
+  "@historyTimeRange": {
+    "description": "Application text in lib/features/history/history_page.dart. Chinese source context: {date} · {start}–{end} · {duration}. Translate whole messages; preserve user names.",
+    "placeholders": {
+      "date": {
+        "type": "String",
+        "description": "date: data supplied by the display layer, not a resource key."
+      },
+      "start": {
+        "type": "String",
+        "description": "start: data supplied by the display layer, not a resource key."
+      },
+      "end": {
+        "type": "String",
+        "description": "end: data supplied by the display layer, not a resource key."
+      },
+      "duration": {
+        "type": "String",
+        "description": "duration: data supplied by the display layer, not a resource key."
+      }
+    }
+  },
+  "completedSets": "{total, plural, one{{completed} / {total} set completed} other{{completed} / {total} sets completed}}",
+  "@completedSets": {
+    "description": "Application text in lib/features/history/history_page.dart, lib/features/history/history_stats.dart, lib/features/workout/session_order_sheet.dart, lib/features/workout/workout_models.dart, lib/features/workout/workout_page.dart. Chinese source context: 完成 {completed} / {total} 组. Translate whole messages; preserve user names.",
+    "placeholders": {
+      "completed": {
+        "type": "num",
+        "format": "decimalPattern",
+        "description": "completed: data supplied by the display layer, not a resource key."
+      },
+      "total": {
+        "type": "num",
+        "format": "decimalPattern",
+        "description": "total: data supplied by the display layer, not a resource key."
+      }
+    }
+  },
+  "setResult": "Set {number} · {result}",
+  "@setResult": {
+    "description": "Application text in lib/features/history/history_page.dart. Chinese source context: 第 {number} 组 · {result}. Translate whole messages; preserve user names.",
+    "placeholders": {
+      "number": {
+        "type": "num",
+        "format": "decimalPattern",
+        "description": "One-based index or import conflict suffix number."
+      },
+      "result": {
+        "type": "String",
+        "description": "result: data supplied by the display layer, not a resource key."
+      }
+    }
+  },
+  "transferExerciseDetails": "{index}. {name}\n{sets, plural, one{{sets} set} other{{sets} sets}} · Rest between sets: {between, plural, one{{between} second} other{{between} seconds}}\nRest after exercise: {after, plural, one{{after} second} other{{after} seconds}} · Weight: {weight}",
+  "@transferExerciseDetails": {
+    "description": "Application text in lib/features/plans/plan_transfer_pages.dart. Chinese source context: {index}. {name}\n{sets} 组 · 组间休息 {between} 秒\n动作后休息 {after} 秒 · 重量 {weight}. Translate whole messages; preserve user names.",
+    "placeholders": {
+      "index": {
+        "type": "num",
+        "format": "decimalPattern",
+        "description": "index: data supplied by the display layer, not a resource key."
+      },
+      "name": {
+        "type": "String",
+        "description": "User-entered name; preserve verbatim."
+      },
+      "sets": {
+        "type": "num",
+        "format": "decimalPattern",
+        "description": "sets: data supplied by the display layer, not a resource key."
+      },
+      "between": {
+        "type": "num",
+        "format": "decimalPattern",
+        "description": "between: data supplied by the display layer, not a resource key."
+      },
+      "after": {
+        "type": "num",
+        "format": "decimalPattern",
+        "description": "after: data supplied by the display layer, not a resource key."
+      },
+      "weight": {
+        "type": "String",
+        "description": "Already localized weight label, in kg."
+      }
+    }
+  },
+  "importSuffix": "{number, plural, =1{ (imported)} other{ (imported {number})}}",
+  "@importSuffix": {
+    "description": "Added only to newly imported conflicting plan names. number starts at 1; keep suffix nonempty and shorter than 40 graphemes, including a 9-digit number. Chinese uses full-width parentheses; English includes leading space.",
+    "placeholders": {
+      "number": {
+        "type": "num",
+        "format": "decimalPattern",
+        "description": "One-based index or import conflict suffix number."
+      }
+    }
+  },
+  "planLocation": "Plan {index}",
+  "@planLocation": {
+    "description": "Application text in lib/l10n/error_messages.dart. Chinese source context: 第 {index} 个计划. Translate whole messages; preserve user names.",
+    "placeholders": {
+      "index": {
+        "type": "num",
+        "format": "decimalPattern",
+        "description": "index: data supplied by the display layer, not a resource key."
+      }
+    }
+  },
+  "exerciseLocation": "Plan {plan}, exercise {exercise}",
+  "@exerciseLocation": {
+    "description": "Validation location: one-based plan and exercise indices; field label is added separately by fieldLocation.",
+    "placeholders": {
+      "plan": {
+        "type": "num",
+        "format": "decimalPattern",
+        "description": "One-based plan index."
+      },
+      "exercise": {
+        "type": "num",
+        "format": "decimalPattern",
+        "description": "One-based exercise index."
+      }
+    }
+  },
+  "fieldLocation": "{location}: {field}",
+  "@fieldLocation": {
+    "description": "Application text in lib/l10n/error_messages.dart. Chinese source context: {location}的{field}. Translate whole messages; preserve user names.",
+    "placeholders": {
+      "location": {
+        "type": "String",
+        "description": "location: data supplied by the display layer, not a resource key."
+      },
+      "field": {
+        "type": "String",
+        "description": "field: data supplied by the display layer, not a resource key."
+      }
+    }
+  },
+  "invalidObject": "{location} must be a valid object.",
+  "@invalidObject": {
+    "description": "Application text in lib/l10n/error_messages.dart, lib/features/plans/plan_transfer.dart. Chinese source context: {location}必须是有效的对象. Translate whole messages; preserve user names.",
+    "placeholders": {
+      "location": {
+        "type": "String",
+        "description": "location: data supplied by the display layer, not a resource key."
+      }
+    }
+  },
+  "invalidName": "{location} must contain 1–{max} characters.",
+  "@invalidName": {
+    "description": "Application text in lib/l10n/error_messages.dart, lib/features/plans/plan_transfer.dart. Chinese source context: {location}必须为 1–{max} 个字符. Translate whole messages; preserve user names.",
+    "placeholders": {
+      "location": {
+        "type": "String",
+        "description": "location: data supplied by the display layer, not a resource key."
+      },
+      "max": {
+        "type": "num",
+        "format": "decimalPattern",
+        "description": "Inclusive maximum."
+      }
+    }
+  },
+  "invalidInteger": "{location} must be an integer from {min} to {max}.",
+  "@invalidInteger": {
+    "description": "Application text in lib/l10n/error_messages.dart, lib/features/plans/plan_transfer.dart. Chinese source context: {location}必须为 {min}–{max} 的整数. Translate whole messages; preserve user names.",
+    "placeholders": {
+      "location": {
+        "type": "String",
+        "description": "location: data supplied by the display layer, not a resource key."
+      },
+      "min": {
+        "type": "num",
+        "format": "decimalPattern",
+        "description": "Inclusive minimum."
+      },
+      "max": {
+        "type": "num",
+        "format": "decimalPattern",
+        "description": "Inclusive maximum."
+      }
+    }
+  },
+  "invalidRest": "{location} must be a multiple of 30 seconds.",
+  "@invalidRest": {
+    "description": "Application text in lib/l10n/error_messages.dart, lib/features/plans/plan_repository.dart, lib/features/plans/plan_transfer.dart. Chinese source context: {location}必须为 30 秒的倍数. Translate whole messages; preserve user names.",
+    "placeholders": {
+      "location": {
+        "type": "String",
+        "description": "location: data supplied by the display layer, not a resource key."
+      }
+    }
+  },
+  "invalidWeight": "{location} must be empty or a finite positive number.",
+  "@invalidWeight": {
+    "description": "Application text in lib/l10n/error_messages.dart, lib/features/plans/plan_repository.dart, lib/features/plans/plan_transfer.dart. Chinese source context: {location}必须为空或有效的正数. Translate whole messages; preserve user names.",
+    "placeholders": {
+      "location": {
+        "type": "String",
+        "description": "location: data supplied by the display layer, not a resource key."
+      }
+    }
+  },
+  "invalidExercises": "{location} needs a valid exercise list.",
+  "@invalidExercises": {
+    "description": "Application text in lib/l10n/error_messages.dart, lib/features/plans/plan_transfer.dart. Chinese source context: {location}缺少有效的动作列表. Translate whole messages; preserve user names.",
+    "placeholders": {
+      "location": {
+        "type": "String",
+        "description": "location: data supplied by the display layer, not a resource key."
+      }
+    }
+  },
+  "planContent": "Plan content",
+  "@planContent": {
+    "description": "Application text in lib/l10n/error_messages.dart. Chinese source context: 计划内容. Translate whole messages; preserve user names."
+  },
+  "nameField": "Name",
+  "@nameField": {
+    "description": "Application text in lib/l10n/error_messages.dart. Chinese source context: 名称. Translate whole messages; preserve user names."
+  },
+  "exercisesField": "Exercises",
+  "@exercisesField": {
+    "description": "Application text in lib/l10n/error_messages.dart. Chinese source context: 动作列表. Translate whole messages; preserve user names."
+  },
+  "weightField": "Weight",
+  "@weightField": {
+    "description": "Application text in lib/l10n/error_messages.dart. Chinese source context: 重量. Translate whole messages; preserve user names."
+  },
+  "planNotFound": "This plan no longer exists. Return to your plans and try again.",
+  "@planNotFound": {
+    "description": "Application text in lib/l10n/error_messages.dart, lib/features/workout/workout_repository.dart. Chinese source context: 这个计划已不存在，请返回计划列表重试。. Translate whole messages; preserve user names."
+  },
+  "planOrderInvalid": "Include every exercise in the plan exactly once.",
+  "@planOrderInvalid": {
+    "description": "Plan editor reorder validation: all plan exercises are movable, independent of any workout snapshot."
+  }
+}

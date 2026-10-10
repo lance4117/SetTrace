@@ -1,0 +1,8 @@
+
+com.settrace.settrace.PlanFilesBridgeInstrumentedTest:...
+
+Time: 0.593
+
+OK (4 tests)
+
+

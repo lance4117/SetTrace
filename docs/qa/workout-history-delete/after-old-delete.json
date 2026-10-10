@@ -1,0 +1,110 @@
+{
+  "plans": [
+    {
+      "id": 901,
+      "name": "QA_KEEP_PLAN",
+      "created_at": 1791376188663,
+      "updated_at": 1791376188663
+    }
+  ],
+  "plan_exercises": [
+    {
+      "id": 901,
+      "plan_id": 901,
+      "name": "QA_KEEP_EXERCISE",
+      "sort_order": 1,
+      "target_sets": 7,
+      "rest_between_sets_seconds": 0,
+      "rest_after_exercise_seconds": 0,
+      "default_weight_kg": null
+    }
+  ],
+  "workout_sessions": [
+    {
+      "id": 902,
+      "source_plan_id": 901,
+      "plan_name_snapshot": "QA_KEEP_RECORD",
+      "started_at": 1791371988663,
+      "started_local_date": "2026-10-07",
+      "ended_at": 1791372588663,
+      "duration_seconds": 600,
+      "status": "completed",
+      "current_exercise_order": 1,
+      "current_set_number": 1,
+      "rest_kind": null,
+      "rest_started_at": null,
+      "rest_end_at": null,
+      "current_session_exercise_id": 9020
+    },
+    {
+      "id": 904,
+      "source_plan_id": 901,
+      "plan_name_snapshot": "QA_ACTIVE",
+      "started_at": 1791345600000,
+      "started_local_date": "2026-10-07",
+      "ended_at": null,
+      "duration_seconds": null,
+      "status": "in_progress",
+      "current_exercise_order": 1,
+      "current_set_number": 1,
+      "rest_kind": null,
+      "rest_started_at": null,
+      "rest_end_at": null,
+      "current_session_exercise_id": 9040
+    }
+  ],
+  "session_exercises": [
+    {
+      "id": 9020,
+      "session_id": 902,
+      "source_exercise_id": 901,
+      "name_snapshot": "QA_ACTION_902",
+      "sort_order": 1,
+      "target_sets": 2,
+      "rest_between_sets_seconds": 0,
+      "rest_after_exercise_seconds": 0,
+      "default_weight_kg": null
+    },
+    {
+      "id": 9040,
+      "session_id": 904,
+      "source_exercise_id": 901,
+      "name_snapshot": "QA_ACTION_904",
+      "sort_order": 1,
+      "target_sets": 2,
+      "rest_between_sets_seconds": 0,
+      "rest_after_exercise_seconds": 0,
+      "default_weight_kg": null
+    }
+  ],
+  "session_sets": [
+    {
+      "id": 8,
+      "session_exercise_id": 9020,
+      "set_number": 1,
+      "completed_at": 1791372588663,
+      "completed_sequence": 1
+    },
+    {
+      "id": 9,
+      "session_exercise_id": 9020,
+      "set_number": 2,
+      "completed_at": 1791372588663,
+      "completed_sequence": 2
+    },
+    {
+      "id": 15,
+      "session_exercise_id": 9040,
+      "set_number": 1,
+      "completed_at": null,
+      "completed_sequence": null
+    },
+    {
+      "id": 16,
+      "session_exercise_id": 9040,
+      "set_number": 2,
+      "completed_at": null,
+      "completed_sequence": null
+    }
+  ]
+}

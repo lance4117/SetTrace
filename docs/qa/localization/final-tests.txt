@@ -1,0 +1,139 @@
+Resolving dependencies...
+Downloading packages...
+  _fe_analyzer_shared 96.0.0 (109.0.0 available)
+  analyzer 10.2.0 (14.5.0 available)
+  code_assets 1.2.1 (2.1.0 available)
+  cupertino_icons 1.0.9 (2.0.0 available)
+  hooks 2.0.2 (2.2.0 available)
+  material_color_utilities 0.13.0 (0.13.1 available)
+  meta 1.18.3 (1.19.0 available)
+  native_toolchain_c 0.19.2 (0.19.5 available)
+  package_config 2.2.0 (3.0.0 available)
+  record_use 0.6.0 (1.1.1 available)
+  shared_preferences 2.5.5 (2.5.6 available)
+  sqflite 2.4.4 (2.4.4+1 available)
+  sqflite_common 2.5.13 (2.5.13+1 available)
+  sqlite3 3.5.2 (3.7.0 available)
+  test_api 0.7.12 (0.7.15 available)
+  vector_math 2.4.0 (2.4.3 available)
+Got dependencies!
+16 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+00:00 +0: loading D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/database_migration_test.dart
+00:00 +0: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/database_migration_test.dart: v1 to v2 preserves zero data and corrects only invalid cursor
+00:00 +1: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/database_test.dart: database v1 keeps its five tables and plan data after reopen
+00:00 +2: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/database_migration_test.dart: v1 to v2 preserves between_sets data and corrects only invalid cursor
+00:00 +3: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/database_migration_test.dart: v1 to v2 preserves between_sets data and corrects only invalid cursor
+00:00 +4: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/database_migration_test.dart: v1 to v2 preserves between_exercises data and corrects only invalid cursor
+00:00 +5: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/database_migration_test.dart: v1 to v2 preserves corrupt data and corrects only invalid cursor
+00:00 +6: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/database_migration_test.dart: v1 to v2 preserves corrupt data and corrects only invalid cursor
+00:00 +7: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/database_migration_test.dart: v1 to v2 preserves corrupt data and corrects only invalid cursor
+00:00 +8: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/database_migration_test.dart: v1 to v2 preserves corrupt data and corrects only invalid cursor
+00:00 +9: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/database_migration_test.dart: v1 to v2 preserves corrupt data and corrects only invalid cursor
+00:00 +10: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/history_delete_ui_test.dart: confirmation button never deletes or changes statistics
+00:00 +11: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/history_delete_ui_test.dart: confirmation button never deletes or changes statistics
+00:00 +12: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/history_delete_ui_test.dart: confirmation button never deletes or changes statistics
+00:00 +13: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/history_delete_ui_test.dart: confirmation button never deletes or changes statistics
+00:00 +14: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/history_delete_ui_test.dart: confirmation button never deletes or changes statistics
+00:00 +15: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/history_delete_ui_test.dart: confirmation button never deletes or changes statistics
+00:01 +15: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/database_migration_test.dart: failed migration rolls back version and added columns, retaining plans
+error SqfliteFfiException(sqlite_error: 1, , SqliteException(1): while executing, no such table: session_sets, SQL logic error (code 1)
+  Causing statement: ALTER TABLE session_sets ADD COLUMN completed_sequence INTEGER, parameters: }) DatabaseException(SqliteException(1): while executing, no such table: session_sets, SQL logic error (code 1)
+  Causing statement: ALTER TABLE session_sets ADD COLUMN completed_sequence INTEGER, parameters: ) sql 'ALTER TABLE session_sets ADD COLUMN completed_sequence INTEGER' {details: {database: {path: C:\Users\Lance\AppData\Local\Temp\settrace_migration_36f3afe5\legacy.db, id: 26, readOnly: false, singleInstance: true}}} during open, closing...
+00:01 +16: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/history_delete_ui_test.dart: confirmation button never deletes or changes statistics
+00:02 +17: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/history_delete_ui_test.dart: confirmation barrier never deletes or changes statistics
+00:02 +18: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/history_delete_ui_test.dart: confirmation back never deletes or changes statistics
+00:02 +19: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/history_delete_ui_test.dart: success removes one same-day record and updates every statistic
+00:03 +20: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/history_delete_ui_test.dart: deleting selected historical month retains month and empty state
+00:03 +21: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/history_delete_ui_test.dart: last deletion clears recent training and all counters
+00:03 +22: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/history_delete_ui_test.dart: delete failure preserves details and permits confirmed retry
+00:04 +23: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/history_delete_ui_test.dart: duplicate confirmation and back during write do not repeat or exit
+00:04 +24: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/history_delete_ui_test.dart: duplicate confirmation and back during write do not repeat or exit
+00:04 +25: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/localization_test.dart: formatting and complete plural messages preserve numeric meanings
+00:04 +26: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/history_delete_ui_test.dart: missing target refreshes without claiming a successful deletion
+00:04 +27: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/history_delete_ui_test.dart: missing target refreshes without claiming a successful deletion
+00:04 +28: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/history_delete_ui_test.dart: missing target refreshes without claiming a successful deletion
+00:04 +29: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/history_delete_ui_test.dart: missing target refreshes without claiming a successful deletion
+00:04 +30: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/history_delete_ui_test.dart: missing target refreshes without claiming a successful deletion
+00:04 +31: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/history_delete_ui_test.dart: missing target refreshes without claiming a successful deletion
+00:04 +32: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/history_delete_ui_test.dart: missing target refreshes without claiming a successful deletion
+00:04 +33: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/history_delete_ui_test.dart: missing target refreshes without claiming a successful deletion
+00:04 +34: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/history_delete_ui_test.dart: missing target refreshes without claiming a successful deletion
+00:05 +35: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/localization_ui_test.dart: setting order, immediate switch, persistence and failure retry
+00:05 +36: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/localization_ui_test.dart: setting order, immediate switch, persistence and failure retry
+00:05 +37: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/localization_ui_test.dart: setting order, immediate switch, persistence and failure retry
+00:05 +38: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/localization_ui_test.dart: setting order, immediate switch, persistence and failure retry
+00:05 +39: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/localization_ui_test.dart: setting order, immediate switch, persistence and failure retry
+00:05 +40: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/localization_ui_test.dart: setting order, immediate switch, persistence and failure retry
+00:05 +41: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/localization_ui_test.dart: setting order, immediate switch, persistence and failure retry
+00:05 +42: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/localization_ui_test.dart: setting order, immediate switch, persistence and failure retry
+00:05 +43: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/localization_ui_test.dart: setting order, immediate switch, persistence and failure retry
+00:05 +44: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/localization_ui_test.dart: setting order, immediate switch, persistence and failure retry
+00:05 +45: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/localization_ui_test.dart: setting order, immediate switch, persistence and failure retry
+00:05 +46: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/localization_ui_test.dart: setting order, immediate switch, persistence and failure retry
+00:05 +47: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/localization_ui_test.dart: setting order, immediate switch, persistence and failure retry
+00:05 +48: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/localization_ui_test.dart: setting order, immediate switch, persistence and failure retry
+00:05 +49: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/localization_ui_test.dart: setting order, immediate switch, persistence and failure retry
+00:05 +50: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/localization_ui_test.dart: setting order, immediate switch, persistence and failure retry
+00:06 +51: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/localization_ui_test.dart: setting order, immediate switch, persistence and failure retry
+00:06 +52: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/localization_ui_test.dart: setting order, immediate switch, persistence and failure retry
+00:06 +53: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/localization_ui_test.dart: setting order, immediate switch, persistence and failure retry
+00:06 +54: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/localization_ui_test.dart: setting order, immediate switch, persistence and failure retry
+00:06 +55: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/localization_ui_test.dart: setting order, immediate switch, persistence and failure retry
+00:06 +56: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/localization_ui_test.dart: setting order, immediate switch, persistence and failure retry
+00:06 +57: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/localization_ui_test.dart: setting order, immediate switch, persistence and failure retry
+00:06 +58: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/localization_ui_test.dart: setting order, immediate switch, persistence and failure retry
+00:07 +59: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/localization_ui_test.dart: setting order, immediate switch, persistence and failure retry
+00:07 +60: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/localization_ui_test.dart: setting order, immediate switch, persistence and failure retry
+00:07 +61: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/localization_ui_test.dart: setting order, immediate switch, persistence and failure retry
+00:07 +62: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/localization_ui_test.dart: setting order, immediate switch, persistence and failure retry
+00:07 +63: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/localization_ui_test.dart: setting order, immediate switch, persistence and failure retry
+00:07 +64: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/localization_ui_test.dart: setting order, immediate switch, persistence and failure retry
+00:07 +65: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/localization_ui_test.dart: setting order, immediate switch, persistence and failure retry
+00:07 +66: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/localization_ui_test.dart: setting order, immediate switch, persistence and failure retry
+00:07 +67: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/localization_ui_test.dart: setting order, immediate switch, persistence and failure retry
+00:08 +68: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: home menu works with empty plans and never reads clipboard automatically
+00:08 +69: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: home menu works with empty plans and never reads clipboard automatically
+00:08 +70: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: home menu works with empty plans and never reads clipboard automatically
+00:08 +71: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: home menu works with empty plans and never reads clipboard automatically
+00:08 +72: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: home menu works with empty plans and never reads clipboard automatically
+00:08 +73: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: home menu works with empty plans and never reads clipboard automatically
+00:08 +74: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: home menu works with empty plans and never reads clipboard automatically
+00:08 +75: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: home menu works with empty plans and never reads clipboard automatically
+00:08 +76: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: home menu works with empty plans and never reads clipboard automatically
+00:08 +77: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: home menu works with empty plans and never reads clipboard automatically
+00:08 +78: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: home menu works with empty plans and never reads clipboard automatically
+00:09 +79: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: home menu works with empty plans and never reads clipboard automatically
+00:09 +80: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: zero-rest current B changes to C without extra completion or plan edits
+00:09 +81: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: zero-rest current B changes to C without extra completion or plan edits
+00:09 +82: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: zero-rest current B changes to C without extra completion or plan edits
+00:09 +83: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/localization_ui_test.dart: root switch keeps navigator, tab, editor draft, progress and rest deadline
+00:09 +84: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/localization_ui_test.dart: root switch keeps navigator, tab, editor draft, progress and rest deadline
+00:09 +85: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/localization_ui_test.dart: root switch keeps navigator, tab, editor draft, progress and rest deadline
+00:10 +86: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: selection, both channels, errors and busy duplicate prevention
+00:10 +87: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: rest-page chooser preserves deadline and next-group label
+00:10 +88: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/localization_ui_test.dart: long text 360.0 dp dark=false at 1.6 scale
+00:11 +89: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: cancelled file, malformed input and preview cancellation create nothing
+00:12 +90: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: cancelled file, malformed input and preview cancellation create nothing
+00:13 +91: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: partial current action stays pinned and locks its drag handle
+00:13 +92: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/localization_ui_test.dart: long text 430.0 dp dark=false at 1.6 scale
+00:13 +93: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: rename, transaction retry, conflict review and homepage refresh
+00:14 +94: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: rename, transaction retry, conflict review and homepage refresh
+00:14 +95: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: rename, transaction retry, conflict review and homepage refresh
+00:16 +96: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: full drag save persists only candidate order
+00:16 +97: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: readable export and preview at 360.0, dark=false, 1.3 font scale
+00:16 +98: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: stale draft fails, reload allows retry without partial sorting
+00:17 +99: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: stale draft fails, reload allows retry without partial sorting
+00:18 +100: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: readable export and preview at 430.0, dark=false, 1.3 font scale
+00:18 +101: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: save failure retry and double taps submit once
+00:19 +102: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: save failure retry and double taps submit once
+00:20 +103: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: sorting invalidates an older delayed lifecycle read
+00:23 +104: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: existing exercise editor remains accessible
+00:24 +105: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: fewer than two candidates hides selection and sorting entry
+00:25 +106: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: history preserves final order and groups for complete=false
+00:25 +107: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: history preserves final order and groups for complete=true
+00:25 +108: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: 360.0dp scaled sorting stays readable in dark=false
+00:26 +109: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: 360.0dp scaled sorting stays readable in dark=true
+00:27 +110: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: 430.0dp scaled sorting stays readable in dark=false
+00:28 +111: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: 430.0dp scaled sorting stays readable in dark=true
+00:29 +112: All tests passed!

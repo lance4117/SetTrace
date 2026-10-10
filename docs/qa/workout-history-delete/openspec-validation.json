@@ -1,0 +1,30 @@
+{
+  "items": [
+    {
+      "id": "delete-workout-history",
+      "type": "change",
+      "valid": true,
+      "issues": [],
+      "durationMs": 45
+    }
+  ],
+  "summary": {
+    "totals": {
+      "items": 1,
+      "passed": 1,
+      "failed": 0
+    },
+    "byType": {
+      "change": {
+        "items": 1,
+        "passed": 1,
+        "failed": 0
+      }
+    }
+  },
+  "version": "1.0",
+  "root": {
+    "path": "D:\\000_MyLibrary\\100_code\\110_Project\\5_SetTrace",
+    "source": "nearest"
+  }
+}

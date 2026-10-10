@@ -1,0 +1,33 @@
+{
+  "date": "2026-10-07",
+  "avd": "HistoryDelete",
+  "api": 36,
+  "physicalSize": "1080x2400",
+  "fontScale": 1.3,
+  "widthsDp": [
+    360,
+    430
+  ],
+  "densities": [
+    480,
+    402
+  ],
+  "themes": [
+    "light",
+    "dark"
+  ],
+  "allFourCancelSnapshotsEqualBefore": true,
+  "targetCascadeAndUnrelatedDataComparison": true,
+  "allCountersVerifiedFromNativeUi": true,
+  "historicalMonthPreserved": true,
+  "lastHistoryZerosAndNoLatest": true,
+  "restartPersistence": true,
+  "planAndActivePreserved": true,
+  "apkSha256": "8bb8b091893539c7e2a46f4c99799477e8ef8097280d1321bc6e73b582e49802",
+  "flutterAnalyze": "passed",
+  "flutterTest": {
+    "passed": 97,
+    "concurrency": 1
+  },
+  "openspecStrict": "passed"
+}

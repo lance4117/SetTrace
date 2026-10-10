@@ -1,0 +1,41 @@
+SetTrace localization final verification — 2026-10-10
+Change: add-app-localization
+Executor and contextual English/Chinese review: Codex
+
+PASS dart run tool/check_localizations.dart
+  Official en/zh packs: 230 keys each; key/parameter parity, known UI text sinks,
+  ICU generation and generated-locale runtime checks passed.
+PASS flutter gen-l10n
+  build/l10n-untranslated.json: {}
+PASS flutter analyze
+  No issues found. Formatting-related 42 brace lint findings were fixed before this run.
+PASS flutter test --reporter expanded
+  112 tests passed, including migration, repositories, transfer and localized UI/state/layout.
+PASS flutter build apk --debug
+  Normal lib/main.dart entry: build/app/outputs/flutter-apk/app-debug.apk
+PASS openspec validate add-app-localization --strict
+PASS git diff --check
+
+PASS dart run tool/test_language_extension.dart --build (earlier isolated run)
+  Added only a synthetic French ARB to a disposable full project copy. Generated
+  options, primary-locale resolution, self-name, ICU plurals, French date/decimal
+  formats and actual debug APK build passed; invalid ICU rejected. Copy removed.
+  Production languages are en and zh; synthetic French is not a released translation.
+
+PASS Android API36 complete English and Chinese UI scenarios
+  Four-set workout, rest/finish/history, 45,5 -> 45.5 kg, Downloads backup/import.
+PASS Actual system startup: en, zh-CN -> zh, fr-FR -> en
+PASS Normal main-entry application process restart on API36 with fr-FR system
+  Selected Chinese and dark using Settings; force-stopped then launched MainActivity.
+  Home and navigation remained Chinese; Settings still selected Chinese and dark.
+  Actual preferences: flutter.app_language=zh, flutter.theme_mode=dark.
+  Evidence: restart-home.png, restart-settings.png and corresponding XML snapshots.
+PASS API28 actual permission denial/retry, picker cancellation and old Chinese backup
+PASS Native storage instrumentation: 4 tests on API28 and 4 tests on API36
+PASS JVM storage tests: 2 tests
+
+Detailed evidence and limits: ../localization-acceptance.md
+Final raw logs: final-analysis.txt, final-resources.txt, final-generate.txt,
+final-tests.txt, final-build.txt, final-openspec.txt and language-extension.txt.
+No independent external translator review was performed. UI/contextual review,
+resource checks and device scenarios are recorded separately in the acceptance file.

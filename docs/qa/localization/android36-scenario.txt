@@ -1,0 +1,8 @@
+
+com.settrace.settrace.LocalizationIntegrationTest:.
+
+Time: 56.58
+
+OK (1 test)
+
+

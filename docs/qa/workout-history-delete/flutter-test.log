@@ -1,0 +1,114 @@
+00:00 +0: loading D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/database_migration_test.dart
+00:00 +0: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/database_migration_test.dart: v1 to v2 preserves zero data and corrects only invalid cursor
+00:00 +1: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/database_migration_test.dart: v1 to v2 preserves between_sets data and corrects only invalid cursor
+00:00 +2: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/database_migration_test.dart: v1 to v2 preserves between_exercises data and corrects only invalid cursor
+00:00 +3: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/database_migration_test.dart: v1 to v2 preserves corrupt data and corrects only invalid cursor
+00:00 +4: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/database_migration_test.dart: v1 to v2 preserves all data and corrects only invalid cursor
+00:00 +5: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/database_migration_test.dart: v1 to v2 preserves completed data and corrects only invalid cursor
+00:01 +6: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/database_migration_test.dart: v1 to v2 preserves partial data and corrects only invalid cursor
+00:01 +7: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/database_migration_test.dart: v1 to v2 preserves deleted data and corrects only invalid cursor
+00:01 +8: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/database_migration_test.dart: failed migration rolls back version and added columns, retaining plans
+error SqfliteFfiException(sqlite_error: 1, , SqliteException(1): while executing, no such table: session_sets, SQL logic error (code 1)
+  Causing statement: ALTER TABLE session_sets ADD COLUMN completed_sequence INTEGER, parameters: }) DatabaseException(SqliteException(1): while executing, no such table: session_sets, SQL logic error (code 1)
+  Causing statement: ALTER TABLE session_sets ADD COLUMN completed_sequence INTEGER, parameters: ) sql 'ALTER TABLE session_sets ADD COLUMN completed_sequence INTEGER' {details: {database: {path: C:\Users\Lance\AppData\Local\Temp\settrace_migration_b7ce9eb3\legacy.db, id: 26, readOnly: false, singleInstance: true}}} during open, closing...
+00:01 +9: loading D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/database_test.dart
+00:01 +9: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/database_test.dart: database v1 keeps its five tables and plan data after reopen
+00:01 +10: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/database_test.dart: plan exercises persist seconds and drag order
+00:01 +11: loading D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/history_delete_ui_test.dart
+00:02 +11: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/history_delete_ui_test.dart: confirmation button never deletes or changes statistics
+00:04 +12: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/history_delete_ui_test.dart: confirmation barrier never deletes or changes statistics
+00:04 +13: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/history_delete_ui_test.dart: confirmation back never deletes or changes statistics
+00:05 +14: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/history_delete_ui_test.dart: success removes one same-day record and updates every statistic
+00:05 +15: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/history_delete_ui_test.dart: deleting selected historical month retains month and empty state
+00:05 +16: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/history_delete_ui_test.dart: last deletion clears recent training and all counters
+00:06 +17: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/history_delete_ui_test.dart: delete failure preserves details and permits confirmed retry
+00:06 +18: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/history_delete_ui_test.dart: duplicate confirmation and back during write do not repeat or exit
+00:06 +19: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/history_delete_ui_test.dart: missing target refreshes without claiming a successful deletion
+00:06 +20: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/history_delete_ui_test.dart: load failure after committed delete stays removed and only retries loading
+00:07 +21: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/history_delete_ui_test.dart: stale pre-delete load cannot resurrect a deleted record
+00:07 +22: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/history_delete_ui_test.dart: initial load failure offers refresh retry
+00:07 +23: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/history_delete_ui_test.dart: confirmation remains usable width=360.0 dark=false scale=1.3
+00:07 +24: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/history_delete_ui_test.dart: confirmation remains usable width=360.0 dark=true scale=1.3
+00:07 +25: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/history_delete_ui_test.dart: confirmation remains usable width=430.0 dark=false scale=1.3
+00:08 +26: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/history_delete_ui_test.dart: confirmation remains usable width=430.0 dark=true scale=1.3
+00:08 +27: loading D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/history_stats_test.dart
+00:08 +27: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/history_stats_test.dart: week, month and latest count saved sessions rather than days
+00:08 +28: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/history_stats_test.dart: deleting a same-day record recalculates counts duration sets and latest
+00:08 +29: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/history_stats_test.dart: last deletion zeros statistics and clears latest
+00:08 +30: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/history_stats_test.dart: week and selected month retain their boundary semantics after deletion
+00:08 +31: loading D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_codec_test.dart
+00:09 +31: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_codec_test.dart: round trip preserves all fields, order and null weight without IDs
+00:09 +32: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_codec_test.dart: accepts BOM, whitespace, null weight and unknown additive fields
+00:09 +33: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_codec_test.dart: rejects damaged input, wrong marker, future version and empty plans
+00:09 +34: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_codec_test.dart: one invalid field rejects the entire document with location
+00:09 +35: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_codec_test.dart: export refuses invalid stored configuration and non-finite weight
+00:09 +36: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_codec_test.dart: size uses UTF-8 bytes and permits the exact boundary
+00:09 +37: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_codec_test.dart: names use visible characters and resolve existing plus batch collisions
+00:09 +38: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_codec_test.dart: published documentation example is importable
+00:09 +39: loading D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_platform_test.dart
+00:10 +39: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_platform_test.dart: save receives the exact snapshot and reports actual filename only on success
+00:10 +40: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_platform_test.dart: cancelled picker returns null and errors never return old text
+00:10 +41: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_platform_test.dart: in-flight file request rejects duplicates and completes exactly once
+00:10 +42: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_platform_test.dart: oversized save is rejected before channel and failed results cannot claim private storage success
+00:10 +43: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_platform_test.dart: clipboard is accessed only by explicit calls and failures are user readable
+00:10 +44: loading D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_repository_test.dart
+00:10 +44: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_repository_test.dart: selected export uses list order and saved exercise order, not selection order
+00:10 +45: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_repository_test.dart: imports fresh identities persist and never touch existing sessions or plans
+00:10 +46: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_repository_test.dart: new collision after preview saves nothing and returns a new preview
+00:10 +47: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_repository_test.dart: late exercise insertion failure rolls back every plan and exercise
+00:10 +48: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_repository_test.dart: valid compact input is not rejected for the size of a re-encoded export
+00:13 +49: loading D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart
+00:13 +49: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: home menu works with empty plans and never reads clipboard automatically
+00:16 +50: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: selection, both channels, errors and busy duplicate prevention
+00:18 +51: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: cancelled file, malformed input and preview cancellation create nothing
+00:22 +52: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: rename, transaction retry, conflict review and homepage refresh
+00:26 +53: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: readable export and preview at 360.0, dark=false, 1.3 font scale
+00:26 +54: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: readable export and preview at 360.0, dark=true, 1.3 font scale
+00:27 +55: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: readable export and preview at 430.0, dark=false, 1.3 font scale
+00:28 +56: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: readable export and preview at 430.0, dark=true, 1.3 font scale
+00:28 +57: loading D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart
+00:29 +57: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: zero-rest current B changes to C without extra completion or plan edits
+00:31 +58: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: rest-page chooser preserves deadline and next-group label
+00:33 +59: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: partial current action stays pinned and locks its drag handle
+00:35 +60: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: full drag cancellation leaves persisted queue unchanged
+00:36 +61: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: full drag save persists only candidate order
+00:38 +62: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: stale draft fails, reload allows retry without partial sorting
+00:40 +63: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: save failure retry and double taps submit once
+00:42 +64: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: sorting invalidates an older delayed lifecycle read
+00:44 +65: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: existing exercise editor remains accessible
+00:45 +66: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: fewer than two candidates hides selection and sorting entry
+00:46 +67: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: history preserves final order and groups for complete=false
+00:46 +68: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: history preserves final order and groups for complete=true
+00:46 +69: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: 360.0dp scaled sorting stays readable in dark=false
+00:47 +70: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: 360.0dp scaled sorting stays readable in dark=true
+00:48 +71: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: 430.0dp scaled sorting stays readable in dark=false
+00:49 +72: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: 430.0dp scaled sorting stays readable in dark=true
+00:50 +73: loading D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_reordering_repository_test.dart
+00:50 +73: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_reordering_repository_test.dart: A C B D preserves adjusted rest, identities, config and restart
+00:51 +74: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_reordering_repository_test.dart: zero-rest current B can switch to C and stale B cannot complete C
+00:51 +75: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_reordering_repository_test.dart: partial B stays pinned while future D moves before C during group rest
+00:51 +76: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_reordering_repository_test.dart: invalid and stale drafts roll back every part of the session
+00:51 +77: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_reordering_repository_test.dart: same names use IDs and foreign session IDs are rejected
+00:51 +78: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_reordering_repository_test.dart: equal timestamp undo follows submissions across reordered actions
+00:51 +79: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_reordering_repository_test.dart: continuous cross-action undo and redo preserves new queue
+00:51 +80: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_reordering_repository_test.dart: finish skips already completed later slots
+00:51 +81: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_reordering_repository_test.dart: session edits and plan deletion retain saved order and stats
+00:51 +82: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_reordering_repository_test.dart: one remaining candidate or all-completed session has no reorder
+00:51 +83: loading D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/step_picker_test.dart
+00:52 +83: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/step_picker_test.dart: picker snaps to valid 30-second values with one haptic per change
+00:53 +84: loading D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/widget_test.dart
+00:53 +84: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/widget_test.dart: settings offers system, light and dark modes
+00:54 +85: loading D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/workout_repository_test.dart
+00:54 +85: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/workout_repository_test.dart: start snapshots plan and permits only one active workout
+00:54 +86: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/workout_repository_test.dart: set transition, rest adjustment, undo and session-only edit
+00:55 +87: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/workout_repository_test.dart: expired rest recovers and partial workout enters history
+00:55 +88: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/workout_repository_test.dart: discarding a zero-set workout leaves no history
+00:55 +89: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/workout_repository_test.dart: finish needs explicit call and preserves partial snapshot
+00:55 +90: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/workout_repository_test.dart: both rest types lead to final-set confirmation without duplicate sets
+00:55 +91: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/workout_repository_test.dart: rest can be reduced to zero and completed sets constrain edits
+00:55 +92: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/workout_repository_test.dart: reducing target to completed sets repairs final cursor and rest
+00:55 +93: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/workout_repository_test.dart: delete history cascades and preserves other data complete=false
+00:55 +94: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/workout_repository_test.dart: delete history cascades and preserves other data complete=true
+00:55 +95: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/workout_repository_test.dart: delete history rejects active and missing targets without writes
+00:55 +96: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/workout_repository_test.dart: cascade failure rolls back all data and can be retried
+00:55 +97: All tests passed!

@@ -1,0 +1,1289 @@
+{
+  "@@locale": "zh",
+  "languageSelfName": "中文",
+  "@languageSelfName": {
+    "description": "The language name in its own language, always shown unchanged in the language selector."
+  },
+  "settings": "设置",
+  "@settings": {
+    "description": "SetTrace UI: settings. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "appearance": "外观",
+  "@appearance": {
+    "description": "SetTrace UI: appearance. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "language": "语言",
+  "@language": {
+    "description": "SetTrace UI: language. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "systemTheme": "跟随系统",
+  "@systemTheme": {
+    "description": "SetTrace UI: systemTheme. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "lightTheme": "浅色",
+  "@lightTheme": {
+    "description": "SetTrace UI: lightTheme. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "darkTheme": "深色",
+  "@darkTheme": {
+    "description": "SetTrace UI: darkTheme. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "localDataNote": "训练数据仅保存在本机。",
+  "@localDataNote": {
+    "description": "SetTrace UI: localDataNote. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "plansTab": "计划",
+  "@plansTab": {
+    "description": "SetTrace UI: plansTab. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "historyTab": "记录",
+  "@historyTab": {
+    "description": "SetTrace UI: historyTab. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "cancel": "取消",
+  "@cancel": {
+    "description": "SetTrace UI: cancel. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "save": "保存",
+  "@save": {
+    "description": "SetTrace UI: save. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "delete": "删除",
+  "@delete": {
+    "description": "SetTrace UI: delete. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "retry": "重试",
+  "@retry": {
+    "description": "SetTrace UI: retry. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "newPlanTitle": "新建训练计划",
+  "@newPlanTitle": {
+    "description": "SetTrace UI: newPlanTitle. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "renamePlanTitle": "编辑计划名称",
+  "@renamePlanTitle": {
+    "description": "SetTrace UI: renamePlanTitle. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "planNameHint": "例如：练背",
+  "@planNameHint": {
+    "description": "SetTrace UI: planNameHint. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "plansTitle": "训练计划",
+  "@plansTitle": {
+    "description": "SetTrace UI: plansTitle. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "newPlan": "＋ 新建",
+  "@newPlan": {
+    "description": "SetTrace UI: newPlan. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "transferMenu": "计划导入导出",
+  "@transferMenu": {
+    "description": "SetTrace UI: transferMenu. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "importPlans": "导入计划",
+  "@importPlans": {
+    "description": "SetTrace UI: importPlans. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "exportPlans": "导出计划",
+  "@exportPlans": {
+    "description": "SetTrace UI: exportPlans. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "whatToTrain": "今天练什么？",
+  "@whatToTrain": {
+    "description": "SetTrace UI: whatToTrain. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "resumeWorkout": "继续训练",
+  "@resumeWorkout": {
+    "description": "SetTrace UI: resumeWorkout. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "noPlansYet": "还没有训练计划，先新建一个吧",
+  "@noPlansYet": {
+    "description": "SetTrace UI: noPlansYet. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "noExercises": "还没有动作",
+  "@noExercises": {
+    "description": "SetTrace UI: noExercises. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "planDetails": "计划详情",
+  "@planDetails": {
+    "description": "SetTrace UI: planDetails. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "rename": "修改名称",
+  "@rename": {
+    "description": "SetTrace UI: rename. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "deletePlan": "删除计划",
+  "@deletePlan": {
+    "description": "SetTrace UI: deletePlan. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "deletePlanTitle": "删除这个计划？",
+  "@deletePlanTitle": {
+    "description": "SetTrace UI: deletePlanTitle. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "deletePlanNote": "已有训练记录和进行中的训练不会被删除。",
+  "@deletePlanNote": {
+    "description": "SetTrace UI: deletePlanNote. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "reorderPlanHint": "长按左侧把手调整动作顺序",
+  "@reorderPlanHint": {
+    "description": "SetTrace UI: reorderPlanHint. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "noExercisesAdd": "还没有动作，点击下方添加",
+  "@noExercisesAdd": {
+    "description": "SetTrace UI: noExercisesAdd. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "addExerciseAction": "＋ 添加动作",
+  "@addExerciseAction": {
+    "description": "SetTrace UI: addExerciseAction. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "startWorkout": "开始训练",
+  "@startWorkout": {
+    "description": "SetTrace UI: startWorkout. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "activeWorkoutTitle": "已有未完成训练",
+  "@activeWorkoutTitle": {
+    "description": "SetTrace UI: activeWorkoutTitle. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "stayHere": "留在此处",
+  "@stayHere": {
+    "description": "SetTrace UI: stayHere. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "resumeOriginal": "继续原训练",
+  "@resumeOriginal": {
+    "description": "SetTrace UI: resumeOriginal. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "prepareWorkout": "准备训练",
+  "@prepareWorkout": {
+    "description": "SetTrace UI: prepareWorkout. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "exerciseOrder": "动作顺序",
+  "@exerciseOrder": {
+    "description": "SetTrace UI: exerciseOrder. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "exerciseInvalid": "请填写动作名称；重量可留空，填写时须为正数，且只能使用一个小数点或逗号。",
+  "@exerciseInvalid": {
+    "description": "SetTrace UI: exerciseInvalid. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "deleteExerciseTitle": "删除动作？",
+  "@deleteExerciseTitle": {
+    "description": "SetTrace UI: deleteExerciseTitle. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "deleteExerciseNote": "只会从计划中删除，已有训练记录不会改变。",
+  "@deleteExerciseNote": {
+    "description": "SetTrace UI: deleteExerciseNote. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "addExercise": "添加动作",
+  "@addExercise": {
+    "description": "SetTrace UI: addExercise. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "editExercise": "编辑动作",
+  "@editExercise": {
+    "description": "SetTrace UI: editExercise. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "exerciseName": "动作名称",
+  "@exerciseName": {
+    "description": "SetTrace UI: exerciseName. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "exerciseNameHint": "例如：坐姿划船",
+  "@exerciseNameHint": {
+    "description": "SetTrace UI: exerciseNameHint. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "setsLabel": "组数",
+  "@setsLabel": {
+    "description": "SetTrace UI: setsLabel. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "betweenSets": "组间休息",
+  "@betweenSets": {
+    "description": "SetTrace UI: betweenSets. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "afterExercise": "动作完成后休息",
+  "@afterExercise": {
+    "description": "SetTrace UI: afterExercise. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "weightLabel": "重量（可选，kg）",
+  "@weightLabel": {
+    "description": "SetTrace UI: weightLabel. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "pickerHint": "左右滑动切换档位 · 每跨一档轻震反馈",
+  "@pickerHint": {
+    "description": "SetTrace UI: pickerHint. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "saveExercise": "保存动作",
+  "@saveExercise": {
+    "description": "SetTrace UI: saveExercise. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "finishWorkoutTitle": "完成训练？",
+  "@finishWorkoutTitle": {
+    "description": "SetTrace UI: finishWorkoutTitle. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "endWorkoutTitle": "结束这次训练？",
+  "@endWorkoutTitle": {
+    "description": "SetTrace UI: endWorkoutTitle. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "emptyWorkoutExit": "尚未完成任何一组。可继续训练或丢弃本次会话。",
+  "@emptyWorkoutExit": {
+    "description": "SetTrace UI: emptyWorkoutExit. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "discard": "丢弃",
+  "@discard": {
+    "description": "SetTrace UI: discard. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "saveCompleted": "保存已完成",
+  "@saveCompleted": {
+    "description": "SetTrace UI: saveCompleted. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "confirmDiscardTitle": "确认丢弃？",
+  "@confirmDiscardTitle": {
+    "description": "SetTrace UI: confirmDiscardTitle. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "confirmDiscardNote": "已完成的组记录会永久删除。",
+  "@confirmDiscardNote": {
+    "description": "SetTrace UI: confirmDiscardNote. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "confirmDiscard": "确认丢弃",
+  "@confirmDiscard": {
+    "description": "SetTrace UI: confirmDiscard. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "sessionExercises": "本次训练动作",
+  "@sessionExercises": {
+    "description": "SetTrace UI: sessionExercises. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "reorderRemaining": "调整剩余顺序",
+  "@reorderRemaining": {
+    "description": "SetTrace UI: reorderRemaining. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "workoutInProgress": "训练中",
+  "@workoutInProgress": {
+    "description": "SetTrace UI: workoutInProgress. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "endOrReturn": "结束或返回",
+  "@endOrReturn": {
+    "description": "SetTrace UI: endOrReturn. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "exitWorkout": "退出",
+  "@exitWorkout": {
+    "description": "SetTrace UI: exitWorkout. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "allExercisesEdit": "全部动作与编辑",
+  "@allExercisesEdit": {
+    "description": "SetTrace UI: allExercisesEdit. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "undoLastSet": "撤销上一组",
+  "@undoLastSet": {
+    "description": "SetTrace UI: undoLastSet. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "allSetsCompleted": "全部组已完成",
+  "@allSetsCompleted": {
+    "description": "SetTrace UI: allSetsCompleted. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "saveWorkout": "保存训练",
+  "@saveWorkout": {
+    "description": "SetTrace UI: saveWorkout. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "completeSet": "完成本组",
+  "@completeSet": {
+    "description": "SetTrace UI: completeSet. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "currentExerciseMovable": "当前动作尚无完成组，可换成其他待练动作。",
+  "@currentExerciseMovable": {
+    "description": "SetTrace UI: currentExerciseMovable. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "currentExerciseFixed": "当前动作继续完成，可安排后续动作。",
+  "@currentExerciseFixed": {
+    "description": "SetTrace UI: currentExerciseFixed. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "changeNext": "更换下一动作",
+  "@changeNext": {
+    "description": "SetTrace UI: changeNext. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "nextExercise": "下一动作",
+  "@nextExercise": {
+    "description": "SetTrace UI: nextExercise. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "lastExercise": "这是最后一个动作",
+  "@lastExercise": {
+    "description": "SetTrace UI: lastExercise. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "betweenExercises": "动作间休息",
+  "@betweenExercises": {
+    "description": "SetTrace UI: betweenExercises. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "subtractRest": "−30 秒",
+  "@subtractRest": {
+    "description": "SetTrace UI: subtractRest. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "skip": "跳过",
+  "@skip": {
+    "description": "SetTrace UI: skip. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "addRest": "+30 秒",
+  "@addRest": {
+    "description": "SetTrace UI: addRest. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "targetSets": "目标组数",
+  "@targetSets": {
+    "description": "SetTrace UI: targetSets. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "afterExerciseShort": "动作后休息",
+  "@afterExerciseShort": {
+    "description": "SetTrace UI: afterExerciseShort. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "sessionEditNote": "只修改本次训练；已开始的休息时间不变。",
+  "@sessionEditNote": {
+    "description": "SetTrace UI: sessionEditNote. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "saveSessionConfig": "保存本次配置",
+  "@saveSessionConfig": {
+    "description": "SetTrace UI: saveSessionConfig. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "replaceCurrentNote": "替换当前待练动作，不记录额外完成组。",
+  "@replaceCurrentNote": {
+    "description": "SetTrace UI: replaceCurrentNote. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "chooseFollowingNote": "当前动作做完后练；当前组数和休息保持。",
+  "@chooseFollowingNote": {
+    "description": "SetTrace UI: chooseFollowingNote. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "reorderSessionNote": "拖动待练动作；已记录组的动作固定。只影响本次训练。",
+  "@reorderSessionNote": {
+    "description": "SetTrace UI: reorderSessionNote. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "noReorderCandidates": "没有其他可换序的待练动作",
+  "@noReorderCandidates": {
+    "description": "SetTrace UI: noReorderCandidates. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "completed": "已完成",
+  "@completed": {
+    "description": "SetTrace UI: completed. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "pending": "待练",
+  "@pending": {
+    "description": "SetTrace UI: pending. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "inProgress": "进行中",
+  "@inProgress": {
+    "description": "SetTrace UI: inProgress. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "reload": "重新加载",
+  "@reload": {
+    "description": "SetTrace UI: reload. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "saveOrder": "保存顺序",
+  "@saveOrder": {
+    "description": "SetTrace UI: saveOrder. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "historyTitle": "训练记录",
+  "@historyTitle": {
+    "description": "SetTrace UI: historyTitle. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "thisWeek": "本周训练",
+  "@thisWeek": {
+    "description": "SetTrace UI: thisWeek. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "thisMonth": "本月训练",
+  "@thisMonth": {
+    "description": "SetTrace UI: thisMonth. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "monthDuration": "所选月份时长",
+  "@monthDuration": {
+    "description": "SetTrace UI: monthDuration. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "monthSets": "所选月份完成组",
+  "@monthSets": {
+    "description": "SetTrace UI: monthSets. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "noRecentWorkout": "最近训练：暂无",
+  "@noRecentWorkout": {
+    "description": "SetTrace UI: noRecentWorkout. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "previousMonth": "上个月",
+  "@previousMonth": {
+    "description": "SetTrace UI: previousMonth. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "nextMonth": "下个月",
+  "@nextMonth": {
+    "description": "SetTrace UI: nextMonth. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "retryRefresh": "重试刷新",
+  "@retryRefresh": {
+    "description": "SetTrace UI: retryRefresh. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "noHistoryMonth": "这个月还没有训练记录",
+  "@noHistoryMonth": {
+    "description": "SetTrace UI: noHistoryMonth. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "historyDeleted": "记录已删除",
+  "@historyDeleted": {
+    "description": "SetTrace UI: historyDeleted. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "historyMissing": "记录已不存在",
+  "@historyMissing": {
+    "description": "SetTrace UI: historyMissing. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "historyLoadFailed": "记录加载失败，请重试",
+  "@historyLoadFailed": {
+    "description": "SetTrace UI: historyLoadFailed. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "deleteHistoryTitle": "删除这条训练记录？",
+  "@deleteHistoryTitle": {
+    "description": "SetTrace UI: deleteHistoryTitle. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "activeHistoryDelete": "只能删除已保存的训练，正在进行的训练不会被删除。",
+  "@activeHistoryDelete": {
+    "description": "SetTrace UI: activeHistoryDelete. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "historyDeleteFailed": "删除失败，请重试。",
+  "@historyDeleteFailed": {
+    "description": "SetTrace UI: historyDeleteFailed. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "workoutDetails": "训练详情",
+  "@workoutDetails": {
+    "description": "SetTrace UI: workoutDetails. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "historyMenu": "训练记录操作",
+  "@historyMenu": {
+    "description": "SetTrace UI: historyMenu. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "deleteHistory": "删除记录",
+  "@deleteHistory": {
+    "description": "SetTrace UI: deleteHistory. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "retryDelete": "重试删除",
+  "@retryDelete": {
+    "description": "SetTrace UI: retryDelete. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "notCompleted": "未完成",
+  "@notCompleted": {
+    "description": "SetTrace UI: notCompleted. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "exportNote": "训练计划备份包含计划及动作配置，不包含训练记录。",
+  "@exportNote": {
+    "description": "SetTrace UI: exportNote. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "selectAll": "全选",
+  "@selectAll": {
+    "description": "SetTrace UI: selectAll. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "deselectAll": "取消全选",
+  "@deselectAll": {
+    "description": "SetTrace UI: deselectAll. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "noExportPlans": "没有可导出的计划",
+  "@noExportPlans": {
+    "description": "SetTrace UI: noExportPlans. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "copyClipboard": "复制到剪贴板",
+  "@copyClipboard": {
+    "description": "SetTrace UI: copyClipboard. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "exportFile": "导出到文件",
+  "@exportFile": {
+    "description": "SetTrace UI: exportFile. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "importPreview": "导入预览",
+  "@importPreview": {
+    "description": "SetTrace UI: importPreview. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "importHint": "粘贴别人分享的计划文本，或选择本地计划文件。",
+  "@importHint": {
+    "description": "SetTrace UI: importHint. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "importTextHint": "在这里粘贴计划文本",
+  "@importTextHint": {
+    "description": "SetTrace UI: importTextHint. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "paste": "粘贴",
+  "@paste": {
+    "description": "SetTrace UI: paste. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "planName": "计划名称",
+  "@planName": {
+    "description": "SetTrace UI: planName. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "emptyPlanNote": "空计划，添加动作后可开始训练",
+  "@emptyPlanNote": {
+    "description": "SetTrace UI: emptyPlanNote. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "viewExerciseConfig": "查看动作配置",
+  "@viewExerciseConfig": {
+    "description": "SetTrace UI: viewExerciseConfig. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "weightNotSet": "未设置",
+  "@weightNotSet": {
+    "description": "SetTrace UI: weightNotSet. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "chooseFile": "从文件选择",
+  "@chooseFile": {
+    "description": "SetTrace UI: chooseFile. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "previewPlans": "预览计划",
+  "@previewPlans": {
+    "description": "SetTrace UI: previewPlans. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "chooseAgain": "重新选择",
+  "@chooseAgain": {
+    "description": "SetTrace UI: chooseAgain. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "confirmImport": "确认导入",
+  "@confirmImport": {
+    "description": "SetTrace UI: confirmImport. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "nameConflict": "名称存在冲突，已调整为副本名称，请检查后再次确认",
+  "@nameConflict": {
+    "description": "SetTrace UI: nameConflict. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "nameTaken": "名称已被占用，已更新预览，请再次确认",
+  "@nameTaken": {
+    "description": "SetTrace UI: nameTaken. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "planNameRequired": "计划名称不能为空",
+  "@planNameRequired": {
+    "description": "SetTrace UI: planNameRequired. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "plansLoadFailed": "无法加载计划，请返回后重试",
+  "@plansLoadFailed": {
+    "description": "SetTrace UI: plansLoadFailed. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "exportFailed": "导出失败，请重试",
+  "@exportFailed": {
+    "description": "SetTrace UI: exportFailed. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "importFailed": "导入失败，请重试",
+  "@importFailed": {
+    "description": "SetTrace UI: importFailed. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "operationFailed": "操作失败，请重试。",
+  "@operationFailed": {
+    "description": "SetTrace UI: operationFailed. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "loadFailed": "加载失败，请重试。",
+  "@loadFailed": {
+    "description": "SetTrace UI: loadFailed. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "saveFailed": "保存失败，请重试。",
+  "@saveFailed": {
+    "description": "SetTrace UI: saveFailed. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "languageSaveFailed": "无法保存语言选择，请重试。",
+  "@languageSaveFailed": {
+    "description": "SetTrace UI: languageSaveFailed. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "fileTooLarge": "计划内容超过 2 MiB，请减少计划数量后重试",
+  "@fileTooLarge": {
+    "description": "SetTrace UI: fileTooLarge. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "emptyContent": "没有计划内容，请粘贴文本或选择文件",
+  "@emptyContent": {
+    "description": "SetTrace UI: emptyContent. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "damagedContent": "计划内容损坏，请使用完整的计划导出文本或文件",
+  "@damagedContent": {
+    "description": "SetTrace UI: damagedContent. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "wrongFormat": "无法识别此文件，请选择 SetTrace 导出的计划",
+  "@wrongFormat": {
+    "description": "SetTrace UI: wrongFormat. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "unsupportedVersion": "计划格式版本不受支持，请更新应用后重试",
+  "@unsupportedVersion": {
+    "description": "SetTrace UI: unsupportedVersion. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "noImportPlans": "没有可导入的计划",
+  "@noImportPlans": {
+    "description": "SetTrace UI: noImportPlans. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "selectPlans": "请至少选择一个计划",
+  "@selectPlans": {
+    "description": "SetTrace UI: selectPlans. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "clipboardCopyFailed": "复制失败，请重试或选择导出到文件",
+  "@clipboardCopyFailed": {
+    "description": "SetTrace UI: clipboardCopyFailed. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "clipboardReadFailed": "无法读取剪贴板，请手动粘贴计划文本",
+  "@clipboardReadFailed": {
+    "description": "SetTrace UI: clipboardReadFailed. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "clipboardEmpty": "剪贴板没有计划文本，请手动粘贴或选择文件",
+  "@clipboardEmpty": {
+    "description": "SetTrace UI: clipboardEmpty. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "fileBusy": "文件操作正在进行，请稍候",
+  "@fileBusy": {
+    "description": "SetTrace UI: fileBusy. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "fileIncomplete": "文件操作未完成，请重试",
+  "@fileIncomplete": {
+    "description": "SetTrace UI: fileIncomplete. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "fileOperationFailed": "文件操作失败，请重试",
+  "@fileOperationFailed": {
+    "description": "SetTrace UI: fileOperationFailed. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "fileUnsupported": "当前平台暂不支持计划文件操作",
+  "@fileUnsupported": {
+    "description": "SetTrace UI: fileUnsupported. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "fileNotDownloads": "文件未保存到下载目录，请重试",
+  "@fileNotDownloads": {
+    "description": "SetTrace UI: fileNotDownloads. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "fileReadFailed": "无法读取文件，请重新选择有效的 UTF-8 计划文件",
+  "@fileReadFailed": {
+    "description": "SetTrace UI: fileReadFailed. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "fileEmpty": "文件为空，请重新选择",
+  "@fileEmpty": {
+    "description": "SetTrace UI: fileEmpty. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "filePickerFailed": "无法打开文件选择器，请使用粘贴文本",
+  "@filePickerFailed": {
+    "description": "SetTrace UI: filePickerFailed. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "permissionDenied": "未获得下载目录写入权限，请重试或复制到剪贴板",
+  "@permissionDenied": {
+    "description": "SetTrace UI: permissionDenied. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "fileSaveFailed": "无法保存到下载目录，请检查可用空间后重试",
+  "@fileSaveFailed": {
+    "description": "SetTrace UI: fileSaveFailed. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "plansChanged": "选中的计划已被删除，请返回重新选择",
+  "@plansChanged": {
+    "description": "SetTrace UI: plansChanged. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "workoutChanged": "训练状态已变化，请重新加载后排序",
+  "@workoutChanged": {
+    "description": "SetTrace UI: workoutChanged. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "invalidOrder": "排序必须包含所有待练动作各一次，不能移动已记录组的动作",
+  "@invalidOrder": {
+    "description": "SetTrace UI: invalidOrder. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "sessionEnded": "本次训练已结束",
+  "@sessionEnded": {
+    "description": "SetTrace UI: sessionEnded. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "activeExists": "已有未完成训练，请先继续或结束。",
+  "@activeExists": {
+    "description": "SetTrace UI: activeExists. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "emptyPlan": "请先添加动作再开始训练。",
+  "@emptyPlan": {
+    "description": "SetTrace UI: emptyPlan. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "restActive": "休息仍在进行，请等待或跳过。",
+  "@restActive": {
+    "description": "SetTrace UI: restActive. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "positionChanged": "训练进度已变化，请重试。",
+  "@positionChanged": {
+    "description": "SetTrace UI: positionChanged. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "setAlreadyCompleted": "本组已经完成，请刷新。",
+  "@setAlreadyCompleted": {
+    "description": "SetTrace UI: setAlreadyCompleted. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "noSetToUndo": "没有可撤销的已完成组。",
+  "@noSetToUndo": {
+    "description": "SetTrace UI: noSetToUndo. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "noRest": "当前没有进行中的休息。",
+  "@noRest": {
+    "description": "SetTrace UI: noRest. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "invalidConfiguration": "组数或休息时间无效，请检查。",
+  "@invalidConfiguration": {
+    "description": "SetTrace UI: invalidConfiguration. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "exerciseNotFound": "动作已不存在，请刷新。",
+  "@exerciseNotFound": {
+    "description": "SetTrace UI: exerciseNotFound. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "completedExercise": "已完成的动作不能修改。",
+  "@completedExercise": {
+    "description": "SetTrace UI: completedExercise. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "targetBelowCompleted": "目标组数不能小于已完成组数。",
+  "@targetBelowCompleted": {
+    "description": "SetTrace UI: targetBelowCompleted. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "emptyWorkout": "未完成任何一组，无法保存训练。",
+  "@emptyWorkout": {
+    "description": "SetTrace UI: emptyWorkout. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "activeNotFound": "进行中的训练已不存在，请返回计划。",
+  "@activeNotFound": {
+    "description": "SetTrace UI: activeNotFound. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "setCount": "{count} 组",
+  "@setCount": {
+    "description": "SetTrace UI: setCount. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim.",
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "exerciseSummary": "{exercises} 个动作 · {sets} 组",
+  "@exerciseSummary": {
+    "description": "SetTrace UI: exerciseSummary. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim.",
+    "placeholders": {
+      "exercises": {
+        "type": "num",
+        "format": "decimalPattern"
+      },
+      "sets": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "importSuccess": "成功导入 {count} 个计划",
+  "@importSuccess": {
+    "description": "SetTrace UI: importSuccess. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim.",
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "copySuccess": "已复制 {count} 个计划",
+  "@copySuccess": {
+    "description": "SetTrace UI: copySuccess. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim.",
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "selectedPlans": "已选 {count} 个计划",
+  "@selectedPlans": {
+    "description": "SetTrace UI: selectedPlans. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim.",
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "importPreviewNote": "将新增 {count} 个计划，同名计划创建副本。",
+  "@importPreviewNote": {
+    "description": "SetTrace UI: importPreviewNote. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim.",
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "fileSaved": "已保存到下载目录：{fileName}",
+  "@fileSaved": {
+    "description": "SetTrace UI: fileSaved. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim.",
+    "placeholders": {
+      "fileName": {
+        "type": "String"
+      }
+    }
+  },
+  "unfinishedPlan": "尚未完成 · {name}",
+  "@unfinishedPlan": {
+    "description": "SetTrace UI: unfinishedPlan. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim.",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "exerciseCurrentSet": "{name} · 第 {number} 组",
+  "@exerciseCurrentSet": {
+    "description": "SetTrace UI: exerciseCurrentSet. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim.",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "number": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "exerciseSets": "{name} · {sets} 组",
+  "@exerciseSets": {
+    "description": "SetTrace UI: exerciseSets. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim.",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "sets": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "exerciseRest": "{sets} 组 · 组间 {minutes} min",
+  "@exerciseRest": {
+    "description": "SetTrace UI: exerciseRest. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim.",
+    "placeholders": {
+      "sets": {
+        "type": "num",
+        "format": "decimalPattern"
+      },
+      "minutes": {
+        "type": "String"
+      }
+    }
+  },
+  "exerciseProgressRest": "{completed} / {total} 组 · 组间 {minutes} 分钟",
+  "@exerciseProgressRest": {
+    "description": "SetTrace UI: exerciseProgressRest. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim.",
+    "placeholders": {
+      "completed": {
+        "type": "num",
+        "format": "decimalPattern"
+      },
+      "total": {
+        "type": "num",
+        "format": "decimalPattern"
+      },
+      "minutes": {
+        "type": "String"
+      }
+    }
+  },
+  "exercisePreview": "{index}  {name}    {sets} 组",
+  "@exercisePreview": {
+    "description": "SetTrace UI: exercisePreview. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim.",
+    "placeholders": {
+      "index": {
+        "type": "num",
+        "format": "decimalPattern"
+      },
+      "name": {
+        "type": "String"
+      },
+      "sets": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "resumePlanNote": "请先继续或结束「{name}」。",
+  "@resumePlanNote": {
+    "description": "SetTrace UI: resumePlanNote. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim.",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "exitCompletedNote": "已完成 {count} 组。可以保存已完成内容，稍后在记录中查看。",
+  "@exitCompletedNote": {
+    "description": "SetTrace UI: exitCompletedNote. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim.",
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "exercisePosition": "动作 {current} / {total}",
+  "@exercisePosition": {
+    "description": "SetTrace UI: exercisePosition. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim.",
+    "placeholders": {
+      "current": {
+        "type": "num",
+        "format": "decimalPattern"
+      },
+      "total": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "currentSet": "当前第 {number} 组",
+  "@currentSet": {
+    "description": "SetTrace UI: currentSet. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim.",
+    "placeholders": {
+      "number": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "nextSet": "下一组：{name} · {current} / {total}",
+  "@nextSet": {
+    "description": "SetTrace UI: nextSet. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim.",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "current": {
+        "type": "num",
+        "format": "decimalPattern"
+      },
+      "total": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "sessionEditTitle": "本次编辑 · {name}",
+  "@sessionEditTitle": {
+    "description": "SetTrace UI: sessionEditTitle. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim.",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "pendingSets": "{sets} 组 · 待练",
+  "@pendingSets": {
+    "description": "SetTrace UI: pendingSets. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim.",
+    "placeholders": {
+      "sets": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "orderProgress": "{state} · {completed} / {total} 组",
+  "@orderProgress": {
+    "description": "SetTrace UI: orderProgress. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim.",
+    "placeholders": {
+      "state": {
+        "type": "String"
+      },
+      "completed": {
+        "type": "num",
+        "format": "decimalPattern"
+      },
+      "total": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "dragExercise": "拖动{name}",
+  "@dragExercise": {
+    "description": "SetTrace UI: dragExercise. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim.",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "minutesDuration": "{minutes} 分钟",
+  "@minutesDuration": {
+    "description": "SetTrace UI: minutesDuration. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim.",
+    "placeholders": {
+      "minutes": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "hoursDuration": "{hours} 小时 {minutes} 分钟",
+  "@hoursDuration": {
+    "description": "SetTrace UI: hoursDuration. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim.",
+    "placeholders": {
+      "hours": {
+        "type": "num",
+        "format": "decimalPattern"
+      },
+      "minutes": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "minutesShort": "{minutes} min",
+  "@minutesShort": {
+    "description": "SetTrace UI: minutesShort. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim.",
+    "placeholders": {
+      "minutes": {
+        "type": "String"
+      }
+    }
+  },
+  "weightKg": "{weight} kg",
+  "@weightKg": {
+    "description": "SetTrace UI: weightKg. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim.",
+    "placeholders": {
+      "weight": {
+        "type": "String"
+      }
+    }
+  },
+  "weightHint": "例如：{weight}",
+  "@weightHint": {
+    "description": "SetTrace UI: weightHint. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim.",
+    "placeholders": {
+      "weight": {
+        "type": "String"
+      }
+    }
+  },
+  "recentWorkout": "最近训练：{name} · {duration}",
+  "@recentWorkout": {
+    "description": "SetTrace UI: recentWorkout. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim.",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "historySummary": "{duration} · {exercises} 个动作 · {sets} 组",
+  "@historySummary": {
+    "description": "SetTrace UI: historySummary. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim.",
+    "placeholders": {
+      "duration": {
+        "type": "String"
+      },
+      "exercises": {
+        "type": "num",
+        "format": "decimalPattern"
+      },
+      "sets": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "historyRefreshFailed": "{notice}，刷新失败，请重试",
+  "@historyRefreshFailed": {
+    "description": "SetTrace UI: historyRefreshFailed. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim.",
+    "placeholders": {
+      "notice": {
+        "type": "String"
+      }
+    }
+  },
+  "deleteHistoryNote": "{name}\n{date}\n\n删除后无法恢复，相关训练统计将同步更新。",
+  "@deleteHistoryNote": {
+    "description": "SetTrace UI: deleteHistoryNote. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim.",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "historyTimeRange": "{date} · {start}–{end} · {duration}",
+  "@historyTimeRange": {
+    "description": "SetTrace UI: historyTimeRange. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim.",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      },
+      "start": {
+        "type": "String"
+      },
+      "end": {
+        "type": "String"
+      },
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "completedSets": "完成 {completed} / {total} 组",
+  "@completedSets": {
+    "description": "SetTrace UI: completedSets. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim.",
+    "placeholders": {
+      "completed": {
+        "type": "num",
+        "format": "decimalPattern"
+      },
+      "total": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "setResult": "第 {number} 组 · {result}",
+  "@setResult": {
+    "description": "SetTrace UI: setResult. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim.",
+    "placeholders": {
+      "number": {
+        "type": "num",
+        "format": "decimalPattern"
+      },
+      "result": {
+        "type": "String"
+      }
+    }
+  },
+  "transferExerciseDetails": "{index}. {name}\n{sets} 组 · 组间休息 {between} 秒\n动作后休息 {after} 秒 · 重量 {weight}",
+  "@transferExerciseDetails": {
+    "description": "SetTrace UI: transferExerciseDetails. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim.",
+    "placeholders": {
+      "index": {
+        "type": "num",
+        "format": "decimalPattern"
+      },
+      "name": {
+        "type": "String"
+      },
+      "sets": {
+        "type": "num",
+        "format": "decimalPattern"
+      },
+      "between": {
+        "type": "num",
+        "format": "decimalPattern"
+      },
+      "after": {
+        "type": "num",
+        "format": "decimalPattern"
+      },
+      "weight": {
+        "type": "String"
+      }
+    }
+  },
+  "importSuffix": "{number, plural, =1{（导入）} other{（导入{number}）}}",
+  "@importSuffix": {
+    "description": "SetTrace UI: importSuffix. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim.",
+    "placeholders": {
+      "number": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "planLocation": "第 {index} 个计划",
+  "@planLocation": {
+    "description": "SetTrace UI: planLocation. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim.",
+    "placeholders": {
+      "index": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "exerciseLocation": "第 {plan} 个计划第 {exercise} 个动作",
+  "@exerciseLocation": {
+    "description": "SetTrace UI: exerciseLocation. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim.",
+    "placeholders": {
+      "plan": {
+        "type": "num",
+        "format": "decimalPattern"
+      },
+      "exercise": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "fieldLocation": "{location}的{field}",
+  "@fieldLocation": {
+    "description": "SetTrace UI: fieldLocation. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim.",
+    "placeholders": {
+      "location": {
+        "type": "String"
+      },
+      "field": {
+        "type": "String"
+      }
+    }
+  },
+  "invalidObject": "{location}必须是有效的对象",
+  "@invalidObject": {
+    "description": "SetTrace UI: invalidObject. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim.",
+    "placeholders": {
+      "location": {
+        "type": "String"
+      }
+    }
+  },
+  "invalidName": "{location}必须为 1–{max} 个字符",
+  "@invalidName": {
+    "description": "SetTrace UI: invalidName. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim.",
+    "placeholders": {
+      "location": {
+        "type": "String"
+      },
+      "max": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "invalidInteger": "{location}必须为 {min}–{max} 的整数",
+  "@invalidInteger": {
+    "description": "SetTrace UI: invalidInteger. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim.",
+    "placeholders": {
+      "location": {
+        "type": "String"
+      },
+      "min": {
+        "type": "num",
+        "format": "decimalPattern"
+      },
+      "max": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "invalidRest": "{location}必须为 30 秒的倍数",
+  "@invalidRest": {
+    "description": "SetTrace UI: invalidRest. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim.",
+    "placeholders": {
+      "location": {
+        "type": "String"
+      }
+    }
+  },
+  "invalidWeight": "{location}必须为空或有效的正数",
+  "@invalidWeight": {
+    "description": "SetTrace UI: invalidWeight. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim.",
+    "placeholders": {
+      "location": {
+        "type": "String"
+      }
+    }
+  },
+  "invalidExercises": "{location}缺少有效的动作列表",
+  "@invalidExercises": {
+    "description": "SetTrace UI: invalidExercises. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim.",
+    "placeholders": {
+      "location": {
+        "type": "String"
+      }
+    }
+  },
+  "planContent": "计划内容",
+  "@planContent": {
+    "description": "SetTrace UI: planContent. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "nameField": "名称",
+  "@nameField": {
+    "description": "SetTrace UI: nameField. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "exercisesField": "动作列表",
+  "@exercisesField": {
+    "description": "SetTrace UI: exercisesField. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "weightField": "重量",
+  "@weightField": {
+    "description": "SetTrace UI: weightField. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
+  },
+  "planNotFound": "这个计划已不存在，请返回计划列表重试。",
+  "@planNotFound": {
+    "description": "The source plan was removed before starting a workout."
+  },
+  "planOrderInvalid": "排序必须包含计划中的所有动作各一次。",
+  "@planOrderInvalid": {
+    "description": "Plan editor reorder validation: all plan exercises are movable, independent of any workout snapshot."
+  }
+}
