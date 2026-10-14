@@ -1,0 +1,81 @@
+{
+  "modes": [
+    {
+      "theme": "light",
+      "lang": "zh",
+      "screens": 29,
+      "over": [],
+      "smallControls": [],
+      "counter": 62
+    },
+    {
+      "theme": "light",
+      "lang": "en",
+      "screens": 29,
+      "over": [],
+      "smallControls": [],
+      "counter": 62
+    },
+    {
+      "theme": "dark",
+      "lang": "zh",
+      "screens": 29,
+      "over": [],
+      "smallControls": [],
+      "counter": 62
+    },
+    {
+      "theme": "dark",
+      "lang": "en",
+      "screens": 29,
+      "over": [],
+      "smallControls": [],
+      "counter": 62
+    }
+  ],
+  "adapt": [
+    {
+      "id": "active",
+      "width": 360,
+      "overflow": 0
+    },
+    {
+      "id": "active",
+      "width": 360,
+      "overflow": 0
+    },
+    {
+      "id": "adapt-keyboard",
+      "width": 360,
+      "overflow": 0
+    },
+    {
+      "id": "adapt-landscape",
+      "width": 740,
+      "overflow": 0
+    },
+    {
+      "id": "adapt-tablet",
+      "width": 768,
+      "overflow": 0
+    }
+  ],
+  "svgProof": {
+    "parseErrors": 0,
+    "textNodes": 23,
+    "images": 0
+  },
+  "svgCount": 222,
+  "interactionChecks": [
+    "blank name inline error",
+    "same name allowed for normal plans",
+    "empty plan start disabled",
+    "session order fixed positions",
+    "edit non-current exercise",
+    "empty export disabled",
+    "empty home export disabled",
+    "rest adjustment and independent skip recovery in qa-results.json"
+  ],
+  "runtimeErrors": [],
+  "scope": "Design artifact only; not Flutter or Android runtime acceptance."
+}

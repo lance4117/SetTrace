@@ -4,6 +4,7 @@ import '../../l10n/localization.dart';
 
 import '../../app/theme/app_theme.dart';
 import '../../core/widgets/app_card.dart';
+import '../../core/widgets/app_feedback.dart';
 import '../workout/workout_models.dart';
 import '../workout/workout_repository.dart';
 import 'history_stats.dart';
@@ -93,6 +94,33 @@ class _HistoryPageState extends State<HistoryPage> {
   @override
   Widget build(BuildContext context) {
     final colors = context.appColors;
+    if (sessions.isEmpty &&
+        removedSessionIds.isEmpty &&
+        (loading || refreshError != null)) {
+      return SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(24),
+              child: Text(
+                context.l10n.historyTitle,
+                style: Theme.of(context).textTheme.headlineLarge,
+              ),
+            ),
+            Expanded(
+              child: loading
+                  ? const Center(child: CircularProgressIndicator())
+                  : AppLoadError(
+                      message: refreshError!(context.l10n),
+                      retryLabel: context.l10n.retryRefresh,
+                      onRetry: refresh,
+                    ),
+            ),
+          ],
+        ),
+      );
+    }
     final stats = HistoryStats.calculate(
       sessions,
       now: DateTime.now(),
@@ -211,7 +239,9 @@ class _HistoryPageState extends State<HistoryPage> {
               padding: EdgeInsets.only(top: 56),
               child: Center(
                 child: Text(
-                  context.l10n.noHistoryMonth,
+                  sessions.isEmpty
+                      ? context.l10n.noHistoryAll
+                      : context.l10n.noHistoryMonth,
                   style: TextStyle(color: colors.textSecondary),
                 ),
               ),
@@ -274,8 +304,6 @@ class _HistoryPageState extends State<HistoryPage> {
       children: [
         Text(
           value,
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
         ),
         SizedBox(height: 4),
@@ -283,7 +311,7 @@ class _HistoryPageState extends State<HistoryPage> {
           label,
           style: TextStyle(
             color: context.appColors.textSecondary,
-            fontSize: 11,
+            fontSize: 14,
           ),
         ),
       ],
@@ -406,6 +434,13 @@ class _HistoryDetailPageState extends State<HistoryDetailPage> {
       canPop: !deleting,
       child: Scaffold(
         appBar: AppBar(
+          leading: deleting
+              ? IconButton(
+                  onPressed: null,
+                  icon: const Icon(Icons.arrow_back),
+                  tooltip: MaterialLocalizations.of(context).backButtonTooltip,
+                )
+              : const BackButton(),
           title: Text(context.l10n.workoutDetails),
           actions: [
             if (deleting)
@@ -464,6 +499,24 @@ class _HistoryDetailPageState extends State<HistoryDetailPage> {
                 ),
                 style: TextStyle(color: colors.textSecondary),
               ),
+              SizedBox(height: 20),
+              Text(
+                context.l10n.workoutProgress(
+                  session.completedSets,
+                  session.totalSets,
+                ),
+                style: TextStyle(
+                  color: colors.onAccentSoft,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              SizedBox(height: 8),
+              LinearProgressIndicator(
+                value: session.totalSets == 0
+                    ? 0
+                    : session.completedSets / session.totalSets,
+                minHeight: 5,
+              ),
               SizedBox(height: 24),
               for (final exercise in session.exercises) ...[
                 AppCard(
@@ -488,15 +541,38 @@ class _HistoryDetailPageState extends State<HistoryDetailPage> {
                       for (final set in exercise.sets)
                         Padding(
                           padding: EdgeInsets.only(top: 6),
-                          child: Text(
-                            context.l10n.setResult(
-                              set.number,
-                              set.skipped
-                                  ? context.l10n.setSkipped
-                                  : set.completedAt == null
-                                  ? context.l10n.notCompleted
-                                  : time(set.completedAt!),
-                            ),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              ExcludeSemantics(
+                                child: Icon(
+                                  set.completed
+                                      ? Icons.check_circle_outline
+                                      : set.skipped
+                                      ? Icons.remove_circle_outline
+                                      : Icons.radio_button_unchecked,
+                                  size: 20,
+                                  color: set.skipped
+                                      ? colors.warning
+                                      : set.completed
+                                      ? colors.onAccentSoft
+                                      : colors.textSecondary,
+                                ),
+                              ),
+                              const SizedBox(width: 8),
+                              Expanded(
+                                child: Text(
+                                  context.l10n.setResult(
+                                    set.number,
+                                    set.skipped
+                                        ? context.l10n.setSkipped
+                                        : set.completedAt == null
+                                        ? context.l10n.notCompleted
+                                        : time(set.completedAt!),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                     ],

@@ -1,0 +1,246 @@
+{
+  "initial": {
+    "screens": 29,
+    "dialogs": 14,
+    "horizontal": false,
+    "phones": [
+      {
+        "id": "home",
+        "scroll": true,
+        "over": []
+      },
+      {
+        "id": "plan",
+        "scroll": false,
+        "over": []
+      },
+      {
+        "id": "exercise",
+        "scroll": false,
+        "over": []
+      },
+      {
+        "id": "prep",
+        "scroll": false,
+        "over": []
+      },
+      {
+        "id": "home-empty",
+        "scroll": false,
+        "over": []
+      },
+      {
+        "id": "plan-empty",
+        "scroll": false,
+        "over": []
+      },
+      {
+        "id": "active",
+        "scroll": true,
+        "over": []
+      },
+      {
+        "id": "first",
+        "scroll": false,
+        "over": []
+      },
+      {
+        "id": "rest",
+        "scroll": true,
+        "over": []
+      },
+      {
+        "id": "rest-between",
+        "scroll": false,
+        "over": []
+      },
+      {
+        "id": "skipped",
+        "scroll": true,
+        "over": []
+      },
+      {
+        "id": "finish-ready",
+        "scroll": false,
+        "over": []
+      },
+      {
+        "id": "exercises",
+        "scroll": false,
+        "over": []
+      },
+      {
+        "id": "order",
+        "scroll": false,
+        "over": []
+      },
+      {
+        "id": "choose-next",
+        "scroll": false,
+        "over": []
+      },
+      {
+        "id": "session-edit",
+        "scroll": false,
+        "over": []
+      },
+      {
+        "id": "export",
+        "scroll": false,
+        "over": []
+      },
+      {
+        "id": "import",
+        "scroll": false,
+        "over": []
+      },
+      {
+        "id": "preview",
+        "scroll": false,
+        "over": []
+      },
+      {
+        "id": "expanded",
+        "scroll": true,
+        "over": []
+      },
+      {
+        "id": "history",
+        "scroll": true,
+        "over": []
+      },
+      {
+        "id": "detail",
+        "scroll": true,
+        "over": []
+      },
+      {
+        "id": "history-empty",
+        "scroll": false,
+        "over": []
+      },
+      {
+        "id": "detail-partial",
+        "scroll": true,
+        "over": []
+      },
+      {
+        "id": "history-all-empty",
+        "scroll": false,
+        "over": []
+      },
+      {
+        "id": "settings",
+        "scroll": true,
+        "over": []
+      },
+      {
+        "id": "settings-permissions",
+        "scroll": true,
+        "over": []
+      },
+      {
+        "id": "notifications",
+        "scroll": false,
+        "over": []
+      },
+      {
+        "id": "settings-failed",
+        "scroll": true,
+        "over": []
+      }
+    ]
+  },
+  "english": {
+    "over": [],
+    "allText": "W01\n训练中 / 第 3 组\n9:41\n5G\n练背\nEXERCISE 02 / 04\nExercises\n坐姿划船\nReference weight · 45 kg\nCURRENT SET\n03\nof 4 sets · 2 completed\n1\n2\n3\n4\nSkip 2 remaining sets\nNext exercise\n单臂哑铃划船\nChange\nWorkout completed\n6 / 15 sets\nComplete set\nUndo last set\nFinish workout\n第 3 组待练，已完成 2 组。完成本组固定底部；跳过与撤销分离。"
+  },
+  "rest": "02:00",
+  "added": "02:30",
+  "skipped": {
+    "done": [
+      4,
+      3,
+      0,
+      0
+    ],
+    "skip": [
+      0,
+      1,
+      0,
+      0
+    ],
+    "order": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "current": 2,
+    "sequence": [
+      0,
+      0,
+      0,
+      0,
+      1,
+      1,
+      1
+    ],
+    "lastSkip": {
+      "i": 1,
+      "n": 1
+    },
+    "targets": [
+      4,
+      4,
+      3,
+      4
+    ],
+    "restUntil": null,
+    "restKind": "between_sets"
+  },
+  "restored": {
+    "done": [
+      4,
+      3,
+      0,
+      0
+    ],
+    "skip": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "order": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "current": 1,
+    "sequence": [
+      0,
+      0,
+      0,
+      0,
+      1,
+      1,
+      1
+    ],
+    "lastSkip": null,
+    "targets": [
+      4,
+      4,
+      3,
+      4
+    ],
+    "restUntil": null,
+    "restKind": "between_sets"
+  },
+  "mobile": {
+    "w": 390,
+    "scrollW": 390
+  },
+  "errors": []
+}

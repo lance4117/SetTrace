@@ -1,0 +1,7 @@
+{
+  "scenario": "foreground-natural-expiry",
+  "dueAt": 1791981086075,
+  "consumedAt": 1791981086081,
+  "completedSets": 2,
+  "state": "consumed"
+}

@@ -1,0 +1,14 @@
+{
+  "oldApk": "0.1.2+4",
+  "newApk": "0.1.3+5",
+  "beforeSchema": 2,
+  "afterSchema": 3,
+  "originalColumnsPreserved": {
+    "plans": true,
+    "plan_exercises": true,
+    "workout_sessions": true,
+    "session_exercises": true,
+    "session_sets": true
+  },
+  "integrity": "ok"
+}

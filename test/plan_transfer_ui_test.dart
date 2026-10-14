@@ -236,6 +236,7 @@ void main() {
         find.byKey(const ValueKey('plan-import-text')),
         'broken',
       );
+      await tester.pump();
       await tester.tap(find.text('预览计划'));
       await settle(tester);
       expect(find.textContaining('计划内容损坏'), findsOneWidget);
@@ -263,6 +264,7 @@ void main() {
       await settle(tester);
       await tester.tap(find.text('粘贴'));
       await settle(tester);
+      await tester.pump();
       await tester.tap(find.text('预览计划'));
       await settle(tester);
       expect(

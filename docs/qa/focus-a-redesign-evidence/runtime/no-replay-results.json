@@ -1,0 +1,14 @@
+[
+  {
+    "scenario": "active-end",
+    "state": "cancelled",
+    "completedSets": 2,
+    "dueAt": 1791981384699
+  },
+  {
+    "scenario": "elapsed-restart",
+    "state": "expired",
+    "completedSets": 2,
+    "dueAt": 1791981326520
+  }
+]

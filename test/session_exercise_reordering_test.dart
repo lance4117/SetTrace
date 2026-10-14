@@ -152,6 +152,16 @@ void main() {
   }
 
   Future<void> choose(WidgetTester tester) async {
+    await tester.scrollUntilVisible(
+      find.text('更换下一动作'),
+      120,
+      scrollable: find
+          .descendant(
+            of: find.byKey(const ValueKey('workout-body')),
+            matching: find.byType(Scrollable),
+          )
+          .first,
+    );
     await tester.ensureVisible(find.text('更换下一动作'));
     await tester.tap(find.text('更换下一动作'));
     await flush(tester);
@@ -519,4 +529,26 @@ void main() {
       });
     }
   }
+  testWidgets('non-drag move preserves locked slots and only this session', (
+    tester,
+  ) async {
+    final data = await seed(tester);
+    await mount(tester, data);
+    await openFull(tester);
+    final c = data.exercises[2].id;
+    final up = find.byKey(ValueKey('order-up-$c'));
+    await tester.ensureVisible(up);
+    await tester.tap(up);
+    await flush(tester);
+    await tester.tap(find.text('保存顺序'));
+    await flush(tester);
+    final updated = (await tester.runAsync(
+      () => workouts.getSession(data.id),
+    ))!;
+    expect(updated.exercises.map((e) => e.name), ['A', 'C', 'B']);
+    final original = (await tester.runAsync(() => plans.getPlan(planId)))!;
+    expect(original.exercises.map((e) => e.name), ['A', 'B', 'C']);
+    expect(updated.completedSets, data.completedSets);
+    expect(updated.restEndAt, data.restEndAt);
+  });
 }

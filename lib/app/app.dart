@@ -203,13 +203,29 @@ class _SetTraceAppState extends State<SetTraceApp> with WidgetsBindingObserver {
   };
 
   Future<void> setMode(ThemeMode next) async {
-    await widget.preferences.setString('theme_mode', next.name);
+    try {
+      final saved = await widget.preferences.setString('theme_mode', next.name);
+      if (!saved) throw StateError('themePreferenceWriteFailed');
+    } catch (_) {
+      try {
+        await widget.preferences.reload();
+      } catch (_) {}
+      rethrow;
+    }
     if (mounted) setState(() => mode = next);
   }
 
   @override
   Widget build(BuildContext context) => MaterialApp(
     title: 'SetTrace',
+    themeAnimationDuration:
+        WidgetsBinding
+            .instance
+            .platformDispatcher
+            .accessibilityFeatures
+            .disableAnimations
+        ? Duration.zero
+        : const Duration(milliseconds: 200),
     navigatorKey: navigatorKey,
     debugShowCheckedModeBanner: false,
     locale: locale,
@@ -247,7 +263,7 @@ class RootTabs extends StatefulWidget {
   final PlanRepository plans;
   final WorkoutRepository workouts;
   final ThemeMode mode;
-  final ValueChanged<ThemeMode> onModeChanged;
+  final FutureOr<void> Function(ThemeMode) onModeChanged;
   final Locale locale;
   final Future<void> Function(Locale) onLocaleChanged;
 

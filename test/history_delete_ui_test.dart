@@ -227,7 +227,7 @@ void main() {
     await mount(tester);
     await open(tester);
     await confirmDelete(tester);
-    expect(find.text('这个月还没有训练记录'), findsOneWidget);
+    expect(find.text('还没有已保存的训练记录'), findsOneWidget);
     expect(find.text('最近训练：暂无'), findsOneWidget);
     for (final label in ['本周训练', '本月训练', '所选月份完成组']) {
       stat(label, '0');

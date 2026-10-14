@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../../l10n/localization.dart';
 import '../../l10n/error_messages.dart';
@@ -6,6 +7,7 @@ import '../../l10n/error_messages.dart';
 import '../../app/theme/app_theme.dart';
 import '../../core/widgets/app_button.dart';
 import '../../core/widgets/app_card.dart';
+import '../../core/widgets/app_task_layout.dart';
 import 'plan_models.dart';
 import 'plan_repository.dart';
 import 'plan_transfer.dart';
@@ -28,6 +30,7 @@ class _PlanExportPageState extends State<PlanExportPage> {
   Set<int> selected = {};
   bool loading = true, busy = false, successful = false;
   LocalizedMessage? message;
+  bool? fileOperation;
   @override
   void initState() {
     super.initState();
@@ -58,6 +61,7 @@ class _PlanExportPageState extends State<PlanExportPage> {
     if (busy || selected.isEmpty) return;
     setState(() {
       busy = true;
+      fileOperation = file;
       message = null;
       successful = false;
     });
@@ -100,109 +104,103 @@ class _PlanExportPageState extends State<PlanExportPage> {
         title: Text(context.l10n.exportPlans),
         automaticallyImplyLeading: !busy,
       ),
-      body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.fromLTRB(24, 8, 24, 16),
-          child: ListView(
-            children: [
-              Text(
-                context.l10n.exportNote,
-                style: TextStyle(color: context.appColors.textSecondary),
-              ),
-              SizedBox(height: 8),
-              Wrap(
-                spacing: 12,
-                crossAxisAlignment: WrapCrossAlignment.center,
-                children: [
-                  Text(context.l10n.selectedPlans(selected.length)),
-                  TextButton(
-                    style: TextButton.styleFrom(minimumSize: Size(48, 48)),
-                    onPressed: busy || loading
-                        ? null
-                        : () => setState(
-                            () => selected = items.map((p) => p.id).toSet(),
-                          ),
-                    child: Text(context.l10n.selectAll),
-                  ),
-                  TextButton(
-                    style: TextButton.styleFrom(minimumSize: Size(48, 48)),
-                    onPressed: busy || loading
-                        ? null
-                        : () => setState(() => selected = {}),
-                    child: Text(context.l10n.deselectAll),
-                  ),
-                ],
-              ),
-
-              loading
-                  ? Center(child: CircularProgressIndicator())
-                  : items.isEmpty
-                  ? Center(child: Text(context.l10n.noExportPlans))
-                  : ListView(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      children: [
-                        for (final plan in items)
-                          Padding(
-                            padding: EdgeInsets.only(bottom: 10),
-                            child: AppCard(
-                              padding: EdgeInsets.zero,
-                              child: CheckboxListTile(
-                                value: selected.contains(plan.id),
-                                controlAffinity:
-                                    ListTileControlAffinity.leading,
-                                onChanged: busy
-                                    ? null
-                                    : (value) => setState(() {
-                                        if (value == true) {
-                                          selected.add(plan.id);
-                                        } else {
-                                          selected.remove(plan.id);
-                                        }
-                                      }),
-                                title: Text(plan.name),
-                                subtitle: Text(
-                                  context.l10n.exerciseSummary(
-                                    plan.exercises.length,
-                                    plan.totalSets,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                      ],
-                    ),
-              if (message != null)
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: 8),
-                  child: Text(
-                    message!(context.l10n),
-                    style: TextStyle(
-                      color: successful
-                          ? context.appColors.accent
-                          : context.appColors.danger,
+      body: AppTaskLayout(
+        body: ListView(
+          padding: const EdgeInsets.fromLTRB(24, 12, 24, 24),
+          children: [
+            Text(
+              context.l10n.exportNote,
+              style: TextStyle(color: context.appColors.textSecondary),
+            ),
+            const SizedBox(height: 16),
+            Wrap(
+              spacing: 12,
+              crossAxisAlignment: WrapCrossAlignment.center,
+              children: [
+                Text(
+                  context.l10n.selectedPlans(selected.length),
+                  style: const TextStyle(fontWeight: FontWeight.w600),
+                ),
+                TextButton(
+                  onPressed: busy || loading
+                      ? null
+                      : () => setState(
+                          () => selected = items.map((p) => p.id).toSet(),
+                        ),
+                  child: Text(context.l10n.selectAll),
+                ),
+                TextButton(
+                  onPressed: busy || loading
+                      ? null
+                      : () => setState(() => selected = {}),
+                  child: Text(context.l10n.deselectAll),
+                ),
+              ],
+            ),
+            if (loading)
+              const Center(child: CircularProgressIndicator())
+            else if (items.isEmpty)
+              Text(context.l10n.noExportPlans),
+            for (final plan in items) ...[
+              AppCard(
+                padding: EdgeInsets.zero,
+                child: CheckboxListTile(
+                  value: selected.contains(plan.id),
+                  controlAffinity: ListTileControlAffinity.leading,
+                  onChanged: busy
+                      ? null
+                      : (value) => setState(() {
+                          if (value == true) {
+                            selected.add(plan.id);
+                          } else {
+                            selected.remove(plan.id);
+                          }
+                        }),
+                  title: Text(plan.name),
+                  subtitle: Text(
+                    context.l10n.exerciseSummary(
+                      plan.exercises.length,
+                      plan.totalSets,
                     ),
                   ),
                 ),
-              if (busy)
-                Padding(
-                  padding: EdgeInsets.only(bottom: 12),
-                  child: LinearProgressIndicator(),
-                ),
-              AppButton(
-                label: context.l10n.copyClipboard,
-                primary: false,
-                onPressed: busy || selected.isEmpty
-                    ? null
-                    : () => output(false),
               ),
-              SizedBox(height: 12),
-              AppButton(
-                label: context.l10n.exportFile,
-                onPressed: busy || selected.isEmpty ? null : () => output(true),
-              ),
+              const SizedBox(height: 12),
             ],
-          ),
+          ],
+        ),
+        actions: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (message != null) ...[
+              const SizedBox(height: 12),
+              Semantics(
+                liveRegion: true,
+                child: Text(
+                  message!(context.l10n),
+                  style: TextStyle(
+                    color: successful
+                        ? context.appColors.onAccentSoft
+                        : context.appColors.danger,
+                  ),
+                ),
+              ),
+              if (!successful && items.isEmpty)
+                TextButton(onPressed: load, child: Text(context.l10n.retry)),
+            ],
+            AppButton(
+              label: context.l10n.copyClipboard,
+              primary: false,
+              busy: busy && fileOperation == false,
+              onPressed: busy || selected.isEmpty ? null : () => output(false),
+            ),
+            const SizedBox(height: 12),
+            AppButton(
+              label: context.l10n.exportFile,
+              busy: busy && fileOperation == true,
+              onPressed: busy || selected.isEmpty ? null : () => output(true),
+            ),
+          ],
         ),
       ),
     ),
@@ -226,6 +224,7 @@ class _PlanImportPageState extends State<PlanImportPage> {
   List<TransferPlan>? preview;
   List<TextEditingController> names = [];
   bool busy = false;
+  bool closing = false, validatedNames = false;
   ImportSuffix? previewSuffix;
   LocalizedMessage? message;
   @override
@@ -271,7 +270,7 @@ class _PlanImportPageState extends State<PlanImportPage> {
         );
       }
     } finally {
-      if (mounted) setState(() => busy = false);
+      if (mounted && !closing) setState(() => busy = false);
     }
   }
 
@@ -281,13 +280,14 @@ class _PlanImportPageState extends State<PlanImportPage> {
       throw PlanTransferException(PlanTransferFailure.clipboardEmpty);
     }
     PlanTransferCodec.checkSize(text);
-    if (mounted) input.text = text;
+    if (mounted) setState(() => input.text = text);
   });
   Future<void> pick() => perform(() async {
     final text = await widget.platform.pickFile();
     if (text != null && mounted) await prepare(text);
   });
   Future<void> confirm() => perform(() async {
+    setState(() => validatedNames = true);
     final edited = [
       for (var i = 0; i < preview!.length; i++)
         preview![i].withName(names[i].text),
@@ -309,7 +309,10 @@ class _PlanImportPageState extends State<PlanImportPage> {
         edited,
         suffixFor: previewSuffix!,
       );
-      if (mounted) Navigator.pop(context, ids.length);
+      if (mounted) {
+        closing = true;
+        Navigator.pop(context, ids.length);
+      }
     } on ImportNameConflict catch (conflict) {
       if (mounted) {
         showPreview(conflict.plans);
@@ -324,6 +327,7 @@ class _PlanImportPageState extends State<PlanImportPage> {
     names = [];
     setState(() {
       preview = null;
+      validatedNames = false;
       message = null;
     });
   }
@@ -343,170 +347,163 @@ class _PlanImportPageState extends State<PlanImportPage> {
           automaticallyImplyLeading: !busy,
           actions: [
             TextButton(
-              style: TextButton.styleFrom(minimumSize: Size(48, 48)),
               onPressed: busy ? null : () => Navigator.pop(context),
               child: Text(context.l10n.cancel),
             ),
           ],
         ),
-        body: SafeArea(
-          child: Padding(
-            padding: EdgeInsets.fromLTRB(24, 8, 24, 16),
-            child: ListView(
-              children: [
-                current == null
-                    ? ListView(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        children: [
-                          Text(context.l10n.importHint),
-                          SizedBox(height: 16),
-                          TextField(
-                            key: ValueKey('plan-import-text'),
-                            controller: input,
-                            minLines: 6,
-                            maxLines: 10,
-                            enabled: !busy,
-                            decoration: InputDecoration(
-                              hintText: context.l10n.importTextHint,
-                              border: OutlineInputBorder(),
-                            ),
+        body: AppTaskLayout(
+          body: ListView(
+            padding: const EdgeInsets.fromLTRB(24, 12, 24, 24),
+            children: [
+              if (current == null) ...[
+                Text(
+                  context.l10n.importHint,
+                  style: TextStyle(color: context.appColors.textSecondary),
+                ),
+                const SizedBox(height: 16),
+                TextField(
+                  key: const ValueKey('plan-import-text'),
+                  controller: input,
+                  minLines: 6,
+                  maxLines: 10,
+                  enabled: !busy,
+                  onChanged: (_) => setState(() {}),
+                  decoration: InputDecoration(
+                    labelText: context.l10n.importPlans,
+                    hintText: context.l10n.importTextHint,
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: TextButton(
+                    onPressed: busy ? null : paste,
+                    child: Text(context.l10n.paste),
+                  ),
+                ),
+              ] else ...[
+                Text(
+                  context.l10n.importPreviewNote(current.length),
+                  style: TextStyle(color: context.appColors.textSecondary),
+                ),
+                const SizedBox(height: 16),
+                for (var i = 0; i < current.length; i++) ...[
+                  AppCard(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        TextField(
+                          key: ValueKey('import-name-$i'),
+                          controller: names[i],
+                          maxLength: 40,
+                          enabled: !busy,
+                          maxLengthEnforcement: MaxLengthEnforcement.none,
+                          onChanged: (_) => setState(() {}),
+                          decoration: InputDecoration(
+                            labelText: context.l10n.planName,
+                            errorText: validatedNames
+                                ? (names[i].text.trim().isEmpty
+                                      ? context.l10n.planNameRequired
+                                      : names[i].text.trim().characters.length >
+                                            40
+                                      ? context.l10n.planNameTooLong
+                                      : null)
+                                : null,
                           ),
-                          Align(
-                            alignment: Alignment.centerRight,
-                            child: TextButton(
-                              style: TextButton.styleFrom(
-                                minimumSize: Size(48, 48),
-                              ),
-                              onPressed: busy ? null : paste,
-                              child: Text(context.l10n.paste),
-                            ),
+                        ),
+                        Text(
+                          context.l10n.exerciseSummary(
+                            current[i].exercises.length,
+                            current[i].totalSets,
                           ),
-                        ],
-                      )
-                    : ListView(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        children: [
-                          Text(context.l10n.importPreviewNote(current.length)),
-                          SizedBox(height: 12),
-                          for (var i = 0; i < current.length; i++)
-                            Padding(
-                              padding: EdgeInsets.only(bottom: 12),
-                              child: AppCard(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    TextField(
-                                      key: ValueKey('import-name-$i'),
-                                      controller: names[i],
-                                      maxLength: 40,
-                                      enabled: !busy,
-                                      decoration: InputDecoration(
-                                        labelText: context.l10n.planName,
-                                      ),
-                                    ),
-                                    Text(
-                                      context.l10n.exerciseSummary(
-                                        current[i].exercises.length,
-                                        current[i].totalSets,
-                                      ),
-                                    ),
-                                    if (current[i].exercises.isEmpty)
-                                      Padding(
-                                        padding: EdgeInsets.only(top: 8),
-                                        child: Text(context.l10n.emptyPlanNote),
-                                      ),
-                                    if (current[i].exercises.isNotEmpty)
-                                      ExpansionTile(
-                                        tilePadding: EdgeInsets.zero,
-                                        title: Text(
-                                          context.l10n.viewExerciseConfig,
+                        ),
+                        if (current[i].exercises.isEmpty) ...[
+                          const SizedBox(height: 8),
+                          Text(context.l10n.emptyPlanNote),
+                        ] else
+                          ExpansionTile(
+                            key: PageStorageKey('preview-config-$i'),
+                            maintainState: true,
+                            tilePadding: EdgeInsets.zero,
+                            title: Text(context.l10n.viewExerciseConfig),
+                            children: [
+                              for (
+                                var j = 0;
+                                j < current[i].exercises.length;
+                                j++
+                              )
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 16),
+                                  child: SizedBox(
+                                    width: double.infinity,
+                                    child: Text(
+                                      context.l10n.transferExerciseDetails(
+                                        j + 1,
+                                        current[i].exercises[j].name,
+                                        current[i].exercises[j].targetSets,
+                                        current[i]
+                                            .exercises[j]
+                                            .restBetweenSetsSeconds,
+                                        current[i]
+                                            .exercises[j]
+                                            .restAfterExerciseSeconds,
+                                        context.formats.weightLabel(
+                                          current[i]
+                                              .exercises[j]
+                                              .defaultWeightKg,
                                         ),
-                                        children: [
-                                          for (
-                                            var j = 0;
-                                            j < current[i].exercises.length;
-                                            j++
-                                          )
-                                            Padding(
-                                              padding: EdgeInsets.only(
-                                                bottom: 12,
-                                              ),
-                                              child: SizedBox(
-                                                width: double.infinity,
-                                                child: Text(
-                                                  context.l10n.transferExerciseDetails(
-                                                    j + 1,
-                                                    current[i]
-                                                        .exercises[j]
-                                                        .name,
-                                                    current[i]
-                                                        .exercises[j]
-                                                        .targetSets,
-                                                    current[i]
-                                                        .exercises[j]
-                                                        .restBetweenSetsSeconds,
-                                                    current[i]
-                                                        .exercises[j]
-                                                        .restAfterExerciseSeconds,
-                                                    context.formats.weightLabel(
-                                                      current[i]
-                                                          .exercises[j]
-                                                          .defaultWeightKg,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                        ],
                                       ),
-                                  ],
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            ),
-                        ],
-                      ),
-                if (message != null)
-                  Padding(
-                    padding: EdgeInsets.symmetric(vertical: 8),
-                    child: Text(
-                      message!(context.l10n),
-                      style: TextStyle(color: context.appColors.danger),
+                            ],
+                          ),
+                      ],
                     ),
                   ),
-                if (busy)
-                  Padding(
-                    padding: EdgeInsets.only(bottom: 12),
-                    child: LinearProgressIndicator(),
-                  ),
-                if (current == null) ...[
-                  AppButton(
-                    label: context.l10n.chooseFile,
-                    primary: false,
-                    onPressed: busy ? null : pick,
-                  ),
-                  SizedBox(height: 12),
-                  AppButton(
-                    label: context.l10n.previewPlans,
-                    onPressed: busy
-                        ? null
-                        : () => perform(() => prepare(input.text)),
-                  ),
-                ] else ...[
-                  AppButton(
-                    label: context.l10n.chooseAgain,
-                    primary: false,
-                    onPressed: busy ? null : reset,
-                  ),
-                  SizedBox(height: 12),
-                  AppButton(
-                    label: context.l10n.confirmImport,
-                    onPressed: busy ? null : confirm,
-                  ),
+                  const SizedBox(height: 16),
                 ],
               ],
-            ),
+            ],
+          ),
+          actions: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if (message != null) ...[
+                const SizedBox(height: 12),
+                Semantics(
+                  liveRegion: true,
+                  child: Text(
+                    message!(context.l10n),
+                    style: TextStyle(color: context.appColors.danger),
+                  ),
+                ),
+              ],
+              AppButton(
+                label: current == null
+                    ? context.l10n.chooseFile
+                    : context.l10n.chooseAgain,
+                primary: false,
+                onPressed: busy
+                    ? null
+                    : current == null
+                    ? pick
+                    : reset,
+              ),
+              const SizedBox(height: 12),
+              AppButton(
+                label: current == null
+                    ? context.l10n.previewPlans
+                    : context.l10n.confirmImport,
+                busy: busy,
+                onPressed:
+                    busy || (current == null && input.text.trim().isEmpty)
+                    ? null
+                    : current == null
+                    ? () => perform(() => prepare(input.text))
+                    : confirm,
+              ),
+            ],
           ),
         ),
       ),

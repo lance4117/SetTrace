@@ -5,64 +5,88 @@ import '../../l10n/localization.dart';
 
 class AppBottomNav extends StatelessWidget {
   const AppBottomNav({super.key, required this.index, required this.onChanged});
-
   final int index;
   final ValueChanged<int> onChanged;
-
   @override
   Widget build(BuildContext context) {
-    final colors = context.appColors;
+    final c = context.appColors;
     final labels = [
       context.l10n.plansTab,
       context.l10n.historyTab,
       context.l10n.settings,
     ];
-    return SafeArea(
-      top: false,
-      child: Container(
-        constraints: const BoxConstraints(minHeight: 58),
-        margin: const EdgeInsets.fromLTRB(16, 0, 16, 12),
-        padding: const EdgeInsets.all(5),
-        decoration: BoxDecoration(
-          color: colors.surface,
-          border: Border.all(color: colors.border),
-          borderRadius: BorderRadius.circular(16),
+    const icons = [
+      Icons.fitness_center_outlined,
+      Icons.history_outlined,
+      Icons.settings_outlined,
+    ];
+    return Material(
+      color: c.surface,
+      child: ConstrainedBox(
+        constraints: BoxConstraints(
+          maxHeight: MediaQuery.sizeOf(context).height * 0.4,
         ),
-        child: Row(
-          children: List.generate(labels.length, (i) {
-            final selected = i == index;
-            return Expanded(
-              child: Material(
-                color: selected ? colors.accentSoft : Colors.transparent,
-                borderRadius: BorderRadius.circular(12),
-                child: InkWell(
-                  onTap: () => onChanged(i),
-                  borderRadius: BorderRadius.circular(12),
-                  child: ConstrainedBox(
-                    constraints: const BoxConstraints(minHeight: 48),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 4,
-                        vertical: 8,
-                      ),
-                      child: Text(
-                        labels[i],
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: selected
-                              ? colors.accentPressed
-                              : colors.textSecondary,
-                          fontWeight: selected
-                              ? FontWeight.w700
-                              : FontWeight.w500,
+        child: SingleChildScrollView(
+          child: SafeArea(
+            top: false,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: List.generate(3, (i) {
+                  final selected = i == index;
+                  return Expanded(
+                    child: Semantics(
+                      selected: selected,
+                      button: true,
+                      child: Material(
+                        color: selected ? c.accentSoft : Colors.transparent,
+                        borderRadius: BorderRadius.circular(12),
+                        child: InkWell(
+                          onTap: () => onChanged(i),
+                          borderRadius: BorderRadius.circular(12),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 4,
+                              vertical: 8,
+                            ),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                ExcludeSemantics(
+                                  child: Icon(
+                                    icons[i],
+                                    size: 22,
+                                    color: selected
+                                        ? c.onAccentSoft
+                                        : c.textSecondary,
+                                  ),
+                                ),
+                                const SizedBox(height: 4),
+                                Text(
+                                  labels[i],
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: selected
+                                        ? c.onAccentSoft
+                                        : c.textSecondary,
+                                    fontWeight: selected
+                                        ? FontWeight.w700
+                                        : FontWeight.w500,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ),
+                  );
+                }),
               ),
-            );
-          }),
+            ),
+          ),
         ),
       ),
     );

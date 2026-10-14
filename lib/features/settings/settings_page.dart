@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import '../../app/theme/app_theme.dart';
@@ -18,7 +20,7 @@ class SettingsPage extends StatefulWidget {
 
   final RestAlertService? alerts;
   final ThemeMode mode;
-  final ValueChanged<ThemeMode> onModeChanged;
+  final FutureOr<void> Function(ThemeMode) onModeChanged;
   final Locale locale;
   final Future<void> Function(Locale) onLocaleChanged;
 
@@ -28,8 +30,24 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
   bool savingLanguage = false;
+  bool savingTheme = false, themeError = false;
   bool languageError = false;
   bool savingReminder = false, reminderSaveError = false;
+
+  Future<void> changeTheme(ThemeMode? next) async {
+    if (next == null || savingTheme || next == widget.mode) return;
+    setState(() {
+      savingTheme = true;
+      themeError = false;
+    });
+    try {
+      await widget.onModeChanged(next);
+    } catch (_) {
+      if (mounted) setState(() => themeError = true);
+    } finally {
+      if (mounted) setState(() => savingTheme = false);
+    }
+  }
 
   Future<void> changeLanguage(Locale? selected) async {
     if (selected == null || savingLanguage || selected == widget.locale) return;
@@ -101,10 +119,22 @@ class _SettingsPageState extends State<SettingsPage> {
                 SwitchListTile(
                   contentPadding: EdgeInsets.zero,
                   title: Text(l.restAlertsEnabled),
-                  subtitle: Text(message),
+                  subtitle: Text(
+                    message,
+                    style: TextStyle(
+                      color: !alerts.enabled
+                          ? context.appColors.textSecondary
+                          : alerts.failed
+                          ? context.appColors.danger
+                          : cap?.notifications != true || cap?.exact != true
+                          ? context.appColors.warning
+                          : context.appColors.onAccentSoft,
+                    ),
+                  ),
                   value: alerts.enabled,
                   onChanged: savingReminder ? null : changeReminders,
                 ),
+                if (savingReminder) const LinearProgressIndicator(),
                 if (reminderSaveError)
                   Text(
                     l.restAlertsSaveFailed,
@@ -162,9 +192,7 @@ class _SettingsPageState extends State<SettingsPage> {
           AppCard(
             child: RadioGroup<ThemeMode>(
               groupValue: widget.mode,
-              onChanged: (selected) {
-                if (selected != null) widget.onModeChanged(selected);
-              },
+              onChanged: changeTheme,
               child: Column(
                 children: [
                   for (final (value, label) in [
@@ -175,12 +203,22 @@ class _SettingsPageState extends State<SettingsPage> {
                     RadioListTile<ThemeMode>(
                       title: Text(label),
                       value: value,
+                      enabled: !savingTheme,
                       contentPadding: EdgeInsets.zero,
                     ),
                 ],
               ),
             ),
           ),
+          if (savingTheme) const LinearProgressIndicator(),
+          if (themeError)
+            Padding(
+              padding: const EdgeInsets.only(top: 12),
+              child: Text(
+                strings.themeSaveFailed,
+                style: TextStyle(color: colors.danger),
+              ),
+            ),
           const SizedBox(height: 24),
           Text(strings.language, style: TextStyle(color: colors.textSecondary)),
           const SizedBox(height: 12),

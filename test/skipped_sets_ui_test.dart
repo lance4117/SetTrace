@@ -177,6 +177,7 @@ void main() {
       await tap(t, '继续训练');
       await t.drag(find.byType(Scrollable).first, const Offset(0, 1000));
       await settle(t);
+      await t.scrollUntilVisible(find.byType(LinearProgressIndicator),120,scrollable:find.descendant(of:find.byKey(const ValueKey('workout-body')),matching:find.byType(Scrollable)).first);
       expect(
         t
             .widget<LinearProgressIndicator>(
@@ -322,12 +323,14 @@ void main() {
     await settle(t);
     await t.ensureVisible(find.text('跳过剩余 2 组'));
     await t.pumpAndSettle();
-    await t.tap(find.text('跳过剩余 2 组'));
-    await t.tap(find.text('跳过剩余 2 组'));
+    final skipPoint=t.getCenter(find.text('跳过剩余 2 组'));
+    await t.tapAt(skipPoint);
+    await t.tapAt(skipPoint);
     await settle(t);
     expect(find.byType(AlertDialog), findsOneWidget);
-    await t.tap(find.text('确认跳过剩余组'));
-    await t.tap(find.text('确认跳过剩余组'));
+    final confirmPoint=t.getCenter(find.text('确认跳过剩余组'));
+    await t.tapAt(confirmPoint);
+    await t.tapAt(confirmPoint);
     await settle(t);
     final latest = (await t.runAsync(() => repo.getSession(s.id)))!;
     expect(latest.currentExercise.name, 'Action 1');

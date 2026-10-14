@@ -60,10 +60,13 @@ void main() {
         await tester.pumpAndSettle();
       }
 
+      final evidence = Directory(
+        '${Directory.systemTemp.path}/focus-a-journey',
+      );
+      await evidence.create(recursive: true);
       Future<void> shot(String name) async {
         final bytes = await binding.takeScreenshot(name);
-        await File('${Directory.systemTemp.path}/$name.png')
-            .writeAsBytes(bytes);
+        await File('${evidence.path}/$name.png').writeAsBytes(bytes);
       }
 
       await start(system);
@@ -155,7 +158,7 @@ void main() {
         await shot('rest-${locale.languageCode}');
         // Complete a full workout through the normal rest controls.
         for (var set = 2; set <= 4; set++) {
-          await tap(strings.skip);
+          await tap(strings.endRest);
           await tap(strings.completeSet);
         }
         await shot('finish-${locale.languageCode}');
@@ -238,6 +241,16 @@ void main() {
       }
       await tester.pumpWidget(const SizedBox());
       await db.close();
+      await File('${evidence.path}/results.json').writeAsString(
+        '{"journey":"create-train-history-downloads-import","passed":true}',
+      );
+      if (const bool.fromEnvironment('FOCUS_EXPORT_WAIT')) {
+        debugPrint('FOCUS_EXPORT_READY');
+        for (var i = 0; i < 120; i++) {
+          if (await File('${evidence.path}/export.done').exists()) break;
+          await Future<void>.delayed(const Duration(milliseconds: 500));
+        }
+      }
     },
   );
 }

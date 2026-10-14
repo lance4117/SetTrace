@@ -1,0 +1,72 @@
+[
+  {
+    "capability": "app-experience",
+    "added": [
+      "A 方案的组件层级与任务导航",
+      "一致且可恢复的操作反馈",
+      "可辨识的确认与面板"
+    ],
+    "modified": [
+      "可切换的共享主题",
+      "训练场景易用性"
+    ],
+    "removed": [],
+    "renamed": [],
+    "beforeSha256": "04efdf7d13ddb51d562b31ac574cce352ff64756d34e5e77ddaf83b757ccec11",
+    "afterSha256": "0997a43034524395766a6e0d551a0d77c2bc8da4fbf80999e96ebcbf680057dc"
+  },
+  {
+    "capability": "app-localization",
+    "added": [
+      "本地化语义与辅助操作完整",
+      "动态效果尊重辅助偏好"
+    ],
+    "modified": [
+      "LTR 译文布局保持可读可操作"
+    ],
+    "removed": [],
+    "renamed": [],
+    "beforeSha256": "53daa3fb7690e4dfab6baea369f63bf8b98adc565138c4df388774467fe646e8",
+    "afterSha256": "93b88dc13767dc77b0f0905f12b4c0872cbc07fa1dc5febb1763b0bd0837b60e"
+  },
+  {
+    "capability": "training-plans",
+    "added": [
+      "命名与配置表单的提交呈现",
+      "计划默认顺序的可访问操作",
+      "准备与活动会话的清晰呈现",
+      "传输选择与完整预览的状态呈现"
+    ],
+    "modified": [],
+    "removed": [],
+    "renamed": [],
+    "beforeSha256": "d739ec6d681d926013ddee6d385b55d4cf68198b47d211029fabe86e2c6e06ea",
+    "afterSha256": "da1eb7cc6c31a347f933bfad3eb1ee7224075565c115c262073f874afe30bc7a"
+  },
+  {
+    "capability": "workout-history",
+    "added": [
+      "历史统计与空状态的可辨识呈现",
+      "历史删除的上下文与恢复反馈"
+    ],
+    "modified": [],
+    "removed": [],
+    "renamed": [],
+    "beforeSha256": "63d178efcb2ad6f80c3190508d4f378108a061a4cceefc1532d4ec862645519c",
+    "afterSha256": "c85b5bed1774480f28da26b41dc0d2469f7547ed6a926649b0a8f64c5a7f51e2"
+  },
+  {
+    "capability": "workout-session",
+    "added": [
+      "固定且真实的训练任务区",
+      "休息与修正动作的独立层级",
+      "本次工具的可访问呈现与草稿边界",
+      "结束与异常恢复的明确选择"
+    ],
+    "modified": [],
+    "removed": [],
+    "renamed": [],
+    "beforeSha256": "75bdf56cc24da90ab4dc0fad24ca5c7d382e4a445f4a261c24f703cb3b3134bb",
+    "afterSha256": "fb0d689be2e15c24bb2b04a1b77b6c22aaa46c0c7a8cdf151a3f23d9e88af253"
+  }
+]

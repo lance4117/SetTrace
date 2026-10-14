@@ -1,0 +1,123 @@
+# A 方案：页面、状态与功能覆盖
+
+版本 `focus-a-2026-10-14`。本文件为设计清单，不是实施任务表。视觉值见[主规范](SetTrace_UI_Design_System_and_Flutter_Spec.md)，条件与状态转换见[交互规范](interaction-spec.md)，检查见[验收标准](acceptance-checklist.md)。
+
+29 个主要画面使用稳定编号；Light / Dark 与中文 / English 是同一画面的适配，不增加独立功能数量。文中规则是设计目标；实际 Flutter 覆盖和限制见[实施报告](../qa/focus-a-redesign-acceptance.md)，不能仅凭示意图判定通过。完整稿在[原型](prototype/SetTrace-Focus.html)，可通过界面语言／外观控制及目录查看。
+
+## 1. 计划与准备（P01–P06）
+
+参考：[浅色](previews/plans-light-zh.png) / [深色](previews/plans-dark-en.png)。代码依据 `lib/features/plans/plans_page.dart`、`exercise_editor_page.dart`。
+
+| ID / 原型定位 | 画面与信息 | 主操作与补充规则 |
+| --- | --- | --- |
+| [P01](prototype/SetTrace-Focus.html#screen-home) | 计划首页，活动会话卡片、计划摘要 | 活动会话存在时优先“继续训练”；“新建”与导入导出更多菜单共存；卡片进入详情 |
+| [P02](prototype/SetTrace-Focus.html#screen-plan) | 计划详情，动作顺序、组数、休息摘要 | 开始进入准备；添加／编辑动作、改名、删除、默认换序可达；默认换序不受本次训练锁定规则限制 |
+| [P03](prototype/SetTrace-Focus.html#screen-exercise) | 添加／编辑动作，名称、组数、两类休息、可选重量 | 保存及适用时删除；数字显示、滑动 Picker 与显式加减共用规则；键盘不遮挡字段和按钮 |
+| [P04](prototype/SetTrace-Focus.html#screen-prep) | 开始前预览计划、动作顺序与总组数 | 确认后才创建快照；发生单会话冲突时 D10；不显示预计训练时长 |
+| [P05](prototype/SetTrace-Focus.html#screen-home-empty) | 没有计划的首页 | 新建与导入均可达；导出禁用或说明无计划；仍有活动快照时保留继续入口，不因来源计划被删而丢失 |
+| [P06](prototype/SetTrace-Focus.html#screen-plan-empty) | 已建计划没有动作 | 添加动作可用；开始训练禁用并说明原因；改名和删除仍可用 |
+
+## 2. 训练与两类休息（W01–W06）
+
+参考：[浅色](previews/training-light-zh.png) / [深色](previews/training-dark-en.png)。代码依据 `workout_page.dart`、`workout_models.dart`。
+
+| ID / 原型定位 | 示例状态 | 必须表现的操作与含义 |
+| --- | --- | --- |
+| [W01](prototype/SetTrace-Focus.html#screen-active) | 当前待练第 3 / 4 组，当前动作实际完成 2 组 | 完成本组固定底部；查看动作、符合条件的更换下一动作、跳过剩余 2 组、撤销完成、结束可达；总进度只计真实完成 |
+| [W02](prototype/SetTrace-Focus.html#screen-first) | 全场尚未完成任何组 | 不提供跳过剩余组、无效撤销或保存；可查看／调整符合条件的动作，结束使用 D07 |
+| [W03](prototype/SetTrace-Focus.html#screen-rest) | 组间休息，接下来仍是当前动作 | 计时、−30 秒、＋30 秒、结束休息；符合条件时另有跳过剩余组；不是把“结束休息”叫作跳过动作 |
+| [W04](prototype/SetTrace-Focus.html#screen-rest-between) | 动作间休息，下一动作尚未开始 | 明确“动作间休息”；当前目标和组数可读；更换下一动作保持绝对截止；无跳过剩余组入口 |
+| [W05](prototype/SetTrace-Focus.html#screen-skipped) | 上个动作完成 2 / 4，剩余 2 组被跳过；下一动作待练 | 明确跳过对象和数量；独立恢复最近跳过；普通撤销仍只撤销真实完成；不会把实际 2 / 4 画成完成 4 / 4 |
+| [W06](prototype/SetTrace-Focus.html#screen-finish-ready) | 所有组均已处理，实际完成 11 / 15，4 组跳过 | 可保存，但进度不是 100%；仍能恢复可撤销的跳过及完成记录，结束／放弃遵守确认规则 |
+
+组数、休息时间、动作名、数量与训练日期均为示例，不是数据默认值。最多 100 组时使用摘要布局；主操作始终可达。
+
+## 3. 本次训练工具（S01–S04）
+
+参考：[浅色](previews/session-tools-light-zh.png) / [深色](previews/session-tools-dark-en.png)。代码依据 `session_order_sheet.dart`、`SessionExerciseEditorPage`。
+
+| ID / 原型定位 | 画面 | 规则 |
+| --- | --- | --- |
+| [S01](prototype/SetTrace-Focus.html#screen-exercises) | 全部动作与编辑 | 全部动作按会话顺序，完成／进行中／待练／已跳过可区分；提供适用的本次编辑、剩余换序、独立恢复跳过；已跳过动作说明先恢复再编辑 |
+| [S02](prototype/SetTrace-Focus.html#screen-order) | 调整剩余顺序 | 完成、部分完成、有跳过记录的位置锁定；可移动行有手柄及非拖动替代；草稿保存／取消明确，仅影响本次快照 |
+| [S03](prototype/SetTrace-Focus.html#screen-choose-next) | 选择下一动作 | 当前尚未开始可被替换；已有完成组时只调整其后的待练顺序；候选数量不足时不给无效入口 |
+| [S04](prototype/SetTrace-Focus.html#screen-session-edit) | 编辑本次配置 | 只编辑所选动作目标组数与两类休息；组数至少为 max(1, 已完成组数)；不新增名称、重量或次数编辑；成功返回原会话 |
+
+P02 的计划默认排序与 S02 使用一致的排序表现，但数据范围和可移动限制不同。HTML 的排序草稿演示不能代替保存、取消、恢复与数据库事务规则。
+
+## 4. 计划导入导出（X01–X04）
+
+参考：[浅色](previews/transfer-light-zh.png) / [深色](previews/transfer-dark-en.png)。代码依据 `plan_transfer_pages.dart`；格式与范围见 [传输格式](../plan-transfer-format.md)。
+
+| ID / 原型定位 | 画面 | 规则 |
+| --- | --- | --- |
+| [X01](prototype/SetTrace-Focus.html#screen-export) | 导出计划选择 | **进入时默认全选**；图中选中两个只是取消选择后的例子；全选／取消全选、所选数量、复制和文件保存都保留；空选择及执行中禁用两种输出 |
+| [X02](prototype/SetTrace-Focus.html#screen-import) | 文本输入／主动粘贴／文件选择 | 不主动读取剪贴板；无内容不能预览；取消文件选择正常返回，不报成功或错误；读取、格式错误有可理解提示 |
+| [X03](prototype/SetTrace-Focus.html#screen-preview) | 导入前预览、拟用名称 | 显示数量和新增副本含义、改名、完整配置展开入口、取消／重新选择／确认；同名不覆盖已有数据 |
+| [X04](prototype/SetTrace-Focus.html#screen-expanded) | 展开完整动作配置 | 展示动作顺序、组数、两类休息及可选重量；长配置滚动，确认可达；字段校验或名称新冲突保留并更新预览，重新确认 |
+
+导出仅含计划配置，复制／公共下载目录保存的结果来自实际操作；文件、文本使用同一既有格式。不能把 HTML 中省略的示例文本当有效导入内容，也不能将示例成功提示当平台操作已发生。
+
+## 5. 记录与设置（H01–H05、C01–C04）
+
+参考：[浅色](previews/history-settings-light-zh.png) / [深色](previews/history-settings-dark-en.png)。代码依据 `history_page.dart`、`history_stats.dart`、`settings_page.dart` 及提醒服务。
+
+| ID / 原型定位 | 画面 | 规则 |
+| --- | --- | --- |
+| [H01](prototype/SetTrace-Focus.html#screen-history) | 月份历史与统计 | 本周／自然月次数、最近训练、所选月时长与实际完成组数；月份可切换；列表进入目标详情 |
+| [H02](prototype/SetTrace-Focus.html#screen-detail) | 含跳过组的记录详情 | 名称、日期、时间、时长与真实完成比例；动作按最终快照顺序；逐组完成时间／跳过状态；删除从更多菜单进入 |
+| [H03](prototype/SetTrace-Focus.html#screen-history-empty) | 所选历史月份为空 | 所选月时长／组数为零；自然周／月次数和最近训练仍按各自口径计算，不随所选月一并清零 |
+| [H04](prototype/SetTrace-Focus.html#screen-detail-partial) | 提前保存，完成／跳过／未完成并存 | 三类组状态独立，不把待练组补成跳过或完成；已保存快照不受原计划改动影响 |
+| [H05](prototype/SetTrace-Focus.html#screen-history-all-empty) | 没有任何已保存记录 | 相关次数、时长、完成组数均归零，最近训练暂无；不删除活动会话和计划 |
+| [C01](prototype/SetTrace-Focus.html#screen-settings) | 主题、语言、提醒正常 | 系统／浅色／深色；English／中文；提醒开关和状态说明；持久化失败不伪报成功 |
+| [C02](prototype/SetTrace-Focus.html#screen-settings-permissions) | 提醒能力受限 | 通知被拒绝或渠道禁用明确后台不可用；准时能力不足明确可能延迟；按实际能力显示对应系统设置入口，不能混为同一权限 |
+| [C03](prototype/SetTrace-Focus.html#screen-notifications) | Android 提醒与返回示意 | 系统决定实际样式；自然到期提醒一次，不完成组；返回最新对应会话，结束／删除／失效目标不打开别的会话 |
+| [C04](prototype/SetTrace-Focus.html#screen-settings-failed) | 调度或偏好保存失败 | 区分训练已保存与提醒失败；重试当前能力或偏好写入，休息截止不重置；提示实际状态 |
+
+## 6. 弹窗与菜单样本（D01–D14）
+
+参考：[浅色](previews/dialogs-light-zh.png) / [深色](previews/dialogs-dark-en.png)。共 14 类静态样本，并不限制运行时只能有 14 个弹层。原型中更多菜单、删除确认及条件分支还可点击查看；完整后果规则以文字为准。
+
+| ID | 样本／触发 | 必须具备 |
+| --- | --- | --- |
+| D01 | 首页新建计划 | 标签、40 字符上限、非空校验、成功后关闭、失败保留；普通名称可重复 |
+| D02 | 计划重命名 | 预填原名、同一校验规则、保存／取消 |
+| D03 | 删除计划 | 目标名称、不可恢复；明确保留历史及活动快照 |
+| D04 | 删除计划动作 | 目标动作及影响范围；不删除已有会话与历史快照 |
+| D05 | 有实际完成组的结束 | 保存实际完成组／继续／放弃，放弃与主操作分隔 |
+| D06 | 放弃已有完成记录 | 二次确认、不可恢复、保留计划和其他记录 |
+| D07 | 零完成时结束 | 继续／放弃；不显示不可用保存，不额外重复放弃确认 |
+| D08 | 跳过当前动作剩余组 | 动作、已完成／将跳过数量、不计实际完成、下一动作或结束后果 |
+| D09 | 恢复最近一批跳过 | 具体动作和数量、回到该动作、保留全部真实完成组 |
+| D10 | 开始新训练遇到活动会话 | 继续原训练或留在当前页；不提供静默覆盖 |
+| D11 | 休息提醒授权前解释 | 说明后台／锁屏用途、系统权限、拒绝不影响训练；不伪造系统授权结果 |
+| D12 | 首页计划更多菜单 | 导入／导出与新建共存；空首页可导入，导出禁用或说明原因 |
+| D13 | 记录详情更多菜单 | 删除目标记录入口；随后确认必须显示记录名称、日期、不可恢复及统计更新 |
+| D14 | 会话草稿过期 | 解释状态变化；重载／取消，保留真实完成记录，不将过期草稿直接覆盖 |
+
+另需保留：计划详情改名／删除菜单、训练工具菜单、导入新冲突返回预览、字段错误、按钮提交中／禁用、删除成功后刷新失败、提醒关闭等状态。它们属于已有能力的呈现分支，不新增业务功能。
+
+## 7. 适配样本（A01–A05）
+
+| ID | 样本 | 目标 |
+| --- | --- | --- |
+| A01 | 360 dp 小屏 | 内容可滚动，无横向溢出，底部主操作独立 |
+| A02 | 360 dp + 160% 字号 + 长英文动作名 | 完整换行，按钮增高、工具重排，不缩正文或裁断目标名 |
+| A03 | 键盘弹出后的导入表单 | 焦点字段、错误与确认均可达；键盘外观由系统决定 |
+| A04 | 740×390 横屏 | 主要任务与动作并排，短屏工具可滚动，尊重系统区域 |
+| A05 | 约 768 dp 平板 | 上下文与当前任务双栏，正文宽度与触控目标受控 |
+
+样本不是对所有 Android 设备或 Flutter 的通过报告；430 dp、字体缩放、读屏及真机仍按验收清单在后续获批实施后验证。
+
+## 8. 功能来源与防遗漏映射
+
+| 来源 | 覆盖画面 | 语义来源 |
+| --- | --- | --- |
+| 初版 `5570b90` | P01–P06、W01–W04、H01–H02、D01–D07、D10 | 计划、会话、历史主规格 |
+| 本次换序 `dfe28f0` | S01–S04、W01/W04、D14 | `workout-session`；[换序验收](../qa/session-exercise-reordering-acceptance.md) |
+| 计划传输 `7bf1f03` | X01–X04、D12 | `training-plans` / `app-experience`；[传输验收](../qa/plan-import-export-acceptance.md) |
+| 删除历史 `00ef2a3` | H01–H05、D13 与删除确认 | `workout-history`；[删除验收](../qa/workout-history-delete-acceptance.md) |
+| 本地化 `31a8d8f` / `e41967c` | 全画面、C01、A01–A05 | `app-localization`；[本地化验收](../qa/localization-acceptance.md) |
+| 提醒与跳过 `da18d62` | W01–W06、H02/H04、C01–C04、D08/D09/D11 | `workout-session` / `workout-history` / `app-experience`；[提醒与跳过验收](../qa/rest-alerts-and-skipping-acceptance.md) |
+
+后续获批规划如引用某个 ID，应同时引用相应交互与验收编号，不能只以“按新 UI 修改”代替功能覆盖说明。

@@ -1,0 +1,22 @@
+{
+  "change": "redesign-ui-focus",
+  "schema": "spec-driven",
+  "archivedOn": "2026-10-15",
+  "archivePath": "openspec/changes/archive/2026-10-15-redesign-ui-focus",
+  "tasks": {
+    "complete": 49,
+    "total": 49
+  },
+  "specsSynced": true,
+  "requirementsAdded": 15,
+  "requirementsModified": 3,
+  "mainSpecsValidation": "5 passed, 0 failed",
+  "metadataPreserved": true,
+  "previousArchiveFilesUnchanged": 40,
+  "remainingActiveChanges": [
+    "fix-workout-timer-recovery"
+  ],
+  "gitCommitCreated": false,
+  "published": false,
+  "unverifiedConditions": "See the unchanged device limitations in docs/qa/focus-a-redesign-acceptance.md"
+}

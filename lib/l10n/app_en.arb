@@ -124,7 +124,7 @@
   "@deletePlanNote": {
     "description": "Application text in lib/features/plans/plans_page.dart. Chinese source context: 已有训练记录和进行中的训练不会被删除。. Translate whole messages; preserve user names."
   },
-  "reorderPlanHint": "Drag the handles on the left to reorder exercises.",
+  "reorderPlanHint": "Drag or use the move buttons to change the default order for new workouts.",
   "@reorderPlanHint": {
     "description": "Application text in lib/features/plans/plans_page.dart. Chinese source context: 长按左侧把手调整动作顺序. Translate whole messages; preserve user names."
   },
@@ -168,7 +168,7 @@
   "@deleteExerciseTitle": {
     "description": "Application text in lib/features/plans/exercise_editor_page.dart. Chinese source context: 删除动作？. Translate whole messages; preserve user names."
   },
-  "deleteExerciseNote": "This removes the exercise from this plan. Saved workouts will be kept.",
+  "deleteExerciseNote": "This removes the exercise from this plan. Saved workouts and the active workout snapshot are kept.",
   "@deleteExerciseNote": {
     "description": "Application text in lib/features/plans/exercise_editor_page.dart. Chinese source context: 只会从计划中删除，已有训练记录不会改变。. Translate whole messages; preserve user names."
   },
@@ -204,7 +204,7 @@
   "@weightLabel": {
     "description": "Application text in lib/features/plans/exercise_editor_page.dart, lib/features/plans/plan_transfer_pages.dart, lib/features/workout/workout_page.dart. Chinese source context: 重量（可选，kg）. Translate whole messages; preserve user names."
   },
-  "pickerHint": "Swipe to adjust. Each step gives light haptic feedback.",
+  "pickerHint": "Swipe or use − / + to adjust. Each valid step gives light haptic feedback.",
   "@pickerHint": {
     "description": "Application text in lib/features/plans/exercise_editor_page.dart. Chinese source context: 左右滑动切换档位 · 每跨一档轻震反馈. Translate whole messages; preserve user names."
   },
@@ -236,7 +236,7 @@
   "@confirmDiscardTitle": {
     "description": "Application text in lib/features/workout/workout_page.dart. Chinese source context: 确认丢弃？. Translate whole messages; preserve user names."
   },
-  "confirmDiscardNote": "Your completed sets in this workout will be permanently deleted.",
+  "confirmDiscardNote": "Your completed sets in this workout will be permanently deleted. Your plans and other saved workouts will be kept.",
   "@confirmDiscardNote": {
     "description": "Second confirmation before permanently deleting completed sets in the current session. This does not delete old history."
   },
@@ -344,7 +344,7 @@
   "@chooseFollowingNote": {
     "description": "Application text in lib/features/workout/session_order_sheet.dart. Chinese source context: 当前动作做完后练；当前组数和休息保持。. Translate whole messages; preserve user names."
   },
-  "reorderSessionNote": "Drag unstarted exercises to reorder them. Exercises with completed sets stay in place. Changes apply only to this workout.",
+  "reorderSessionNote": "Reorder unstarted exercises by dragging or using the move buttons. Completed or skipped exercises stay in place. Only this workout changes.",
   "@reorderSessionNote": {
     "description": "Application text in lib/features/workout/session_order_sheet.dart. Chinese source context: 拖动待练动作；已记录组的动作固定。只影响本次训练。. Translate whole messages; preserve user names."
   },
@@ -1541,5 +1541,172 @@
   "notificationWorkoutUnavailable": "This workout has ended or is no longer available.",
   "@notificationWorkoutUnavailable": {
     "description": "SetTrace notificationWorkoutUnavailable: rest reminder or skipped workout set. Preserve user exercise names."
+  },
+  "increaseValue": "Increase {value}",
+  "@increaseValue": {
+    "description": "Accessible control label; preserve the user value or name.",
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "decreaseValue": "Decrease {value}",
+  "@decreaseValue": {
+    "description": "Accessible control label; preserve the user value or name.",
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "moveExerciseUp": "Move {name} up",
+  "@moveExerciseUp": {
+    "description": "Accessible control label; preserve the user value or name.",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "moveExerciseDown": "Move {name} down",
+  "@moveExerciseDown": {
+    "description": "Accessible control label; preserve the user value or name.",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "endRest": "End rest",
+  "@endRest": {
+    "description": "Focus A presentation; values describe actual saved workout state."
+  },
+  "currentPendingSet": "Current set",
+  "@currentPendingSet": {
+    "description": "Focus A presentation; values describe actual saved workout state."
+  },
+  "referenceWeight": "Reference · {weight}",
+  "@referenceWeight": {
+    "description": "Focus A presentation; values describe actual saved workout state.",
+    "placeholders": {
+      "weight": {
+        "type": "String"
+      }
+    }
+  },
+  "skippedExerciseSummary": "{name}: {completed} completed, {skipped} skipped",
+  "@skippedExerciseSummary": {
+    "description": "Focus A presentation; values describe actual saved workout state.",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "completed": {
+        "type": "num"
+      },
+      "skipped": {
+        "type": "num"
+      }
+    }
+  },
+  "setState": "Set {number} · {state}",
+  "@setState": {
+    "description": "Focus A presentation; values describe actual saved workout state.",
+    "placeholders": {
+      "number": {
+        "type": "num"
+      },
+      "state": {
+        "type": "String"
+      }
+    }
+  },
+  "setStatusSummary": "{completed} completed · {skipped} skipped · {pending} pending",
+  "@setStatusSummary": {
+    "description": "Focus A presentation; values describe actual saved workout state.",
+    "placeholders": {
+      "completed": {
+        "type": "num"
+      },
+      "skipped": {
+        "type": "num"
+      },
+      "pending": {
+        "type": "num"
+      }
+    }
+  },
+  "skipsNotCompleted": "All sets have been handled. Skipped sets do not count as completed.",
+  "@skipsNotCompleted": {
+    "description": "Focus A presentation; values describe actual saved workout state."
+  },
+  "restTimeRemaining": "Rest remaining {time}",
+  "@restTimeRemaining": {
+    "description": "Focus A presentation; values describe actual saved workout state.",
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "themeSaveFailed": "Could not save the appearance. The previous setting is kept.",
+  "@themeSaveFailed": {
+    "description": "Focus A presentation; values describe actual saved workout state."
+  },
+  "draftStateChanged": "This workout has changed. Reload before editing again.",
+  "@draftStateChanged": {
+    "description": "Focus A presentation; values describe actual saved workout state."
+  },
+  "endWorkoutAction": "End workout",
+  "@endWorkoutAction": {
+    "description": "Focus A form or action label."
+  },
+  "planNameTooLong": "Use at most 40 characters.",
+  "@planNameTooLong": {
+    "description": "Focus A form or action label."
+  },
+  "irreversible": "This cannot be undone.",
+  "@irreversible": {
+    "description": "Focus A form or action label."
+  },
+  "exerciseNameError": "Enter a name of 1–60 characters.",
+  "@exerciseNameError": {
+    "description": "Inline exercise field validation, with the existing limits."
+  },
+  "weightInputError": "Enter a positive weight, or leave it empty.",
+  "@weightInputError": {
+    "description": "Inline exercise field validation, with the existing limits."
+  },
+  "exerciseConfiguration": "{sets, plural, one{{sets} set} other{{sets} sets}} · {between}s between sets · {after}s after exercise",
+  "@exerciseConfiguration": {
+    "description": "Plan exercise summary, both rest values are seconds.",
+    "placeholders": {
+      "sets": {
+        "type": "num"
+      },
+      "between": {
+        "type": "num"
+      },
+      "after": {
+        "type": "num"
+      }
+    }
+  },
+  "noHistoryAll": "No saved workouts yet",
+  "@noHistoryAll": {
+    "description": "Global empty history; distinct from a selected empty month."
+  },
+  "workoutProgress": "{total, plural, one{Workout total · {completed} / {total} set completed} other{Workout total · {completed} / {total} sets completed}}",
+  "@workoutProgress": {
+    "description": "Session-wide progress, distinct from the per-exercise ratio.",
+    "placeholders": {
+      "completed": {
+        "type": "num"
+      },
+      "total": {
+        "type": "num"
+      }
+    }
   }
 }

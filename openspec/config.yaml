@@ -1,32 +1,45 @@
 schema: spec-driven
 
-# Project context (optional)
-# This is shown to AI when creating artifacts.
-# Add your tech stack, conventions, style guides, domain knowledge, etc.
-# Example:
-#   context: |
-#     Tech stack: TypeScript, React, Node.js
-#     We use conventional commits
-#     Domain: e-commerce platform
+context: |
+  SetTrace（训练本）是 Flutter / Dart 的 Android 离线训练记录工具，使用 SQLite 保存计划、会话快照和历史。
+  当前设计基线为 focus-a-2026-10-14（A · 专注工具），覆盖应用 0.1.3+5 / da18d62 的全部既有功能。
+  A 方案已在 redesign-ui-focus 中实施，实际验证范围见 docs/qa/focus-a-redesign-acceptance.md；五份主规格已同步，变更已于 2026-10-15 归档至 openspec/changes/archive/2026-10-15-redesign-ui-focus，尚未执行 Git 提交或发布。设计确认、文档更新或已有 change 目录本身不构成新增工作授权。
+  创建或扩写提案、生成开发任务、实施或发布前，必须得到用户对相应范围的明确确认；未授权时仅阅读和说明。
+  用户后续明确请求某项工作本身即授权其要求的范围，无需重复询问；授权不自动扩展到未要求的下一阶段。
+  UI 工作必须先实际读取 docs/design/README.md，再读取以下文件，不能只浏览示意图：
+  - docs/design/SetTrace_UI_Design_System_and_Flutter_Spec.md：语义主题、组件、排版、适配与 Flutter 职责映射。
+  - docs/design/screens-and-states.md：P/W/S/X/H/C/D/A 页面与状态编号、功能覆盖及来源。
+  - docs/design/interaction-spec.md：INT-01 至 INT-10 的条件、数据范围、状态转换、返回与错误反馈。
+  - docs/design/acceptance-checklist.md：DOC/VIS/FLOW/ADAPT 验收编号与未验证边界。
+  依所涉及能力完整读取 openspec/specs 中的现有规格和当前代码；业务含义不得因重设计改变，数据库与既有功能保持。
+  目标视觉与呈现以当前设计 Markdown 为准；docs/design/prototype/SetTrace-Focus.html、previews、exports 是对照资料。
+  原型是静态模拟，示例选择、数值、日期、提示成功、系统行为与字体回退都不是实现依据。
+  导出仍默认全选；显式加减与现有 Picker 滑动、吸附、跨有效档位反馈并存，不按原型删掉现有要求。
+  docs/design/archive 下旧设计及旧 Figma 页仅历史参考；不要将旧 UI 规则混回当前设计。
+  规格、代码或图片出现冲突须明确报告和解决；不能静默改变业务、修改规格或把目标设计写成已实施。
 
-# Per-artifact rules (optional)
-# Add custom rules for specific artifacts.
-# Example:
-#   rules:
-#     proposal:
-#       - Keep proposals under 500 words
-#       - Always include a "Non-goals" section
-#     tasks:
-#       - Break tasks into chunks of max 2 hours
+rules:
+  proposal:
+    - 仅在用户明确授权创建或更新提案的范围内编写；既有文档整理本身不构成该授权。
+    - 涉及 UI 时先读当前设计入口与相关页面／交互规范，引用设计版本和相关页面 ID；说明保留现有功能、业务与数据库边界。
+    - 区分设计示例与正式要求；不把预计训练时长、备注或逐组重量／次数等未有功能加入范围。
+  design:
+    - 仅在用户已授权的规划范围内编写；实际读取当前主规范、相关页面清单、交互规范及现有能力规格。
+    - 说明相关 P/W/S/X/H/C/D/A 页面与 INT 规则如何对应组件和现有代码，包含两语、深浅主题、长文本、状态与返回。
+    - 区分计划默认配置与本次快照、结束休息与跳过剩余组、撤销完成与恢复跳过；保留当前资格判断和真实进度含义。
+    - 显式说明设计与现有规格／代码的差异，不改数据库或静默变更既有行为；既有已归档产物不重写。
+  specs:
+    - 仅在用户已授权的规划范围内编写；按相关能力读取现有规格全文和当前设计文字规范。
+    - 必须可观察、可验证地描述目标行为，关联页面和 INT／验收编号，不能用“按照设计图”替代状态、取消、失败与边界场景。
+    - UI 重设计不改变训练记录、统计、事务、导入格式、提醒有效性和本地化的数据含义；如确需变化先明确说明并取得授权。
+  tasks:
+    - 只有用户明确批准相应规划与任务拆分范围后才生成或更新开发任务；不从文档整理推定任务授权。
+    - 每项 UI 工作引用相关页面和 VIS／FLOW／ADAPT 验收编号，清楚定义产出与完成条件，不仅写“重做 UI”。
+    - 覆盖既有全部入口、正常／空／禁用／提交／失败状态、Android 返回、安全区域、两语深浅主题、长文本和字号；不将原型检查标成 Flutter 或真机已通过。
 
-# Per-operation guidance (optional)
-# Add advisory guidance for how apply and archive work should be conducted.
-# This is separate from artifact rules above.
-# Example:
-#   operations:
-#     apply:
-#       guidance:
-#         - Keep test summaries concise
-#     archive:
-#       guidance:
-#         - Summarize the archive outcome before finishing
+operations:
+  apply:
+    guidance:
+      - 实施前核实用户已明确授权对应开发范围；设计确认、已有目录或文档接入不构成实施授权。
+      - 先读取 docs/design/README.md 与相关文字规范、既有能力及已获批产物；未经授权不执行开发，也不擅自补写提案或任务。
+      - 区分目标设计与当前应用；依据实际功能条件连接 UI，不能用原型模拟脚本或截图数值替代仓储、提醒服务或平台行为。

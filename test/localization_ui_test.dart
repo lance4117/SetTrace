@@ -322,6 +322,11 @@ void main() {
           localized(PlanImportPage(plans: plans, platform: ErrorFiles())),
         );
         await tester.pumpAndSettle();
+        await tester.scrollUntilVisible(
+          find.byKey(const ValueKey('plan-import-text')),
+          150,
+          scrollable: find.byType(Scrollable).first,
+        );
         await tester.enterText(
           find.byKey(const ValueKey('plan-import-text')),
           'broken',
@@ -340,4 +345,40 @@ void main() {
       });
     }
   }
+  testWidgets('theme failure keeps effective selection and can be retried', (
+    tester,
+  ) async {
+    final store = FailingPreferences();
+    SharedPreferencesStorePlatform.instance = store;
+    await tester.pumpWidget(root());
+    await flush(tester);
+    await tester.tap(find.text('设置').last);
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('深色'));
+    await tester.pumpAndSettle();
+    final strings = lookupAppLocalizations(const Locale('zh'));
+    expect(find.text(strings.themeSaveFailed), findsOneWidget);
+    expect(
+      tester.widget<MaterialApp>(find.byType(MaterialApp)).themeMode,
+      ThemeMode.system,
+    );
+    expect(preferences.getString('theme_mode'), isNull);
+    store.fail = false;
+    await tester.tap(find.text('深色'));
+    await tester.pumpAndSettle();
+    expect(
+      tester.widget<MaterialApp>(find.byType(MaterialApp)).themeMode,
+      ThemeMode.dark,
+    );
+    expect(preferences.getString('theme_mode'), 'dark');
+    await tester.pumpWidget(const SizedBox());
+    await preferences.reload();
+    await tester.pumpWidget(root());
+    await flush(tester);
+    expect(
+      tester.widget<MaterialApp>(find.byType(MaterialApp)).themeMode,
+      ThemeMode.dark,
+    );
+    await tester.pumpWidget(const SizedBox());
+  });
 }

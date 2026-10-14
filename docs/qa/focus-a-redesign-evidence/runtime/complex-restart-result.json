@@ -1,0 +1,16 @@
+{
+  "checks": {
+    "session_exercises": true,
+    "session_sets": true,
+    "session_skip_batches": true,
+    "sameExerciseAndSetIdentity": true,
+    "deadlineNotReset": true,
+    "planDeleted": true
+  },
+  "completedSets": 3,
+  "skippedSets": 2,
+  "selectedSessionId": 2,
+  "originalDeadline": 1791981517004,
+  "deadlineAfter": null,
+  "deadlineElapsedDuringScenario": true
+}

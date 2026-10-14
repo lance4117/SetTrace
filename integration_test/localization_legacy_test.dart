@@ -86,6 +86,28 @@ void main() {
       await File('${Directory.systemTemp.path}/legacy-old-backup.png')
           .writeAsBytes(await binding.takeScreenshot('legacy-old-backup'));
       expect(tester.takeException(), isNull);
+      if (const bool.fromEnvironment('FOCUS_EXPORT_WAIT')) {
+        final directory = Directory(
+          '${Directory.systemTemp.path}/focus-a-legacy',
+        );
+        await directory.create(recursive: true);
+        for (final name in [
+          'legacy-permission-denied',
+          'legacy-save-success',
+          'legacy-picker-cancelled',
+          'legacy-old-backup',
+        ]) {
+          await File('${Directory.systemTemp.path}/$name.png')
+              .copy('${directory.path}/$name.png');
+        }
+        await File('${directory.path}/results.json')
+            .writeAsString('{"status":"passed","api":28}');
+        debugPrint('FOCUS_EXPORT_READY');
+        for (var i = 0; i < 120; i++) {
+          if (await File('${directory.path}/export.done').exists()) break;
+          await Future<void>.delayed(const Duration(milliseconds: 500));
+        }
+      }
     },
   );
 }

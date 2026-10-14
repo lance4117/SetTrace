@@ -1,0 +1,23 @@
+{
+  "archivedOn": "2026-10-14",
+  "sourceCommit": "da18d62",
+  "status": "superseded-reference-only",
+  "files": {
+    "SetTrace_UI_Design_System_and_Flutter_Spec.md": {
+      "sha256": "6ccd2909c1081ad7a345005b650557b4f61061b57bb6205372a4059acecdec8f",
+      "bytes": 19857
+    },
+    "High-Fi Light.png": {
+      "sha256": "b810baf86aa4eea34ebd64f8116de3643c3cf696849f1721913dbf2c454a75cc",
+      "bytes": 627601
+    },
+    "High-Fi Dark.png": {
+      "sha256": "5a1601296611ef51c17c6f34b650e8fc44a3096f3e26106e4a5dee1c5070932e",
+      "bytes": 622783
+    },
+    "Design Tokens · Theme Reference.png": {
+      "sha256": "7162e5ab563c8307ea2cc146adb890c18070da2eaf55e7dede9d28f61ec0ab24",
+      "bytes": 313278
+    }
+  }
+}

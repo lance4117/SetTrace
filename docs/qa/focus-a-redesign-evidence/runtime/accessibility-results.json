@@ -1,0 +1,25 @@
+{
+  "device": "isolated API 36 AVD",
+  "talkBackEnabledAndSemanticsInspected": true,
+  "nativeKeyboardOrder": [
+    "New",
+    "More",
+    "Resume workout",
+    "Plan",
+    "Plans tab",
+    "History tab",
+    "Settings tab"
+  ],
+  "escapeReturnsFocusToTrigger": true,
+  "pickerPlusThenMinus": [
+    4,
+    5,
+    4
+  ],
+  "cancelDidNotWriteDraft": true,
+  "nonDragPlanMoveAndRestore": [
+    "QA Press",
+    "QA Row"
+  ],
+  "audioReadoutPerception": "not measured; semantics and focus observed"
+}

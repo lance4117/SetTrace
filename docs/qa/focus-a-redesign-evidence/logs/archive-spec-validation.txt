@@ -1,0 +1,7 @@
+✓ spec/app-experience
+✓ spec/app-localization
+✓ spec/training-plans
+✓ spec/workout-history
+✓ spec/workout-session
+Totals: 5 passed, 0 failed (5 items)
+  ℹ [INFO] requirements[1]: Requirement text is very long (>500 characters). Consider breaking it down.

@@ -1,0 +1,16 @@
+[
+  {
+    "mode": "notification-muted",
+    "state": "consumed",
+    "consumedAt": 1791981560057,
+    "dueAt": 1791981560049,
+    "hardwareAudioPerception": "not measured on emulator"
+  },
+  {
+    "mode": "do-not-disturb",
+    "state": "consumed",
+    "consumedAt": 1791981578895,
+    "dueAt": 1791981578870,
+    "hardwareAudioPerception": "not measured on emulator"
+  }
+]

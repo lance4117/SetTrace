@@ -3,9 +3,14 @@ import 'package:flutter/material.dart';
 import '../../app/theme/app_theme.dart';
 
 class AppCard extends StatelessWidget {
-  const AppCard({super.key, required this.child,
-    this.padding = const EdgeInsets.all(16), this.onTap,
-    this.backgroundColor, this.borderColor});
+  const AppCard({
+    super.key,
+    required this.child,
+    this.padding = const EdgeInsets.all(16),
+    this.onTap,
+    this.backgroundColor,
+    this.borderColor,
+  });
 
   final Widget child;
   final EdgeInsetsGeometry padding;
@@ -19,7 +24,8 @@ class AppCard extends StatelessWidget {
       color: backgroundColor ?? colors.surface,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(AppRadius.card),
-        side: BorderSide(color: borderColor ?? colors.border)),
+        side: BorderSide(color: borderColor ?? colors.border),
+      ),
       child: InkWell(
         onTap: onTap,
         borderRadius: BorderRadius.circular(AppRadius.card),

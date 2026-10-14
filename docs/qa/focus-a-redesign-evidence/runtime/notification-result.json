@@ -1,0 +1,12 @@
+{
+  "coldProcessAbsentBeforeNotificationTap": true,
+  "systemNotificationTapped": true,
+  "warmDuplicateIntents": 2,
+  "endedAndMissingTargetsRejected": true,
+  "sameSessionId": 2,
+  "currentSet": 3,
+  "completedSets": 2,
+  "state": "consumed",
+  "dueAt": 1791981152500,
+  "consumedAt": 1791981152625
+}

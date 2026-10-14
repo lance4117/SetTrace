@@ -1,0 +1,9 @@
+00:00 +0: loading D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart
+00:00 +0: naming retains invalid and failed input, submits once, allows duplicate
+00:02 +1: successful naming followed by failed refresh does not create again
+00:02 +2: 100 sets at 360.0 keep primary reachable while scrolling
+00:03 +3: 100 sets at 430.0 keep primary reachable while scrolling
+00:04 +4: default move and destructive dialogs preserve active snapshots
+00:06 +5: non-current session editor rejects stale draft and preserves selected identity
+00:08 +6: home keyboard order follows new, menu, resume, then plan
+00:08 +7: All tests passed!

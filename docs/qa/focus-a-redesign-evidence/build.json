@@ -1,0 +1,9 @@
+{
+  "target": "lib/main.dart",
+  "version": "0.1.3+5",
+  "head": "da18d62b44d3a372963378acc6cd78c53539632e",
+  "sha256": "598177e7f3db6ec8cc0528546699e7a27da53b5624f9574c7905585a895080bb",
+  "bytes": 202213589,
+  "artifact": "build/app/outputs/flutter-apk/app-debug.apk",
+  "flutterTestsPassed": 648
+}

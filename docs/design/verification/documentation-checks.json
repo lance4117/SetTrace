@@ -1,0 +1,68 @@
+{
+  "designVersion": "focus-a-2026-10-14",
+  "scope": "Documentation, design assets and OpenSpec reading configuration only; no proposal, task generation or application implementation.",
+  "archiveHashesMatch": {
+    "SetTrace_UI_Design_System_and_Flutter_Spec.md": true,
+    "High-Fi Light.png": true,
+    "High-Fi Dark.png": true,
+    "Design Tokens · Theme Reference.png": true
+  },
+  "protectedFileHashesUnchanged": 368,
+  "changeArtifactFilesUnchanged": true,
+  "newChangeArtifacts": [],
+  "markdownLinksChecked": 114,
+  "brokenLinks": [],
+  "pages": 29,
+  "dialogSamples": 14,
+  "adaptationSamples": 5,
+  "interactionGroups": 10,
+  "prototypeSelfContained": true,
+  "svgFiles": 222,
+  "svgArchiveIntegrity": "pass",
+  "projectRootRecognized": true,
+  "openSpecInstructions": [
+    {
+      "artifactId": "proposal",
+      "designVersionPresent": true,
+      "allReadingPathsPresent": true,
+      "authorizationBoundaryPresent": true,
+      "ruleCount": 3,
+      "writesPerformed": false
+    },
+    {
+      "artifactId": "design",
+      "designVersionPresent": true,
+      "allReadingPathsPresent": true,
+      "authorizationBoundaryPresent": true,
+      "ruleCount": 4,
+      "writesPerformed": false
+    },
+    {
+      "artifactId": "specs",
+      "designVersionPresent": true,
+      "allReadingPathsPresent": true,
+      "authorizationBoundaryPresent": true,
+      "ruleCount": 3,
+      "writesPerformed": false
+    },
+    {
+      "artifactId": "tasks",
+      "designVersionPresent": true,
+      "allReadingPathsPresent": true,
+      "authorizationBoundaryPresent": true,
+      "ruleCount": 3,
+      "writesPerformed": false
+    }
+  ],
+  "cliRuntime": "Existing usable local Node invoked the installed OpenSpec entry; no system or dependency changes.",
+  "flutterImplementationValidated": false,
+  "androidDeviceAcceptancePerformed": false,
+  "repositoryPrototype": {
+    "loadsFromRepository": true,
+    "pageAnchorsFound": 29,
+    "dialogSamples": 14,
+    "readingEntryAndSvgLinksPresent": true,
+    "simulatedResumeWorks": true,
+    "runtimeErrors": []
+  }
+}
