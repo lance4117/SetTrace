@@ -1148,7 +1148,7 @@
       }
     }
   },
-  "completedSets": "{total, plural, one{{completed} / {total} set completed} other{{completed} / {total} sets completed}}",
+  "completedSets": "{completed} / {total} sets completed",
   "@completedSets": {
     "description": "Application text in lib/features/history/history_page.dart, lib/features/history/history_stats.dart, lib/features/workout/session_order_sheet.dart, lib/features/workout/workout_models.dart, lib/features/workout/workout_page.dart. Chinese source context: 完成 {completed} / {total} 组. Translate whole messages; preserve user names.",
     "placeholders": {
@@ -1363,5 +1363,183 @@
   "planOrderInvalid": "Include every exercise in the plan exactly once.",
   "@planOrderInvalid": {
     "description": "Plan editor reorder validation: all plan exercises are movable, independent of any workout snapshot."
+  },
+  "skipRemainingSets": "{count, plural, =1{Skip remaining set} other{Skip remaining {count} sets}}",
+  "@skipRemainingSets": {
+    "description": "SetTrace skipRemainingSets: rest reminder or skipped workout set. Preserve user exercise names.",
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "skipRemainingTitle": "Skip remaining sets?",
+  "@skipRemainingTitle": {
+    "description": "SetTrace skipRemainingTitle: rest reminder or skipped workout set. Preserve user exercise names."
+  },
+  "skipRemainingNote": "{exercise}: keep {completed} completed sets and skip {remaining} remaining sets.",
+  "@skipRemainingNote": {
+    "description": "SetTrace skipRemainingNote: rest reminder or skipped workout set. Preserve user exercise names.",
+    "placeholders": {
+      "exercise": {
+        "type": "String"
+      },
+      "completed": {
+        "type": "num",
+        "format": "decimalPattern"
+      },
+      "remaining": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "skipNextNote": "Continue with {exercise} without starting another rest.",
+  "@skipNextNote": {
+    "description": "SetTrace skipNextNote: rest reminder or skipped workout set. Preserve user exercise names.",
+    "placeholders": {
+      "exercise": {
+        "type": "String"
+      }
+    }
+  },
+  "skipFinishNote": "There are no sets left to do. You can finish and save.",
+  "@skipFinishNote": {
+    "description": "SetTrace skipFinishNote: rest reminder or skipped workout set. Preserve user exercise names."
+  },
+  "confirmSkipRemaining": "Skip remaining sets",
+  "@confirmSkipRemaining": {
+    "description": "SetTrace confirmSkipRemaining: rest reminder or skipped workout set. Preserve user exercise names."
+  },
+  "undoLastSkip": "Undo last skip",
+  "@undoLastSkip": {
+    "description": "SetTrace undoLastSkip: rest reminder or skipped workout set. Preserve user exercise names."
+  },
+  "undoSkipTitle": "Restore skipped sets?",
+  "@undoSkipTitle": {
+    "description": "SetTrace undoSkipTitle: rest reminder or skipped workout set. Preserve user exercise names."
+  },
+  "undoSkipNote": "Restore {count} skipped sets in {exercise}. Keep all completed sets and return to this exercise.",
+  "@undoSkipNote": {
+    "description": "SetTrace undoSkipNote: rest reminder or skipped workout set. Preserve user exercise names.",
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "decimalPattern"
+      },
+      "exercise": {
+        "type": "String"
+      }
+    }
+  },
+  "restoreSkippedSets": "Restore sets",
+  "@restoreSkippedSets": {
+    "description": "SetTrace restoreSkippedSets: rest reminder or skipped workout set. Preserve user exercise names."
+  },
+  "setSkipped": "Skipped",
+  "@setSkipped": {
+    "description": "SetTrace setSkipped: rest reminder or skipped workout set. Preserve user exercise names."
+  },
+  "remainingSetsSkipped": "Remaining sets skipped",
+  "@remainingSetsSkipped": {
+    "description": "SetTrace remainingSetsSkipped: rest reminder or skipped workout set. Preserve user exercise names."
+  },
+  "workoutReadyToFinish": "No sets left to do. You can finish this workout.",
+  "@workoutReadyToFinish": {
+    "description": "SetTrace workoutReadyToFinish: rest reminder or skipped workout set. Preserve user exercise names."
+  },
+  "cannotSkipRemaining": "Complete at least one set before skipping the remainder.",
+  "@cannotSkipRemaining": {
+    "description": "SetTrace cannotSkipRemaining: rest reminder or skipped workout set. Preserve user exercise names."
+  },
+  "noSkipToUndo": "There is no skip to undo.",
+  "@noSkipToUndo": {
+    "description": "SetTrace noSkipToUndo: rest reminder or skipped workout set. Preserve user exercise names."
+  },
+  "restoreBeforeEditing": "Restore skipped sets before editing this exercise.",
+  "@restoreBeforeEditing": {
+    "description": "SetTrace restoreBeforeEditing: rest reminder or skipped workout set. Preserve user exercise names."
+  },
+  "restAlerts": "Rest reminders",
+  "@restAlerts": {
+    "description": "SetTrace restAlerts: rest reminder or skipped workout set. Preserve user exercise names."
+  },
+  "restAlertsEnabled": "Rest-end reminder",
+  "@restAlertsEnabled": {
+    "description": "SetTrace restAlertsEnabled: rest reminder or skipped workout set. Preserve user exercise names."
+  },
+  "restAlertsOff": "Reminders are off. The countdown still works.",
+  "@restAlertsOff": {
+    "description": "SetTrace restAlertsOff: rest reminder or skipped workout set. Preserve user exercise names."
+  },
+  "restAlertsAvailable": "Reminders work in the background and on the lock screen.",
+  "@restAlertsAvailable": {
+    "description": "SetTrace restAlertsAvailable: rest reminder or skipped workout set. Preserve user exercise names."
+  },
+  "restAlertsNoNotifications": "Background notifications are unavailable. Foreground reminders still work.",
+  "@restAlertsNoNotifications": {
+    "description": "SetTrace restAlertsNoNotifications: rest reminder or skipped workout set. Preserve user exercise names."
+  },
+  "restAlertsMayBeLate": "Background reminders may be delayed. Enable accurate reminders in system settings.",
+  "@restAlertsMayBeLate": {
+    "description": "SetTrace restAlertsMayBeLate: rest reminder or skipped workout set. Preserve user exercise names."
+  },
+  "restAlertsFailed": "Reminder setup failed. Your workout is saved. Retry to arrange it.",
+  "@restAlertsFailed": {
+    "description": "SetTrace restAlertsFailed: rest reminder or skipped workout set. Preserve user exercise names."
+  },
+  "restAlertsSaveFailed": "Could not save reminder preferences. The previous setting is kept.",
+  "@restAlertsSaveFailed": {
+    "description": "SetTrace restAlertsSaveFailed: rest reminder or skipped workout set. Preserve user exercise names."
+  },
+  "restAlertsExplain": "Allow notifications for a short reminder when rest ends, even in the background or on the lock screen. Training works without permission.",
+  "@restAlertsExplain": {
+    "description": "SetTrace restAlertsExplain: rest reminder or skipped workout set. Preserve user exercise names."
+  },
+  "allowRestNotifications": "Allow notifications",
+  "@allowRestNotifications": {
+    "description": "SetTrace allowRestNotifications: rest reminder or skipped workout set. Preserve user exercise names."
+  },
+  "notificationSettings": "Notification settings",
+  "@notificationSettings": {
+    "description": "SetTrace notificationSettings: rest reminder or skipped workout set. Preserve user exercise names."
+  },
+  "accurateRestSettings": "Accurate reminder settings",
+  "@accurateRestSettings": {
+    "description": "SetTrace accurateRestSettings: rest reminder or skipped workout set. Preserve user exercise names."
+  },
+  "restEnded": "Rest is over",
+  "@restEnded": {
+    "description": "SetTrace restEnded: rest reminder or skipped workout set. Preserve user exercise names."
+  },
+  "restEndedBody": "{exercise} · set {number} of {total} is ready.",
+  "@restEndedBody": {
+    "description": "SetTrace restEndedBody: rest reminder or skipped workout set. Preserve user exercise names.",
+    "placeholders": {
+      "exercise": {
+        "type": "String"
+      },
+      "number": {
+        "type": "num",
+        "format": "decimalPattern"
+      },
+      "total": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "restAlertChannelName": "Rest-end reminders",
+  "@restAlertChannelName": {
+    "description": "SetTrace restAlertChannelName: rest reminder or skipped workout set. Preserve user exercise names."
+  },
+  "restAlertChannelDescription": "Short reminders for the next set or exercise.",
+  "@restAlertChannelDescription": {
+    "description": "SetTrace restAlertChannelDescription: rest reminder or skipped workout set. Preserve user exercise names."
+  },
+  "notificationWorkoutUnavailable": "This workout has ended or is no longer available.",
+  "@notificationWorkoutUnavailable": {
+    "description": "SetTrace notificationWorkoutUnavailable: rest reminder or skipped workout set. Preserve user exercise names."
   }
 }

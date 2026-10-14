@@ -1095,7 +1095,7 @@
       }
     }
   },
-  "completedSets": "完成 {completed} / {total} 组",
+  "completedSets": "{completed} / {total} 组完成",
   "@completedSets": {
     "description": "SetTrace UI: completedSets. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim.",
     "placeholders": {
@@ -1285,5 +1285,183 @@
   "planOrderInvalid": "排序必须包含计划中的所有动作各一次。",
   "@planOrderInvalid": {
     "description": "Plan editor reorder validation: all plan exercises are movable, independent of any workout snapshot."
+  },
+  "skipRemainingSets": "跳过剩余 {count} 组",
+  "@skipRemainingSets": {
+    "description": "SetTrace skipRemainingSets: rest reminder or skipped workout set. Preserve user exercise names.",
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "skipRemainingTitle": "跳过剩余组？",
+  "@skipRemainingTitle": {
+    "description": "SetTrace skipRemainingTitle: rest reminder or skipped workout set. Preserve user exercise names."
+  },
+  "skipRemainingNote": "{exercise}：保留已完成的 {completed} 组，跳过剩余 {remaining} 组。",
+  "@skipRemainingNote": {
+    "description": "SetTrace skipRemainingNote: rest reminder or skipped workout set. Preserve user exercise names.",
+    "placeholders": {
+      "exercise": {
+        "type": "String"
+      },
+      "completed": {
+        "type": "num",
+        "format": "decimalPattern"
+      },
+      "remaining": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "skipNextNote": "直接进入 {exercise}，不重新开始休息。",
+  "@skipNextNote": {
+    "description": "SetTrace skipNextNote: rest reminder or skipped workout set. Preserve user exercise names.",
+    "placeholders": {
+      "exercise": {
+        "type": "String"
+      }
+    }
+  },
+  "skipFinishNote": "之后没有待练组，可以结束并保存训练。",
+  "@skipFinishNote": {
+    "description": "SetTrace skipFinishNote: rest reminder or skipped workout set. Preserve user exercise names."
+  },
+  "confirmSkipRemaining": "确认跳过剩余组",
+  "@confirmSkipRemaining": {
+    "description": "SetTrace confirmSkipRemaining: rest reminder or skipped workout set. Preserve user exercise names."
+  },
+  "undoLastSkip": "撤销最近一次跳过",
+  "@undoLastSkip": {
+    "description": "SetTrace undoLastSkip: rest reminder or skipped workout set. Preserve user exercise names."
+  },
+  "undoSkipTitle": "恢复已跳过的组？",
+  "@undoSkipTitle": {
+    "description": "SetTrace undoSkipTitle: rest reminder or skipped workout set. Preserve user exercise names."
+  },
+  "undoSkipNote": "恢复 {exercise} 已跳过的 {count} 组，保留所有实际完成组，并回到该动作。",
+  "@undoSkipNote": {
+    "description": "SetTrace undoSkipNote: rest reminder or skipped workout set. Preserve user exercise names.",
+    "placeholders": {
+      "count": {
+        "type": "num",
+        "format": "decimalPattern"
+      },
+      "exercise": {
+        "type": "String"
+      }
+    }
+  },
+  "restoreSkippedSets": "恢复待练组",
+  "@restoreSkippedSets": {
+    "description": "SetTrace restoreSkippedSets: rest reminder or skipped workout set. Preserve user exercise names."
+  },
+  "setSkipped": "已跳过",
+  "@setSkipped": {
+    "description": "SetTrace setSkipped: rest reminder or skipped workout set. Preserve user exercise names."
+  },
+  "remainingSetsSkipped": "剩余组已跳过",
+  "@remainingSetsSkipped": {
+    "description": "SetTrace remainingSetsSkipped: rest reminder or skipped workout set. Preserve user exercise names."
+  },
+  "workoutReadyToFinish": "没有待练组，可以结束训练。",
+  "@workoutReadyToFinish": {
+    "description": "SetTrace workoutReadyToFinish: rest reminder or skipped workout set. Preserve user exercise names."
+  },
+  "cannotSkipRemaining": "当前动作需至少完成一组，才能跳过剩余组。",
+  "@cannotSkipRemaining": {
+    "description": "SetTrace cannotSkipRemaining: rest reminder or skipped workout set. Preserve user exercise names."
+  },
+  "noSkipToUndo": "没有可撤销的跳过记录。",
+  "@noSkipToUndo": {
+    "description": "SetTrace noSkipToUndo: rest reminder or skipped workout set. Preserve user exercise names."
+  },
+  "restoreBeforeEditing": "请先撤销该动作的跳过，再修改本次配置。",
+  "@restoreBeforeEditing": {
+    "description": "SetTrace restoreBeforeEditing: rest reminder or skipped workout set. Preserve user exercise names."
+  },
+  "restAlerts": "休息提醒",
+  "@restAlerts": {
+    "description": "SetTrace restAlerts: rest reminder or skipped workout set. Preserve user exercise names."
+  },
+  "restAlertsEnabled": "休息结束提醒",
+  "@restAlertsEnabled": {
+    "description": "SetTrace restAlertsEnabled: rest reminder or skipped workout set. Preserve user exercise names."
+  },
+  "restAlertsOff": "提醒已关闭，倒计时仍正常运行。",
+  "@restAlertsOff": {
+    "description": "SetTrace restAlertsOff: rest reminder or skipped workout set. Preserve user exercise names."
+  },
+  "restAlertsAvailable": "支持后台及锁屏休息提醒。",
+  "@restAlertsAvailable": {
+    "description": "SetTrace restAlertsAvailable: rest reminder or skipped workout set. Preserve user exercise names."
+  },
+  "restAlertsNoNotifications": "后台通知不可用，前台提醒仍可使用。",
+  "@restAlertsNoNotifications": {
+    "description": "SetTrace restAlertsNoNotifications: rest reminder or skipped workout set. Preserve user exercise names."
+  },
+  "restAlertsMayBeLate": "后台提醒可能延迟，可在系统设置开启准时提醒。",
+  "@restAlertsMayBeLate": {
+    "description": "SetTrace restAlertsMayBeLate: rest reminder or skipped workout set. Preserve user exercise names."
+  },
+  "restAlertsFailed": "提醒安排失败，训练已保存。请重试安排提醒。",
+  "@restAlertsFailed": {
+    "description": "SetTrace restAlertsFailed: rest reminder or skipped workout set. Preserve user exercise names."
+  },
+  "restAlertsSaveFailed": "提醒设置保存失败，已保留原设置。",
+  "@restAlertsSaveFailed": {
+    "description": "SetTrace restAlertsSaveFailed: rest reminder or skipped workout set. Preserve user exercise names."
+  },
+  "restAlertsExplain": "允许通知后，休息结束会通过短提示音提醒，后台或锁屏也可收到。拒绝权限不影响训练。",
+  "@restAlertsExplain": {
+    "description": "SetTrace restAlertsExplain: rest reminder or skipped workout set. Preserve user exercise names."
+  },
+  "allowRestNotifications": "允许通知",
+  "@allowRestNotifications": {
+    "description": "SetTrace allowRestNotifications: rest reminder or skipped workout set. Preserve user exercise names."
+  },
+  "notificationSettings": "通知设置",
+  "@notificationSettings": {
+    "description": "SetTrace notificationSettings: rest reminder or skipped workout set. Preserve user exercise names."
+  },
+  "accurateRestSettings": "准时提醒设置",
+  "@accurateRestSettings": {
+    "description": "SetTrace accurateRestSettings: rest reminder or skipped workout set. Preserve user exercise names."
+  },
+  "restEnded": "休息结束",
+  "@restEnded": {
+    "description": "SetTrace restEnded: rest reminder or skipped workout set. Preserve user exercise names."
+  },
+  "restEndedBody": "可以开始 {exercise} 第 {number} / {total} 组。",
+  "@restEndedBody": {
+    "description": "SetTrace restEndedBody: rest reminder or skipped workout set. Preserve user exercise names.",
+    "placeholders": {
+      "exercise": {
+        "type": "String"
+      },
+      "number": {
+        "type": "num",
+        "format": "decimalPattern"
+      },
+      "total": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "restAlertChannelName": "休息结束提醒",
+  "@restAlertChannelName": {
+    "description": "SetTrace restAlertChannelName: rest reminder or skipped workout set. Preserve user exercise names."
+  },
+  "restAlertChannelDescription": "下一组或下一动作开始前的短提醒。",
+  "@restAlertChannelDescription": {
+    "description": "SetTrace restAlertChannelDescription: rest reminder or skipped workout set. Preserve user exercise names."
+  },
+  "notificationWorkoutUnavailable": "该训练已结束或已不可用。",
+  "@notificationWorkoutUnavailable": {
+    "description": "SetTrace notificationWorkoutUnavailable: rest reminder or skipped workout set. Preserve user exercise names."
   }
 }

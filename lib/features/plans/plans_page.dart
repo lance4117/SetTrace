@@ -75,12 +75,14 @@ class PlansPage extends StatefulWidget {
     required this.workouts,
     required this.onOpenWorkout,
     this.transferPlatform,
+    this.workoutRevision = 0,
   });
 
   final PlanRepository plans;
   final WorkoutRepository workouts;
   final OpenWorkout onOpenWorkout;
   final PlanTransferPlatform? transferPlatform;
+  final int workoutRevision;
 
   @override
   State<PlansPage> createState() => _PlansPageState();
@@ -118,6 +120,12 @@ class _PlansPageState extends State<PlansPage> {
   void initState() {
     super.initState();
     refresh();
+  }
+
+  @override
+  void didUpdateWidget(covariant PlansPage oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.workoutRevision != widget.workoutRevision) refresh();
   }
 
   Future<void> refresh() async {

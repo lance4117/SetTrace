@@ -88,6 +88,9 @@ String failureText(AppLocalizations strings, Object error, {String? fallback}) {
   };
   return switch (reason) {
     WorkoutFailure.planNotFound => strings.planNotFound,
+    WorkoutFailure.cannotSkip => strings.cannotSkipRemaining,
+    WorkoutFailure.noSkipToUndo => strings.noSkipToUndo,
+    WorkoutFailure.skippedExercise => strings.restoreBeforeEditing,
     WorkoutFailure.activeExists => strings.activeExists,
     WorkoutFailure.exerciseNotFound => strings.exerciseNotFound,
     WorkoutFailure.emptyPlan => strings.emptyPlan,

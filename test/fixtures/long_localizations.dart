@@ -4,6 +4,19 @@ import 'package:settrace/l10n/generated/app_localizations.dart';
 import 'package:settrace/l10n/generated/app_localizations_en.dart';
 
 class LongStrings extends AppLocalizationsEn {
+
+  @override
+  String skipRemainingSets(num count) =>
+      '${super.skipRemainingSets(count)} with additional translated wording for accessibility';
+  @override
+  String skipRemainingNote(String exercise, num completed, num remaining) =>
+      '${super.skipRemainingNote(exercise, completed, remaining)} with additional translated wording for readability with additional translated wording for readability';
+  @override
+  String get undoLastSkip => 'Undo the most recent skipped remaining groups with additional translated wording';
+  @override
+  String get restAlertsEnabled => 'Reminder at the end of the rest period with additional translated wording';
+  @override
+  String get restAlertsNoNotifications => 'Background notifications are unavailable with additional translated wording for accessibility. Foreground reminders continue to work.';
   @override
   String get settings =>
       "Settings with additional translated wording for readability with additional translated wording for readability ";

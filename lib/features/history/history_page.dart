@@ -491,7 +491,9 @@ class _HistoryDetailPageState extends State<HistoryDetailPage> {
                           child: Text(
                             context.l10n.setResult(
                               set.number,
-                              set.completedAt == null
+                              set.skipped
+                                  ? context.l10n.setSkipped
+                                  : set.completedAt == null
                                   ? context.l10n.notCompleted
                                   : time(set.completedAt!),
                             ),

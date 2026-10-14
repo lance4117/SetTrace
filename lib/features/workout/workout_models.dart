@@ -4,16 +4,29 @@ class SessionSet {
     required this.number,
     this.completedAt,
     this.completedSequence,
+    this.skippedAt,
+    this.skipBatchId,
   });
   final int id, number;
   final DateTime? completedAt;
   final int? completedSequence;
+  final DateTime? skippedAt;
+  final int? skipBatchId;
   bool get completed => completedAt != null;
+  bool get skipped => skippedAt != null;
+  bool get pending => !completed && !skipped;
 
   factory SessionSet.fromRow(Map<String, Object?> row) => SessionSet(
     id: row['id'] as int,
     number: row['set_number'] as int,
     completedSequence: row['completed_sequence'] as int?,
+    skipBatchId: row['skip_batch_id'] as int?,
+    skippedAt: row['skipped_at'] == null
+        ? null
+        : DateTime.fromMillisecondsSinceEpoch(
+            row['skipped_at'] as int,
+            isUtc: true,
+          ),
     completedAt: row['completed_at'] == null
         ? null
         : DateTime.fromMillisecondsSinceEpoch(
@@ -41,7 +54,10 @@ class SessionExercise {
   final List<SessionSet> sets;
   int get completedSets => sets.where((set) => set.completed).length;
   bool get completed => completedSets == targetSets;
-  bool get movable => completedSets == 0;
+  int get skippedSets => sets.where((s) => s.skipped).length;
+  int get pendingSets => sets.where((s) => s.pending).length;
+  bool get resolved => pendingSets == 0;
+  bool get movable => completedSets == 0 && skippedSets == 0 && !resolved;
 
   factory SessionExercise.fromRow(
     Map<String, Object?> row,
@@ -74,12 +90,14 @@ class WorkoutSessionData {
     this.restStartedAt,
     this.restEndAt,
     this.currentSessionExerciseId,
+    this.lastSkipBatchId,
   });
   final int id;
   final String planName, startedLocalDate, status;
   final DateTime startedAt;
   final DateTime? endedAt, restStartedAt, restEndAt;
   final int? durationSeconds, currentSessionExerciseId;
+  final int? lastSkipBatchId;
   final int currentExerciseOrder, currentSetNumber;
   final String? restKind;
   final List<SessionExercise> exercises;
@@ -90,6 +108,22 @@ class WorkoutSessionData {
       exercises.fold(0, (sum, item) => sum + item.completedSets);
   int get totalSets => exercises.fold(0, (sum, item) => sum + item.targetSets);
   bool get allSetsCompleted => completedSets == totalSets;
+  bool get hasPendingSets => exercises.any((e) => !e.resolved);
+  bool get readyToFinish => !hasPendingSets;
+  bool get canSkipRemaining =>
+      inProgress &&
+      currentExercise.completedSets > 0 &&
+      currentExercise.pendingSets > 0 &&
+      (!resting || restKind == 'between_sets');
+  SessionExercise? get lastSkippedExercise => lastSkipBatchId == null
+      ? null
+      : exercises
+            .where(
+              (e) => e.sets.any(
+                (s) => s.skipped && s.skipBatchId == lastSkipBatchId,
+              ),
+            )
+            .firstOrNull;
   SessionExercise get currentExercise => exercises.firstWhere(
     (exercise) => currentSessionExerciseId != null
         ? exercise.id == currentSessionExerciseId
@@ -97,17 +131,17 @@ class WorkoutSessionData {
   );
   SessionExercise? get nextExercise => exercises
       .where(
-        (exercise) => exercise.id != currentExercise.id && !exercise.completed,
+        (exercise) => exercise.id != currentExercise.id && !exercise.resolved,
       )
       .firstOrNull;
   List<SessionExercise> get movableExercises =>
       exercises.where((exercise) => exercise.movable).toList();
   bool get canReorder =>
-      inProgress && !allSetsCompleted && movableExercises.length > 1;
+      inProgress && hasPendingSets && movableExercises.length > 1;
 
   // Time passing or rest adjustments do not invalidate a sorting draft.
   String get reorderToken =>
       '$status:${currentExercise.id}:$currentSetNumber:'
       '${exercises.map((e) => '${e.id}/${e.targetSets}/'
-          '${e.sets.map((s) => '${s.id}:${s.completedSequence}:${s.completedAt?.millisecondsSinceEpoch}').join(',')}').join(';')}';
+          '${e.sets.map((s) => '${s.id}:${s.completedSequence}:${s.completedAt?.millisecondsSinceEpoch}:${s.skippedAt?.millisecondsSinceEpoch}:${s.skipBatchId}').join(',')}').join(';')}';
 }

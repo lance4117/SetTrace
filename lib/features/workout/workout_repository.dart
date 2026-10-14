@@ -5,6 +5,7 @@ import 'dart:math' as math;
 import 'package:sqflite/sqflite.dart';
 
 import 'workout_models.dart';
+import '../rest_alerts/rest_alert_repository.dart';
 
 enum HistoryDeleteFailure { notFound, notSaved }
 
@@ -19,6 +20,13 @@ class WorkoutRepository {
 
   final Database db;
   final DateTime Function() clock;
+  void Function()? onChanged;
+
+  Future<WorkoutSessionData> _committed(int id) async {
+    final data = (await getSession(id))!;
+    onChanged?.call();
+    return data;
+  }
 
   int get _nowMs => clock().toUtc().millisecondsSinceEpoch;
 
@@ -68,6 +76,14 @@ class WorkoutRepository {
       );
     }
     final row = rows.first;
+    final batches = await db.query(
+      'session_skip_batches',
+      columns: ['id'],
+      where: 'session_id = ? AND undone_at IS NULL',
+      whereArgs: [id],
+      orderBy: 'id DESC',
+      limit: 1,
+    );
     DateTime? date(String key) => row[key] == null
         ? null
         : DateTime.fromMillisecondsSinceEpoch(row[key] as int, isUtc: true);
@@ -86,6 +102,7 @@ class WorkoutRepository {
       restStartedAt: date('rest_started_at'),
       restEndAt: date('rest_end_at'),
       exercises: exercises,
+      lastSkipBatchId: batches.firstOrNull?['id'] as int?,
     );
   }
 
@@ -166,7 +183,7 @@ class WorkoutRepository {
       }
       return sessionId;
     });
-    return (await getSession(id))!;
+    return _committed(id);
   }
 
   Future<WorkoutSessionData> completeSet(
@@ -198,13 +215,14 @@ class WorkoutRepository {
         [sessionId],
       );
       final now = _nowMs;
+      await RestAlertRepository.cancel(txn, sessionId);
       final changed = await txn.update(
         'session_sets',
         {
           'completed_at': now,
           'completed_sequence': (sequence.single['last_sequence'] as int) + 1,
         },
-        where: 'session_exercise_id = ? AND set_number = ? AND completed_at IS NULL',
+        where: 'session_exercise_id = ? AND set_number = ? AND completed_at IS NULL AND skipped_at IS NULL',
         whereArgs: [expectedExerciseId, expectedSetNumber],
       );
       if (changed != 1) {
@@ -239,8 +257,9 @@ class WorkoutRepository {
         where: 'id = ?',
         whereArgs: [sessionId],
       );
+      await RestAlertRepository.refresh(txn, sessionId);
     });
-    return (await getSession(sessionId))!;
+    return _committed(sessionId);
   }
 
   Future<WorkoutSessionData> reorder(
@@ -248,7 +267,7 @@ class WorkoutRepository {
     List<int> orderedIds, {
     required String expectedToken,
   }) async {
-    return db.transaction((txn) async {
+    final result = await db.transaction((txn) async {
       await _activeRow(txn, sessionId);
       final data = (await _readSession(txn, sessionId))!;
       if (data.reorderToken != expectedToken) {
@@ -300,8 +319,94 @@ class WorkoutRepository {
         whereArgs: [sessionId],
       );
       await _normalizeRest(txn, sessionId);
+      await RestAlertRepository.refresh(txn, sessionId);
       return (await _readSession(txn, sessionId))!;
     });
+    onChanged?.call();
+    return result;
+  }
+
+  Future<WorkoutSessionData> skipRemainingSets(
+    int sessionId, {
+    required int expectedExerciseId,
+    required String expectedToken,
+  }) async {
+    await db.transaction((txn) async {
+      await _activeRow(txn, sessionId);
+      final data = (await _readSession(txn, sessionId))!;
+      if (data.reorderToken != expectedToken ||
+          data.currentExercise.id != expectedExerciseId) {
+        throw WorkoutStateException(WorkoutFailure.workoutChanged);
+      }
+      if (!data.canSkipRemaining) {
+        throw WorkoutStateException(WorkoutFailure.cannotSkip);
+      }
+      final batch = await txn.insert('session_skip_batches', {
+        'session_id': sessionId,
+        'session_exercise_id': expectedExerciseId,
+        'created_at': _nowMs,
+      });
+      await txn.update(
+        'session_sets',
+        {'skipped_at': _nowMs, 'skip_batch_id': batch},
+        where: 'session_exercise_id = ? AND completed_at IS NULL AND skipped_at IS NULL',
+        whereArgs: [expectedExerciseId],
+      );
+      await _clearRest(txn, sessionId);
+      await _repairCursor(txn, sessionId);
+    });
+    return _committed(sessionId);
+  }
+
+  Future<WorkoutSessionData> undoLastSkip(
+    int sessionId, {
+    required int expectedBatchId,
+    required String expectedToken,
+  }) async {
+    await db.transaction((txn) async {
+      await _activeRow(txn, sessionId);
+      final data = (await _readSession(txn, sessionId))!;
+      if (data.reorderToken != expectedToken ||
+          data.lastSkipBatchId != expectedBatchId) {
+        throw WorkoutStateException(WorkoutFailure.workoutChanged);
+      }
+      final rows = await txn.rawQuery(
+        """
+        SELECT ss.set_number, se.id AS exercise_id, se.sort_order
+        FROM session_sets ss JOIN session_exercises se ON se.id = ss.session_exercise_id
+        WHERE se.session_id = ? AND ss.skip_batch_id = ? AND ss.skipped_at IS NOT NULL
+        ORDER BY ss.set_number
+      """,
+        [sessionId, expectedBatchId],
+      );
+      if (rows.isEmpty) {
+        throw WorkoutStateException(WorkoutFailure.noSkipToUndo);
+      }
+      await txn.update(
+        'session_sets',
+        {'skipped_at': null, 'skip_batch_id': null},
+        where: 'skip_batch_id = ? AND skipped_at IS NOT NULL',
+        whereArgs: [expectedBatchId],
+      );
+      await txn.update(
+        'session_skip_batches',
+        {'undone_at': _nowMs},
+        where: 'id = ? AND session_id = ?',
+        whereArgs: [expectedBatchId, sessionId],
+      );
+      await _clearRest(txn, sessionId);
+      await txn.update(
+        'workout_sessions',
+        {
+          'current_session_exercise_id': rows.first['exercise_id'],
+          'current_exercise_order': rows.first['sort_order'],
+          'current_set_number': rows.first['set_number'],
+        },
+        where: 'id = ?',
+        whereArgs: [sessionId],
+      );
+    });
+    return _committed(sessionId);
   }
 
   Future<WorkoutSessionData> undoLastSet(int sessionId) async {
@@ -319,6 +424,7 @@ class WorkoutRepository {
       );
       if (rows.isEmpty) throw WorkoutStateException(WorkoutFailure.noSetToUndo);
       final last = rows.first;
+      await _clearRest(txn, sessionId);
       await txn.update(
         'session_sets',
         {'completed_at': null, 'completed_sequence': null},
@@ -339,7 +445,7 @@ class WorkoutRepository {
         whereArgs: [sessionId],
       );
     });
-    return (await getSession(sessionId))!;
+    return _committed(sessionId);
   }
 
   Future<WorkoutSessionData> adjustRest(int sessionId, int deltaSeconds) async {
@@ -349,7 +455,9 @@ class WorkoutRepository {
     await db.transaction((txn) async {
       final row = await _activeRow(txn, sessionId);
       final end = row['rest_end_at'] as int?;
-      if (end == null) throw WorkoutStateException(WorkoutFailure.noRest);
+      if (end == null || end <= _nowMs) {
+        throw WorkoutStateException(WorkoutFailure.noRest);
+      }
       final updated = end + deltaSeconds * 1000;
       if (updated <= _nowMs) {
         await _clearRest(txn, sessionId);
@@ -360,9 +468,10 @@ class WorkoutRepository {
           where: 'id = ?',
           whereArgs: [sessionId],
         );
+        await RestAlertRepository.refresh(txn, sessionId);
       }
     });
-    return (await getSession(sessionId))!;
+    return _committed(sessionId);
   }
 
   Future<WorkoutSessionData> skipRest(int sessionId) async {
@@ -373,7 +482,7 @@ class WorkoutRepository {
       }
       await _clearRest(txn, sessionId);
     });
-    return (await getSession(sessionId))!;
+    return _committed(sessionId);
   }
 
   Future<void> normalizeRest(int sessionId) =>
@@ -388,7 +497,9 @@ class WorkoutRepository {
     );
     if (rows.isEmpty || rows.first['status'] != 'in_progress') return;
     final end = rows.first['rest_end_at'] as int?;
-    if (end != null && end <= _nowMs) await _clearRest(txn, sessionId);
+    if (end != null && end <= _nowMs) {
+      await _clearRest(txn, sessionId, natural: true);
+    }
   }
 
   Future<WorkoutSessionData> updateExercise(
@@ -417,6 +528,16 @@ class WorkoutRepository {
         throw WorkoutStateException(WorkoutFailure.exerciseNotFound);
       }
       final exercise = rows.first;
+      final skipped = await txn.query(
+        'session_sets',
+        columns: ['id'],
+        where: 'session_exercise_id = ? AND skipped_at IS NOT NULL',
+        whereArgs: [exerciseId],
+        limit: 1,
+      );
+      if (skipped.isNotEmpty) {
+        throw WorkoutStateException(WorkoutFailure.skippedExercise);
+      }
       final countRows = await txn.rawQuery(
         '''
         SELECT COUNT(*) AS count FROM session_sets
@@ -458,7 +579,7 @@ class WorkoutRepository {
       );
       await _repairCursor(txn, sessionId);
     });
-    return (await getSession(sessionId))!;
+    return _committed(sessionId);
   }
 
   Future<WorkoutSessionData> finish(int sessionId) async {
@@ -477,6 +598,7 @@ class WorkoutRepository {
       }
       final now = _nowMs;
       final duration = math.max(0, (now - (row['started_at'] as int)) ~/ 1000);
+      await RestAlertRepository.cancel(txn, sessionId);
       await txn.update(
         'workout_sessions',
         {
@@ -491,18 +613,20 @@ class WorkoutRepository {
         whereArgs: [sessionId],
       );
     });
-    return (await getSession(sessionId))!;
+    return _committed(sessionId);
   }
 
   Future<void> discard(int sessionId) async {
     await db.transaction((txn) async {
       await _activeRow(txn, sessionId);
+      await RestAlertRepository.cancel(txn, sessionId);
       await txn.delete(
         'workout_sessions',
         where: 'id = ?',
         whereArgs: [sessionId],
       );
     });
+    onChanged?.call();
   }
 
   Future<void> deleteHistory(int sessionId) async {
@@ -557,7 +681,12 @@ class WorkoutRepository {
     return rows.first;
   }
 
-  Future<void> _clearRest(DatabaseExecutor txn, int id) async {
+  Future<void> _clearRest(
+    DatabaseExecutor txn,
+    int id, {
+    bool natural = false,
+  }) async {
+    if (!natural) await RestAlertRepository.cancel(txn, id);
     await txn.update(
       'workout_sessions',
       {'rest_kind': null, 'rest_started_at': null, 'rest_end_at': null},
@@ -573,7 +702,7 @@ class WorkoutRepository {
     '''
       SELECT se.id AS exercise_id, se.sort_order, ss.set_number
       FROM session_sets ss JOIN session_exercises se ON se.id = ss.session_exercise_id
-      WHERE se.session_id = ? AND ss.completed_at IS NULL
+      WHERE se.session_id = ? AND ss.completed_at IS NULL AND ss.skipped_at IS NULL
       ORDER BY se.sort_order, ss.set_number
     ''',
     [id],

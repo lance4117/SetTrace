@@ -9,6 +9,9 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'core/database/app_database.dart';
 import 'features/plans/plan_repository.dart';
 import 'features/workout/workout_repository.dart';
+import 'features/rest_alerts/rest_alert_repository.dart';
+import 'features/rest_alerts/rest_alert_service.dart';
+import 'features/rest_alerts/rest_alert_platform.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,6 +22,10 @@ Future<void> main() async {
   runApp(
     SetTraceApp(
       initialLocale: locale,
+      alerts: RestAlertService(
+        RestAlertRepository(database.db),
+        AndroidRestAlertPlatform(),
+      ),
       plans: PlanRepository(database.db),
       workouts: WorkoutRepository(database.db),
       preferences: preferences,

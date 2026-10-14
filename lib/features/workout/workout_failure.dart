@@ -16,6 +16,9 @@ enum WorkoutFailure {
   activeNotFound,
   sessionEnded,
   planNotFound,
+  cannotSkip,
+  noSkipToUndo,
+  skippedExercise,
 }
 
 class WorkoutStateException extends StateError {

@@ -1,0 +1,6 @@
+Flutter tests:
+00:30 +140: All tests passed!
+Native unit tests: 4 passed
+Native instrumentation: 8 passed
+APK SHA256:
+E393243981AB3CB1F947243A51795AD4136A6F63B3DBC40408855B73FA395938

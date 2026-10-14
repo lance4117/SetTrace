@@ -487,7 +487,7 @@ void main() {
           lessThan(tester.getTopLeft(find.text('B')).dy),
         );
         expect(
-          find.text(complete ? '完成 2 / 2 组' : '完成 0 / 2 组'),
+          find.text(complete ? '2 / 2 组完成' : '0 / 2 组完成'),
           complete ? findsNWidgets(3) : findsNWidgets(2),
         );
         await tester.pumpWidget(const SizedBox.shrink());

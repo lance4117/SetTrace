@@ -24,15 +24,16 @@ class WorkoutPage extends StatefulWidget {
   final int sessionId;
 
   @override
-  State<WorkoutPage> createState() => _WorkoutPageState();
+  State<WorkoutPage> createState() => WorkoutPageState();
 }
 
-class _WorkoutPageState extends State<WorkoutPage> with WidgetsBindingObserver {
+class WorkoutPageState extends State<WorkoutPage> with WidgetsBindingObserver {
   WorkoutSessionData? session;
   Timer? ticker;
   bool busy = false;
   int writeRevision = 0, loadGeneration = 0;
   bool reloadPending = false;
+  bool exitDialogOpen = false, finishOffered = false, actionDialogOpen = false;
   DateTime now = DateTime.now();
 
   @override
@@ -78,6 +79,10 @@ class _WorkoutPageState extends State<WorkoutPage> with WidgetsBindingObserver {
           session = data;
           now = DateTime.now();
         });
+        if (data != null && data.readyToFinish && !finishOffered) {
+          finishOffered = true;
+          await askExit();
+        }
       }
     } catch (error) {
       if (mounted &&
@@ -123,7 +128,11 @@ class _WorkoutPageState extends State<WorkoutPage> with WidgetsBindingObserver {
     if (busy) return;
     try {
       final updated = await write(operation);
-      if (updated.allSetsCompleted && mounted) await askExit();
+      if (!updated.readyToFinish) finishOffered = false;
+      if (updated.readyToFinish && mounted) {
+        finishOffered = true;
+        await askExit();
+      }
     } catch (error) {
       if (mounted) {
         showAppSnackBar(context, (l) => failureText(l, error));
@@ -156,74 +165,201 @@ class _WorkoutPageState extends State<WorkoutPage> with WidgetsBindingObserver {
     if (mounted) await reload();
   }
 
-  Future<void> askExit() async {
-    if (busy || session == null || !mounted) return;
-    final choice = await showDialog<String>(
-      context: context,
-      builder: (dialogContext) => Builder(
-        builder: (context) => AlertDialog(
+  Future<void> askSkipRemaining() async {
+    final baseline = session;
+    if (actionDialogOpen ||
+        busy ||
+        baseline == null ||
+        !baseline.canSkipRemaining) {
+      return;
+    }
+    actionDialogOpen = true;
+    bool submitted = false;
+    try {
+      final e = baseline.currentExercise;
+      final accepted = await showDialog<bool>(
+        context: context,
+        builder: (dialogContext) => AlertDialog(
           scrollable: true,
-          title: Text(
-            session!.allSetsCompleted
-                ? context.l10n.finishWorkoutTitle
-                : context.l10n.endWorkoutTitle,
-          ),
-          content: Text(
-            session!.completedSets == 0
-                ? context.l10n.emptyWorkoutExit
-                : context.l10n.exitCompletedNote(session!.completedSets),
+          title: Text(dialogContext.l10n.skipRemainingTitle),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                dialogContext.l10n.skipRemainingNote(
+                  e.name,
+                  e.completedSets,
+                  e.pendingSets,
+                ),
+              ),
+              SizedBox(height: 12),
+              Text(
+                baseline.nextExercise == null
+                    ? dialogContext.l10n.skipFinishNote
+                    : dialogContext.l10n.skipNextNote(
+                        baseline.nextExercise!.name,
+                      ),
+              ),
+            ],
           ),
           actions: [
             TextButton(
-              onPressed: () => Navigator.pop(dialogContext, 'continue'),
-              child: Text(context.l10n.resumeWorkout),
+              onPressed: () {
+                if (submitted) return;
+                submitted = true;
+                Navigator.pop(dialogContext, false);
+              },
+              child: Text(dialogContext.l10n.cancel),
             ),
             TextButton(
-              onPressed: () => Navigator.pop(dialogContext, 'discard'),
-              child: Text(
-                context.l10n.discard,
-                style: TextStyle(color: dialogContext.appColors.danger),
-              ),
+              onPressed: () {
+                if (submitted) return;
+                submitted = true;
+                Navigator.pop(dialogContext, true);
+              },
+              child: Text(dialogContext.l10n.confirmSkipRemaining),
             ),
-            if (session!.completedSets > 0)
-              TextButton(
-                onPressed: () => Navigator.pop(dialogContext, 'save'),
-                child: Text(context.l10n.saveCompleted),
-              ),
           ],
         ),
-      ),
-    );
-    if (!mounted) return;
-    if (choice == 'save') {
-      await widget.workouts.finish(widget.sessionId);
-      if (mounted) Navigator.of(context).pop();
-    } else if (choice == 'discard') {
-      if (session!.completedSets > 0) {
-        final confirmed = await showDialog<bool>(
-          context: context,
-          builder: (dialogContext) => Builder(
-            builder: (context) => AlertDialog(
-              scrollable: true,
-              title: Text(context.l10n.confirmDiscardTitle),
-              content: Text(context.l10n.confirmDiscardNote),
-              actions: [
-                TextButton(
-                  onPressed: () => Navigator.pop(dialogContext, false),
-                  child: Text(context.l10n.cancel),
-                ),
-                TextButton(
-                  onPressed: () => Navigator.pop(dialogContext, true),
-                  child: Text(context.l10n.confirmDiscard),
-                ),
-              ],
-            ),
+      );
+      if (accepted == true && mounted) {
+        await mutate(
+          () => widget.workouts.skipRemainingSets(
+            baseline.id,
+            expectedExerciseId: e.id,
+            expectedToken: baseline.reorderToken,
           ),
         );
-        if (confirmed != true) return;
       }
-      await widget.workouts.discard(widget.sessionId);
-      if (mounted) Navigator.of(context).pop();
+    } finally {
+      actionDialogOpen = false;
+    }
+  }
+
+  Future<void> askUndoSkip() async {
+    final baseline = session;
+    final e = baseline?.lastSkippedExercise;
+    if (actionDialogOpen || busy || baseline == null || e == null) return;
+    actionDialogOpen = true;
+    bool submitted = false;
+    try {
+      final count = e.sets
+          .where((s) => s.skipped && s.skipBatchId == baseline.lastSkipBatchId)
+          .length;
+      final accepted = await showDialog<bool>(
+        context: context,
+        builder: (dialogContext) => AlertDialog(
+          scrollable: true,
+          title: Text(dialogContext.l10n.undoSkipTitle),
+          content: Text(dialogContext.l10n.undoSkipNote(count, e.name)),
+          actions: [
+            TextButton(
+              onPressed: () {
+                if (submitted) return;
+                submitted = true;
+                Navigator.pop(dialogContext, false);
+              },
+              child: Text(dialogContext.l10n.cancel),
+            ),
+            TextButton(
+              onPressed: () {
+                if (submitted) return;
+                submitted = true;
+                Navigator.pop(dialogContext, true);
+              },
+              child: Text(dialogContext.l10n.restoreSkippedSets),
+            ),
+          ],
+        ),
+      );
+      if (accepted == true && mounted) {
+        await mutate(
+          () => widget.workouts.undoLastSkip(
+            baseline.id,
+            expectedBatchId: baseline.lastSkipBatchId!,
+            expectedToken: baseline.reorderToken,
+          ),
+        );
+      }
+    } finally {
+      actionDialogOpen = false;
+    }
+  }
+
+  Future<void> askExit() async {
+    if (busy || session == null || !mounted || exitDialogOpen) return;
+    exitDialogOpen = true;
+    try {
+      final choice = await showDialog<String>(
+        context: context,
+        builder: (dialogContext) => Builder(
+          builder: (context) => AlertDialog(
+            scrollable: true,
+            title: Text(
+              session!.readyToFinish
+                  ? context.l10n.finishWorkoutTitle
+                  : context.l10n.endWorkoutTitle,
+            ),
+            content: Text(
+              session!.completedSets == 0
+                  ? context.l10n.emptyWorkoutExit
+                  : context.l10n.exitCompletedNote(session!.completedSets),
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(dialogContext, 'continue'),
+                child: Text(context.l10n.resumeWorkout),
+              ),
+              TextButton(
+                onPressed: () => Navigator.pop(dialogContext, 'discard'),
+                child: Text(
+                  context.l10n.discard,
+                  style: TextStyle(color: dialogContext.appColors.danger),
+                ),
+              ),
+              if (session!.completedSets > 0)
+                TextButton(
+                  onPressed: () => Navigator.pop(dialogContext, 'save'),
+                  child: Text(context.l10n.saveCompleted),
+                ),
+            ],
+          ),
+        ),
+      );
+      if (!mounted) return;
+      if (choice == 'save') {
+        await widget.workouts.finish(widget.sessionId);
+        if (mounted) Navigator.of(context).pop();
+      } else if (choice == 'discard') {
+        if (session!.completedSets > 0) {
+          final confirmed = await showDialog<bool>(
+            context: context,
+            builder: (dialogContext) => Builder(
+              builder: (context) => AlertDialog(
+                scrollable: true,
+                title: Text(context.l10n.confirmDiscardTitle),
+                content: Text(context.l10n.confirmDiscardNote),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.pop(dialogContext, false),
+                    child: Text(context.l10n.cancel),
+                  ),
+                  TextButton(
+                    onPressed: () => Navigator.pop(dialogContext, true),
+                    child: Text(context.l10n.confirmDiscard),
+                  ),
+                ],
+              ),
+            ),
+          );
+          if (confirmed != true) return;
+        }
+        await widget.workouts.discard(widget.sessionId);
+        if (mounted) Navigator.of(context).pop();
+      }
+    } finally {
+      exitDialogOpen = false;
     }
   }
 
@@ -252,6 +388,14 @@ class _WorkoutPageState extends State<WorkoutPage> with WidgetsBindingObserver {
                   },
                   child: Text(sheetContext.l10n.reorderRemaining),
                 ),
+              if (data.lastSkippedExercise != null)
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(sheetContext);
+                    askUndoSkip();
+                  },
+                  child: Text(sheetContext.l10n.undoLastSkip),
+                ),
               Flexible(
                 child: ListView(
                   shrinkWrap: true,
@@ -259,21 +403,35 @@ class _WorkoutPageState extends State<WorkoutPage> with WidgetsBindingObserver {
                     for (final exercise in data.exercises)
                       ListTile(
                         title: Text(exercise.name),
-                        subtitle: Text(
-                          sheetContext.l10n.exerciseProgressRest(
-                            exercise.completedSets,
-                            exercise.targetSets,
-                            sheetContext.formats.decimal(
-                              exercise.restBetweenSetsSeconds / 60,
+                        subtitle: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              sheetContext.l10n.exerciseProgressRest(
+                                exercise.completedSets,
+                                exercise.targetSets,
+                                sheetContext.formats.decimal(
+                                  exercise.restBetweenSetsSeconds / 60,
+                                ),
+                              ),
                             ),
-                          ),
+                            if (exercise.skippedSets > 0)
+                              Text(sheetContext.l10n.remainingSetsSkipped),
+                          ],
                         ),
-                        trailing: !exercise.completed
+                        trailing: !exercise.resolved
                             ? Icon(Icons.edit_outlined)
                             : null,
                         onTap: exercise.completed
                             ? null
                             : () async {
+                                if (exercise.skippedSets > 0) {
+                                  showAppSnackBar(
+                                    context,
+                                    (l) => l.restoreBeforeEditing,
+                                  );
+                                  return;
+                                }
                                 Navigator.pop(sheetContext);
                                 await Navigator.of(context).push(
                                   MaterialPageRoute<void>(
@@ -359,6 +517,24 @@ class _WorkoutPageState extends State<WorkoutPage> with WidgetsBindingObserver {
                       data.resting
                           ? _rest(context, data)
                           : _training(context, data),
+                      if (data.canSkipRemaining) ...[
+                        SizedBox(height: 12),
+                        AppButton(
+                          label: context.l10n.skipRemainingSets(
+                            data.currentExercise.pendingSets,
+                          ),
+                          primary: false,
+                          onPressed: busy ? null : askSkipRemaining,
+                        ),
+                      ],
+                      if (data.lastSkippedExercise != null) ...[
+                        SizedBox(height: 12),
+                        AppButton(
+                          label: context.l10n.undoLastSkip,
+                          primary: false,
+                          onPressed: busy ? null : askUndoSkip,
+                        ),
+                      ],
                       if (data.completedSets > 0)
                         AppButton(
                           label: context.l10n.undoLastSet,
@@ -422,7 +598,11 @@ class _WorkoutPageState extends State<WorkoutPage> with WidgetsBindingObserver {
                   children: [
                     for (final set in exercise.sets)
                       Icon(
-                        set.completed ? Icons.circle : Icons.circle_outlined,
+                        set.completed
+                            ? Icons.circle
+                            : set.skipped
+                            ? Icons.remove_circle_outline
+                            : Icons.circle_outlined,
                         size: 19,
                         color: set.completed
                             ? colors.accentPressed
@@ -434,20 +614,22 @@ class _WorkoutPageState extends State<WorkoutPage> with WidgetsBindingObserver {
               SizedBox(height: 12),
               Center(
                 child: Text(
-                  data.allSetsCompleted
-                      ? context.l10n.allSetsCompleted
+                  data.readyToFinish
+                      ? data.allSetsCompleted
+                            ? context.l10n.allSetsCompleted
+                            : context.l10n.workoutReadyToFinish
                       : context.l10n.currentSet(data.currentSetNumber),
                   style: TextStyle(color: colors.textSecondary),
                 ),
               ),
               SizedBox(height: 24),
               AppButton(
-                label: data.allSetsCompleted
+                label: data.readyToFinish
                     ? context.l10n.saveWorkout
                     : context.l10n.completeSet,
                 onPressed: busy
                     ? null
-                    : data.allSetsCompleted
+                    : data.readyToFinish
                     ? askExit
                     : () => mutate(
                         () => widget.workouts.completeSet(

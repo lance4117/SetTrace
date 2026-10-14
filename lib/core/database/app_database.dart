@@ -15,7 +15,7 @@ class AppDatabase {
     final db = await databaseFactory.openDatabase(
       path,
       options: OpenDatabaseOptions(
-        version: 2,
+        version: 3,
         onConfigure: (db) async => db.execute('PRAGMA foreign_keys = ON'),
         onCreate: (db, version) async {
           await _createV1(db, 1);
@@ -180,7 +180,74 @@ class AppDatabase {
         }
       }
     }
-    if (newVersion != 2) {
+    if (oldVersion < 3 && newVersion >= 3) {
+      await db.execute('''
+        CREATE TABLE session_skip_batches (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          session_id INTEGER NOT NULL REFERENCES workout_sessions(id) ON DELETE CASCADE,
+          session_exercise_id INTEGER NOT NULL REFERENCES session_exercises(id) ON DELETE CASCADE,
+          created_at INTEGER NOT NULL,
+          undone_at INTEGER
+        )
+      ''');
+      await db.execute(
+        'ALTER TABLE session_sets ADD COLUMN skipped_at INTEGER',
+      );
+      await db.execute(
+        '''ALTER TABLE session_sets ADD COLUMN skip_batch_id INTEGER
+        REFERENCES session_skip_batches(id)''',
+      );
+      for (final operation in ['INSERT', 'UPDATE']) {
+        await db.execute('''
+          CREATE TRIGGER sets_state_${operation.toLowerCase()}
+          BEFORE $operation ON session_sets
+          WHEN (NEW.completed_at IS NOT NULL AND NEW.skipped_at IS NOT NULL)
+            OR ((NEW.skipped_at IS NULL) != (NEW.skip_batch_id IS NULL))
+            OR (NEW.skip_batch_id IS NOT NULL AND NOT EXISTS (
+              SELECT 1 FROM session_skip_batches b JOIN session_exercises e
+                ON e.id = b.session_exercise_id
+              WHERE b.id = NEW.skip_batch_id AND b.undone_at IS NULL
+                AND b.session_exercise_id = NEW.session_exercise_id
+                AND b.session_id = e.session_id))
+          BEGIN SELECT RAISE(ABORT, 'invalid_set_state'); END
+        ''');
+      }
+      await db.execute('''
+        CREATE TRIGGER skip_batch_owner BEFORE INSERT ON session_skip_batches
+        WHEN NOT EXISTS (SELECT 1 FROM session_exercises
+          WHERE id = NEW.session_exercise_id AND session_id = NEW.session_id)
+        BEGIN SELECT RAISE(ABORT, 'invalid_skip_owner'); END
+      ''');
+      await db.execute('''
+        CREATE TABLE rest_alert_preferences (
+          id INTEGER PRIMARY KEY CHECK(id = 1),
+          enabled INTEGER NOT NULL DEFAULT 1 CHECK(enabled IN (0, 1)),
+          permission_requested INTEGER NOT NULL DEFAULT 0
+        )
+      ''');
+      await db.insert('rest_alert_preferences', {'id': 1});
+      await db.execute('''
+        CREATE TABLE rest_alerts (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          session_id INTEGER NOT NULL REFERENCES workout_sessions(id) ON DELETE CASCADE,
+          exercise_id INTEGER NOT NULL REFERENCES session_exercises(id) ON DELETE CASCADE,
+          set_number INTEGER NOT NULL,
+          revision INTEGER NOT NULL DEFAULT 1,
+          due_at INTEGER NOT NULL,
+          state TEXT NOT NULL CHECK(state IN ('pending', 'consumed', 'cancelled', 'expired')),
+          title TEXT NOT NULL DEFAULT '',
+          body TEXT NOT NULL DEFAULT '',
+          consumed_at INTEGER
+        )
+      ''');
+      await db.execute(
+        'CREATE INDEX alerts_by_session ON rest_alerts(session_id, state)',
+      );
+      await db.execute(
+        'ALTER TABLE workout_sessions ADD COLUMN current_rest_alert_id INTEGER',
+      );
+    }
+    if (newVersion != 3) {
       throw StateError(
         'No migration from database v$oldVersion to v$newVersion',
       );

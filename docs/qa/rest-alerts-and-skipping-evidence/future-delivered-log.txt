@@ -1,0 +1,3 @@
+
+10-14 00:32:39.589   693   725 I ActivityManager: Start proc 7955:com.settrace.settrace/u0a217 for broadcast {com.settrace.settrace/com.settrace.settrace.RestEndedReceiver}
+

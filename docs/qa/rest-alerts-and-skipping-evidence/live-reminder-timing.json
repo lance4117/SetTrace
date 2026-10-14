@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "revision": 3,
+    "due_at": 1791909236426,
+    "state": "cancelled",
+    "consumed_at": 1791909236468,
+    "latency_ms": 42
+  },
+  {
+    "id": 2,
+    "revision": 3,
+    "due_at": 1791909978728,
+    "state": "cancelled",
+    "consumed_at": 1791909978913,
+    "latency_ms": 185
+  },
+  {
+    "id": 3,
+    "revision": 2,
+    "due_at": 1791910150339,
+    "state": "consumed",
+    "consumed_at": 1791910150351,
+    "latency_ms": 12
+  }
+]

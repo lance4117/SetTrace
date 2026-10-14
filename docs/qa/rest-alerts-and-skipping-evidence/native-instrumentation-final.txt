@@ -1,0 +1,8 @@
+
+com.settrace.settrace.RestAlertsStoreTest:........
+
+Time: 8.841
+
+OK (8 tests)
+
+

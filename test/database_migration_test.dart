@@ -119,7 +119,7 @@ void main() {
     'deleted',
   ]) {
     test(
-      'v1 to v2 preserves $variant data and corrects only invalid cursor',
+      'v1 to v3 preserves $variant data and corrects only invalid cursor',
       () async {
         final legacy = await seed(variant);
         final originalSets = await legacy.query('session_sets', orderBy: 'id');
@@ -134,11 +134,17 @@ void main() {
           factory: databaseFactoryFfi,
         );
         try {
-          expect(await upgraded.db.getVersion(), 2);
+          expect(await upgraded.db.getVersion(), 3);
           final sets = await upgraded.db.query('session_sets', orderBy: 'id');
           var sequence = 0;
           for (var i = 0; i < sets.length; i++) {
-            expect({...sets[i]}..remove('completed_sequence'), originalSets[i]);
+            expect(
+              {...sets[i]}
+                ..remove('completed_sequence')
+                ..remove('skipped_at')
+                ..remove('skip_batch_id'),
+              originalSets[i],
+            );
             expect(
               sets[i]['completed_sequence'],
               sets[i]['completed_at'] == null ? null : ++sequence,
@@ -214,6 +220,94 @@ void main() {
       },
     );
   }
+
+  test(
+    'v2 to v3 preserves existing snapshots, sequence, and rest deadline',
+    () async {
+      final legacy = await seed('between_sets');
+      await legacy.execute(
+        'ALTER TABLE workout_sessions ADD COLUMN current_session_exercise_id INTEGER',
+      );
+      await legacy.execute(
+        'ALTER TABLE session_sets ADD COLUMN completed_sequence INTEGER',
+      );
+      await legacy.update('workout_sessions', {
+        'current_session_exercise_id': 101,
+      });
+      await legacy.update('session_sets', {
+        'completed_sequence': 1,
+      }, where: 'completed_at IS NOT NULL');
+      await legacy.setVersion(2);
+      final oldSets = await legacy.query('session_sets', orderBy: 'id');
+      final oldSession = (await legacy.query('workout_sessions')).single;
+      await legacy.close();
+      final upgraded = await AppDatabase.open(
+        filePath: path,
+        factory: databaseFactoryFfi,
+      );
+      try {
+        expect(await upgraded.db.getVersion(), 3);
+        final sets = await upgraded.db.query('session_sets', orderBy: 'id');
+        for (var i = 0; i < sets.length; i++) {
+          expect(
+            {...sets[i]}
+              ..remove('skipped_at')
+              ..remove('skip_batch_id'),
+            oldSets[i],
+          );
+          expect(sets[i]['skipped_at'], isNull);
+        }
+        expect(
+          {...((await upgraded.db.query('workout_sessions')).single)}
+            ..remove('current_rest_alert_id'),
+          oldSession,
+        );
+        expect(await upgraded.db.query('session_skip_batches'), isEmpty);
+        expect(
+          (await upgraded.db.query('rest_alert_preferences')).single['enabled'],
+          1,
+        );
+        expect(await upgraded.db.rawQuery('PRAGMA foreign_key_check'), isEmpty);
+      } finally {
+        await upgraded.close();
+      }
+    },
+  );
+
+  test(
+    'v2 migration failure rolls back new columns and keeps version',
+    () async {
+      final legacy = await seed('partial');
+      await legacy.execute(
+        'ALTER TABLE workout_sessions ADD COLUMN current_session_exercise_id INTEGER',
+      );
+      await legacy.execute(
+        'ALTER TABLE session_sets ADD COLUMN completed_sequence INTEGER',
+      );
+      await legacy.setVersion(2);
+      await legacy.execute('CREATE TABLE rest_alerts (id INTEGER)');
+      await legacy.close();
+      await expectLater(
+        AppDatabase.open(filePath: path, factory: databaseFactoryFfi),
+        throwsA(isA<DatabaseException>()),
+      );
+      final old = await databaseFactoryFfi.openDatabase(
+        path,
+        options: OpenDatabaseOptions(version: 2),
+      );
+      try {
+        expect(await old.getVersion(), 2);
+        expect(
+          (await old.rawQuery('PRAGMA table_info(session_sets)'))
+              .map((r) => r['name']),
+          isNot(contains('skipped_at')),
+        );
+        expect((await old.query('plans')).single['name'], '旧计划');
+      } finally {
+        await old.close();
+      }
+    },
+  );
 
   test(
     'failed migration rolls back version and added columns, retaining plans',

@@ -1,0 +1,1 @@
+Cover-install: plans, snapshots, completion sequences, historical times and active cursor/rest deadline preserved.

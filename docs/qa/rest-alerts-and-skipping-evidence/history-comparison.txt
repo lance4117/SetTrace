@@ -1,0 +1,25 @@
+{
+  "preserved": [
+    "plans",
+    "plan_exercises",
+    "old history session and sets"
+  ],
+  "saved_history": [
+    [
+      "QA Press",
+      4,
+      2,
+      2
+    ],
+    [
+      "QA Row",
+      4,
+      2,
+      2
+    ]
+  ],
+  "new_actual_sets": 4,
+  "new_skipped_sets": 4,
+  "pending_rest_alerts": 0
+}
+PASS: both actions retain 2/4, statistics add four real sets, original plan and old history unchanged.
