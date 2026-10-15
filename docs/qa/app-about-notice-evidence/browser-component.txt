@@ -1,0 +1,3 @@
+    topResumedActivity=ActivityRecord{86865287 u0 com.android.chrome/org.chromium.chrome.browser.firstrun.FirstRunActivity t7}
+      Intent { act=android.intent.action.VIEW dat=https://github.com/lance4117/SetTrace flg=0x10800000 xflg=0x4 cmp=com.android.chrome/com.google.android.apps.chrome.IntentDispatcher (has extras) }
+      Intent { act=android.intent.action.VIEW dat=https://github.com/lance4117/SetTrace flg=0x800000 xflg=0x4 cmp=com.android.chrome/com.google.android.apps.chrome.IntentDispatcher (has extras) }

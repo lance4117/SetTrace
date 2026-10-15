@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../core/widgets/app_bottom_nav.dart';
+import '../features/about/app_info_service.dart';
+import '../features/about/app_notice_dialog.dart';
+import '../features/about/notice_preferences.dart';
 import '../features/history/history_page.dart';
 import '../features/plans/plan_repository.dart';
 import '../features/plans/plans_page.dart';
@@ -23,6 +26,8 @@ class SetTraceApp extends StatefulWidget {
     required this.workouts,
     required this.preferences,
     this.initialLocale,
+    this.noticePreferences,
+    this.info = const AppInfoService(),
     this.alerts,
   });
 
@@ -30,6 +35,8 @@ class SetTraceApp extends StatefulWidget {
   final WorkoutRepository workouts;
   final SharedPreferences preferences;
   final Locale? initialLocale;
+  final NoticePreferences? noticePreferences;
+  final AppInfoService info;
   final RestAlertService? alerts;
 
   @override
@@ -46,11 +53,50 @@ class _SetTraceAppState extends State<SetTraceApp> with WidgetsBindingObserver {
   Timer? alertTicker;
   bool permissionDialog = false, reportedReminderFailure = false;
   int? pendingTap;
+  late final NoticePreferences noticePreferences =
+      widget.noticePreferences ?? NoticePreferences(widget.preferences);
+  bool startupReady = false, presentationRunning = false;
+
+  bool get foreground {
+    final state = WidgetsBinding.instance.lifecycleState;
+    return state == null || state == AppLifecycleState.resumed;
+  }
+
+  void schedulePresentation() {
+    if (!mounted || presentationRunning || !foreground) return;
+    presentationRunning = true;
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      try {
+        if (!mounted || !foreground || rootKey.currentContext == null) return;
+        if (!startupReady) {
+          if (!noticePreferences.hasSeenCurrent) {
+            await showAppNotice(
+              rootKey.currentContext!,
+              preferences: noticePreferences,
+            );
+          }
+          startupReady = true;
+        }
+        if (!mounted || !foreground || permissionDialog) return;
+        final tap = pendingTap;
+        pendingTap = null;
+        if (tap != null) await rootKey.currentState?.openFromNotification(tap);
+      } finally {
+        presentationRunning = false;
+        if (mounted && foreground && startupReady) {
+          if (pendingTap != null && !permissionDialog) schedulePresentation();
+          alertsChanged();
+        }
+      }
+    });
+    WidgetsBinding.instance.ensureVisualUpdate();
+  }
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
+    schedulePresentation();
     final alerts = widget.alerts;
     if (alerts != null) {
       alerts.onTap = openNotification;
@@ -94,20 +140,12 @@ class _SetTraceAppState extends State<SetTraceApp> with WidgetsBindingObserver {
 
   void openNotification(int id) {
     if (!mounted) return;
-    if (rootKey.currentState == null) {
-      pendingTap = id;
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        final next = pendingTap;
-        pendingTap = null;
-        if (next != null && mounted) openNotification(next);
-      });
-    } else {
-      rootKey.currentState!.openFromNotification(id);
-    }
+    pendingTap = id;
+    schedulePresentation();
   }
 
   void alertsChanged() {
-    if (!mounted) return;
+    if (!mounted || widget.alerts == null) return;
     final alerts = widget.alerts!;
     if (alerts.failed && !reportedReminderFailure) {
       reportedReminderFailure = true;
@@ -122,14 +160,25 @@ class _SetTraceAppState extends State<SetTraceApp> with WidgetsBindingObserver {
     } else if (!alerts.failed) {
       reportedReminderFailure = false;
     }
-    if (alerts.permissionNeeded && !permissionDialog) {
+    if (alerts.permissionNeeded &&
+        !permissionDialog &&
+        startupReady &&
+        !presentationRunning &&
+        foreground) {
       explainNotificationPermission();
     }
   }
 
   Future<void> explainNotificationPermission() async {
     final context = navigatorKey.currentContext;
-    if (context == null || permissionDialog || !mounted) return;
+    if (context == null ||
+        permissionDialog ||
+        !mounted ||
+        !startupReady ||
+        presentationRunning ||
+        !foreground) {
+      return;
+    }
     permissionDialog = true;
     try {
       final accepted = await showDialog<bool>(
@@ -155,12 +204,14 @@ class _SetTraceAppState extends State<SetTraceApp> with WidgetsBindingObserver {
       syncAlerts();
     } finally {
       permissionDialog = false;
+      if (pendingTap != null) schedulePresentation();
     }
   }
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
+      schedulePresentation();
       widget.alerts?.synchronize(expireElapsed: true).catchError((Object _) {});
     }
   }
@@ -236,6 +287,7 @@ class _SetTraceAppState extends State<SetTraceApp> with WidgetsBindingObserver {
     themeMode: mode,
     home: RootTabs(
       key: rootKey,
+      info: widget.info,
       alerts: widget.alerts,
       plans: widget.plans,
       workouts: widget.workouts,
@@ -251,6 +303,7 @@ class RootTabs extends StatefulWidget {
   const RootTabs({
     super.key,
     this.alerts,
+    this.info = const AppInfoService(),
     required this.plans,
     required this.workouts,
     required this.mode,
@@ -260,6 +313,7 @@ class RootTabs extends StatefulWidget {
   });
 
   final RestAlertService? alerts;
+  final AppInfoService info;
   final PlanRepository plans;
   final WorkoutRepository workouts;
   final ThemeMode mode;
@@ -346,6 +400,7 @@ class RootTabsState extends State<RootTabs> {
         ),
         HistoryPage(workouts: widget.workouts, revision: historyRevision),
         SettingsPage(
+          info: widget.info,
           alerts: widget.alerts,
           mode: widget.mode,
           onModeChanged: widget.onModeChanged,

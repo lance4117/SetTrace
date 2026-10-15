@@ -1,3 +1,5 @@
+import 'package:package_info_plus/package_info_plus.dart';
+
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -29,6 +31,13 @@ void main() {
   late PlanRepository plans;
   late WorkoutRepository repo;
   setUp(() async {
+    PackageInfo.setMockInitialValues(
+      appName: 'SetTrace',
+      packageName: 'test',
+      version: '1.0.0',
+      buildNumber: '1',
+      buildSignature: '',
+    );
     dir = await Directory.systemTemp.createTemp('settrace_skip_ui_');
     db = await AppDatabase.open(
       filePath: '${dir.path}/db',
@@ -36,7 +45,7 @@ void main() {
     );
     plans = PlanRepository(db.db);
     repo = WorkoutRepository(db.db);
-    SharedPreferences.setMockInitialValues({});
+    SharedPreferences.setMockInitialValues({'app_notice_seen_version': 1});
   });
   tearDown(() async {
     await db.close();
@@ -177,7 +186,16 @@ void main() {
       await tap(t, '继续训练');
       await t.drag(find.byType(Scrollable).first, const Offset(0, 1000));
       await settle(t);
-      await t.scrollUntilVisible(find.byType(LinearProgressIndicator),120,scrollable:find.descendant(of:find.byKey(const ValueKey('workout-body')),matching:find.byType(Scrollable)).first);
+      await t.scrollUntilVisible(
+        find.byType(LinearProgressIndicator),
+        120,
+        scrollable: find
+            .descendant(
+              of: find.byKey(const ValueKey('workout-body')),
+              matching: find.byType(Scrollable),
+            )
+            .first,
+      );
       expect(
         t
             .widget<LinearProgressIndicator>(
@@ -323,12 +341,12 @@ void main() {
     await settle(t);
     await t.ensureVisible(find.text('跳过剩余 2 组'));
     await t.pumpAndSettle();
-    final skipPoint=t.getCenter(find.text('跳过剩余 2 组'));
+    final skipPoint = t.getCenter(find.text('跳过剩余 2 组'));
     await t.tapAt(skipPoint);
     await t.tapAt(skipPoint);
     await settle(t);
     expect(find.byType(AlertDialog), findsOneWidget);
-    final confirmPoint=t.getCenter(find.text('确认跳过剩余组'));
+    final confirmPoint = t.getCenter(find.text('确认跳过剩余组'));
     await t.tapAt(confirmPoint);
     await t.tapAt(confirmPoint);
     await settle(t);

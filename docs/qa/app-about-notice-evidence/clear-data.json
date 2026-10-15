@@ -1,0 +1,16 @@
+{
+  "pmClear": "Success",
+  "firstNoticePresent": true,
+  "labels": [
+    "Welcome to SetTrace",
+    "SetTrace is a lightweight, offline workout tracker for creating workout plans, logging sets, and reviewing your workout history.",
+    "Privacy and connectivity",
+    "No account is required. SetTrace does not collect or upload your personal information or usage data, and the app itself does not initiate network connections. External links, such as the project page, open in your browser and may use the internet.",
+    "Local data",
+    "Your workout plans, history, and settings are stored on this device. Uninstalling the app or clearing its data removes the data stored inside the app. Export any plans you want to keep beforehand.",
+    "Plan backup and sharing",
+    "Import and export workout plans using files or copied text. Backups contain only plan and exercise settings, not workout history or an ongoing workout. Files exported to Downloads are not automatically deleted when you uninstall the app.",
+    "Got it, get started",
+    "Dismiss"
+  ]
+}

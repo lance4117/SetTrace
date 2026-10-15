@@ -1,3 +1,5 @@
+import 'package:package_info_plus/package_info_plus.dart';
+
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -24,7 +26,11 @@ import 'package:settrace/l10n/localization.dart';
 import 'fixtures/long_localizations.dart';
 
 class FailingPreferences extends InMemorySharedPreferencesStore {
-  FailingPreferences() : super.withData({'flutter.app_language': 'zh'});
+  FailingPreferences()
+    : super.withData({
+        'flutter.app_language': 'zh',
+        'flutter.app_notice_seen_version': 1,
+      });
   bool fail = true;
   @override
   Future<bool> setValue(String type, String key, Object value) async =>
@@ -63,7 +69,17 @@ void main() {
   late SharedPreferences preferences;
   late int planId;
   setUp(() async {
-    SharedPreferences.setMockInitialValues({languagePreferenceKey: 'zh'});
+    PackageInfo.setMockInitialValues(
+      appName: 'SetTrace',
+      packageName: 'test',
+      version: '1.0.0',
+      buildNumber: '1',
+      buildSignature: '',
+    );
+    SharedPreferences.setMockInitialValues({
+      languagePreferenceKey: 'zh',
+      'app_notice_seen_version': 1,
+    });
     preferences = await SharedPreferences.getInstance();
     dir = await Directory.systemTemp.createTemp('settrace_locale_ui_');
     database = await AppDatabase.open(
@@ -120,6 +136,7 @@ void main() {
         ),
       );
       await tester.tap(english);
+      await flush(tester);
       await tester.pumpAndSettle();
       expect(
         find.text(
@@ -134,6 +151,21 @@ void main() {
       expect(preferences.getString(languagePreferenceKey), 'zh');
       store.fail = false;
       await tester.tap(english);
+      await flush(tester);
+      await tester.pumpAndSettle();
+      expect(
+        tester.widget<MaterialApp>(find.byType(MaterialApp)).locale,
+        const Locale('en'),
+      );
+      await tester.drag(
+        find
+            .descendant(
+              of: find.byType(SettingsPage),
+              matching: find.byType(Scrollable),
+            )
+            .first,
+        const Offset(0, 500),
+      );
       await tester.pumpAndSettle();
       expect(find.text('Language'), findsOneWidget);
       expect(find.text('English'), findsOneWidget);

@@ -1,0 +1,1 @@
+PASS: release has no INTERNET permission; allowBackup=false; fullBackupContent and dataExtractionRules reference explicit exclusions.

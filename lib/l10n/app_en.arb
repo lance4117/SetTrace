@@ -1708,5 +1708,129 @@
         "type": "num"
       }
     }
+  },
+  "aboutApp": "About SetTrace",
+  "@aboutApp": {
+    "description": "App information and local data notice: aboutApp"
+  },
+  "appTagline": "A lightweight, offline workout tracker. Focus on every set.",
+  "@appTagline": {
+    "description": "App information and local data notice: appTagline"
+  },
+  "appVersion": "Version",
+  "@appVersion": {
+    "description": "App information and local data notice: appVersion"
+  },
+  "versionUnavailable": "Version information is unavailable",
+  "@versionUnavailable": {
+    "description": "App information and local data notice: versionUnavailable"
+  },
+  "projectHome": "Project page",
+  "@projectHome": {
+    "description": "App information and local data notice: projectHome"
+  },
+  "issueFeedback": "Report an issue",
+  "@issueFeedback": {
+    "description": "App information and local data notice: issueFeedback"
+  },
+  "privacyAndData": "Privacy and data",
+  "@privacyAndData": {
+    "description": "App information and local data notice: privacyAndData"
+  },
+  "openSourceLicenses": "Third-party licenses",
+  "@openSourceLicenses": {
+    "description": "App information and local data notice: openSourceLicenses"
+  },
+  "licensesEmpty": "No third-party license information is available",
+  "@licensesEmpty": {
+    "description": "App information and local data notice: licensesEmpty"
+  },
+  "licensesFailed": "Could not load licenses. Please try again.",
+  "@licensesFailed": {
+    "description": "App information and local data notice: licensesFailed"
+  },
+  "externalPageFailed": "Could not open your browser. Please try again.",
+  "@externalPageFailed": {
+    "description": "App information and local data notice: externalPageFailed"
+  },
+  "welcomeTitle": "Welcome to SetTrace",
+  "@welcomeTitle": {
+    "description": "App information and local data notice: welcomeTitle"
+  },
+  "noticeIntroduction": "SetTrace is a lightweight, offline workout tracker for creating workout plans, logging sets, and reviewing your workout history.",
+  "@noticeIntroduction": {
+    "description": "App information and local data notice: noticeIntroduction"
+  },
+  "noticePrivacyTitle": "Privacy and connectivity",
+  "@noticePrivacyTitle": {
+    "description": "App information and local data notice: noticePrivacyTitle"
+  },
+  "noticePrivacyBody": "No account is required. SetTrace does not collect or upload your personal information or usage data, and the app itself does not initiate network connections. External links, such as the project page, open in your browser and may use the internet.",
+  "@noticePrivacyBody": {
+    "description": "App information and local data notice: noticePrivacyBody"
+  },
+  "noticeLocalTitle": "Local data",
+  "@noticeLocalTitle": {
+    "description": "App information and local data notice: noticeLocalTitle"
+  },
+  "noticeLocalBody": "Your workout plans, history, and settings are stored on this device. Uninstalling the app or clearing its data removes the data stored inside the app. Export any plans you want to keep beforehand.",
+  "@noticeLocalBody": {
+    "description": "App information and local data notice: noticeLocalBody"
+  },
+  "noticeBackupTitle": "Plan backup and sharing",
+  "@noticeBackupTitle": {
+    "description": "App information and local data notice: noticeBackupTitle"
+  },
+  "noticeBackupBody": "Import and export workout plans using files or copied text. Backups contain only plan and exercise settings, not workout history or an ongoing workout. Files exported to Downloads are not automatically deleted when you uninstall the app.",
+  "@noticeBackupBody": {
+    "description": "App information and local data notice: noticeBackupBody"
+  },
+  "noticeStart": "Got it, get started",
+  "@noticeStart": {
+    "description": "App information and local data notice: noticeStart"
+  },
+  "noticeSaveFailed": "Could not remember that you have read this. It may appear again next time. Try again or continue for now.",
+  "@noticeSaveFailed": {
+    "description": "App information and local data notice: noticeSaveFailed"
+  },
+  "noticeContinue": "Continue for now",
+  "@noticeContinue": {
+    "description": "App information and local data notice: noticeContinue"
+  },
+  "close": "Close",
+  "@close": {
+    "description": "Close the current information view."
+  },
+  "viewAllLicenses": "View all open-source licenses",
+  "@viewAllLicenses": {
+    "description": "Open-source license navigation or project purpose: viewAllLicenses"
+  },
+  "allOpenSourceLicenses": "All open-source licenses",
+  "@allOpenSourceLicenses": {
+    "description": "Open-source license navigation or project purpose: allOpenSourceLicenses"
+  },
+  "otherLicenseNotices": "Other notices",
+  "@otherLicenseNotices": {
+    "description": "Open-source license navigation or project purpose: otherLicenseNotices"
+  },
+  "licenseFramework": "App framework",
+  "@licenseFramework": {
+    "description": "Open-source license navigation or project purpose: licenseFramework"
+  },
+  "licenseDatabase": "Local database",
+  "@licenseDatabase": {
+    "description": "Open-source license navigation or project purpose: licenseDatabase"
+  },
+  "licensePreferences": "Local preferences",
+  "@licensePreferences": {
+    "description": "Open-source license navigation or project purpose: licensePreferences"
+  },
+  "licenseAppInformation": "App version information",
+  "@licenseAppInformation": {
+    "description": "Open-source license navigation or project purpose: licenseAppInformation"
+  },
+  "licenseExternalLinks": "Open external links",
+  "@licenseExternalLinks": {
+    "description": "Open-source license navigation or project purpose: licenseExternalLinks"
   }
 }

@@ -1,0 +1,2 @@
+Running incremental backup for 1 requested packages.
+Backup finished with result: Backup is not allowed

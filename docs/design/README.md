@@ -64,3 +64,9 @@ HTML 是浏览器中的静态设计与模拟交互，不执行真实剪贴板、
 [设计资料核验说明](verification/README.md)区分浏览器原型检查、文档接入检查与 Flutter 实施验收。已有 Android 功能证据仍位于 `docs/qa/`，不因本次设计更新改写。
 
 文档来源：初版 `5570b90`；本次换序 `dfe28f0`；计划传输 `7bf1f03`；记录删除 `00ef2a3`；本地化 `31a8d8f` / `e41967c`；提醒与跳过 `da18d62`。图像对应各能力的最新可用验收批次，不宣称每张截图都来自同一提交。
+
+## 关于与首次说明增量
+
+`add-app-about-and-first-run-notice` 在既有 A 方案上补充 C05（设置底部关于）、D15（首次说明）、D16（重看说明）和计划列表图标。主题、组件与品牌保持现行规范，新增交互见 INT-11、验收见 FLOW-17–19 / DATA-01。实施结果与已验证平台见 [独立验收记录](../qa/app-about-notice-acceptance.md)，不改写早期重设计证据。
+
+本增量已于 2026-10-15 同步 `app-experience`／`app-localization` 主规格并[归档](../../openspec/changes/archive/2026-10-15-add-app-about-and-first-run-notice/README.md)，21/21 项任务完成；未执行 Git 提交或发布。

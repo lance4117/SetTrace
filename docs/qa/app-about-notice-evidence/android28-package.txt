@@ -1,0 +1,120 @@
+Activity Resolver Table:
+  Non-Data Actions:
+      android.intent.action.MAIN:
+        c025481 com.settrace.settrace/.MainActivity filter 1031a66
+          Action: "android.intent.action.MAIN"
+          Category: "android.intent.category.LAUNCHER"
+
+Receiver Resolver Table:
+  Non-Data Actions:
+      androidx.profileinstaller.action.SAVE_PROFILE:
+        f837926 com.settrace.settrace/androidx.profileinstaller.ProfileInstallReceiver filter 13857a8
+          Action: "androidx.profileinstaller.action.SAVE_PROFILE"
+      androidx.profileinstaller.action.INSTALL_PROFILE:
+        f837926 com.settrace.settrace/androidx.profileinstaller.ProfileInstallReceiver filter ad8ae9a
+          Action: "androidx.profileinstaller.action.INSTALL_PROFILE"
+      androidx.profileinstaller.action.SKIP_FILE:
+        f837926 com.settrace.settrace/androidx.profileinstaller.ProfileInstallReceiver filter 89173cb
+          Action: "androidx.profileinstaller.action.SKIP_FILE"
+      androidx.profileinstaller.action.BENCHMARK_OPERATION:
+        f837926 com.settrace.settrace/androidx.profileinstaller.ProfileInstallReceiver filter 3a2b2c1
+          Action: "androidx.profileinstaller.action.BENCHMARK_OPERATION"
+
+Permissions:
+  Permission [com.settrace.settrace.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION] (3485967):
+    sourcePackage=com.settrace.settrace
+    uid=10086 gids=null type=0 prot=signature
+    perm=Permission{db5a314 com.settrace.settrace.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION}
+    packageSetting=PackageSetting{37eb7bd com.settrace.settrace/10086}
+
+Registered ContentProviders:
+  com.settrace.settrace/androidx.startup.InitializationProvider:
+    Provider{21e01b2 com.settrace.settrace/androidx.startup.InitializationProvider}
+
+ContentProvider Authorities:
+  [com.settrace.settrace.androidx-startup]:
+    Provider{21e01b2 com.settrace.settrace/androidx.startup.InitializationProvider}
+      applicationInfo=ApplicationInfo{cf72503 com.settrace.settrace}
+
+Key Set Manager:
+  [com.settrace.settrace]
+      Signing KeySets: 22
+
+Packages:
+  Package [com.settrace.settrace] (37eb7bd):
+    userId=10086
+    pkg=Package{5d3dc80 com.settrace.settrace}
+    codePath=/data/app/com.settrace.settrace-HaddjDVJD2RRRDHT7VoQWQ==
+    resourcePath=/data/app/com.settrace.settrace-HaddjDVJD2RRRDHT7VoQWQ==
+    legacyNativeLibraryDir=/data/app/com.settrace.settrace-HaddjDVJD2RRRDHT7VoQWQ==/lib
+    primaryCpuAbi=x86_64
+    secondaryCpuAbi=null
+    versionCode=7001 minSdk=24 targetSdk=36
+    versionName=0.2.1-qa
+    splits=[base]
+    apkSigningVersion=2
+    applicationInfo=ApplicationInfo{cf72503 com.settrace.settrace}
+    flags=[ HAS_CODE ALLOW_CLEAR_USER_DATA ]
+    privateFlags=[ PRIVATE_FLAG_ACTIVITIES_RESIZE_MODE_RESIZEABLE_VIA_SDK_VERSION ]
+    dataDir=/data/user/0/com.settrace.settrace
+    supportsScreens=[small, medium, large, xlarge, resizeable, anyDensity]
+    usesOptionalLibraries:
+      androidx.window.extensions
+      androidx.window.sidecar
+    timeStamp=2026-10-15 05:51:38
+    firstInstallTime=2026-10-15 05:51:51
+    lastUpdateTime=2026-10-15 05:51:51
+    signatures=PackageSignatures{36412b9 version:2, signatures:[c82151c1], past signatures:[]}
+    installPermissionsFixed=true
+    pkgFlags=[ HAS_CODE ALLOW_CLEAR_USER_DATA ]
+    declared permissions:
+      com.settrace.settrace.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION: prot=signature, INSTALLED
+    requested permissions:
+      android.permission.WRITE_EXTERNAL_STORAGE
+      android.permission.POST_NOTIFICATIONS
+      android.permission.SCHEDULE_EXACT_ALARM
+      com.settrace.settrace.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+      android.permission.READ_EXTERNAL_STORAGE
+    install permissions:
+      com.settrace.settrace.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION: granted=true
+    User 0: ceDataInode=115110 installed=true hidden=false suspended=false stopped=true notLaunched=true enabled=0 instant=false virtual=false
+      runtime permissions:
+
+Package Changes:
+  Sequence number=420
+  User 0:
+    seq=0, package=com.google.android.apps.inputmethod.hindi
+    seq=1, package=com.google.android.inputmethod.pinyin
+    seq=2, package=com.google.android.webview
+    seq=4, package=com.android.systemui
+    seq=7, package=com.google.android.inputmethod.latin
+    seq=95, package=com.google.android.apps.nexuslauncher
+    seq=96, package=com.google.android.apps.restore
+    seq=97, package=com.google.android.sdksetup
+    seq=106, package=com.google.android.apps.messaging
+    seq=107, package=com.settrace.settrace
+    seq=113, package=com.google.android.partnersetup
+    seq=338, package=com.google.android.apps.maps
+    seq=339, package=com.android.vending
+    seq=340, package=com.google.android.youtube
+    seq=372, package=com.android.settings
+    seq=383, package=com.google.android.gsf
+    seq=385, package=com.google.android.calendar
+    seq=386, package=com.android.camera2
+    seq=387, package=com.android.nfc
+    seq=402, package=com.google.android.googlequicksearchbox
+    seq=403, package=com.google.android.gm
+    seq=406, package=com.google.android.setupwizard
+    seq=411, package=com.google.android.videos
+    seq=419, package=com.google.android.gms
+
+
+Dexopt state:
+  [com.settrace.settrace]
+    path: /data/app/com.settrace.settrace-HaddjDVJD2RRRDHT7VoQWQ==/base.apk
+      x86_64: [status=speed-profile] [reason=install]
+
+
+Compiler stats:
+  [com.settrace.settrace]
+     base.apk - 3348

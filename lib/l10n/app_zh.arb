@@ -1630,5 +1630,129 @@
         "type": "num"
       }
     }
+  },
+  "aboutApp": "关于 SetTrace",
+  "@aboutApp": {
+    "description": "App information and local data notice: aboutApp"
+  },
+  "appTagline": "轻量、离线的训练记录工具，专注每一组。",
+  "@appTagline": {
+    "description": "App information and local data notice: appTagline"
+  },
+  "appVersion": "版本",
+  "@appVersion": {
+    "description": "App information and local data notice: appVersion"
+  },
+  "versionUnavailable": "版本信息暂不可用",
+  "@versionUnavailable": {
+    "description": "App information and local data notice: versionUnavailable"
+  },
+  "projectHome": "项目主页",
+  "@projectHome": {
+    "description": "App information and local data notice: projectHome"
+  },
+  "issueFeedback": "问题反馈",
+  "@issueFeedback": {
+    "description": "App information and local data notice: issueFeedback"
+  },
+  "privacyAndData": "隐私与数据说明",
+  "@privacyAndData": {
+    "description": "App information and local data notice: privacyAndData"
+  },
+  "openSourceLicenses": "第三方开源许可",
+  "@openSourceLicenses": {
+    "description": "App information and local data notice: openSourceLicenses"
+  },
+  "licensesEmpty": "暂无第三方许可信息",
+  "@licensesEmpty": {
+    "description": "App information and local data notice: licensesEmpty"
+  },
+  "licensesFailed": "无法读取许可信息，请重试",
+  "@licensesFailed": {
+    "description": "App information and local data notice: licensesFailed"
+  },
+  "externalPageFailed": "无法打开浏览器，请重试",
+  "@externalPageFailed": {
+    "description": "App information and local data notice: externalPageFailed"
+  },
+  "welcomeTitle": "欢迎使用 SetTrace",
+  "@welcomeTitle": {
+    "description": "App information and local data notice: welcomeTitle"
+  },
+  "noticeIntroduction": "SetTrace 是一款轻量、离线的训练记录工具，帮助你制定训练计划、记录每组训练并查看历史。",
+  "@noticeIntroduction": {
+    "description": "App information and local data notice: noticeIntroduction"
+  },
+  "noticePrivacyTitle": "隐私与联网",
+  "@noticePrivacyTitle": {
+    "description": "App information and local data notice: noticePrivacyTitle"
+  },
+  "noticePrivacyBody": "无需注册账号，不收集或上传你的个人信息与使用数据，App 本身不主动联网。打开项目主页等外部链接时，将由浏览器访问网络。",
+  "@noticePrivacyBody": {
+    "description": "App information and local data notice: noticePrivacyBody"
+  },
+  "noticeLocalTitle": "本地数据",
+  "@noticeLocalTitle": {
+    "description": "App information and local data notice: noticeLocalTitle"
+  },
+  "noticeLocalBody": "训练计划、训练记录和设置保存在设备上。卸载 App 或清除应用数据会删除应用内的数据，请提前保存需要保留的计划。",
+  "@noticeLocalBody": {
+    "description": "App information and local data notice: noticeLocalBody"
+  },
+  "noticeBackupTitle": "计划备份与分享",
+  "@noticeBackupTitle": {
+    "description": "App information and local data notice: noticeBackupTitle"
+  },
+  "noticeBackupBody": "你可以通过文件或复制文本导入、导出训练计划。备份仅包含计划和动作配置，不包含训练历史或进行中的训练；已导出到下载目录的文件不会随卸载自动删除。",
+  "@noticeBackupBody": {
+    "description": "App information and local data notice: noticeBackupBody"
+  },
+  "noticeStart": "我知道了，开始使用",
+  "@noticeStart": {
+    "description": "App information and local data notice: noticeStart"
+  },
+  "noticeSaveFailed": "无法记住已读状态，下次打开可能再次显示。你可以重试或仅本次继续使用。",
+  "@noticeSaveFailed": {
+    "description": "App information and local data notice: noticeSaveFailed"
+  },
+  "noticeContinue": "仅本次继续使用",
+  "@noticeContinue": {
+    "description": "App information and local data notice: noticeContinue"
+  },
+  "close": "关闭",
+  "@close": {
+    "description": "Close the current information view."
+  },
+  "viewAllLicenses": "查看全部开源许可",
+  "@viewAllLicenses": {
+    "description": "Open-source license navigation or project purpose: viewAllLicenses"
+  },
+  "allOpenSourceLicenses": "全部开源许可",
+  "@allOpenSourceLicenses": {
+    "description": "Open-source license navigation or project purpose: allOpenSourceLicenses"
+  },
+  "otherLicenseNotices": "其他声明",
+  "@otherLicenseNotices": {
+    "description": "Open-source license navigation or project purpose: otherLicenseNotices"
+  },
+  "licenseFramework": "应用框架",
+  "@licenseFramework": {
+    "description": "Open-source license navigation or project purpose: licenseFramework"
+  },
+  "licenseDatabase": "本地数据库",
+  "@licenseDatabase": {
+    "description": "Open-source license navigation or project purpose: licenseDatabase"
+  },
+  "licensePreferences": "本地偏好设置",
+  "@licensePreferences": {
+    "description": "Open-source license navigation or project purpose: licensePreferences"
+  },
+  "licenseAppInformation": "应用版本信息",
+  "@licenseAppInformation": {
+    "description": "Open-source license navigation or project purpose: licenseAppInformation"
+  },
+  "licenseExternalLinks": "外部链接打开",
+  "@licenseExternalLinks": {
+    "description": "Open-source license navigation or project purpose: licenseExternalLinks"
   }
 }

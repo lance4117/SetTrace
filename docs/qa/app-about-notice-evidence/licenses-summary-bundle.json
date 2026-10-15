@@ -1,0 +1,12 @@
+{
+  "bundledEntries": 1623,
+  "uniqueProjects": 154,
+  "featuredProjects": {
+    "flutter": 10,
+    "sqflite": 1,
+    "shared_preferences": 1,
+    "package_info_plus": 1,
+    "url_launcher": 1
+  },
+  "fullNoticesRetained": true
+}

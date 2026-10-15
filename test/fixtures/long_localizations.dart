@@ -4,6 +4,17 @@ import 'package:settrace/l10n/generated/app_localizations.dart';
 import 'package:settrace/l10n/generated/app_localizations_en.dart';
 
 class LongStrings extends AppLocalizationsEn {
+  @override
+  String get noticeIntroduction =>
+      '${super.noticeIntroduction} ${super.noticeIntroduction}';
+  @override
+  String get noticeStart =>
+      'I have read this introduction and would like to start using the app now';
+  @override
+  String get privacyAndData =>
+      'Privacy and local data information with additional translated wording';
+  @override
+  String get aboutApp => 'About SetTrace with additional translated wording';
 
   @override
   String skipRemainingSets(num count) =>
@@ -12,11 +23,14 @@ class LongStrings extends AppLocalizationsEn {
   String skipRemainingNote(String exercise, num completed, num remaining) =>
       '${super.skipRemainingNote(exercise, completed, remaining)} with additional translated wording for readability with additional translated wording for readability';
   @override
-  String get undoLastSkip => 'Undo the most recent skipped remaining groups with additional translated wording';
+  String get undoLastSkip =>
+      'Undo the most recent skipped remaining groups with additional translated wording';
   @override
-  String get restAlertsEnabled => 'Reminder at the end of the rest period with additional translated wording';
+  String get restAlertsEnabled =>
+      'Reminder at the end of the rest period with additional translated wording';
   @override
-  String get restAlertsNoNotifications => 'Background notifications are unavailable with additional translated wording for accessibility. Foreground reminders continue to work.';
+  String get restAlertsNoNotifications =>
+      'Background notifications are unavailable with additional translated wording for accessibility. Foreground reminders continue to work.';
   @override
   String get settings =>
       "Settings with additional translated wording for readability with additional translated wording for readability ";

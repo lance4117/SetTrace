@@ -16,7 +16,7 @@ class AppBottomNav extends StatelessWidget {
       context.l10n.settings,
     ];
     const icons = [
-      Icons.fitness_center_outlined,
+      Icons.list_alt_outlined,
       Icons.history_outlined,
       Icons.settings_outlined,
     ];

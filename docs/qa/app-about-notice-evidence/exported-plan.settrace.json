@@ -1,0 +1,18 @@
+{
+  "format": "settrace.training-plans",
+  "schemaVersion": 1,
+  "plans": [
+    {
+      "name": "About QA backup",
+      "exercises": [
+        {
+          "name": "QA exercise",
+          "targetSets": 2,
+          "restBetweenSetsSeconds": 120,
+          "restAfterExerciseSeconds": 30,
+          "defaultWeightKg": 45.5
+        }
+      ]
+    }
+  ]
+}

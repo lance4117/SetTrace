@@ -1,0 +1,14 @@
+{
+  "version": "0.2.1+7",
+  "bytes": 55184474,
+  "sha256": "a37ed49707e09cda8b59126a2762897128101f020c965004a716321a25e51e11",
+  "bundledEntries": 1623,
+  "uniqueProjects": 154,
+  "featuredProjects": {
+    "flutter": 10,
+    "sqflite": 1,
+    "shared_preferences": 1,
+    "package_info_plus": 1,
+    "url_launcher": 1
+  }
+}

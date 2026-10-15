@@ -1,3 +1,4 @@
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:settrace/l10n/generated/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -5,6 +6,15 @@ import 'package:settrace/app/theme/app_theme.dart';
 import 'package:settrace/features/settings/settings_page.dart';
 
 void main() {
+  setUp(
+    () => PackageInfo.setMockInitialValues(
+      appName: 'SetTrace',
+      packageName: 'test',
+      version: '1.0.0',
+      buildNumber: '1',
+      buildSignature: '',
+    ),
+  );
   testWidgets('settings offers system, light and dark modes', (tester) async {
     ThemeMode selected = ThemeMode.system;
     await tester.pumpWidget(

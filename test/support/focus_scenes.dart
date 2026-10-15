@@ -1,3 +1,5 @@
+import 'package:package_info_plus/package_info_plus.dart';
+
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -171,7 +173,15 @@ class FocusScene {
       WorkoutRepository(database.db),
       locale,
     );
+    PackageInfo.setMockInitialValues(
+      appName: 'SetTrace',
+      packageName: 'test',
+      version: '1.0.0',
+      buildNumber: '1',
+      buildSignature: '',
+    );
     f.prefs = await SharedPreferences.getInstance();
+    await f.prefs.setInt('app_notice_seen_version', 1);
     await f.seed();
     return f;
   }

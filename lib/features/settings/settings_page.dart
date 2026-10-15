@@ -7,11 +7,14 @@ import '../../core/widgets/app_card.dart';
 import '../../l10n/language_settings.dart';
 import '../../l10n/localization.dart';
 import '../rest_alerts/rest_alert_service.dart';
+import '../about/about_section.dart';
+import '../about/app_info_service.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({
     super.key,
     this.alerts,
+    this.info = const AppInfoService(),
     required this.mode,
     required this.onModeChanged,
     required this.locale,
@@ -19,6 +22,7 @@ class SettingsPage extends StatefulWidget {
   });
 
   final RestAlertService? alerts;
+  final AppInfoService info;
   final ThemeMode mode;
   final FutureOr<void> Function(ThemeMode) onModeChanged;
   final Locale locale;
@@ -250,6 +254,7 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
             ),
           if (widget.alerts != null) reminderSettings(widget.alerts!),
+          AboutSection(info: widget.info),
           const SizedBox(height: 16),
           Text(
             strings.localDataNote,
