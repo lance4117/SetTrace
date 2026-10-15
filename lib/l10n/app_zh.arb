@@ -1754,5 +1754,41 @@
   "licenseExternalLinks": "外部链接打开",
   "@licenseExternalLinks": {
     "description": "Open-source license navigation or project purpose: licenseExternalLinks"
+  },
+  "themeColor": "主题色",
+  "@themeColor": {
+    "description": "Theme color setting: themeColor. Applies to the accent palette, independently of light/dark appearance."
+  },
+  "themeColorTeal": "青色",
+  "@themeColorTeal": {
+    "description": "Theme color setting: themeColorTeal. Applies to the accent palette, independently of light/dark appearance."
+  },
+  "themeColorBlue": "蓝色",
+  "@themeColorBlue": {
+    "description": "Theme color setting: themeColorBlue. Applies to the accent palette, independently of light/dark appearance."
+  },
+  "themeColorViolet": "紫色",
+  "@themeColorViolet": {
+    "description": "Theme color setting: themeColorViolet. Applies to the accent palette, independently of light/dark appearance."
+  },
+  "themeColorGraphite": "石墨",
+  "@themeColorGraphite": {
+    "description": "Theme color setting: themeColorGraphite. Applies to the accent palette, independently of light/dark appearance."
+  },
+  "themeColorDefault": "青色，默认配色",
+  "@themeColorDefault": {
+    "description": "Theme color setting: themeColorDefault. Applies to the accent palette, independently of light/dark appearance."
+  },
+  "themeColorHint": "点选即刻切换，自动保存",
+  "@themeColorHint": {
+    "description": "Theme color setting: themeColorHint. Applies to the accent palette, independently of light/dark appearance."
+  },
+  "themeColorSaving": "正在保存…",
+  "@themeColorSaving": {
+    "description": "Theme color setting: themeColorSaving. Applies to the accent palette, independently of light/dark appearance."
+  },
+  "themeColorSaveFailed": "主题色未能保存，请重试。",
+  "@themeColorSaveFailed": {
+    "description": "Theme color setting: themeColorSaveFailed. Applies to the accent palette, independently of light/dark appearance."
   }
 }

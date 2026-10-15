@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'theme_color_preset.dart';
+
 @immutable
 class AppColors extends ThemeExtension<AppColors> {
   const AppColors({
@@ -44,6 +46,18 @@ class AppColors extends ThemeExtension<AppColors> {
   final Color warningSoft;
   final Color disabledSurface;
   final Color disabledText;
+  static AppColors forPreset(Brightness brightness, ThemeColorPreset preset) {
+    final base = brightness == Brightness.dark ? dark : light;
+    final p = preset.palette(brightness);
+    return base.copyWith(
+      accent: p.accent,
+      accentPressed: p.pressed,
+      accentSoft: p.soft,
+      onAccent: p.onAccent,
+      onAccentSoft: p.onSoft,
+    );
+  }
+
   static const light = AppColors(
     background: Color(0xFFF5F7F8),
     surface: Color(0xFFFFFFFF),
@@ -183,9 +197,21 @@ abstract final class AppRadius {
 }
 
 abstract final class AppTheme {
-  static final light = _make(Brightness.light, AppColors.light);
-  static final dark = _make(Brightness.dark, AppColors.dark);
-  static ThemeData _make(Brightness brightness, AppColors c) {
+  static final _themes = <(Brightness, ThemeColorPreset), ThemeData>{};
+  static final light = forPreset(Brightness.light, ThemeColorPreset.teal);
+  static final dark = forPreset(Brightness.dark, ThemeColorPreset.teal);
+  static ThemeData forPreset(Brightness brightness, ThemeColorPreset preset) =>
+      _themes.putIfAbsent((
+        brightness,
+        preset,
+      ), () => _make(brightness, preset));
+  static ThemeData _make(Brightness brightness, ThemeColorPreset preset) {
+    final c = AppColors.forPreset(brightness, preset);
+    final inverseAccent = preset
+        .palette(
+          brightness == Brightness.light ? Brightness.dark : Brightness.light,
+        )
+        .onSoft;
     final scheme = ColorScheme(
       brightness: brightness,
       primary: c.accent,
@@ -217,7 +243,7 @@ abstract final class AppTheme {
       outlineVariant: c.border,
       inverseSurface: c.textPrimary,
       onInverseSurface: c.background,
-      inversePrimary: c.accentSoft,
+      inversePrimary: inverseAccent,
     );
     final base = ThemeData(useMaterial3: true, colorScheme: scheme);
     final text = base.textTheme.apply(
@@ -331,9 +357,7 @@ abstract final class AppTheme {
       snackBarTheme: SnackBarThemeData(
         backgroundColor: c.textPrimary,
         contentTextStyle: TextStyle(color: c.background, fontSize: 14),
-        actionTextColor: brightness == Brightness.light
-            ? AppColors.dark.accent
-            : AppColors.light.accent,
+        actionTextColor: inverseAccent,
         behavior: SnackBarBehavior.floating,
       ),
       progressIndicatorTheme: ProgressIndicatorThemeData(

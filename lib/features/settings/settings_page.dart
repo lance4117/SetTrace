@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 import '../../app/theme/app_theme.dart';
+import '../../app/theme/theme_color_controller.dart';
+import 'theme_color_section.dart';
 import '../../core/widgets/app_card.dart';
 import '../../l10n/language_settings.dart';
 import '../../l10n/localization.dart';
@@ -14,6 +16,7 @@ class SettingsPage extends StatefulWidget {
   const SettingsPage({
     super.key,
     this.alerts,
+    this.themeColors,
     this.info = const AppInfoService(),
     required this.mode,
     required this.onModeChanged,
@@ -22,6 +25,7 @@ class SettingsPage extends StatefulWidget {
   });
 
   final RestAlertService? alerts;
+  final ThemeColorController? themeColors;
   final AppInfoService info;
   final ThemeMode mode;
   final FutureOr<void> Function(ThemeMode) onModeChanged;
@@ -223,6 +227,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 style: TextStyle(color: colors.danger),
               ),
             ),
+          ThemeColorSection(controller: widget.themeColors),
           const SizedBox(height: 24),
           Text(strings.language, style: TextStyle(color: colors.textSecondary)),
           const SizedBox(height: 12),

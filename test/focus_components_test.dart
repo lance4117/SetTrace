@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:settrace/app/theme/app_theme.dart';
+import 'package:settrace/app/theme/theme_color_preset.dart';
 import 'package:settrace/core/widgets/app_button.dart';
 import 'package:settrace/core/widgets/step_picker.dart';
 import 'package:settrace/l10n/localization.dart';
@@ -15,7 +16,11 @@ Widget localized(Widget child) => MaterialApp(
 );
 void main() {
   test('semantic foregrounds and required borders meet contrast', () {
-    for (final c in [AppColors.light, AppColors.dark]) {
+    for (final c in [
+      for (final brightness in Brightness.values)
+        for (final preset in ThemeColorPreset.values)
+          AppColors.forPreset(brightness, preset),
+    ]) {
       double ratio(Color a, Color b) {
         final x = a.computeLuminance(), y = b.computeLuminance();
         return ((x > y ? x : y) + .05) / ((x > y ? y : x) + .05);
@@ -25,6 +30,7 @@ void main() {
         (c.textPrimary, c.background),
         (c.textSecondary, c.surface),
         (c.onAccent, c.accent),
+        (c.onAccent, c.accentPressed),
         (c.onAccentSoft, c.accentSoft),
         (c.onDanger, c.danger),
         (c.warning, c.warningSoft),
@@ -32,6 +38,51 @@ void main() {
         expect(ratio(pair.$1, pair.$2), greaterThanOrEqualTo(4.5));
       }
       expect(ratio(c.controlBorder, c.surface), greaterThanOrEqualTo(3));
+    }
+  });
+  testWidgets('all palettes resolve real button states and inverse feedback', (
+    t,
+  ) async {
+    double ratio(Color a, Color b) {
+      final x = a.computeLuminance(), y = b.computeLuminance();
+      return ((x > y ? x : y) + .05) / ((x > y ? y : x) + .05);
+    }
+
+    for (final brightness in Brightness.values) {
+      for (final preset in ThemeColorPreset.values) {
+        final theme = AppTheme.forPreset(brightness, preset);
+        await t.pumpWidget(
+          MaterialApp(
+            theme: theme,
+            home: Scaffold(
+              body: AppButton(label: 'Action', onPressed: () {}),
+            ),
+          ),
+        );
+        final button = t.widget<FilledButton>(find.byType(FilledButton));
+        for (final state in [
+          <WidgetState>{},
+          {WidgetState.pressed},
+          {WidgetState.focused},
+        ]) {
+          final bg = button.style!.backgroundColor!.resolve(state)!;
+          final fg = button.style!.foregroundColor!.resolve(state)!;
+          final overlay =
+              button.style!.overlayColor?.resolve(state) ?? Colors.transparent;
+          expect(
+            ratio(fg, Color.alphaBlend(overlay, bg)),
+            greaterThanOrEqualTo(4.5),
+          );
+        }
+        expect(
+          ratio(
+            theme.snackBarTheme.actionTextColor!,
+            theme.snackBarTheme.backgroundColor!,
+          ),
+          greaterThanOrEqualTo(4.5),
+        );
+        expect(theme.colorScheme.primary, preset.palette(brightness).accent);
+      }
     }
   });
   testWidgets('button grows for translated text, busy cannot submit', (

@@ -116,6 +116,10 @@ void main() {
   testWidgets(
     'setting order, immediate switch, persistence and failure retry',
     (tester) async {
+      tester.view.physicalSize = const Size(800, 1200);
+      tester.view.devicePixelRatio = 1;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
       final store = FailingPreferences();
       SharedPreferencesStorePlatform.instance = store;
       await tester.pumpWidget(root());
@@ -157,16 +161,6 @@ void main() {
         tester.widget<MaterialApp>(find.byType(MaterialApp)).locale,
         const Locale('en'),
       );
-      await tester.drag(
-        find
-            .descendant(
-              of: find.byType(SettingsPage),
-              matching: find.byType(Scrollable),
-            )
-            .first,
-        const Offset(0, 500),
-      );
-      await tester.pumpAndSettle();
       expect(find.text('Language'), findsOneWidget);
       expect(find.text('English'), findsOneWidget);
       expect(find.text('中文'), findsOneWidget);
@@ -223,6 +217,16 @@ void main() {
       expect(find.text('Add exercise'), findsOneWidget);
       navigator.pop();
       await tester.pumpAndSettle();
+      await tester.scrollUntilVisible(
+        find.text('Language'),
+        120,
+        scrollable: find
+            .descendant(
+              of: find.byType(SettingsPage),
+              matching: find.byType(Scrollable),
+            )
+            .first,
+      );
       expect(
         find.text('Language'),
         findsOneWidget,

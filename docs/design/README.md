@@ -70,3 +70,7 @@ HTML 是浏览器中的静态设计与模拟交互，不执行真实剪贴板、
 `add-app-about-and-first-run-notice` 在既有 A 方案上补充 C05（设置底部关于）、D15（首次说明）、D16（重看说明）和计划列表图标。主题、组件与品牌保持现行规范，新增交互见 INT-11、验收见 FLOW-17–19 / DATA-01。实施结果与已验证平台见 [独立验收记录](../qa/app-about-notice-acceptance.md)，不改写早期重设计证据。
 
 本增量已于 2026-10-15 同步 `app-experience`／`app-localization` 主规格并[归档](../../openspec/changes/archive/2026-10-15-add-app-about-and-first-run-notice/README.md)，21/21 项任务完成；未执行 Git 提交或发布。
+
+## 主题色增量
+
+`add-theme-color-presets` 在 A 方案上增加设置内即时主题色选择：青色（默认）、蓝色、紫色、石墨，深浅配对且独立于明暗模式。卡片、配色和状态规则已补充至主规范第 10 节、C01/C02/C04 与 INT-10；检查见 COLOR-01–05，实际验证范围见 [主题色验收](../qa/theme-color-presets-acceptance.md)。已于 2026-10-15 同步 `app-experience`／`app-localization` 主规格并[归档](../../openspec/changes/archive/2026-10-15-add-theme-color-presets/README.md)，16/16 项任务完成；未执行 Git 提交或发布。

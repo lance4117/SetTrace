@@ -453,7 +453,10 @@ void main() {
         expect(find.byType(WorkoutPage), findsOneWidget);
         expect(platform.permissionCalls, 0);
         await t.pumpWidget(const SizedBox());
-        await t.runAsync(() => alerts.synchronize());
+        final drained = alerts.synchronize();
+        // Let the existing fake-async queue advance before awaiting its tail.
+        await flush(t);
+        await drained;
         await t.pumpAndSettle();
       },
     );
@@ -500,7 +503,9 @@ void main() {
         findsOneWidget,
       );
       await t.pumpWidget(const SizedBox());
-      await t.runAsync(() => alerts.synchronize());
+      final drained = alerts.synchronize();
+      await flush(t);
+      await drained;
       await t.pumpAndSettle();
     });
     testWidgets('notice preserves rest and defers permission explanation', (
@@ -559,7 +564,9 @@ void main() {
       await t.tap(find.text(lookupAppLocalizations(const Locale('en')).cancel));
       await flush(t);
       await t.pumpWidget(const SizedBox());
-      await t.runAsync(() => alerts.synchronize());
+      final drained = alerts.synchronize();
+      await flush(t);
+      await drained;
       await t.pumpAndSettle();
     });
   });

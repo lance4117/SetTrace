@@ -1832,5 +1832,41 @@
   "licenseExternalLinks": "Open external links",
   "@licenseExternalLinks": {
     "description": "Open-source license navigation or project purpose: licenseExternalLinks"
+  },
+  "themeColor": "Theme color",
+  "@themeColor": {
+    "description": "Theme color setting: themeColor. Applies to the accent palette, independently of light/dark appearance."
+  },
+  "themeColorTeal": "Teal",
+  "@themeColorTeal": {
+    "description": "Theme color setting: themeColorTeal. Applies to the accent palette, independently of light/dark appearance."
+  },
+  "themeColorBlue": "Blue",
+  "@themeColorBlue": {
+    "description": "Theme color setting: themeColorBlue. Applies to the accent palette, independently of light/dark appearance."
+  },
+  "themeColorViolet": "Purple",
+  "@themeColorViolet": {
+    "description": "Theme color setting: themeColorViolet. Applies to the accent palette, independently of light/dark appearance."
+  },
+  "themeColorGraphite": "Graphite",
+  "@themeColorGraphite": {
+    "description": "Theme color setting: themeColorGraphite. Applies to the accent palette, independently of light/dark appearance."
+  },
+  "themeColorDefault": "Teal, default color",
+  "@themeColorDefault": {
+    "description": "Theme color setting: themeColorDefault. Applies to the accent palette, independently of light/dark appearance."
+  },
+  "themeColorHint": "Changes apply instantly and save automatically.",
+  "@themeColorHint": {
+    "description": "Theme color setting: themeColorHint. Applies to the accent palette, independently of light/dark appearance."
+  },
+  "themeColorSaving": "Saving…",
+  "@themeColorSaving": {
+    "description": "Theme color setting: themeColorSaving. Applies to the accent palette, independently of light/dark appearance."
+  },
+  "themeColorSaveFailed": "Could not save the theme color. Please try again.",
+  "@themeColorSaveFailed": {
+    "description": "Theme color setting: themeColorSaveFailed. Applies to the accent palette, independently of light/dark appearance."
   }
 }

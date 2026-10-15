@@ -5,6 +5,15 @@ import 'package:settrace/l10n/generated/app_localizations_en.dart';
 
 class LongStrings extends AppLocalizationsEn {
   @override
+  String get themeColorGraphite =>
+      'Graphite with additional translated wording';
+  @override
+  String get themeColorHint =>
+      '${super.themeColorHint} ${super.themeColorHint}';
+  @override
+  String get themeColorSaveFailed =>
+      '${super.themeColorSaveFailed} ${super.themeColorSaveFailed}';
+  @override
   String get noticeIntroduction =>
       '${super.noticeIntroduction} ${super.noticeIntroduction}';
   @override

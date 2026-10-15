@@ -1,0 +1,11 @@
+10-15 09:12:20.953  7834  7834 I flutter : THEME_ANDROID_PALETTE teal-light-zh OK
+10-15 09:12:21.802  7834  7834 I flutter : THEME_ANDROID_PALETTE blue-light-zh OK
+10-15 09:12:22.641  7834  7834 I flutter : THEME_ANDROID_PALETTE violet-light-zh OK
+10-15 09:12:23.461  7834  7834 I flutter : THEME_ANDROID_PALETTE graphite-light-zh OK
+10-15 09:12:25.851  7834  7834 I flutter : THEME_ANDROID_PALETTE teal-dark-zh OK
+10-15 09:12:26.643  7834  7834 I flutter : THEME_ANDROID_PALETTE blue-dark-zh OK
+10-15 09:12:27.508  7834  7834 I flutter : THEME_ANDROID_PALETTE violet-dark-zh OK
+10-15 09:12:28.388  7834  7834 I flutter : THEME_ANDROID_PALETTE graphite-dark-zh OK
+10-15 09:12:29.565  7834  7834 I flutter : THEME_ANDROID_RESTART_REST OK
+10-15 09:12:30.284  7834  7834 I flutter : THEME_ANDROID_INTERACTION_READY /data/user/0/com.settrace.settrace/code_cache/theme-color-evidence
+10-15 09:12:30.928  7834  7834 I flutter : 00:16 +2: All tests passed!

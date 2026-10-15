@@ -15,6 +15,7 @@ import '../features/workout/workout_models.dart';
 import '../features/workout/workout_page.dart';
 import '../features/workout/workout_repository.dart';
 import 'theme/app_theme.dart';
+import 'theme/theme_color_controller.dart';
 import '../l10n/language_settings.dart';
 import '../l10n/localization.dart';
 import '../features/rest_alerts/rest_alert_service.dart';
@@ -26,6 +27,7 @@ class SetTraceApp extends StatefulWidget {
     required this.workouts,
     required this.preferences,
     this.initialLocale,
+    this.themeColorStore,
     this.noticePreferences,
     this.info = const AppInfoService(),
     this.alerts,
@@ -35,6 +37,7 @@ class SetTraceApp extends StatefulWidget {
   final WorkoutRepository workouts;
   final SharedPreferences preferences;
   final Locale? initialLocale;
+  final ThemeColorStore? themeColorStore;
   final NoticePreferences? noticePreferences;
   final AppInfoService info;
   final RestAlertService? alerts;
@@ -45,6 +48,13 @@ class SetTraceApp extends StatefulWidget {
 
 class _SetTraceAppState extends State<SetTraceApp> with WidgetsBindingObserver {
   late ThemeMode mode = _readMode();
+  late final themeColors = ThemeColorController(
+    widget.themeColorStore ?? PreferencesThemeColorStore(widget.preferences),
+  );
+  void colorChanged() {
+    if (mounted) setState(() {});
+  }
+
   late Locale locale =
       widget.initialLocale ?? readAppLocale(widget.preferences);
 
@@ -95,6 +105,7 @@ class _SetTraceAppState extends State<SetTraceApp> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
+    themeColors.addListener(colorChanged);
     WidgetsBinding.instance.addObserver(this);
     schedulePresentation();
     final alerts = widget.alerts;
@@ -218,6 +229,8 @@ class _SetTraceAppState extends State<SetTraceApp> with WidgetsBindingObserver {
 
   @override
   void dispose() {
+    themeColors.removeListener(colorChanged);
+    themeColors.dispose();
     alertTicker?.cancel();
     WidgetsBinding.instance.removeObserver(this);
     widget.workouts.onChanged = null;
@@ -282,12 +295,13 @@ class _SetTraceAppState extends State<SetTraceApp> with WidgetsBindingObserver {
     locale: locale,
     supportedLocales: AppLocalizations.supportedLocales,
     localizationsDelegates: AppLocalizations.localizationsDelegates,
-    theme: AppTheme.light,
-    darkTheme: AppTheme.dark,
+    theme: AppTheme.forPreset(Brightness.light, themeColors.selected),
+    darkTheme: AppTheme.forPreset(Brightness.dark, themeColors.selected),
     themeMode: mode,
     home: RootTabs(
       key: rootKey,
       info: widget.info,
+      themeColors: themeColors,
       alerts: widget.alerts,
       plans: widget.plans,
       workouts: widget.workouts,
@@ -303,6 +317,7 @@ class RootTabs extends StatefulWidget {
   const RootTabs({
     super.key,
     this.alerts,
+    this.themeColors,
     this.info = const AppInfoService(),
     required this.plans,
     required this.workouts,
@@ -313,6 +328,7 @@ class RootTabs extends StatefulWidget {
   });
 
   final RestAlertService? alerts;
+  final ThemeColorController? themeColors;
   final AppInfoService info;
   final PlanRepository plans;
   final WorkoutRepository workouts;
@@ -400,6 +416,7 @@ class RootTabsState extends State<RootTabs> {
         ),
         HistoryPage(workouts: widget.workouts, revision: historyRevision),
         SettingsPage(
+          themeColors: widget.themeColors,
           info: widget.info,
           alerts: widget.alerts,
           mode: widget.mode,

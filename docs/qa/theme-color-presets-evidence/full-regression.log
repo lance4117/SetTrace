@@ -1,0 +1,948 @@
+00:00 +0: loading D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/about_notice_test.dart
+00:00 +0: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/about_notice_test.dart: notice treats absent, invalid, older and saved versions correctly
+00:00 +1: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/about_notice_test.dart: failed writes do not leave phantom seen state and can retry
+00:00 +2: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/about_notice_test.dart: service reads installed metadata and opens only explicit fixed URLs
+00:00 +3: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/about_notice_test.dart: dialog save failure supports retry and continue without marking read
+00:00 +4: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/about_notice_test.dart: dialog save failure supports retry and continue without marking read
+00:00 +5: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/about_notice_test.dart: dialog save failure supports retry and continue without marking read
+00:00 +6: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/about_notice_test.dart: dialog save failure supports retry and continue without marking read
+00:00 +7: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/about_notice_test.dart: dialog save failure supports retry and continue without marking read
+00:00 +8: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/about_notice_test.dart: dialog save failure supports retry and continue without marking read
+00:00 +9: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/about_notice_test.dart: dialog save failure supports retry and continue without marking read
+00:00 +10: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/about_notice_test.dart: dialog save failure supports retry and continue without marking read
+00:00 +11: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/about_notice_test.dart: dialog save failure supports retry and continue without marking read
+00:00 +12: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/about_notice_test.dart: dialog save failure supports retry and continue without marking read
+00:01 +13: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/about_notice_test.dart: dialog save failure supports retry and continue without marking read
+00:01 +14: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/about_notice_test.dart: dialog save failure supports retry and continue without marking read
+00:01 +15: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/about_notice_test.dart: dialog save failure supports retry and continue without marking read
+00:01 +16: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/about_notice_test.dart: dialog save failure supports retry and continue without marking read
+00:01 +17: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/about_notice_test.dart: dialog save failure supports retry and continue without marking read
+00:01 +18: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/about_notice_test.dart: dialog save failure supports retry and continue without marking read
+00:01 +19: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/about_notice_test.dart: dialog save failure supports retry and continue without marking read
+00:01 +20: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/about_notice_test.dart: dialog save failure supports retry and continue without marking read
+00:01 +21: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/about_notice_test.dart: dialog save failure supports retry and continue without marking read
+00:01 +21: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/database_migration_test.dart: v2 migration failure rolls back new columns and keeps version
+error SqfliteFfiException(sqlite_error: 1, , SqliteException(1): while executing, table rest_alerts already exists, SQL logic error (code 1)
+  Causing statement (at position 21):         CREATE TABLE rest_alerts (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          session_id INTEGER NOT NULL REFERENCES workout_sessions(id) ON DELETE CASCADE,
+          exercise_id INTEGER NOT NULL REFERENCES session_exercises(id) ON DELETE CASCADE,
+          set_number INTEGER NOT NULL,
+          revision INTEGER NOT NULL DEFAULT 1,
+          due_at INTEGER NOT NULL,
+          state TEXT NOT NULL CHECK(state IN ('pending', 'consumed', 'cancelled', 'expired')),
+          title TEXT NOT NULL DEFAULT '',
+          body TEXT NOT NULL DEFAULT '',
+          consumed_at INTEGER
+        )
+      , parameters: }) DatabaseException(SqliteException(1): while executing, table rest_alerts already exists, SQL logic error (code 1)
+  Causing statement (at position 21):         CREATE TABLE rest_alerts (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          session_id INTEGER NOT NULL REFERENCES workout_sessions(id) ON DELETE CASCADE,
+          exercise_id INTEGER NOT NULL REFERENCES session_exercises(id) ON DELETE CASCADE,
+          set_number INTEGER NOT NULL,
+          revision INTEGER NOT NULL DEFAULT 1,
+          due_at INTEGER NOT NULL,
+          state TEXT NOT NULL CHECK(state IN ('pending', 'consumed', 'cancelled', 'expired')),
+          title TEXT NOT NULL DEFAULT '',
+          body TEXT NOT NULL DEFAULT '',
+          consumed_at INTEGER
+        )
+      , parameters: ) sql '        CREATE TABLE rest_alerts (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          session_id INTEGER NOT NULL REFERENCES workout_sessions(id) ON DELETE CASCADE,
+          exercise_id INTEGER NOT NULL REFERENCES session_exercises(id) ON DELETE CASCADE,
+          set_number INTEGER NOT NULL,
+          revision INTEGER NOT NULL DEFAULT 1,
+          due_at INTEGER NOT NULL,
+          state TEXT NOT NULL CHECK(state IN ('pending', 'consumed', 'cancelled', 'expired')),
+          title TEXT NOT NULL DEFAULT '',
+          body TEXT NOT NULL DEFAULT '',
+          consumed_at INTEGER
+        )
+      ' {details: {database: {path: C:\Users\Lance\AppData\Local\Temp\settrace_migration_17b96e1d\legacy.db, id: 28, readOnly: false, singleInstance: true}}} during open, closing...
+00:01 +22: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/about_notice_test.dart: dialog save failure supports retry and continue without marking read
+00:01 +22: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/database_migration_test.dart: failed migration rolls back version and added columns, retaining plans
+error SqfliteFfiException(sqlite_error: 1, , SqliteException(1): while executing, no such table: session_sets, SQL logic error (code 1)
+  Causing statement: ALTER TABLE session_sets ADD COLUMN completed_sequence INTEGER, parameters: }) DatabaseException(SqliteException(1): while executing, no such table: session_sets, SQL logic error (code 1)
+  Causing statement: ALTER TABLE session_sets ADD COLUMN completed_sequence INTEGER, parameters: ) sql 'ALTER TABLE session_sets ADD COLUMN completed_sequence INTEGER' {details: {database: {path: C:\Users\Lance\AppData\Local\Temp\settrace_migration_b0c7da8a\legacy.db, id: 31, readOnly: false, singleInstance: true}}} during open, closing...
+00:01 +23: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/about_notice_test.dart: dialog save failure supports retry and continue without marking read
+00:01 +24: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: P01 360.0 light en
+00:01 +25: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: P01 360.0 light en
+00:01 +26: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: P01 360.0 light en
+00:01 +27: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: P01 360.0 light en
+00:02 +28: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: P01 360.0 light en
+00:02 +29: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: P01 360.0 light en
+00:02 +30: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: naming retains invalid and failed input, submits once, allows duplicate
+00:02 +31: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: naming retains invalid and failed input, submits once, allows duplicate
+00:03 +32: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: naming retains invalid and failed input, submits once, allows duplicate
+00:03 +33: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: naming retains invalid and failed input, submits once, allows duplicate
+00:03 +34: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: naming retains invalid and failed input, submits once, allows duplicate
+00:03 +35: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: naming retains invalid and failed input, submits once, allows duplicate
+00:03 +36: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: naming retains invalid and failed input, submits once, allows duplicate
+00:03 +37: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: naming retains invalid and failed input, submits once, allows duplicate
+00:03 +38: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: naming retains invalid and failed input, submits once, allows duplicate
+00:03 +39: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: naming retains invalid and failed input, submits once, allows duplicate
+00:03 +40: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: naming retains invalid and failed input, submits once, allows duplicate
+00:03 +41: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: naming retains invalid and failed input, submits once, allows duplicate
+00:03 +42: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: naming retains invalid and failed input, submits once, allows duplicate
+00:03 +43: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/licenses_page_test.dart: all projects list retains its scroll offset after viewing a license
+00:03 +44: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/licenses_page_test.dart: all projects list retains its scroll offset after viewing a license
+00:04 +45: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/licenses_page_test.dart: all projects list retains its scroll offset after viewing a license
+00:04 +46: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/licenses_page_test.dart: all projects list retains its scroll offset after viewing a license
+00:04 +47: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/licenses_page_test.dart: all projects list retains its scroll offset after viewing a license
+00:04 +48: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/licenses_page_test.dart: all projects list retains its scroll offset after viewing a license
+00:04 +49: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/licenses_page_test.dart: all projects list retains its scroll offset after viewing a license
+00:04 +50: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: successful naming followed by failed refresh does not create again
+00:04 +51: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: successful naming followed by failed refresh does not create again
+00:04 +52: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: successful naming followed by failed refresh does not create again
+00:04 +53: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: successful naming followed by failed refresh does not create again
+00:04 +54: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: successful naming followed by failed refresh does not create again
+00:04 +55: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: successful naming followed by failed refresh does not create again
+00:04 +56: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: successful naming followed by failed refresh does not create again
+00:04 +57: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: W01 360.0 light en
+00:04 +58: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: W01 360.0 light en
+00:05 +59: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: W01 360.0 light en
+00:05 +60: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: W01 360.0 light en
+00:05 +61: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/history_delete_ui_test.dart: deleting selected historical month retains month and empty state
+00:05 +62: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: 100 sets at 360.0 keep primary reachable while scrolling
+00:05 +63: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: 100 sets at 360.0 keep primary reachable while scrolling
+00:05 +64: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: 100 sets at 360.0 keep primary reachable while scrolling
+00:05 +65: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: 100 sets at 360.0 keep primary reachable while scrolling
+00:05 +66: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: 100 sets at 360.0 keep primary reachable while scrolling
+00:05 +67: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: 100 sets at 360.0 keep primary reachable while scrolling
+00:05 +68: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: 100 sets at 360.0 keep primary reachable while scrolling
+00:05 +69: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: 100 sets at 360.0 keep primary reachable while scrolling
+00:05 +70: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: 100 sets at 360.0 keep primary reachable while scrolling
+00:05 +71: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: W03 360.0 light en
+00:05 +72: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: W03 360.0 light en
+00:05 +73: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: W03 360.0 light en
+00:05 +74: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/history_delete_ui_test.dart: delete failure preserves details and permits confirmed retry
+00:06 +75: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/history_delete_ui_test.dart: delete failure preserves details and permits confirmed retry
+00:06 +76: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/history_delete_ui_test.dart: delete failure preserves details and permits confirmed retry
+00:06 +77: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: 100 sets at 430.0 keep primary reachable while scrolling
+00:06 +78: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: 100 sets at 430.0 keep primary reachable while scrolling
+00:06 +79: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: 100 sets at 430.0 keep primary reachable while scrolling
+00:06 +80: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: 100 sets at 430.0 keep primary reachable while scrolling
+00:06 +81: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: W04 360.0 light en
+00:06 +82: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/history_delete_ui_test.dart: duplicate confirmation and back during write do not repeat or exit
+00:06 +83: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/history_delete_ui_test.dart: duplicate confirmation and back during write do not repeat or exit
+00:06 +84: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/licenses_page_test.dart: license navigation zh true 430.0 1.0
+00:06 +85: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/licenses_page_test.dart: license navigation zh true 430.0 1.0
+00:06 +86: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: default move and destructive dialogs preserve active snapshots
+00:07 +87: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: default move and destructive dialogs preserve active snapshots
+00:07 +88: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: default move and destructive dialogs preserve active snapshots
+00:07 +89: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: default move and destructive dialogs preserve active snapshots
+00:07 +90: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: default move and destructive dialogs preserve active snapshots
+00:07 +91: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: default move and destructive dialogs preserve active snapshots
+00:07 +92: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: default move and destructive dialogs preserve active snapshots
+00:07 +93: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: default move and destructive dialogs preserve active snapshots
+00:07 +94: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: default move and destructive dialogs preserve active snapshots
+00:07 +95: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: default move and destructive dialogs preserve active snapshots
+00:07 +96: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: default move and destructive dialogs preserve active snapshots
+00:07 +97: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: default move and destructive dialogs preserve active snapshots
+00:07 +98: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: default move and destructive dialogs preserve active snapshots
+00:07 +99: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: default move and destructive dialogs preserve active snapshots
+00:07 +100: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: default move and destructive dialogs preserve active snapshots
+00:07 +101: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: default move and destructive dialogs preserve active snapshots
+00:07 +102: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: default move and destructive dialogs preserve active snapshots
+00:07 +103: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: default move and destructive dialogs preserve active snapshots
+00:07 +104: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: default move and destructive dialogs preserve active snapshots
+00:07 +105: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: default move and destructive dialogs preserve active snapshots
+00:07 +106: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: default move and destructive dialogs preserve active snapshots
+00:07 +107: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: default move and destructive dialogs preserve active snapshots
+00:07 +108: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: default move and destructive dialogs preserve active snapshots
+00:08 +109: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: default move and destructive dialogs preserve active snapshots
+00:08 +110: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: default move and destructive dialogs preserve active snapshots
+00:08 +111: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: default move and destructive dialogs preserve active snapshots
+00:08 +112: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: default move and destructive dialogs preserve active snapshots
+00:08 +113: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: default move and destructive dialogs preserve active snapshots
+00:08 +114: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: default move and destructive dialogs preserve active snapshots
+00:08 +115: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: default move and destructive dialogs preserve active snapshots
+00:08 +116: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: default move and destructive dialogs preserve active snapshots
+00:08 +117: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: default move and destructive dialogs preserve active snapshots
+00:08 +118: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: default move and destructive dialogs preserve active snapshots
+00:08 +119: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: default move and destructive dialogs preserve active snapshots
+00:08 +120: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: default move and destructive dialogs preserve active snapshots
+00:08 +121: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: default move and destructive dialogs preserve active snapshots
+00:08 +122: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: default move and destructive dialogs preserve active snapshots
+00:08 +123: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: default move and destructive dialogs preserve active snapshots
+00:08 +124: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: default move and destructive dialogs preserve active snapshots
+00:09 +125: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: default move and destructive dialogs preserve active snapshots
+00:09 +126: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: default move and destructive dialogs preserve active snapshots
+00:09 +127: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: default move and destructive dialogs preserve active snapshots
+00:09 +128: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: default move and destructive dialogs preserve active snapshots
+00:09 +129: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: default move and destructive dialogs preserve active snapshots
+00:09 +130: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: default move and destructive dialogs preserve active snapshots
+00:09 +131: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: default move and destructive dialogs preserve active snapshots
+00:09 +132: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: default move and destructive dialogs preserve active snapshots
+00:09 +133: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: default move and destructive dialogs preserve active snapshots
+00:09 +134: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: default move and destructive dialogs preserve active snapshots
+00:09 +135: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: default move and destructive dialogs preserve active snapshots
+00:09 +136: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: default move and destructive dialogs preserve active snapshots
+00:09 +137: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: default move and destructive dialogs preserve active snapshots
+00:09 +138: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: default move and destructive dialogs preserve active snapshots
+00:09 +139: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: default move and destructive dialogs preserve active snapshots
+00:09 +140: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: default move and destructive dialogs preserve active snapshots
+00:09 +141: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: default move and destructive dialogs preserve active snapshots
+00:09 +142: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: default move and destructive dialogs preserve active snapshots
+00:09 +143: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: default move and destructive dialogs preserve active snapshots
+00:09 +144: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: default move and destructive dialogs preserve active snapshots
+00:09 +145: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: default move and destructive dialogs preserve active snapshots
+00:09 +146: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: default move and destructive dialogs preserve active snapshots
+00:09 +147: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: default move and destructive dialogs preserve active snapshots
+00:09 +148: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: default move and destructive dialogs preserve active snapshots
+00:09 +149: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: default move and destructive dialogs preserve active snapshots
+00:10 +150: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: default move and destructive dialogs preserve active snapshots
+00:10 +151: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: default move and destructive dialogs preserve active snapshots
+00:10 +152: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: default move and destructive dialogs preserve active snapshots
+00:10 +153: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: default move and destructive dialogs preserve active snapshots
+00:10 +154: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: default move and destructive dialogs preserve active snapshots
+00:10 +155: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: default move and destructive dialogs preserve active snapshots
+00:10 +156: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: default move and destructive dialogs preserve active snapshots
+00:10 +157: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: default move and destructive dialogs preserve active snapshots
+00:10 +158: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: default move and destructive dialogs preserve active snapshots
+00:10 +159: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: default move and destructive dialogs preserve active snapshots
+00:10 +160: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: default move and destructive dialogs preserve active snapshots
+00:11 +161: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: default move and destructive dialogs preserve active snapshots
+00:11 +162: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: default move and destructive dialogs preserve active snapshots
+00:11 +163: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_redesign_ui_test.dart: default move and destructive dialogs preserve active snapshots
+00:11 +164: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/localization_ui_test.dart: setting order, immediate switch, persistence and failure retry
+00:11 +165: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/localization_ui_test.dart: setting order, immediate switch, persistence and failure retry
+00:11 +166: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/localization_ui_test.dart: setting order, immediate switch, persistence and failure retry
+00:11 +167: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/localization_ui_test.dart: setting order, immediate switch, persistence and failure retry
+00:11 +168: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_repository_test.dart: valid compact input is not rejected for the size of a re-encoded export
+00:11 +169: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_repository_test.dart: valid compact input is not rejected for the size of a re-encoded export
+00:11 +170: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_repository_test.dart: valid compact input is not rejected for the size of a re-encoded export
+00:11 +171: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_repository_test.dart: valid compact input is not rejected for the size of a re-encoded export
+00:12 +172: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_repository_test.dart: valid compact input is not rejected for the size of a re-encoded export
+00:12 +173: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_repository_test.dart: valid compact input is not rejected for the size of a re-encoded export
+00:12 +174: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_repository_test.dart: valid compact input is not rejected for the size of a re-encoded export
+00:12 +175: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_repository_test.dart: valid compact input is not rejected for the size of a re-encoded export
+00:12 +176: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_repository_test.dart: valid compact input is not rejected for the size of a re-encoded export
+00:12 +177: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_repository_test.dart: valid compact input is not rejected for the size of a re-encoded export
+00:12 +178: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: home menu works with empty plans and never reads clipboard automatically
+00:12 +179: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: home menu works with empty plans and never reads clipboard automatically
+00:13 +180: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: home menu works with empty plans and never reads clipboard automatically
+00:13 +181: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: home menu works with empty plans and never reads clipboard automatically
+00:13 +182: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: home menu works with empty plans and never reads clipboard automatically
+00:13 +183: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: home menu works with empty plans and never reads clipboard automatically
+00:13 +184: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: home menu works with empty plans and never reads clipboard automatically
+00:13 +185: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: home menu works with empty plans and never reads clipboard automatically
+00:13 +186: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: home menu works with empty plans and never reads clipboard automatically
+00:14 +187: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: home menu works with empty plans and never reads clipboard automatically
+00:14 +188: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: home menu works with empty plans and never reads clipboard automatically
+00:14 +189: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: home menu works with empty plans and never reads clipboard automatically
+00:14 +190: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: zero-rest current B changes to C without extra completion or plan edits
+00:14 +191: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: zero-rest current B changes to C without extra completion or plan edits
+00:14 +192: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: zero-rest current B changes to C without extra completion or plan edits
+00:14 +193: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: zero-rest current B changes to C without extra completion or plan edits
+00:14 +194: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: zero-rest current B changes to C without extra completion or plan edits
+00:14 +195: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: zero-rest current B changes to C without extra completion or plan edits
+00:14 +196: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: zero-rest current B changes to C without extra completion or plan edits
+00:14 +197: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: zero-rest current B changes to C without extra completion or plan edits
+00:14 +198: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: zero-rest current B changes to C without extra completion or plan edits
+00:14 +199: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: zero-rest current B changes to C without extra completion or plan edits
+00:14 +200: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: zero-rest current B changes to C without extra completion or plan edits
+00:14 +201: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: zero-rest current B changes to C without extra completion or plan edits
+00:14 +202: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: zero-rest current B changes to C without extra completion or plan edits
+00:14 +203: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: zero-rest current B changes to C without extra completion or plan edits
+00:15 +204: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: zero-rest current B changes to C without extra completion or plan edits
+00:15 +205: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: zero-rest current B changes to C without extra completion or plan edits
+00:15 +206: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: zero-rest current B changes to C without extra completion or plan edits
+00:15 +207: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: zero-rest current B changes to C without extra completion or plan edits
+00:15 +208: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: selection, both channels, errors and busy duplicate prevention
+00:15 +209: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: selection, both channels, errors and busy duplicate prevention
+00:16 +210: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: selection, both channels, errors and busy duplicate prevention
+00:16 +211: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: selection, both channels, errors and busy duplicate prevention
+00:16 +212: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: selection, both channels, errors and busy duplicate prevention
+00:16 +213: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: selection, both channels, errors and busy duplicate prevention
+00:16 +214: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: selection, both channels, errors and busy duplicate prevention
+00:16 +215: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: selection, both channels, errors and busy duplicate prevention
+00:16 +216: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: selection, both channels, errors and busy duplicate prevention
+00:16 +217: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: selection, both channels, errors and busy duplicate prevention
+00:16 +218: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: selection, both channels, errors and busy duplicate prevention
+00:16 +219: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: selection, both channels, errors and busy duplicate prevention
+00:16 +220: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/localization_ui_test.dart: long text 360.0 dp dark=false at 1.6 scale
+00:16 +221: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/localization_ui_test.dart: long text 360.0 dp dark=false at 1.6 scale
+00:16 +222: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: rest-page chooser preserves deadline and next-group label
+00:17 +223: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: rest-page chooser preserves deadline and next-group label
+00:17 +224: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: rest-page chooser preserves deadline and next-group label
+00:17 +225: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:17 +226: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:18 +227: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:18 +228: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:18 +229: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:18 +230: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:19 +231: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:19 +232: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:19 +233: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:19 +234: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:19 +235: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:19 +236: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:19 +237: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:19 +238: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:19 +239: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:19 +240: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:19 +241: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:20 +242: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:20 +243: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:20 +244: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:20 +245: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:20 +246: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:20 +247: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:20 +248: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:20 +249: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:20 +250: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:20 +251: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:20 +252: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:21 +253: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:21 +254: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:21 +255: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:21 +256: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:21 +257: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:21 +258: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:21 +259: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:21 +260: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:21 +261: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:21 +262: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:21 +263: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:21 +264: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:21 +265: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:21 +266: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:21 +267: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:21 +268: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:21 +269: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:21 +270: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:22 +271: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:22 +272: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:22 +273: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:22 +274: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:22 +275: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:22 +276: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:22 +277: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:22 +278: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:22 +279: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:22 +280: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:22 +281: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:22 +282: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:22 +283: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: full drag cancellation leaves persisted queue unchanged
+00:22 +284: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: full drag cancellation leaves persisted queue unchanged
+00:22 +285: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: full drag cancellation leaves persisted queue unchanged
+00:22 +286: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: full drag cancellation leaves persisted queue unchanged
+00:22 +287: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: full drag cancellation leaves persisted queue unchanged
+00:22 +288: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: full drag cancellation leaves persisted queue unchanged
+00:22 +289: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_ui_test.dart: readable export and preview at 360.0, dark=false, 1.3 font scale
+00:22 +290: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: stale confirmation cannot skip newly advanced state
+00:23 +291: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: stale confirmation cannot skip newly advanced state
+00:23 +292: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: stale confirmation cannot skip newly advanced state
+00:23 +293: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: stale confirmation cannot skip newly advanced state
+00:23 +294: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: stale confirmation cannot skip newly advanced state
+00:23 +295: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: stale confirmation cannot skip newly advanced state
+00:23 +296: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: stale confirmation cannot skip newly advanced state
+00:23 +297: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: stale confirmation cannot skip newly advanced state
+00:23 +298: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: stale confirmation cannot skip newly advanced state
+00:23 +299: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: stale confirmation cannot skip newly advanced state
+00:23 +300: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: stale confirmation cannot skip newly advanced state
+00:23 +301: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: stale confirmation cannot skip newly advanced state
+00:23 +302: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: stale confirmation cannot skip newly advanced state
+00:23 +303: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: stale confirmation cannot skip newly advanced state
+00:23 +304: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: stale confirmation cannot skip newly advanced state
+00:23 +305: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: stale confirmation cannot skip newly advanced state
+00:23 +306: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: stale confirmation cannot skip newly advanced state
+00:23 +307: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: stale confirmation cannot skip newly advanced state
+00:24 +308: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: stale confirmation cannot skip newly advanced state
+00:24 +309: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: stale confirmation cannot skip newly advanced state
+00:24 +310: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: stale confirmation cannot skip newly advanced state
+00:24 +311: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: stale confirmation cannot skip newly advanced state
+00:24 +312: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: stale confirmation cannot skip newly advanced state
+00:24 +313: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: stale confirmation cannot skip newly advanced state
+00:24 +314: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: full drag save persists only candidate order
+00:24 +315: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: full drag save persists only candidate order
+00:24 +316: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: full drag save persists only candidate order
+00:24 +317: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: full drag save persists only candidate order
+00:24 +318: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: full drag save persists only candidate order
+00:24 +319: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: full drag save persists only candidate order
+00:24 +320: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: full drag save persists only candidate order
+00:24 +321: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: full drag save persists only candidate order
+00:24 +322: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: full drag save persists only candidate order
+00:24 +323: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: full drag save persists only candidate order
+00:24 +324: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: full drag save persists only candidate order
+00:24 +325: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: full drag save persists only candidate order
+00:24 +326: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: last action finishes at 50 percent and history distinguishes skipped
+00:25 +327: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: last action finishes at 50 percent and history distinguishes skipped
+00:25 +328: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: last action finishes at 50 percent and history distinguishes skipped
+00:25 +329: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: last action finishes at 50 percent and history distinguishes skipped
+00:25 +330: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: last action finishes at 50 percent and history distinguishes skipped
+00:25 +331: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: last action finishes at 50 percent and history distinguishes skipped
+00:25 +332: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: last action finishes at 50 percent and history distinguishes skipped
+00:25 +333: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: last action finishes at 50 percent and history distinguishes skipped
+00:25 +334: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: last action finishes at 50 percent and history distinguishes skipped
+00:25 +335: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: last action finishes at 50 percent and history distinguishes skipped
+00:25 +336: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: last action finishes at 50 percent and history distinguishes skipped
+00:25 +337: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: last action finishes at 50 percent and history distinguishes skipped
+00:25 +338: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: last action finishes at 50 percent and history distinguishes skipped
+00:25 +339: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: last action finishes at 50 percent and history distinguishes skipped
+00:25 +340: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: last action finishes at 50 percent and history distinguishes skipped
+00:25 +341: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: last action finishes at 50 percent and history distinguishes skipped
+00:25 +342: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: last action finishes at 50 percent and history distinguishes skipped
+00:25 +343: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: last action finishes at 50 percent and history distinguishes skipped
+00:26 +344: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: last action finishes at 50 percent and history distinguishes skipped
+00:26 +345: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: last action finishes at 50 percent and history distinguishes skipped
+00:26 +346: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: last action finishes at 50 percent and history distinguishes skipped
+00:26 +347: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: last action finishes at 50 percent and history distinguishes skipped
+00:26 +348: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: last action finishes at 50 percent and history distinguishes skipped
+00:26 +349: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: last action finishes at 50 percent and history distinguishes skipped
+00:26 +350: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: last action finishes at 50 percent and history distinguishes skipped
+00:26 +351: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: last action finishes at 50 percent and history distinguishes skipped
+00:26 +352: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: last action finishes at 50 percent and history distinguishes skipped
+00:26 +353: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: last action finishes at 50 percent and history distinguishes skipped
+00:26 +354: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: last action finishes at 50 percent and history distinguishes skipped
+00:26 +355: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: last action finishes at 50 percent and history distinguishes skipped
+00:26 +356: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: last action finishes at 50 percent and history distinguishes skipped
+00:26 +357: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: last action finishes at 50 percent and history distinguishes skipped
+00:26 +358: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: last action finishes at 50 percent and history distinguishes skipped
+00:26 +359: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: last action finishes at 50 percent and history distinguishes skipped
+00:26 +360: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: last action finishes at 50 percent and history distinguishes skipped
+00:27 +361: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: last action finishes at 50 percent and history distinguishes skipped
+00:27 +362: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: last action finishes at 50 percent and history distinguishes skipped
+00:27 +363: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: last action finishes at 50 percent and history distinguishes skipped
+00:27 +364: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: last action finishes at 50 percent and history distinguishes skipped
+00:27 +365: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: last action finishes at 50 percent and history distinguishes skipped
+00:27 +366: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: last action finishes at 50 percent and history distinguishes skipped
+00:27 +367: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: last action finishes at 50 percent and history distinguishes skipped
+00:27 +368: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: last action finishes at 50 percent and history distinguishes skipped
+00:27 +369: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: S04 360.0 light zh
+00:27 +370: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: S04 360.0 light zh
+00:27 +371: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/theme_color_scenes_test.dart: ThemeColorPreset.blue Brightness.dark C04 shared theme
+00:27 +372: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/theme_color_scenes_test.dart: ThemeColorPreset.blue Brightness.dark C04 shared theme
+00:27 +373: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: save failure retry and double taps submit once
+00:27 +374: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: save failure retry and double taps submit once
+00:27 +375: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: save failure retry and double taps submit once
+00:27 +376: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: save failure retry and double taps submit once
+00:27 +377: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: save failure retry and double taps submit once
+00:27 +378: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: save failure retry and double taps submit once
+00:27 +379: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: save failure retry and double taps submit once
+00:27 +380: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: save failure retry and double taps submit once
+00:27 +381: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: save failure retry and double taps submit once
+00:27 +382: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: save failure retry and double taps submit once
+00:27 +383: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: save failure retry and double taps submit once
+00:27 +384: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: save failure retry and double taps submit once
+00:28 +385: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: save failure retry and double taps submit once
+00:28 +386: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: save failure retry and double taps submit once
+00:28 +387: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: save failure retry and double taps submit once
+00:28 +388: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: save failure retry and double taps submit once
+00:28 +389: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: save failure retry and double taps submit once
+00:28 +390: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: save failure retry and double taps submit once
+00:28 +391: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: save failure retry and double taps submit once
+00:28 +392: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: save failure retry and double taps submit once
+00:28 +393: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: save failure retry and double taps submit once
+00:28 +394: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: save failure retry and double taps submit once
+00:28 +395: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: save failure retry and double taps submit once
+00:28 +396: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: save failure retry and double taps submit once
+00:28 +397: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: save failure retry and double taps submit once
+00:28 +398: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: save failure retry and double taps submit once
+00:28 +399: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: save failure retry and double taps submit once
+00:28 +400: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: save failure retry and double taps submit once
+00:28 +401: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: save failure retry and double taps submit once
+00:28 +402: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: save failure retry and double taps submit once
+00:28 +403: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: save failure retry and double taps submit once
+00:29 +404: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: save failure retry and double taps submit once
+00:29 +405: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: save failure retry and double taps submit once
+00:29 +406: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: save failure retry and double taps submit once
+00:29 +407: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: save failure retry and double taps submit once
+00:29 +408: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: save failure retry and double taps submit once
+00:29 +409: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: save failure retry and double taps submit once
+00:29 +410: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: save failure retry and double taps submit once
+00:29 +411: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: save failure retry and double taps submit once
+00:29 +412: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: save failure retry and double taps submit once
+00:29 +413: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: save failure retry and double taps submit once
+00:29 +414: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: save failure retry and double taps submit once
+00:29 +415: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: save failure retry and double taps submit once
+00:29 +416: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: save failure retry and double taps submit once
+00:29 +417: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: save failure retry and double taps submit once
+00:29 +418: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: notification navigation reuses latest page and rejects ended target
+00:29 +419: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: notification navigation reuses latest page and rejects ended target
+00:29 +420: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/theme_color_ui_test.dart: root preview, navigation, rest and modal drafts survive failure/retry
+00:29 +421: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/theme_color_ui_test.dart: root preview, navigation, rest and modal drafts survive failure/retry
+00:29 +422: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/theme_color_ui_test.dart: root preview, navigation, rest and modal drafts survive failure/retry
+00:30 +423: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/theme_color_ui_test.dart: root preview, navigation, rest and modal drafts survive failure/retry
+00:30 +424: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/theme_color_ui_test.dart: root preview, navigation, rest and modal drafts survive failure/retry
+00:30 +425: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/theme_color_ui_test.dart: root preview, navigation, rest and modal drafts survive failure/retry
+00:30 +426: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/theme_color_ui_test.dart: root preview, navigation, rest and modal drafts survive failure/retry
+00:30 +427: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/theme_color_ui_test.dart: root preview, navigation, rest and modal drafts survive failure/retry
+00:30 +428: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/theme_color_ui_test.dart: root preview, navigation, rest and modal drafts survive failure/retry
+00:31 +429: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/theme_color_ui_test.dart: root preview, navigation, rest and modal drafts survive failure/retry
+00:31 +430: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/theme_color_ui_test.dart: root preview, navigation, rest and modal drafts survive failure/retry
+00:31 +431: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/theme_color_ui_test.dart: root preview, navigation, rest and modal drafts survive failure/retry
+00:31 +432: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/theme_color_ui_test.dart: root preview, navigation, rest and modal drafts survive failure/retry
+00:31 +433: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/theme_color_ui_test.dart: root preview, navigation, rest and modal drafts survive failure/retry
+00:31 +434: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/theme_color_ui_test.dart: root preview, navigation, rest and modal drafts survive failure/retry
+00:32 +435: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/theme_color_ui_test.dart: root preview, navigation, rest and modal drafts survive failure/retry
+00:32 +436: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/theme_color_ui_test.dart: root preview, navigation, rest and modal drafts survive failure/retry
+00:32 +437: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/theme_color_ui_test.dart: root preview, navigation, rest and modal drafts survive failure/retry
+00:32 +438: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/theme_color_ui_test.dart: root preview, navigation, rest and modal drafts survive failure/retry
+00:32 +439: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/theme_color_ui_test.dart: root preview, navigation, rest and modal drafts survive failure/retry
+00:32 +440: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/theme_color_ui_test.dart: root preview, navigation, rest and modal drafts survive failure/retry
+00:32 +441: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/theme_color_ui_test.dart: root preview, navigation, rest and modal drafts survive failure/retry
+00:33 +442: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/theme_color_ui_test.dart: root preview, navigation, rest and modal drafts survive failure/retry
+00:33 +443: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/theme_color_ui_test.dart: root preview, navigation, rest and modal drafts survive failure/retry
+00:33 +444: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/theme_color_ui_test.dart: root preview, navigation, rest and modal drafts survive failure/retry
+00:33 +445: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/theme_color_ui_test.dart: root preview, navigation, rest and modal drafts survive failure/retry
+00:33 +446: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/theme_color_ui_test.dart: root preview, navigation, rest and modal drafts survive failure/retry
+00:33 +447: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/theme_color_ui_test.dart: root preview, navigation, rest and modal drafts survive failure/retry
+00:33 +448: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: double taps create one confirmation and one skip batch
+00:33 +449: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: double taps create one confirmation and one skip batch
+00:34 +450: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: double taps create one confirmation and one skip batch
+00:34 +451: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: double taps create one confirmation and one skip batch
+00:34 +452: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: double taps create one confirmation and one skip batch
+00:34 +453: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: double taps create one confirmation and one skip batch
+00:34 +454: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: double taps create one confirmation and one skip batch
+00:34 +455: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D09 360.0 light zh
+00:34 +456: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D09 360.0 light zh
+00:34 +457: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: 360.0dp scaled sorting stays readable in dark=false
+00:34 +458: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: 360.0dp scaled sorting stays readable in dark=false
+00:34 +459: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: 360.0dp scaled sorting stays readable in dark=false
+00:34 +460: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: 360.0dp scaled sorting stays readable in dark=false
+00:35 +461: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: 360.0dp scaled sorting stays readable in dark=false
+00:35 +462: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: 360.0dp scaled sorting stays readable in dark=false
+00:35 +463: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: 360 dp scaled dark skip dialog is usable in en
+00:35 +464: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: 360 dp scaled dark skip dialog is usable in en
+00:35 +465: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: 360 dp scaled dark skip dialog is usable in en
+00:35 +466: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: 360.0dp scaled sorting stays readable in dark=true
+00:35 +467: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: 360.0dp scaled sorting stays readable in dark=true
+00:35 +468: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: 360.0dp scaled sorting stays readable in dark=true
+00:35 +469: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: 360.0dp scaled sorting stays readable in dark=true
+00:36 +470: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: 360.0dp scaled sorting stays readable in dark=true
+00:36 +471: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: 360.0dp scaled sorting stays readable in dark=true
+00:36 +472: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: 360.0dp scaled sorting stays readable in dark=true
+00:36 +473: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: 360.0dp scaled sorting stays readable in dark=true
+00:36 +474: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: 360 dp scaled dark skip dialog is usable in zh
+00:36 +475: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: 360 dp scaled dark skip dialog is usable in zh
+00:36 +476: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: P04 360.0 dark en
+00:36 +477: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: 430.0dp scaled sorting stays readable in dark=false
+00:36 +478: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: 430.0dp scaled sorting stays readable in dark=false
+00:36 +479: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: 430.0dp scaled sorting stays readable in dark=false
+00:36 +480: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: 430.0dp scaled sorting stays readable in dark=false
+00:36 +481: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: 430.0dp scaled sorting stays readable in dark=false
+00:37 +482: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: 430.0dp scaled sorting stays readable in dark=false
+00:37 +483: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: 430.0dp scaled sorting stays readable in dark=false
+00:37 +484: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: 430.0dp scaled sorting stays readable in dark=false
+00:37 +485: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: long translated skip copy is readable at 360 dp and 1.6 scale
+00:37 +486: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: long translated skip copy is readable at 360 dp and 1.6 scale
+00:37 +487: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: long translated skip copy is readable at 360 dp and 1.6 scale
+00:37 +488: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: 430.0dp scaled sorting stays readable in dark=true
+00:37 +489: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: 430.0dp scaled sorting stays readable in dark=true
+00:37 +490: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: 430.0dp scaled sorting stays readable in dark=true
+00:38 +491: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: 430.0dp scaled sorting stays readable in dark=true
+00:38 +492: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: 430.0dp scaled sorting stays readable in dark=true
+00:38 +493: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: 430.0dp scaled sorting stays readable in dark=true
+00:38 +494: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: 430.0dp scaled sorting stays readable in dark=true
+00:38 +495: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: 430.0dp scaled sorting stays readable in dark=true
+00:38 +496: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: S01 360.0 dark en
+00:38 +497: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: S01 360.0 dark en
+00:38 +498: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: non-drag move preserves locked slots and only this session
+00:38 +499: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: non-drag move preserves locked slots and only this session
+00:38 +500: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: non-drag move preserves locked slots and only this session
+00:39 +501: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: non-drag move preserves locked slots and only this session
+00:39 +502: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: non-drag move preserves locked slots and only this session
+00:39 +503: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: non-drag move preserves locked slots and only this session
+00:39 +504: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: non-drag move preserves locked slots and only this session
+00:39 +505: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_exercise_reordering_test.dart: non-drag move preserves locked slots and only this session
+00:39 +506: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: X03 360.0 dark en
+00:39 +507: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: X04 360.0 dark en
+00:40 +508: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: H01 360.0 dark en
+00:40 +509: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: H02 360.0 dark en
+00:40 +510: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: H03 360.0 dark en
+00:40 +511: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: H04 360.0 dark en
+00:41 +512: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: H05 360.0 dark en
+00:41 +513: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: C01 360.0 dark en
+00:41 +514: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: C02 360.0 dark en
+00:41 +515: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: C04 360.0 dark en
+00:41 +516: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D01 360.0 dark en
+00:42 +517: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D02 360.0 dark en
+00:42 +518: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D03 360.0 dark en
+00:42 +519: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D04 360.0 dark en
+00:43 +520: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D05 360.0 dark en
+00:43 +521: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D06 360.0 dark en
+00:43 +522: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D07 360.0 dark en
+00:44 +523: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D08 360.0 dark en
+00:44 +524: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D09 360.0 dark en
+00:44 +525: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D10 360.0 dark en
+00:44 +526: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D12 360.0 dark en
+00:45 +527: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D13 360.0 dark en
+00:45 +528: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D14 360.0 dark en
+00:45 +529: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: P01 360.0 dark zh
+00:45 +530: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: P02 360.0 dark zh
+00:46 +531: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: P03 360.0 dark zh
+00:46 +532: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: P04 360.0 dark zh
+00:46 +533: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: P05 360.0 dark zh
+00:46 +534: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: P06 360.0 dark zh
+00:46 +535: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: W01 360.0 dark zh
+00:46 +536: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: W02 360.0 dark zh
+00:47 +537: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: W03 360.0 dark zh
+00:47 +538: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: W04 360.0 dark zh
+00:47 +539: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: W05 360.0 dark zh
+00:47 +540: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: W06 360.0 dark zh
+00:47 +541: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: S01 360.0 dark zh
+00:48 +542: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: S02 360.0 dark zh
+00:48 +543: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: S03 360.0 dark zh
+00:48 +544: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: S04 360.0 dark zh
+00:48 +545: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: X01 360.0 dark zh
+00:48 +546: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: X02 360.0 dark zh
+00:48 +547: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: X03 360.0 dark zh
+00:49 +548: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: X04 360.0 dark zh
+00:49 +549: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: H01 360.0 dark zh
+00:49 +550: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: H02 360.0 dark zh
+00:49 +551: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: H03 360.0 dark zh
+00:50 +552: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: H04 360.0 dark zh
+00:50 +553: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: H05 360.0 dark zh
+00:50 +554: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: C01 360.0 dark zh
+00:50 +555: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: C02 360.0 dark zh
+00:50 +556: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: C04 360.0 dark zh
+00:51 +557: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D01 360.0 dark zh
+00:51 +558: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D02 360.0 dark zh
+00:51 +559: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D03 360.0 dark zh
+00:52 +560: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D04 360.0 dark zh
+00:52 +561: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D05 360.0 dark zh
+00:52 +562: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D06 360.0 dark zh
+00:53 +563: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D07 360.0 dark zh
+00:53 +564: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D08 360.0 dark zh
+00:53 +565: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D09 360.0 dark zh
+00:53 +566: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D10 360.0 dark zh
+00:54 +567: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D12 360.0 dark zh
+00:54 +568: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D13 360.0 dark zh
+00:54 +569: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D14 360.0 dark zh
+00:54 +570: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: P01 430.0 light en
+00:55 +571: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: P02 430.0 light en
+00:55 +572: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: P03 430.0 light en
+00:55 +573: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: P04 430.0 light en
+00:55 +574: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: P05 430.0 light en
+00:55 +575: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: P06 430.0 light en
+00:55 +576: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: W01 430.0 light en
+00:56 +577: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: W02 430.0 light en
+00:56 +578: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: W03 430.0 light en
+00:56 +579: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: W04 430.0 light en
+00:56 +580: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: W05 430.0 light en
+00:56 +581: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: W06 430.0 light en
+00:57 +582: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: S01 430.0 light en
+00:57 +583: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: S02 430.0 light en
+00:57 +584: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: S03 430.0 light en
+00:57 +585: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: S04 430.0 light en
+00:57 +586: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: X01 430.0 light en
+00:57 +587: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: X02 430.0 light en
+00:58 +588: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: X03 430.0 light en
+00:58 +589: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: X04 430.0 light en
+00:58 +590: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: H01 430.0 light en
+00:58 +591: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: H02 430.0 light en
+00:59 +592: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: H03 430.0 light en
+00:59 +593: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: H04 430.0 light en
+00:59 +594: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: H05 430.0 light en
+00:59 +595: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: C01 430.0 light en
+00:59 +596: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: C02 430.0 light en
+01:00 +597: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: C04 430.0 light en
+01:00 +598: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D01 430.0 light en
+01:00 +599: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D02 430.0 light en
+01:00 +600: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D03 430.0 light en
+01:01 +601: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D04 430.0 light en
+01:01 +602: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D05 430.0 light en
+01:01 +603: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D06 430.0 light en
+01:02 +604: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D07 430.0 light en
+01:02 +605: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D08 430.0 light en
+01:02 +606: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D09 430.0 light en
+01:02 +607: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D10 430.0 light en
+01:03 +608: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D12 430.0 light en
+01:03 +609: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D13 430.0 light en
+01:03 +610: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D14 430.0 light en
+01:04 +611: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: P01 430.0 light zh
+01:04 +612: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: P02 430.0 light zh
+01:04 +613: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: P03 430.0 light zh
+01:04 +614: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: P04 430.0 light zh
+01:04 +615: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: P05 430.0 light zh
+01:04 +616: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: P06 430.0 light zh
+01:04 +617: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: W01 430.0 light zh
+01:05 +618: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: W02 430.0 light zh
+01:05 +619: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: W03 430.0 light zh
+01:05 +620: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: W04 430.0 light zh
+01:05 +621: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: W05 430.0 light zh
+01:05 +622: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: W06 430.0 light zh
+01:06 +623: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: S01 430.0 light zh
+01:06 +624: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: S02 430.0 light zh
+01:06 +625: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: S03 430.0 light zh
+01:06 +626: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: S04 430.0 light zh
+01:06 +627: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: X01 430.0 light zh
+01:06 +628: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: X02 430.0 light zh
+01:07 +629: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: X03 430.0 light zh
+01:07 +630: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: X04 430.0 light zh
+01:07 +631: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: H01 430.0 light zh
+01:07 +632: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: H02 430.0 light zh
+01:08 +633: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: H03 430.0 light zh
+01:08 +634: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: H04 430.0 light zh
+01:08 +635: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: H05 430.0 light zh
+01:08 +636: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: C01 430.0 light zh
+01:08 +637: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: C02 430.0 light zh
+01:08 +638: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: C04 430.0 light zh
+01:09 +639: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D01 430.0 light zh
+01:09 +640: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D02 430.0 light zh
+01:09 +641: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D03 430.0 light zh
+01:10 +642: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D04 430.0 light zh
+01:10 +643: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D05 430.0 light zh
+01:10 +644: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D06 430.0 light zh
+01:11 +645: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D07 430.0 light zh
+01:11 +646: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D08 430.0 light zh
+01:11 +647: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D09 430.0 light zh
+01:11 +648: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D10 430.0 light zh
+01:12 +649: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D12 430.0 light zh
+01:12 +650: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D13 430.0 light zh
+01:12 +651: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D14 430.0 light zh
+01:12 +652: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: P01 430.0 dark en
+01:13 +653: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: P02 430.0 dark en
+01:13 +654: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: P03 430.0 dark en
+01:13 +655: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: P04 430.0 dark en
+01:13 +656: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: P05 430.0 dark en
+01:13 +657: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: P06 430.0 dark en
+01:13 +658: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: W01 430.0 dark en
+01:13 +659: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: W02 430.0 dark en
+01:14 +660: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: W03 430.0 dark en
+01:14 +661: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: W04 430.0 dark en
+01:14 +662: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: W05 430.0 dark en
+01:14 +663: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: W06 430.0 dark en
+01:14 +664: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: S01 430.0 dark en
+01:15 +665: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: S02 430.0 dark en
+01:15 +666: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: S03 430.0 dark en
+01:15 +667: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: S04 430.0 dark en
+01:15 +668: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: X01 430.0 dark en
+01:15 +669: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: X02 430.0 dark en
+01:16 +670: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: X03 430.0 dark en
+01:16 +671: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: X04 430.0 dark en
+01:16 +672: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: H01 430.0 dark en
+01:16 +673: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: H02 430.0 dark en
+01:17 +674: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: H03 430.0 dark en
+01:17 +675: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: H04 430.0 dark en
+01:17 +676: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: H05 430.0 dark en
+01:17 +677: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: C01 430.0 dark en
+01:17 +678: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: C02 430.0 dark en
+01:17 +679: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: C04 430.0 dark en
+01:18 +680: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D01 430.0 dark en
+01:18 +681: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D02 430.0 dark en
+01:18 +682: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D03 430.0 dark en
+01:19 +683: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D04 430.0 dark en
+01:19 +684: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D05 430.0 dark en
+01:19 +685: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D06 430.0 dark en
+01:19 +686: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D07 430.0 dark en
+01:20 +687: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D08 430.0 dark en
+01:20 +688: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D09 430.0 dark en
+01:20 +689: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D10 430.0 dark en
+01:21 +690: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D12 430.0 dark en
+01:21 +691: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D13 430.0 dark en
+01:21 +692: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D14 430.0 dark en
+01:21 +693: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: P01 430.0 dark zh
+01:22 +694: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: P02 430.0 dark zh
+01:22 +695: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: P03 430.0 dark zh
+01:22 +696: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: P04 430.0 dark zh
+01:22 +697: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: P05 430.0 dark zh
+01:22 +698: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: P06 430.0 dark zh
+01:22 +699: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: W01 430.0 dark zh
+01:22 +700: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: W02 430.0 dark zh
+01:23 +701: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: W03 430.0 dark zh
+01:23 +702: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: W04 430.0 dark zh
+01:23 +703: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: W05 430.0 dark zh
+01:23 +704: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: W06 430.0 dark zh
+01:23 +705: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: S01 430.0 dark zh
+01:24 +706: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: S02 430.0 dark zh
+01:24 +707: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: S03 430.0 dark zh
+01:24 +708: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: S04 430.0 dark zh
+01:24 +709: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: X01 430.0 dark zh
+01:24 +710: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: X02 430.0 dark zh
+01:24 +711: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: X03 430.0 dark zh
+01:25 +712: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: X04 430.0 dark zh
+01:25 +713: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: H01 430.0 dark zh
+01:25 +714: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: H02 430.0 dark zh
+01:25 +715: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: H03 430.0 dark zh
+01:26 +716: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: H04 430.0 dark zh
+01:26 +717: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: H05 430.0 dark zh
+01:26 +718: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: C01 430.0 dark zh
+01:26 +719: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: C02 430.0 dark zh
+01:26 +720: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: C04 430.0 dark zh
+01:26 +721: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D01 430.0 dark zh
+01:27 +722: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D02 430.0 dark zh
+01:27 +723: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D03 430.0 dark zh
+01:27 +724: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D04 430.0 dark zh
+01:28 +725: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D05 430.0 dark zh
+01:28 +726: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D06 430.0 dark zh
+01:28 +727: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D07 430.0 dark zh
+01:29 +728: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D08 430.0 dark zh
+01:29 +729: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D09 430.0 dark zh
+01:29 +730: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D10 430.0 dark zh
+01:29 +731: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D12 430.0 dark zh
+01:30 +732: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D13 430.0 dark zh
+01:30 +733: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D14 430.0 dark zh
+01:30 +734: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: P02 adaptation 360.0x640.0 1.3 reduced motion
+01:30 +735: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: P03 adaptation 360.0x640.0 1.3 reduced motion
+01:31 +736: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: P04 adaptation 360.0x640.0 1.3 reduced motion
+01:31 +737: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: W01 adaptation 360.0x640.0 1.3 reduced motion
+01:31 +738: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: W03 adaptation 360.0x640.0 1.3 reduced motion
+01:31 +739: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: W06 adaptation 360.0x640.0 1.3 reduced motion
+01:31 +740: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: S01 adaptation 360.0x640.0 1.3 reduced motion
+01:32 +741: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: S02 adaptation 360.0x640.0 1.3 reduced motion
+01:32 +742: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: S03 adaptation 360.0x640.0 1.3 reduced motion
+01:32 +743: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: S04 adaptation 360.0x640.0 1.3 reduced motion
+01:32 +744: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: X01 adaptation 360.0x640.0 1.3 reduced motion
+01:32 +745: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: X02 adaptation 360.0x640.0 1.3 reduced motion
+01:32 +746: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: X03 adaptation 360.0x640.0 1.3 reduced motion
+01:33 +747: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: X04 adaptation 360.0x640.0 1.3 reduced motion
+01:33 +748: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: H01 adaptation 360.0x640.0 1.3 reduced motion
+01:33 +749: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: H02 adaptation 360.0x640.0 1.3 reduced motion
+01:33 +750: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: C01 adaptation 360.0x640.0 1.3 reduced motion
+01:33 +751: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: C02 adaptation 360.0x640.0 1.3 reduced motion
+01:34 +752: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: C04 adaptation 360.0x640.0 1.3 reduced motion
+01:34 +753: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D01 adaptation 360.0x640.0 1.3 reduced motion
+01:34 +754: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D03 adaptation 360.0x640.0 1.3 reduced motion
+01:34 +755: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D05 adaptation 360.0x640.0 1.3 reduced motion
+01:35 +756: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D06 adaptation 360.0x640.0 1.3 reduced motion
+01:35 +757: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D08 adaptation 360.0x640.0 1.3 reduced motion
+01:35 +758: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D09 adaptation 360.0x640.0 1.3 reduced motion
+01:36 +759: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D10 adaptation 360.0x640.0 1.3 reduced motion
+01:36 +760: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D13 adaptation 360.0x640.0 1.3 reduced motion
+01:36 +761: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D14 adaptation 360.0x640.0 1.3 reduced motion
+01:36 +762: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: P02 adaptation 360.0x640.0 1.6 reduced motion
+01:36 +763: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: P03 adaptation 360.0x640.0 1.6 reduced motion
+01:37 +764: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: P04 adaptation 360.0x640.0 1.6 reduced motion
+01:37 +765: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: W01 adaptation 360.0x640.0 1.6 reduced motion
+01:37 +766: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: W03 adaptation 360.0x640.0 1.6 reduced motion
+01:37 +767: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: W06 adaptation 360.0x640.0 1.6 reduced motion
+01:37 +768: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: S01 adaptation 360.0x640.0 1.6 reduced motion
+01:38 +769: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: S02 adaptation 360.0x640.0 1.6 reduced motion
+01:38 +770: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: S03 adaptation 360.0x640.0 1.6 reduced motion
+01:38 +771: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: S04 adaptation 360.0x640.0 1.6 reduced motion
+01:38 +772: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: X01 adaptation 360.0x640.0 1.6 reduced motion
+01:38 +773: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: X02 adaptation 360.0x640.0 1.6 reduced motion
+01:38 +774: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: X03 adaptation 360.0x640.0 1.6 reduced motion
+01:39 +775: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: X04 adaptation 360.0x640.0 1.6 reduced motion
+01:39 +776: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: H01 adaptation 360.0x640.0 1.6 reduced motion
+01:39 +777: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: H02 adaptation 360.0x640.0 1.6 reduced motion
+01:39 +778: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: C01 adaptation 360.0x640.0 1.6 reduced motion
+01:39 +779: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: C02 adaptation 360.0x640.0 1.6 reduced motion
+01:39 +780: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: C04 adaptation 360.0x640.0 1.6 reduced motion
+01:40 +781: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D01 adaptation 360.0x640.0 1.6 reduced motion
+01:40 +782: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D03 adaptation 360.0x640.0 1.6 reduced motion
+01:40 +783: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D05 adaptation 360.0x640.0 1.6 reduced motion
+01:40 +784: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D06 adaptation 360.0x640.0 1.6 reduced motion
+01:41 +785: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D08 adaptation 360.0x640.0 1.6 reduced motion
+01:41 +786: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D09 adaptation 360.0x640.0 1.6 reduced motion
+01:41 +787: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D10 adaptation 360.0x640.0 1.6 reduced motion
+01:42 +788: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D13 adaptation 360.0x640.0 1.6 reduced motion
+01:42 +789: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D14 adaptation 360.0x640.0 1.6 reduced motion
+01:42 +790: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: P02 adaptation 740.0x390.0 1.3 reduced motion
+01:42 +791: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: P03 adaptation 740.0x390.0 1.3 reduced motion
+01:42 +792: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: P04 adaptation 740.0x390.0 1.3 reduced motion
+01:43 +793: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: W01 adaptation 740.0x390.0 1.3 reduced motion
+01:43 +794: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: W03 adaptation 740.0x390.0 1.3 reduced motion
+01:43 +795: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: W06 adaptation 740.0x390.0 1.3 reduced motion
+01:43 +796: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: S01 adaptation 740.0x390.0 1.3 reduced motion
+01:43 +797: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: S02 adaptation 740.0x390.0 1.3 reduced motion
+01:44 +798: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: S03 adaptation 740.0x390.0 1.3 reduced motion
+01:44 +799: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: S04 adaptation 740.0x390.0 1.3 reduced motion
+01:44 +800: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: X01 adaptation 740.0x390.0 1.3 reduced motion
+01:44 +801: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: X02 adaptation 740.0x390.0 1.3 reduced motion
+01:44 +802: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: X03 adaptation 740.0x390.0 1.3 reduced motion
+01:44 +803: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: X04 adaptation 740.0x390.0 1.3 reduced motion
+01:45 +804: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: H01 adaptation 740.0x390.0 1.3 reduced motion
+01:45 +805: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: H02 adaptation 740.0x390.0 1.3 reduced motion
+01:45 +806: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: C01 adaptation 740.0x390.0 1.3 reduced motion
+01:45 +807: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: C02 adaptation 740.0x390.0 1.3 reduced motion
+01:45 +808: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: C04 adaptation 740.0x390.0 1.3 reduced motion
+01:45 +809: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D01 adaptation 740.0x390.0 1.3 reduced motion
+01:46 +810: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D03 adaptation 740.0x390.0 1.3 reduced motion
+01:46 +811: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D05 adaptation 740.0x390.0 1.3 reduced motion
+01:46 +812: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D06 adaptation 740.0x390.0 1.3 reduced motion
+01:47 +813: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D08 adaptation 740.0x390.0 1.3 reduced motion
+01:47 +814: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D09 adaptation 740.0x390.0 1.3 reduced motion
+01:47 +815: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D10 adaptation 740.0x390.0 1.3 reduced motion
+01:48 +816: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D13 adaptation 740.0x390.0 1.3 reduced motion
+01:48 +817: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D14 adaptation 740.0x390.0 1.3 reduced motion
+01:48 +818: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: P02 adaptation 740.0x390.0 1.6 reduced motion
+01:48 +819: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: P03 adaptation 740.0x390.0 1.6 reduced motion
+01:48 +820: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: P04 adaptation 740.0x390.0 1.6 reduced motion
+01:48 +821: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: W01 adaptation 740.0x390.0 1.6 reduced motion
+01:49 +822: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: W03 adaptation 740.0x390.0 1.6 reduced motion
+01:49 +823: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: W06 adaptation 740.0x390.0 1.6 reduced motion
+01:49 +824: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: S01 adaptation 740.0x390.0 1.6 reduced motion
+01:49 +825: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: S02 adaptation 740.0x390.0 1.6 reduced motion
+01:49 +826: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: S03 adaptation 740.0x390.0 1.6 reduced motion
+01:50 +827: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: S04 adaptation 740.0x390.0 1.6 reduced motion
+01:50 +828: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: X01 adaptation 740.0x390.0 1.6 reduced motion
+01:50 +829: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: X02 adaptation 740.0x390.0 1.6 reduced motion
+01:50 +830: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: X03 adaptation 740.0x390.0 1.6 reduced motion
+01:50 +831: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: X04 adaptation 740.0x390.0 1.6 reduced motion
+01:51 +832: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: H01 adaptation 740.0x390.0 1.6 reduced motion
+01:51 +833: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: H02 adaptation 740.0x390.0 1.6 reduced motion
+01:51 +834: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: C01 adaptation 740.0x390.0 1.6 reduced motion
+01:51 +835: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: C02 adaptation 740.0x390.0 1.6 reduced motion
+01:51 +836: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: C04 adaptation 740.0x390.0 1.6 reduced motion
+01:51 +837: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D01 adaptation 740.0x390.0 1.6 reduced motion
+01:52 +838: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D03 adaptation 740.0x390.0 1.6 reduced motion
+01:52 +839: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D05 adaptation 740.0x390.0 1.6 reduced motion
+01:52 +840: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D06 adaptation 740.0x390.0 1.6 reduced motion
+01:53 +841: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D08 adaptation 740.0x390.0 1.6 reduced motion
+01:53 +842: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D09 adaptation 740.0x390.0 1.6 reduced motion
+01:53 +843: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D10 adaptation 740.0x390.0 1.6 reduced motion
+01:53 +844: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D13 adaptation 740.0x390.0 1.6 reduced motion
+01:54 +845: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D14 adaptation 740.0x390.0 1.6 reduced motion
+01:54 +846: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: P02 adaptation 768.0x1024.0 1.3 reduced motion
+01:54 +847: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: P03 adaptation 768.0x1024.0 1.3 reduced motion
+01:54 +848: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: P04 adaptation 768.0x1024.0 1.3 reduced motion
+01:54 +849: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: W01 adaptation 768.0x1024.0 1.3 reduced motion
+01:55 +850: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: W03 adaptation 768.0x1024.0 1.3 reduced motion
+01:55 +851: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: W06 adaptation 768.0x1024.0 1.3 reduced motion
+01:55 +852: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: S01 adaptation 768.0x1024.0 1.3 reduced motion
+01:55 +853: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: S02 adaptation 768.0x1024.0 1.3 reduced motion
+01:55 +854: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: S03 adaptation 768.0x1024.0 1.3 reduced motion
+01:56 +855: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: S04 adaptation 768.0x1024.0 1.3 reduced motion
+01:56 +856: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: X01 adaptation 768.0x1024.0 1.3 reduced motion
+01:56 +857: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: X02 adaptation 768.0x1024.0 1.3 reduced motion
+01:56 +858: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: X03 adaptation 768.0x1024.0 1.3 reduced motion
+01:56 +859: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: X04 adaptation 768.0x1024.0 1.3 reduced motion
+01:57 +860: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: H01 adaptation 768.0x1024.0 1.3 reduced motion
+01:57 +861: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: H02 adaptation 768.0x1024.0 1.3 reduced motion
+01:57 +862: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: C01 adaptation 768.0x1024.0 1.3 reduced motion
+01:57 +863: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: C02 adaptation 768.0x1024.0 1.3 reduced motion
+01:57 +864: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: C04 adaptation 768.0x1024.0 1.3 reduced motion
+01:57 +865: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D01 adaptation 768.0x1024.0 1.3 reduced motion
+01:58 +866: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D03 adaptation 768.0x1024.0 1.3 reduced motion
+01:58 +867: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D05 adaptation 768.0x1024.0 1.3 reduced motion
+01:58 +868: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D06 adaptation 768.0x1024.0 1.3 reduced motion
+01:59 +869: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D08 adaptation 768.0x1024.0 1.3 reduced motion
+01:59 +870: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D09 adaptation 768.0x1024.0 1.3 reduced motion
+01:59 +871: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D10 adaptation 768.0x1024.0 1.3 reduced motion
+01:59 +872: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D13 adaptation 768.0x1024.0 1.3 reduced motion
+02:00 +873: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D14 adaptation 768.0x1024.0 1.3 reduced motion
+02:00 +874: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: P02 adaptation 768.0x1024.0 1.6 reduced motion
+02:00 +875: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: P03 adaptation 768.0x1024.0 1.6 reduced motion
+02:00 +876: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: P04 adaptation 768.0x1024.0 1.6 reduced motion
+02:00 +877: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: W01 adaptation 768.0x1024.0 1.6 reduced motion
+02:00 +878: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: W03 adaptation 768.0x1024.0 1.6 reduced motion
+02:01 +879: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: W06 adaptation 768.0x1024.0 1.6 reduced motion
+02:01 +880: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: S01 adaptation 768.0x1024.0 1.6 reduced motion
+02:01 +881: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: S02 adaptation 768.0x1024.0 1.6 reduced motion
+02:01 +882: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: S03 adaptation 768.0x1024.0 1.6 reduced motion
+02:01 +883: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: S04 adaptation 768.0x1024.0 1.6 reduced motion
+02:02 +884: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: X01 adaptation 768.0x1024.0 1.6 reduced motion
+02:02 +885: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: X02 adaptation 768.0x1024.0 1.6 reduced motion
+02:02 +886: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: X03 adaptation 768.0x1024.0 1.6 reduced motion
+02:02 +887: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: X04 adaptation 768.0x1024.0 1.6 reduced motion
+02:02 +888: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: H01 adaptation 768.0x1024.0 1.6 reduced motion
+02:03 +889: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: H02 adaptation 768.0x1024.0 1.6 reduced motion
+02:03 +890: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: C01 adaptation 768.0x1024.0 1.6 reduced motion
+02:03 +891: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: C02 adaptation 768.0x1024.0 1.6 reduced motion
+02:03 +892: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: C04 adaptation 768.0x1024.0 1.6 reduced motion
+02:03 +893: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D01 adaptation 768.0x1024.0 1.6 reduced motion
+02:03 +894: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D03 adaptation 768.0x1024.0 1.6 reduced motion
+02:04 +895: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D05 adaptation 768.0x1024.0 1.6 reduced motion
+02:04 +896: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D06 adaptation 768.0x1024.0 1.6 reduced motion
+02:04 +897: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D08 adaptation 768.0x1024.0 1.6 reduced motion
+02:05 +898: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D09 adaptation 768.0x1024.0 1.6 reduced motion
+02:05 +899: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D10 adaptation 768.0x1024.0 1.6 reduced motion
+02:05 +900: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D13 adaptation 768.0x1024.0 1.6 reduced motion
+02:06 +901: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/focus_matrix_test.dart: D14 adaptation 768.0x1024.0 1.6 reduced motion
+02:06 +902: All tests passed!

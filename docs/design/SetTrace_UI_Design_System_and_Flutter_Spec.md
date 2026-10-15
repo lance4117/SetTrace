@@ -154,3 +154,24 @@ SetTrace（训练本）是轻量、离线优先的训练记录工具。训练中
 关于直接显示 SetTrace、简介、安装版本和构建号，链接为有标签的普通行。弹窗使用 CMP-04 的 20 dp 圆角、22–24 sp 标题、16 sp 正文，长内容滚动，主操作至少 56 dp、其他命中至少 48 dp；大字号换行增高而不缩字。默认、提交、失败重试及仅本次继续均使用 CMP-01/05。详细数据范围与返回见 INT-11。
 
 计划入口统一为已有 Material `list_alt_outlined`，继续使用 22 dp、既有选中底色和当前语言标签，与记录／设置视觉重量一致。先前放大预览仅用于选型，不是布局尺寸。实施验证见独立 QA 报告。
+
+## 10. 主题色预设增量
+
+`add-theme-color-presets` 将青色扩展为青色、蓝色、紫色、石墨四个独立预设；每个预设与系统／浅色／深色模式自由组合。正式 ID 为 teal、blue、violet、graphite，持久化 `theme_color`，旧版或无效偏好回退青色。
+
+| ID / 模式 | accent | accentPressed | accentSoft | onAccent | onAccentSoft |
+| --- | --- | --- | --- | --- | --- |
+| teal / light | #087F6B | #076D5C | #E2F2ED | #FFFFFF | #076D5C |
+| teal / dark | #5DD9B6 | #41C6A3 | #203B35 | #102A22 | #5DD9B6 |
+| blue / light | #245FC7 | #1E50AA | #EAF0FC | #FFFFFF | #1E50AA |
+| blue / dark | #9BBDFF | #82AAEF | #1D3152 | #10264D | #B6CEFF |
+| violet / light | #7046B8 | #603AA4 | #F1EBFA | #FFFFFF | #603AA4 |
+| violet / dark | #CCB2FF | #B89AEF | #362746 | #2B1648 | #D8C5FF |
+| graphite / light | #303A43 | #222B33 | #E8ECEF | #FFFFFF | #303A43 |
+| graphite / dark | #D6DDE3 | #B9C4CD | #30383F | #1C252D | #D6DDE3 |
+
+只覆盖五种强调角色。背景、表面、边界、正文、危险、警告、禁用和正式品牌资产保持。Material 主色及容器、导航、输入焦点、进度、反馈操作均由预设驱动；Snackbar 的逆表面操作前景使用另一明暗配色的 onAccentSoft，保证至少 4.5:1。主按钮 pressed／focus 使用 accentPressed，避免浅色状态层使文字低于 4.5:1。
+
+C01/C02/C04 中在外观与语言之间增加单层 AppCard：圆角／内距 16 dp，36 dp 色圆，2 dp 外圈与 3 dp 间隙，不显示颜色名称，选中勾号＋外圈；整项至少 48×48 dp，相邻至少 8 dp。四项默认保持一行，不受语言和字号影响；仅容器不足 232 dp 时两列重排，保留完整触控区域。颜色名称及默认属性仅提供给辅助技术。状态说明间隔 12 dp、14 sp；保存中和失败就地表达，失败提供至少 48 dp 的重试。
+
+颜色即时预览并异步保存，常规过渡 200 ms，可被新选择打断；减少动态效果时直接更新。单选状态与读屏语义不依赖颜色；保存和动画不阻塞返回或改变训练时间。实施及测试证据见 [主题色验收](../qa/theme-color-presets-acceptance.md)，不以色值核算代替设备验证。

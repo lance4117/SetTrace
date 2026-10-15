@@ -42,24 +42,50 @@ class AppButton extends StatelessWidget {
         width: double.infinity,
         child: FilledButton(
           onPressed: busy ? null : onPressed,
-          style: FilledButton.styleFrom(
-            backgroundColor: background,
-            foregroundColor: foreground,
-            disabledBackgroundColor: c.disabledSurface,
-            disabledForegroundColor: c.disabledText,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(AppRadius.button),
-              side: kind == AppButtonVariant.outline
-                  ? BorderSide(color: c.controlBorder)
-                  : BorderSide.none,
-            ),
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-            textStyle: const TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
-              height: 1.45,
-            ),
-          ),
+          style:
+              FilledButton.styleFrom(
+                backgroundColor: background,
+                foregroundColor: foreground,
+                overlayColor: kind == AppButtonVariant.primary
+                    ? Colors.transparent
+                    : null,
+                disabledBackgroundColor: c.disabledSurface,
+                disabledForegroundColor: c.disabledText,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(AppRadius.button),
+                  side: kind == AppButtonVariant.outline
+                      ? BorderSide(color: c.controlBorder)
+                      : BorderSide.none,
+                ),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 14,
+                ),
+                textStyle: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  height: 1.45,
+                ),
+              ).copyWith(
+                side: WidgetStateProperty.resolveWith(
+                  (states) => states.contains(WidgetState.focused)
+                      ? BorderSide(color: foreground, width: 2)
+                      : kind == AppButtonVariant.outline
+                      ? BorderSide(color: c.controlBorder)
+                      : BorderSide.none,
+                ),
+                backgroundColor: WidgetStateProperty.resolveWith((states) {
+                  if (states.contains(WidgetState.disabled)) {
+                    return c.disabledSurface;
+                  }
+                  if (kind == AppButtonVariant.primary &&
+                      (states.contains(WidgetState.pressed) ||
+                          states.contains(WidgetState.focused))) {
+                    return c.accentPressed;
+                  }
+                  return background;
+                }),
+              ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

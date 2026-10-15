@@ -243,7 +243,7 @@ void main() {
         ),
       );
       await settle(t);
-      await t.ensureVisible(find.byType(Switch));
+      await t.scrollUntilVisible(find.byType(Switch), 120);
       await t.pumpAndSettle();
       expect(find.textContaining('后台通知不可用'), findsOneWidget);
       await t.runAsync(

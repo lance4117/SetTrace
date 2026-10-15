@@ -1,0 +1,10 @@
+{
+  "build": "0.2.2+8",
+  "mode": "debug",
+  "entrypoint": "lib/main.dart",
+  "sha256": "f01b637dfeac4c673d6b3815516040135ab223e7b24bb895d301459d595cee69",
+  "bytes": 210810679,
+  "emulator": "SetTraceThemeQA / emulator-5580",
+  "api": 36,
+  "screen": "1080x1920 / density 480 / 360x640 dp"
+}
