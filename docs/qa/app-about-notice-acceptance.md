@@ -1,5 +1,7 @@
 # 关于软件与首次说明验收
 
+2026-10-15 后续边界修正：用户明确
+
 当前状态：2026-10-15 已同步两份主规格并完成 [OpenSpec 归档](../../openspec/changes/archive/2026-10-15-add-app-about-and-first-run-notice/README.md)，21/21 项任务完成；未执行 Git 提交或发布。下文未同步／未归档的表述记录各轮验收结束时的状态。
 
 日期：2026-10-15（Asia/Hong_Kong）。
@@ -56,3 +58,13 @@ Android 9（API 28，独立新建 QA AVD）验证首次说明、英文深色关�
 - 辅助语义树与键盘已检查；未进行真实 TalkBack 语音朗读的人工审听。减少动态效果沿用既有 Material／主题设置和 Focus 适配回归，无额外自定义位移动画。
 - 备份／恢复仍仅限原 JSON v1 计划配置，本次不增加历史备份或全量恢复。SQLite 模式、业务仓储、训练快照、组数与休息含义、统计和历史证据均未修改。
 - `build/about-*.log` 为本机命令日志；可分享的截图、导出样本、包信息、权限和备份结果位于 `docs/qa/app-about-notice-evidence/`。本次未提交 Git、同步主规格、归档或发布。
+
+## 系统备份限制撤销核验（2026-10-15）
+
+- 按用户澄清撤销额外的系统备份／迁移限制，保留 App 不主动联网、采集或上传记录的边界；手动计划导入导出规则保持原有范围。系统是否备份或恢复由用户设置与 Android 平台决定。
+- 移除主 Manifest 的 `allowBackup`、`fullBackupContent`、`dataExtractionRules` 属性及两份排除 XML。未添加启用、禁用或自定义系统备份的替代配置。
+- 中英文 D15/D16 本地数据说明区分当前安装的数据删除和 Android 系统恢复；同步当前主规格、README、INT-11 及 DATA-01。既有归档与证据不重写。
+- `dart run tool/check_localizations.dart`、`openspec validate app-experience --type spec --strict`、`flutter analyze --no-pub` 通过；最后调整的集成测试另经 `dart analyze integration_test/about_notice_android_test.dart` 检查通过。
+- 现有 `about_notice_test.dart`、`plan_transfer_repository_test.dart`、`plan_transfer_codec_test.dart` 共 74 项通过，覆盖说明布局／语言／主题及手动计划传输、重名和数据保留。
+- `flutter build apk --release --no-pub` 成功。用 `aapt dump xmltree` 和 `aapt list` 检查实际 APK：无 INTERNET 权限、无上述三项备份覆盖属性、无两份排除规则资源。APK 为 `build/app/outputs/flutter-apk/app-release.apk`，版本 `0.2.2 (8)`，SHA-256：`A44D092E366AC61B499C02879663A95E2158BE9DE8BB9532A6746AF095DAE050`。
+- Android 集成测试已取消“系统绝不恢复”的断言，改为允许已存在系统恢复的数据、先解析重名计划再显式导入，并断言已有计划、训练数量与活动会话身份保留。本轮未在设备运行该集成测试，也未验证系统云恢复或厂商换机；配置检查不代表这些流程已通过。本轮未安装、提交或发布。

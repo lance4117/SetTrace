@@ -1773,7 +1773,7 @@
   "@noticeLocalTitle": {
     "description": "App information and local data notice: noticeLocalTitle"
   },
-  "noticeLocalBody": "Your workout plans, history, and settings are stored on this device. Uninstalling the app or clearing its data removes the data stored inside the app. Export any plans you want to keep beforehand.",
+  "noticeLocalBody": "Your workout plans, history, and settings are stored on this device. Uninstalling the app or clearing its data removes local data from the current installation. System backup and device transfer depend on your Android settings. Save any plans you want to keep.",
   "@noticeLocalBody": {
     "description": "App information and local data notice: noticeLocalBody"
   },

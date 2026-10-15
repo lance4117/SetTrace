@@ -18,25 +18,21 @@ import 'package:settrace/l10n/language_settings.dart';
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
   testWidgets(
-    'Android notice and Downloads survive only explicit plan restore',
+    'Android notice and Downloads plan import preserve existing workouts',
     (t) async {
       final prefs = await SharedPreferences.getInstance();
       final db = await AppDatabase.open();
       final plans = PlanRepository(db.db), workouts = WorkoutRepository(db.db);
       const after = bool.fromEnvironment('RESTORE_PHASE');
       const encoded = String.fromEnvironment('RESTORE_PLAN');
-      if (after) {
-        expect(prefs.get(noticePreferenceKey), isNull);
-        expect(await plans.listPlans(), isEmpty);
-        expect(await workouts.getActive(), isNull);
-        expect(
+      // System restore may already have populated this installation. Import
+      // must preserve those workouts; notice presentation uses a fresh fixture.
+      final existingPlanIds = (await plans.listPlans()).map((p) => p.id).toSet();
+      final existingActiveId = (await workouts.getActive())?.id;
+      final existingWorkoutCount =
           (await db.db.rawQuery('SELECT COUNT(*) AS n FROM workout_sessions'))
-              .single['n'],
-          0,
-        );
-      } else {
-        await prefs.remove(noticePreferenceKey);
-      }
+              .single['n'];
+      await prefs.remove(noticePreferenceKey);
       await prefs.setString(languagePreferenceKey, 'en');
       await t.pumpWidget(
         SetTraceApp(plans: plans, workouts: workouts, preferences: prefs),
@@ -50,19 +46,29 @@ void main() {
         final document = const PlanTransferCodec().decode(
           utf8.decode(base64Decode(encoded)),
         );
-        final ids = await plans.importPlans(
+        final importPlans = resolveImportNames(
           document.plans,
+          (await plans.listPlans()).map((p) => p.name),
+          suffixFor: (n) => " (imported $n)",
+        );
+        final ids = await plans.importPlans(
+          importPlans,
           suffixFor: (n) => " (imported $n)",
         );
         final restored = (await plans.getPlan(ids.single))!;
-        expect(restored.name, 'About QA backup');
+        expect(restored.name, importPlans.single.name);
         expect(restored.exercises.single.targetSets, 2);
         expect(restored.exercises.single.restBetweenSetsSeconds, 120);
         expect(restored.exercises.single.defaultWeightKg, 45.5);
         expect(
           (await db.db.rawQuery('SELECT COUNT(*) AS n FROM workout_sessions'))
               .single['n'],
-          0,
+          existingWorkoutCount,
+        );
+        expect((await workouts.getActive())?.id, existingActiveId);
+        expect(
+          (await plans.listPlans()).map((p) => p.id).toSet(),
+          {...existingPlanIds, ...ids},
         );
         debugPrint('ABOUT_QA_RESTORED_PLAN_ONLY');
       } else {

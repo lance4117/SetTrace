@@ -1695,7 +1695,7 @@
   "@noticeLocalTitle": {
     "description": "App information and local data notice: noticeLocalTitle"
   },
-  "noticeLocalBody": "训练计划、训练记录和设置保存在设备上。卸载 App 或清除应用数据会删除应用内的数据，请提前保存需要保留的计划。",
+  "noticeLocalBody": "训练计划、训练记录和设置保存在设备上。卸载 App 或清除应用数据会移除当前安装中的本地数据；系统备份和换机恢复由你的 Android 系统设置决定。请自行保存需要保留的计划。",
   "@noticeLocalBody": {
     "description": "App information and local data notice: noticeLocalBody"
   },
