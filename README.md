@@ -1,6 +1,6 @@
 # SetTrace
 
-<img src="docs/design/SetTrace_App_Icon.png" alt="训练本图标" width="112" />
+<img src="docs/design/settrace-brand-final/settrace-icon/settrace-icon.preview.png" alt="SetTrace 墨绿三线图标" width="112" />
 
 **选好今天的计划，专心训练，点一下记录每组。**
 
@@ -97,6 +97,7 @@ openspec/changes/archive/ # 已完成的 OpenSpec 变更
 ## 设计与规格
 
 - [当前设计入口：A · 专注工具](docs/design/README.md)
+- [最终 Logo 与图标设计](docs/design/settrace-brand-final/README.md)、[Android 图标接入核验](docs/design/android-icon-integration.md)；资源可用 `tool/generate_android_icons.py` 从母版重新生成（需 Python 3 与 Pillow）。
 - [UI 设计规范与 Flutter 映射](docs/design/SetTrace_UI_Design_System_and_Flutter_Spec.md)、[页面与状态](docs/design/screens-and-states.md)、[交互规范](docs/design/interaction-spec.md)、[验收标准](docs/design/acceptance-checklist.md)
 - [完整设计稿与模拟原型](docs/design/prototype/SetTrace-Focus.html)、[训练流程预览](docs/design/previews/overview.png)、[SVG 导入包](docs/design/exports/SetTrace-Focus-SVG.zip)
 - [旧版设计归档](docs/design/archive/legacy-2026-10-14/README.md)

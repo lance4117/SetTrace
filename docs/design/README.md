@@ -49,7 +49,7 @@
 - 适配：[浅色中文](previews/adaptation-light-zh.png) / [深色英文](previews/adaptation-dark-en.png)。
 - [SVG 导入包](exports/SetTrace-Focus-SVG.zip)：222 个矢量文件，包含页面与弹窗的四种外观／语言组合、长内容展开稿和补充样本；不是 222 个独立功能页面。`*-full.svg` 是完整滚动内容，不是设备屏幕高度。
 - 应用图标维持本目录原图标资源，不在本次视觉替换范围内。
-- 当前选定的品牌方向为 **A · 组间节奏（三线 / 深墨绿）**，正式设计见[最终品牌设计](settrace-brand-final/README.md)与[使用规范](settrace-brand-final/design-guide.md)，包含轮廓 SVG、透明 PNG、横竖 Logo、分层图标源文件和小尺寸导出；尚未替换应用内的启动器资源。[五方向草图](logo-exploration-abcde/index.html)和后续配色讨论稿保留供追溯。此前的[错位训练记录](app-icon-record-stack.md)与[哑铃方案](app-icon-package.md)为未选用的早期候选。
+- 当前选定的品牌方向为 **A · 组间节奏（三线 / 深墨绿）**，正式设计见[最终品牌设计](settrace-brand-final/README.md)与[使用规范](settrace-brand-final/design-guide.md)，包含轮廓 SVG、透明 PNG、横竖 Logo、分层图标源文件和小尺寸导出；已按用户要求替换 Android 启动器资源，构建结果及限制见[图标接入核验](android-icon-integration.md)。[五方向草图](logo-exploration-abcde/index.html)和后续配色讨论稿保留供追溯。此前的[错位训练记录](app-icon-record-stack.md)与[哑铃方案](app-icon-package.md)为未选用的早期候选。
 
 ## 原型与 Figma 的边界
 
