@@ -1,11 +1,29 @@
 {
   "version": 1,
   "skills": {
+    "app-icon-gen": {
+      "source": "xzhih/app-icon-skill",
+      "sourceType": "github",
+      "skillPath": "skills/app-icon-gen/SKILL.md",
+      "computedHash": "6f16907e4a70eb0224a75dd7704aa52698f3879f6029223f385bdd301e853548"
+    },
+    "app-icon-template-creator": {
+      "source": "xzhih/app-icon-skill",
+      "sourceType": "github",
+      "skillPath": "skills/app-icon-template-creator/SKILL.md",
+      "computedHash": "640881a2294b83aa68794de5c9c39b70dd65f305420fdb0deff2ba75c5a5533f"
+    },
     "design-playful-app-icons": {
       "source": "chunkithwang/design-playful-app-icons",
       "sourceType": "github",
       "skillPath": "skills/design-playful-app-icons/SKILL.md",
       "computedHash": "bf0f5ccecaeec08fe7e6d42fe24cb77daee8be91d52bbf3cb6f67915f34040a5"
+    },
+    "logo-generator": {
+      "source": "op7418/logo-generator-skill",
+      "sourceType": "github",
+      "skillPath": "SKILL.md",
+      "computedHash": "4e25e86d29728563f55bb9eef77db705220e10b68e49b59d57e568ed7f20503f"
     }
   }
 }

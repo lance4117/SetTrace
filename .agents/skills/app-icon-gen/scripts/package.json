@@ -1,0 +1,28 @@
+{
+  "name": "app-icon-gen-scripts",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "author-icon": "node author_icon.mjs",
+    "clean-sticker-matte": "node clean_sticker_matte.mjs",
+    "geometry-audit": "node geometry_audit.mjs",
+    "normalize-reference": "node normalize_reference.mjs",
+    "polish-svg-candidates": "node polish_svg_candidates.mjs",
+    "polish-svg-geometry": "node polish_svg_geometry.mjs",
+    "prepare-bitmap-layer": "node prepare_bitmap_layer.mjs",
+    "prepare-foreground-layer": "node prepare_foreground_layer.mjs",
+    "shape-facts": "node shape_facts.mjs",
+    "summarize-run": "node summarize_icon_run.mjs",
+    "verify": "node verify_icon_package.mjs",
+    "test": "node --test ../../../tests/app-icon-gen/*.test.mjs"
+  },
+  "dependencies": {
+    "@resvg/resvg-js": "^2.6.2",
+    "jpeg-js": "^0.4.4",
+    "paper": "^0.12.18",
+    "pngjs": "^7.0.0"
+  }
+}

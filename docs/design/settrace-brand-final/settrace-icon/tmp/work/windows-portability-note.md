@@ -1,0 +1,1 @@
+The local execution copy of author_icon.mjs changes canonical.split("/") to canonical.split(/[\\/]+/) for the shallow-directory guard on Windows. The check remains in place; output root was resolved under docs/design/settrace-brand-final/settrace-icon. The installed skill was not modified.

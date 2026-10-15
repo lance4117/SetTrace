@@ -1,0 +1,63 @@
+{
+  "name": "FlatLinkedMark",
+  "target_platforms": ["iOS", "iPadOS", "macOS"],
+  "deliverable_type": "icon-composer-package",
+  "source_reference": "synthetic flat white-on-black linked mark example",
+  "brief": "Demonstrate a clean semantic SVG route for a flat linked mark on a solid background.",
+  "semantic_review": {
+    "status": "exact-enough",
+    "identity_risk": "low",
+    "basis": "synthetic mark with no external brand identity",
+    "route": "semantic-svg",
+    "notes": "Keep the mark as clean filled SVG geometry with no PNG fallback or material effects."
+  },
+  "source_analysis": {
+    "fidelity_target": "preserve a simple linked white silhouette and black background route",
+    "identity_risk": "low",
+    "route": "semantic-svg",
+    "must_preserve": [
+      "two linked rounded bracket forms",
+      "central negative space",
+      "solid black background"
+    ],
+    "must_not_add": [
+      "bevel, glow, shadow, highlight, text, frame, or PNG fallback",
+      "rounded app mask in imported foreground assets"
+    ],
+    "components": [
+      {
+        "id": "linked-mark",
+        "layer": "linked mark",
+        "format": "svg",
+        "spec_constraints": [
+          "one clean compound foreground SVG",
+          "no stroke or material helper geometry"
+        ]
+      }
+    ],
+    "acceptance_checks": [
+      "Icon Composer assets contain one SVG foreground and no background asset",
+      "package verification has no svg_material_warnings"
+    ]
+  },
+  "fill": {
+    "solid": "extended-gray:0.00000,1.00000"
+  },
+  "layers": [
+    {
+      "name": "background",
+      "svg": "<rect width=\"1024\" height=\"1024\" fill=\"#000000\"/>",
+      "composer": {
+        "include": false
+      }
+    },
+    {
+      "name": "linked mark",
+      "svg": "<path d=\"M165 348 C165 278 208 238 282 221 L377 198 C430 186 474 223 474 279 L474 365 C474 400 448 425 416 425 C384 425 360 400 360 365 L360 304 C360 286 348 278 331 282 L268 297 C236 305 220 324 220 360 L220 652 C220 688 236 707 268 715 L331 730 C348 734 360 726 360 708 L360 647 C360 612 384 587 416 587 C448 587 474 612 474 647 L474 733 C474 789 430 826 377 814 L282 791 C208 774 165 734 165 664 Z M549 279 C549 223 593 186 646 198 L741 221 C815 238 858 278 858 348 L858 664 C858 734 815 774 741 791 L646 814 C593 826 549 789 549 733 L549 647 C549 612 575 587 607 587 C639 587 663 612 663 647 L663 708 C663 726 675 734 692 730 L755 715 C787 707 803 688 803 652 L803 360 C803 324 787 305 755 297 L692 282 C675 278 663 286 663 304 L663 365 C663 400 639 425 607 425 C575 425 549 400 549 365 Z\" fill=\"#FFFFFF\" fill-rule=\"evenodd\"/>",
+      "composer": {
+        "format": "svg",
+        "reason": "simple flat foreground geometry should remain editable in Icon Composer"
+      }
+    }
+  ]
+}

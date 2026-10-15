@@ -1,0 +1,46 @@
+{
+  "version": "semantic-icon-design/v0.1",
+  "route": "concept-to-package",
+  "stage": "discussion sketches only; no production package or integration requested",
+  "app_context": {
+    "app_name": "SetTrace",
+    "category": "offline strength workout set tracker",
+    "job_to_be_done": "stay focused on the current set and record completion",
+    "tone": "focused, calm, clear, purposeful"
+  },
+  "style": {
+    "direction": "black-stage-mark",
+    "svg_convertibility": "high",
+    "style_notes": "Adapt the stage to Focus A deep teal #087F6B with cool-white #F5F7F8 geometry. Bold flat geometric symbols, rounded corners, no lighting effects."
+  },
+  "source_policy": "New designs from the verbal brief only. Do not reference or reproduce the old icon, its proportions, diagonal or four internal progress dots.",
+  "layering_policy": {
+    "negative_space_strategy": "overlay-fill-layer",
+    "cutouts_are_layers": true,
+    "description": "Background-colored opaque overlay creates apparent check or pending-tile interior; no baked lighting or texture."
+  },
+  "background": {"type":"solid","color":"#087F6B"},
+  "canvas": {"size":1024,"composition_anchor":"center","safe_area":{"x":[120,904],"y":[120,904]},"alignment":"optically centered"},
+  "concepts": [
+    {
+      "id":"01-chunky-dumbbell-check",
+      "generation_seed":681573,
+      "icon_intent":{"metaphor":"strength training plus completion","small_size_readability":"recognizable at 32 and 64px","must_feel_like":["substantial","compact","strength training"],"must_not_feel_like":["thin barbell","old icon recolor","tiny status dots"]},
+      "subject_scale":{"width_pct":[0.76,0.80],"height_pct":[0.58,0.66]},
+      "layers":[
+        {"id":"dumbbell","order":1,"role":"primary silhouette","format_target":"svg","shape_model":"one connected chunky dumbbell with short wide central bridge and broad rounded weight ends","fill":"#F5F7F8","bounds":{"x":[120,904],"y":[190,834]},"must_preserve":["compact substantial proportions","near-horizontal axis","large broad central bridge"],"must_not_add":["long skinny rod","internal progress dots","tiny symbols","shadow","gradient"]},
+        {"id":"completion-check","order":2,"role":"large completion symbol","format_target":"svg","shape_model":"one broad check overlaid in background teal within central bridge","fill":"#087F6B","bounds":{"x":[365,675],"y":[390,635]},"must_preserve":["large readable check","balanced clear space"],"must_not_add":["check badge","circle around check","outline","shadow"]}
+      ]
+    },
+    {
+      "id":"02-four-set-tiles",
+      "generation_seed":924817,
+      "icon_intent":{"metaphor":"complete one set at a time: three complete, one pending","small_size_readability":"recognizable 2x2 arrangement at 32 and 64px","must_feel_like":["ordered","focused","clear progress"],"must_not_feel_like":["tiny dashboard","generic app launcher grid","thin outline"]},
+      "subject_scale":{"width_pct":[0.68,0.74],"height_pct":[0.68,0.74]},
+      "layers":[
+        {"id":"set-tiles","order":1,"role":"four large set units","format_target":"svg","shape_model":"four equally sized rounded squares in a close 2x2 grid, three solid and fourth hollow","fill":"#F5F7F8","bounds":{"x":[145,879],"y":[145,879]},"must_preserve":["three solid tiles","bottom-right tile with bold outline","equal optical weight and even gaps"],"must_not_add":["dumbbell","numbers","tiny checks","letters","3D","shadow","gradient"]},
+        {"id":"pending-interior","order":2,"role":"pending set","format_target":"svg","shape_model":"teal opaque inset rounded square inside fourth tile","fill":"#087F6B","bounds":{"x":[585,830],"y":[585,830]},"must_preserve":["thick readable border"],"must_not_add":["transparent cutout","small progress dots"]}
+      ]
+    }
+  ]
+}

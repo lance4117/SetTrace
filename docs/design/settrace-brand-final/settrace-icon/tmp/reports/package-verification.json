@@ -1,0 +1,91 @@
+{
+  "status": "ok",
+  "out": "D:\\000_MyLibrary\\100_code\\110_Project\\5_SetTrace\\docs\\design\\settrace-brand-final\\settrace-icon",
+  "style_report": "tmp/reports/style-report.json",
+  "reports_dir": "tmp/reports",
+  "target_platforms": [
+    "Android"
+  ],
+  "canvas": {
+    "width": 1024,
+    "height": 1024
+  },
+  "preview_svg": "settrace-icon.preview.svg",
+  "preview_png": {
+    "width": 1024,
+    "height": 1024,
+    "visible_pixels": 999415,
+    "visible_bounds": {
+      "min_x": 0,
+      "min_y": 0,
+      "max_x": 1023,
+      "max_y": 1023
+    }
+  },
+  "app_svg": "settrace-icon.svg",
+  "app_png": {
+    "width": 1024,
+    "height": 1024,
+    "visible_pixels": 1048576,
+    "visible_bounds": {
+      "min_x": 0,
+      "min_y": 0,
+      "max_x": 1023,
+      "max_y": 1023
+    }
+  },
+  "generic_assets": {
+    "layers": [
+      "layers/01-background.svg",
+      "layers/02-continuous-sets.svg",
+      "layers/03-interval-set.svg"
+    ]
+  },
+  "apple_adapter": null,
+  "generated_files_manifest_validation": {
+    "status": "valid",
+    "files": [
+      "settrace-icon.preview.svg",
+      "settrace-icon.preview.png",
+      "settrace-icon.svg",
+      "settrace-icon.png",
+      "layers/01-background.svg",
+      "layers/02-continuous-sets.svg",
+      "layers/03-interval-set.svg",
+      "tmp/README.md",
+      "tmp/reports/style-report.json",
+      "tmp/reports/package-verification.json",
+      "tmp/reports/reference-diff.png",
+      "tmp/reports/reference-overlay.png",
+      "tmp/reports/reference-side-by-side.png",
+      "tmp/reports/visual-review.json"
+    ],
+    "problems": []
+  },
+  "visual_review": {
+    "decision": "accepted",
+    "reviewer": "main-agent",
+    "reviewer_type": "author-original-concept",
+    "evidence": [
+      "settrace-icon.preview.png",
+      "settrace-icon.png",
+      "layers/02-continuous-sets.svg",
+      "layers/03-interval-set.svg",
+      "../../tmp/work/small-size-review.png",
+      "reference-overlay.png",
+      "reference-diff.png",
+      "../../overview.png"
+    ],
+    "notes": "Low-risk original concept selected by the user and explicitly authorized for design optimization. Three-track identity, four capsules, deep-green fill and white mark preserved. Closed caps, parallel rhythm, optical centering and 16–64px separation inspected. The concept comparison shows deliberate 1.59-unit optical translation and wider interruption; this is refinement, not strict pixel reproduction. Generic source assets only; no native Android rendering asserted.",
+    "platforms_inspected": [],
+    "renders_inspected": []
+  },
+  "outcome": {
+    "pixel_status": "not_required",
+    "route_status": "generic_assets_ready",
+    "review_required": false
+  },
+  "reference_comparison": null,
+  "warnings": [],
+  "failures": []
+}

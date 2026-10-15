@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "input": "D:\\000_MyLibrary\\100_code\\110_Project\\5_SetTrace\\docs\\design\\settrace-brand-final\\settrace-icon\\layers\\03-interval-set.svg",
+  "status": "ok",
+  "canvas": {
+    "width": 1024,
+    "height": 1024,
+    "viewBox": "0 0 1024 1024"
+  },
+  "parameters": {
+    "micro_segment_threshold_px": 2,
+    "high_line_ratio": 0.7,
+    "max_command_count": 140,
+    "fragment_gap_px": 1.5,
+    "flatten_tolerance_px": 0.5
+  },
+  "path_count": 2,
+  "paths": [
+    {
+      "index": 0,
+      "fill": "#FFFFFF",
+      "class_name": "Path",
+      "child_count": 1,
+      "command_counts": {
+        "M": 1,
+        "L": 2,
+        "A": 2,
+        "Z": 1
+      },
+      "command_count": 6,
+      "drawing_command_count": 4,
+      "line_command_count": 2,
+      "curve_command_count": 2,
+      "line_command_ratio": 0.5,
+      "path_length_px": 607.1079,
+      "flattened_segment_count": 34,
+      "micro_segment_count": 0,
+      "micro_segment_ratio": 0,
+      "shortest_segment_px": 10.6075,
+      "bounds": {
+        "min_x": 710.8047,
+        "min_y": 231.429,
+        "max_x": 850.6225,
+        "max_y": 468.5305,
+        "width": 139.8179,
+        "height": 237.1015
+      }
+    },
+    {
+      "index": 1,
+      "fill": "#FFFFFF",
+      "class_name": "Path",
+      "child_count": 1,
+      "command_counts": {
+        "M": 1,
+        "L": 2,
+        "A": 2,
+        "Z": 1
+      },
+      "command_count": 6,
+      "drawing_command_count": 4,
+      "line_command_count": 2,
+      "curve_command_count": 2,
+      "line_command_ratio": 0.5,
+      "path_length_px": 607.0724,
+      "flattened_segment_count": 34,
+      "micro_segment_count": 0,
+      "micro_segment_ratio": 0,
+      "shortest_segment_px": 10.6075,
+      "bounds": {
+        "min_x": 635.9941,
+        "min_y": 555.4867,
+        "max_x": 775.8079,
+        "max_y": 792.571,
+        "width": 139.8138,
+        "height": 237.0842
+      }
+    }
+  ],
+  "warnings": [],
+  "recommended_methods": [],
+  "semantic_note": "This is a geometry audit, not approval or repair. Use it to choose a route, then regenerate from the JSON spec and run verify."
+}

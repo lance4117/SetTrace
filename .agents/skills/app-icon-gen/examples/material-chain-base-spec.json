@@ -1,0 +1,64 @@
+{
+  "name": "MaterialChainBase",
+  "target_platforms": ["iOS", "iPadOS", "macOS", "watchOS"],
+  "deliverable_type": "icon-composer-package",
+  "source_reference": "synthetic material-style chain mark example",
+  "brief": "Demonstrate how to handle a glass/material-looking reference while keeping Icon Composer imports as clean base layers.",
+  "semantic_review": {
+    "status": "exact-enough",
+    "identity_risk": "low",
+    "basis": "synthetic chain mark with no external brand identity; material appearance is intentionally excluded from imported SVG assets",
+    "route": "semantic-svg",
+    "notes": "The foreground is the base chain silhouette only. Icon Composer owns glass, bevel, glow, shadow, and lighting."
+  },
+  "source_analysis": {
+    "fidelity_target": "preserve a horizontal chain silhouette and blue background while excluding baked material",
+    "identity_risk": "low",
+    "route": "semantic-svg",
+    "must_preserve": [
+      "interlocking chain silhouette",
+      "central open negative space",
+      "solid blue background route"
+    ],
+    "must_not_add": [
+      "highlight stroke, bevel stroke, shadow, glow, opacity overlay, filter, or gradient material path",
+      "dirty source-cut PNG foreground",
+      "single full rendered icon snapshot"
+    ],
+    "components": [
+      {
+        "id": "chain-mark",
+        "layer": "chain mark",
+        "format": "svg",
+        "spec_constraints": [
+          "one clean compound foreground SVG",
+          "no stroke, gradient, opacity, filter, image, text, or material helper geometry"
+        ]
+      }
+    ],
+    "acceptance_checks": [
+      "Icon Composer assets contain one SVG foreground and no PNG residue",
+      "diff against a rendered material reference may show material differences without requiring SVG material paths"
+    ]
+  },
+  "fill": {
+    "solid": "extended-srgb:0.00000,0.33333,0.99608,1.00000"
+  },
+  "layers": [
+    {
+      "name": "background",
+      "svg": "<rect width=\"1024\" height=\"1024\" fill=\"#0055FE\"/>",
+      "composer": {
+        "include": false
+      }
+    },
+    {
+      "name": "chain mark",
+      "svg": "<path d=\"M561 230 C650 230 723 260 783 320 C839 376 866 446 866 519 C866 604 828 670 754 715 C706 744 650 757 581 757 L519 757 C506 757 499 764 496 777 L488 817 C483 843 469 858 444 858 L382 858 C314 858 258 839 215 801 C174 765 157 720 157 670 C157 614 180 564 226 520 C271 477 326 455 391 455 L500 455 C516 455 526 447 529 431 L538 385 C543 359 558 344 584 344 L636 344 C691 344 735 361 768 395 C801 430 817 471 817 519 C817 568 801 607 769 638 C735 671 690 688 633 688 L532 688 C516 688 507 695 504 710 L496 752 C491 779 476 793 449 793 L388 793 C339 793 298 781 265 757 C231 732 214 701 214 665 C214 625 231 590 265 561 C299 531 342 516 394 516 L505 516 C534 516 548 503 553 475 L565 414 C570 391 583 379 605 379 L636 379 C676 379 708 391 733 416 C758 441 770 474 770 515 C770 555 757 587 732 610 C705 635 670 647 627 647 L526 647 C496 647 481 661 476 691 L467 737 C464 753 456 761 440 761 L392 761 C350 761 316 752 290 733 C264 714 251 690 251 660 C251 626 266 597 296 573 C325 550 361 538 404 538 L510 538 C541 538 558 524 564 494 L579 418 C582 402 591 394 607 394 L640 394 C674 394 702 405 723 428 C743 450 753 479 753 515 C753 551 742 580 719 600 C695 621 664 631 625 631 L523 631 C478 631 452 654 444 699 L436 742 C434 750 430 754 422 754 L386 754 C355 754 329 747 309 733 C289 719 279 701 279 678 C279 652 292 630 318 612 C343 594 374 585 411 585 L508 585 C570 585 604 554 616 493 L630 420 C631 414 634 411 640 411 C666 411 688 420 704 438 C720 455 728 481 728 515 C728 544 720 567 704 584 C688 600 665 608 635 608 L535 608 C462 608 419 646 407 721 L405 735 L386 735 C363 735 344 730 329 721 C315 711 307 697 307 681 C307 662 317 646 336 633 C355 620 380 614 411 614 L512 614 C588 614 632 575 646 497 L660 422 C662 411 658 402 648 394 C661 394 675 399 688 410 C707 426 716 450 716 483 C716 515 707 539 690 556 C672 574 648 582 618 582 L515 582 C422 582 370 630 354 726 L350 752 C335 748 322 742 311 733 C291 717 281 697 281 674 C281 642 297 615 329 593 C361 571 402 560 453 560 L507 560 C562 560 591 532 601 476 L613 410 C620 371 640 352 674 352 C710 352 742 368 771 399 C800 431 815 472 815 522 C815 586 789 639 736 681 C682 723 614 744 531 744 L515 744 L507 787 C500 833 474 856 430 856 L381 856 C313 856 257 837 214 798 C172 760 151 712 151 655 C151 594 177 541 230 496 C283 451 350 429 431 429 L495 429 L509 354 C524 271 541 230 561 230 Z\" fill=\"#FFFFFF\" fill-rule=\"evenodd\"/>",
+      "composer": {
+        "format": "svg",
+        "reason": "material-looking source should be reduced to a clean editable base silhouette; glass and lighting belong in Icon Composer"
+      }
+    }
+  ]
+}

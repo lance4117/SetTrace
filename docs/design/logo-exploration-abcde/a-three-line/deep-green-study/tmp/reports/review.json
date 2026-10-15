@@ -1,0 +1,12 @@
+{
+  "geometry_unchanged": true,
+  "valid_svg_files": [
+    "deep-green-icon.preview.svg",
+    "deep-green-mark.svg",
+    "overview.svg"
+  ],
+  "visually_reviewed": [
+    "overview.png"
+  ],
+  "review": "Three backgrounds use the identical symbol, size and foreground. Existing UI theme colors shown in a clearly labeled component illustration."
+}

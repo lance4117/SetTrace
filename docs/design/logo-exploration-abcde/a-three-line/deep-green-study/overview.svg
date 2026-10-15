@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1220" viewBox="0 0 1600 1220">
+<rect width="1600" height="1220" fill="#F5F7F8"/>
+<g font-family="Segoe UI, Microsoft YaHei, sans-serif">
+  <text x="64" y="62" font-size="12" fill="#586970" letter-spacing="2">SETTRACE / COLOR STUDY / ROUND 03</text>
+  <text x="64" y="116" font-size="38" fill="#111518" font-weight="650">A · 三线标记</text>
+  <text x="320" y="114" font-size="26" fill="#586970" >深墨绿底 + 白色标记</text>
+  <text x="64" y="149" font-size="17" fill="#586970" >相同图形、相同尺寸，只比较底色。</text>
+  <text x="1385" y="64" font-size="14" fill="#586970" >2026.10.15</text>
+  <rect x="64" y="174" width="474" height="540" rx="20" fill="#FFFFFF" stroke="#DBE3E5"/>
+    <text x="92" y="221" font-size="24" fill="#111518" font-weight="600">石墨黑</text>
+    <text x="92" y="253" font-size="14" fill="#586970" letter-spacing="1">#111518</text>
+    <rect x="171" y="289" width="260" height="260" rx="61.099999999999994" fill="#111518"/><svg x="171" y="289" width="260" height="260" viewBox="0 0 100 100" style="color:#FFFFFF"><g fill="none" stroke="currentColor" stroke-width="11" stroke-linecap="round"><path d="M34 28 24 72 M55 28 45 72 M76 28 72.82 42 M69.18 58 66 72"/></g></svg>
+    <text x="301" y="595" font-size="23" fill="#111518" text-anchor="middle" font-weight="500">SetTrace</text>
+    <text x="301" y="660" font-size="17" fill="#586970" text-anchor="middle">先看轮廓，色彩最克制。</text><rect x="563" y="174" width="474" height="540" rx="20" fill="#FFFFFF" stroke="#DBE3E5"/>
+    <text x="591" y="221" font-size="24" fill="#111518" font-weight="600">深墨绿</text>
+    <text x="591" y="253" font-size="14" fill="#586970" letter-spacing="1">#153C34</text>
+    <rect x="670" y="289" width="260" height="260" rx="61.099999999999994" fill="#153C34"/><svg x="670" y="289" width="260" height="260" viewBox="0 0 100 100" style="color:#FFFFFF"><g fill="none" stroke="currentColor" stroke-width="11" stroke-linecap="round"><path d="M34 28 24 72 M55 28 45 72 M76 28 72.82 42 M69.18 58 66 72"/></g></svg>
+    <text x="800" y="595" font-size="23" fill="#111518" text-anchor="middle" font-weight="500">SetTrace</text>
+    <text x="800" y="660" font-size="17" fill="#586970" text-anchor="middle">保留深色质感，带一点绿色。</text><rect x="1062" y="174" width="474" height="540" rx="20" fill="#FFFFFF" stroke="#DBE3E5"/>
+    <text x="1090" y="221" font-size="24" fill="#111518" font-weight="600">界面青绿</text>
+    <text x="1090" y="253" font-size="14" fill="#586970" letter-spacing="1">#087F6B</text>
+    <rect x="1169" y="289" width="260" height="260" rx="61.099999999999994" fill="#087F6B"/><svg x="1169" y="289" width="260" height="260" viewBox="0 0 100 100" style="color:#FFFFFF"><g fill="none" stroke="currentColor" stroke-width="11" stroke-linecap="round"><path d="M34 28 24 72 M55 28 45 72 M76 28 72.82 42 M69.18 58 66 72"/></g></svg>
+    <text x="1299" y="595" font-size="23" fill="#111518" text-anchor="middle" font-weight="500">SetTrace</text>
+    <text x="1299" y="660" font-size="17" fill="#586970" text-anchor="middle">与主按钮同色，色彩更鲜明。</text>
+  <text x="64" y="773" font-size="24" fill="#111518" font-weight="600">从桌面图标到绿色界面</text>
+  <text x="1094" y="772" font-size="16" fill="#586970" >下方为现有主题色的组件示意。</text>
+  <rect x="64" y="805" width="1472" height="360" rx="20" fill="#FFFFFF" stroke="#DBE3E5"/>
+  <rect x="105" y="855" width="128" height="128" rx="30.08" fill="#153C34"/><svg x="105" y="855" width="128" height="128" viewBox="0 0 100 100" style="color:#FFFFFF"><g fill="none" stroke="currentColor" stroke-width="11" stroke-linecap="round"><path d="M34 28 24 72 M55 28 45 72 M76 28 72.82 42 M69.18 58 66 72"/></g></svg>
+  <text x="268" y="911" font-size="40" fill="#153C34" font-weight="600" letter-spacing="-1">SetTrace</text>
+  <text x="268" y="948" font-size="19" fill="#586970" >图标用深墨绿，界面用青绿强调当前操作。</text>
+  <rect x="105" y="1021" width="52" height="52" rx="12" fill="#153C34"/>
+  <text x="172" y="1042" font-size="14" fill="#586970" >图标底色</text><text x="172" y="1067" font-size="17" fill="#111518" font-weight="500">#153C34</text><rect x="350" y="1021" width="52" height="52" rx="12" fill="#087F6B"/>
+  <text x="417" y="1042" font-size="14" fill="#586970" >界面主色</text><text x="417" y="1067" font-size="17" fill="#111518" font-weight="500">#087F6B</text><rect x="595" y="1021" width="52" height="52" rx="12" fill="#E2F2ED"/>
+  <text x="662" y="1042" font-size="14" fill="#586970" >低强调底色</text><text x="662" y="1067" font-size="17" fill="#111518" font-weight="500">#E2F2ED</text>
+  <text x="105" y="1124" font-size="17" fill="#586970" >共享绿色系，区分品牌标记与操作按钮的强调程度。</text>
+  <path d="M966 839V1131" stroke="#DBE3E5"/>
+  <rect x="1013" y="839" width="480" height="292" rx="17" fill="#F5F7F8"/>
+  <text x="1044" y="876" font-size="16" fill="#087F6B" font-weight="600">当前待练组</text>
+  <text x="1040" y="951" font-size="70" fill="#19262C" font-weight="650" letter-spacing="-3">03</text>
+  <text x="1177" y="933" font-size="16" fill="#586970" >共 4 组 · 已完成 2 组</text>
+  <rect x="1044" y="985" width="95" height="34" rx="7" fill="#E2F2ED" /><text x="1091.5" y="1007" font-size="14" fill="#087F6B" text-anchor="middle" font-weight="500">✓ 1</text><rect x="1149" y="985" width="95" height="34" rx="7" fill="#E2F2ED" /><text x="1196.5" y="1007" font-size="14" fill="#087F6B" text-anchor="middle" font-weight="500">✓ 2</text><rect x="1254" y="985" width="95" height="34" rx="7" fill="#FFFFFF" stroke="#087F6B"/><text x="1301.5" y="1007" font-size="14" fill="#087F6B" text-anchor="middle" font-weight="500">3</text><rect x="1359" y="985" width="95" height="34" rx="7" fill="#F5F7F8" stroke="#DBE3E5"/><text x="1406.5" y="1007" font-size="14" fill="#586970" text-anchor="middle" font-weight="500">4</text>
+  <rect x="1044" y="1041" width="410" height="58" rx="14" fill="#087F6B"/>
+  <text x="1249" y="1078" font-size="19" fill="#FFFFFF" text-anchor="middle" font-weight="600">完成本组</text>
+  <text x="64" y="1200" font-size="14" fill="#586970" >图形保持三线版本不变 / 仅作配色与视觉衔接讨论</text>
+  <text x="1278" y="1200" font-size="14" fill="#586970" >概念效果图 · 尚未定稿</text>
+</g></svg>

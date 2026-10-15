@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "input": "D:\\000_MyLibrary\\100_code\\110_Project\\5_SetTrace\\docs\\design\\settrace-brand-final\\settrace-icon\\layers\\02-continuous-sets.svg",
+  "status": "ok",
+  "canvas": {
+    "width": 1024,
+    "height": 1024,
+    "viewBox": "0 0 1024 1024"
+  },
+  "parameters": {
+    "micro_segment_threshold_px": 2,
+    "high_line_ratio": 0.7,
+    "max_command_count": 140,
+    "fragment_gap_px": 1.5,
+    "flatten_tolerance_px": 0.5
+  },
+  "path_count": 2,
+  "paths": [
+    {
+      "index": 0,
+      "fill": "#FFFFFF",
+      "class_name": "Path",
+      "child_count": 1,
+      "command_counts": {
+        "M": 1,
+        "L": 2,
+        "A": 2,
+        "Z": 1
+      },
+      "command_count": 6,
+      "drawing_command_count": 4,
+      "line_command_count": 2,
+      "curve_command_count": 2,
+      "line_command_ratio": 0.5,
+      "path_length_px": 1272.236,
+      "flattened_segment_count": 34,
+      "micro_segment_count": 0,
+      "micro_segment_ratio": 0,
+      "shortest_segment_px": 10.6075,
+      "bounds": {
+        "min_x": 205.9141,
+        "min_y": 231.429,
+        "max_x": 420.5425,
+        "max_y": 792.571,
+        "width": 214.6285,
+        "height": 561.142
+      }
+    },
+    {
+      "index": 1,
+      "fill": "#FFFFFF",
+      "class_name": "Path",
+      "child_count": 1,
+      "command_counts": {
+        "M": 1,
+        "L": 2,
+        "A": 2,
+        "Z": 1
+      },
+      "command_count": 6,
+      "drawing_command_count": 4,
+      "line_command_count": 2,
+      "curve_command_count": 2,
+      "line_command_ratio": 0.5,
+      "path_length_px": 1272.236,
+      "flattened_segment_count": 34,
+      "micro_segment_count": 0,
+      "micro_segment_ratio": 0,
+      "shortest_segment_px": 10.6075,
+      "bounds": {
+        "min_x": 420.9541,
+        "min_y": 231.429,
+        "max_x": 635.5825,
+        "max_y": 792.571,
+        "width": 214.6285,
+        "height": 561.142
+      }
+    }
+  ],
+  "warnings": [
+    {
+      "code": "possible_fragmented_contour",
+      "severity": "info",
+      "pairs": [
+        {
+          "path_indexes": [
+            0,
+            1
+          ],
+          "fill": "#FFFFFF",
+          "bbox_gap_px": 0.4116
+        }
+      ],
+      "message": "same-fill path bounds touch or overlap; verify this is intentional disconnected geometry rather than a split continuous mark"
+    }
+  ],
+  "recommended_methods": [
+    "single-foreground-path-review"
+  ],
+  "semantic_note": "This is a geometry audit, not approval or repair. Use it to choose a route, then regenerate from the JSON spec and run verify."
+}

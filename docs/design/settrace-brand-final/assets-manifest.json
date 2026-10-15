@@ -1,0 +1,353 @@
+{
+  "version": "1.0",
+  "date": "2026-10-15",
+  "verification_status": "ok",
+  "native_platform_package": false,
+  "files": [
+    {
+      "path": "design-guide.md",
+      "bytes": 4581,
+      "sha256": "0ef5192c4fc8384146bace63913e8ba089446093bb66b962027ca3bb672f7c9e"
+    },
+    {
+      "path": "exports/png/settrace-icon-128.png",
+      "bytes": 2427,
+      "sha256": "9513cccb79f39e99d8cc7b9d0af31e17e3f3ad9b412d4b7dde1eecd21386fa5d"
+    },
+    {
+      "path": "exports/png/settrace-icon-16.png",
+      "bytes": 413,
+      "sha256": "5315573182e874d2e5cb96896d559c36a05e305752fb43605dea199b0aa636ae"
+    },
+    {
+      "path": "exports/png/settrace-icon-24.png",
+      "bytes": 548,
+      "sha256": "f0da535b1c96bdb861a55589c696467f021b9fc8116777059105fb265c898f6b"
+    },
+    {
+      "path": "exports/png/settrace-icon-256.png",
+      "bytes": 5414,
+      "sha256": "1fbe6d09121b6dba582d5252bfc334f080dbdff21a13e29d8234ad660d5497e4"
+    },
+    {
+      "path": "exports/png/settrace-icon-32.png",
+      "bytes": 749,
+      "sha256": "ca3d501a3506df7d73adda7f849060b5fad911688011de52ec304d241c4538fd"
+    },
+    {
+      "path": "exports/png/settrace-icon-48.png",
+      "bytes": 879,
+      "sha256": "9156fb37ddc4030e9898e45a6694548a559b0506e6b44b716ae14f3363de9f1b"
+    },
+    {
+      "path": "exports/png/settrace-icon-512.png",
+      "bytes": 14390,
+      "sha256": "3b2863ef32a5c9193972e45eb74fda7763963d1267933a2b58e5d35dfc7d8cdd"
+    },
+    {
+      "path": "exports/png/settrace-icon-64.png",
+      "bytes": 1319,
+      "sha256": "58224092e4e85639eb11e6a9bdd060fd16313a67dfde677cdd14dde74351d08f"
+    },
+    {
+      "path": "exports/png/settrace-icon-rounded-128.png",
+      "bytes": 3276,
+      "sha256": "eb5fdfcd183a505cbd5c658b75261562b07bbe27d99ebdd4c1e266bb9f4636ba"
+    },
+    {
+      "path": "exports/png/settrace-icon-rounded-16.png",
+      "bytes": 507,
+      "sha256": "f0e380780726c51943bc61c7d1862db0be8f9c9f95d4bab766afd8f378b1a0c0"
+    },
+    {
+      "path": "exports/png/settrace-icon-rounded-24.png",
+      "bytes": 700,
+      "sha256": "35275c5131cdc9d4fdb613d3e7c4e2f6b546588c4d070721deaa3f3ed98d2684"
+    },
+    {
+      "path": "exports/png/settrace-icon-rounded-256.png",
+      "bytes": 7067,
+      "sha256": "3615894030bd1c7442449b86122cc7517b25850f5e4f591a9bfc5f260f3d849c"
+    },
+    {
+      "path": "exports/png/settrace-icon-rounded-32.png",
+      "bytes": 952,
+      "sha256": "308be89dcab7b839cfde19eb7b332ac7c79fd14e79451859da0761c5f5dfa83a"
+    },
+    {
+      "path": "exports/png/settrace-icon-rounded-48.png",
+      "bytes": 1169,
+      "sha256": "0e10221114411874ee60e467429b551a8acf588e66339a58fc95c143b5cf6d8c"
+    },
+    {
+      "path": "exports/png/settrace-icon-rounded-512.png",
+      "bytes": 17825,
+      "sha256": "7f9cb9c73ad368d6e23f2fc194404e59337a44f24c9293dc6768298c6e4eceea"
+    },
+    {
+      "path": "exports/png/settrace-icon-rounded-64.png",
+      "bytes": 1631,
+      "sha256": "75313bfb0f69557757648e78419c8dbba9c0e3cfb02e81b33b5a9c7e59c28935"
+    },
+    {
+      "path": "index.html",
+      "bytes": 7048,
+      "sha256": "c91ac06e7887032b9f53842052e01246549d2b5a8aad09a078ca3bcd5cf4ac99"
+    },
+    {
+      "path": "logo/settrace-lockup-black.png",
+      "bytes": 41060,
+      "sha256": "0b3d8a24393b665b3e5da2af5c48b248b683150376bf3dd1d04190d504f97886"
+    },
+    {
+      "path": "logo/settrace-lockup-black.svg",
+      "bytes": 5711,
+      "sha256": "fb84184a775277aeca282f993ad7067500ecf8ebb1fb81da5e7d4f33ee4aecfe"
+    },
+    {
+      "path": "logo/settrace-lockup-white.png",
+      "bytes": 31729,
+      "sha256": "739e3039486daf3484b296f29ab2f33e896876099687f00c7ca521cfd84fbbb1"
+    },
+    {
+      "path": "logo/settrace-lockup-white.svg",
+      "bytes": 5711,
+      "sha256": "4ba10b8721522c16f6cda99f729a6bf2556eb295d6a94534eb1e706256ab6446"
+    },
+    {
+      "path": "logo/settrace-lockup.png",
+      "bytes": 41304,
+      "sha256": "19c0ed25e32b24c8ed5ede7bd11ea4ca5847c6c111f8575ff4aa39a533566fef"
+    },
+    {
+      "path": "logo/settrace-lockup.svg",
+      "bytes": 5711,
+      "sha256": "89223928702a7be9189a1d4ed534047dcb6f7457be5bc52c383c40babfcc081c"
+    },
+    {
+      "path": "logo/settrace-stacked.png",
+      "bytes": 39900,
+      "sha256": "2875a005c1e1b038b4f3249f88c95c526a293a25f631051463957a068fc4d51c"
+    },
+    {
+      "path": "logo/settrace-stacked.svg",
+      "bytes": 5784,
+      "sha256": "b2971bca8e963764080eac821c7734baddb0dc76fdda8328a9664a68749a80a6"
+    },
+    {
+      "path": "logo/settrace-symbol-black.png",
+      "bytes": 28873,
+      "sha256": "1da41bcd13f8442716aa1fd489f08de059f2cdc31ad499dee4ce0e3f90d843a6"
+    },
+    {
+      "path": "logo/settrace-symbol-black.svg",
+      "bytes": 762,
+      "sha256": "a01070c7e1cf71a1c787709830fc0dcf6c1965d27f1d0d484695af853ad47075"
+    },
+    {
+      "path": "logo/settrace-symbol-white.png",
+      "bytes": 22035,
+      "sha256": "c474db796fafd81ce2e493229f129ac4dae3da1579225179f079f3e8de20521a"
+    },
+    {
+      "path": "logo/settrace-symbol-white.svg",
+      "bytes": 762,
+      "sha256": "0f7661cf966e34fe1a21dda052d03f023cd3aa8eb52a23a750571bd40b284b47"
+    },
+    {
+      "path": "logo/settrace-symbol.png",
+      "bytes": 29274,
+      "sha256": "842387be882089044f7075256ea44c6e0f8cfb671751ae3b99dfd526b811c7bd"
+    },
+    {
+      "path": "logo/settrace-symbol.svg",
+      "bytes": 762,
+      "sha256": "bc023a4ae4c68e304740a63fea8318d7ea5f92e326088b057a3dcbf4c92e1691"
+    },
+    {
+      "path": "overview.png",
+      "bytes": 159373,
+      "sha256": "d4463e37936bd815fadd58fd8cb6ae6da1a2bcf2681e25b0a0478f27f1832b42"
+    },
+    {
+      "path": "overview.svg",
+      "bytes": 25992,
+      "sha256": "b6b8aba227b29f609f31b24c2f68fe49e2209b0a5177c54f7eb7864a16c38e52"
+    },
+    {
+      "path": "README.md",
+      "bytes": 320,
+      "sha256": "0419425cf9347c4c4ee3dd1bc0100167f577fd35bd93cbfd856d41f172c5bd5f"
+    },
+    {
+      "path": "settrace-icon/layers/01-background.svg",
+      "bytes": 162,
+      "sha256": "122e697c529dfbfa8e7fa90af59c0c5911231d6dbcab7d6bfb1ffdd8fb0708c5"
+    },
+    {
+      "path": "settrace-icon/layers/02-continuous-sets.svg",
+      "bytes": 449,
+      "sha256": "16213d42941b1f6c33f664f80c7b98bd204bcf294e830e264e0ac103ee5f2d61"
+    },
+    {
+      "path": "settrace-icon/layers/03-interval-set.svg",
+      "bytes": 448,
+      "sha256": "e2027478d2f1445bcc729e5b8e8ee2a727a6097f2330782d3588b2bdfeee8697"
+    },
+    {
+      "path": "settrace-icon/settrace-icon.origin.svg",
+      "bytes": 407,
+      "sha256": "7eb6b4d0de46e792a1b4c88594f68c9e2e25aaa58950eb81dfe011676a5de3f9"
+    },
+    {
+      "path": "settrace-icon/settrace-icon.png",
+      "bytes": 25695,
+      "sha256": "c32b540626a440eaa7eefb705fdccd9a041e3e3040fdb1be7ce4e3360bfbf683"
+    },
+    {
+      "path": "settrace-icon/settrace-icon.preview.png",
+      "bytes": 33910,
+      "sha256": "eeeaa0b13296d35161046c091b05ff862bf3721815a5b254bd211f36c0175e44"
+    },
+    {
+      "path": "settrace-icon/settrace-icon.preview.svg",
+      "bytes": 980,
+      "sha256": "71687f449ed94ad4a8a4569681b5ef126a50c456397f15bf6b967fa9d208efe5"
+    },
+    {
+      "path": "settrace-icon/settrace-icon.svg",
+      "bytes": 835,
+      "sha256": "920513fd4895e584a44fd2b19cde3b85190838524acbcf05f0f8368dd4c711eb"
+    },
+    {
+      "path": "settrace-icon/tmp/reports/geometry-02-continuous-sets.json",
+      "bytes": 2579,
+      "sha256": "ed0a3bba6415da42752053eb816184a0148fd0a494daa4bd3f3b0e4fda7c0385"
+    },
+    {
+      "path": "settrace-icon/tmp/reports/geometry-03-interval-set.json",
+      "bytes": 2134,
+      "sha256": "4137ed090d927877a168910b0c2dc9c00d493ef2ff8ca54db08f73dde556a68a"
+    },
+    {
+      "path": "settrace-icon/tmp/reports/package-verification.json",
+      "bytes": 2773,
+      "sha256": "041a0b7d886fae55830c28bc740fd1757d96fe87bdef0831aa36b86d53329291"
+    },
+    {
+      "path": "settrace-icon/tmp/reports/reference-diff.png",
+      "bytes": 57389,
+      "sha256": "1757bacb05cddcfec4f0a69efb00310793180757055b57cc4c45e7c062f76c66"
+    },
+    {
+      "path": "settrace-icon/tmp/reports/reference-overlay.png",
+      "bytes": 56980,
+      "sha256": "4700ba253c382baffa171400be6d8dda4b0beb14dde2e067f07980ea496c8d07"
+    },
+    {
+      "path": "settrace-icon/tmp/reports/reference-side-by-side.png",
+      "bytes": 75696,
+      "sha256": "1ef07698eccb264328ecaa9ee295e1dff74a2864c9bc388ee65864fd479d9b89"
+    },
+    {
+      "path": "settrace-icon/tmp/reports/style-report.json",
+      "bytes": 4549,
+      "sha256": "82d46cc4862f1f1f324f5fe398f8116c27b3061d4bfb64c1fcf1a8654200d1b4"
+    },
+    {
+      "path": "settrace-icon/tmp/reports/visual-review.json",
+      "bytes": 938,
+      "sha256": "3c2ff7903256525f528b92210cacff8e45ec40ecbe7318f37feb248759309bbf"
+    },
+    {
+      "path": "settrace-icon/tmp/work/concept-comparison.json",
+      "bytes": 27959,
+      "sha256": "e96c5423d5724a6e76d6e5b0768a5da0e1446dd274157eb85c52fb010e8d520d"
+    },
+    {
+      "path": "settrace-icon/tmp/work/spec.json",
+      "bytes": 4430,
+      "sha256": "f91bce4de7ed97c95ede59008dfb056ced2a4b0666d9765de49f7fd038559955"
+    },
+    {
+      "path": "settrace-icon/tmp/work/windows-portability-note.md",
+      "bytes": 291,
+      "sha256": "188d34c652e21b18827845fefd8a64e446c3284203fe2a9ad3ed623c977fdd90"
+    },
+    {
+      "path": "showcase/01-swiss-flat.png",
+      "bytes": 48138,
+      "sha256": "18964915ecb0a0618e3c4604310c85fbf26dcc429fbf6b985a7ce98957d71d53"
+    },
+    {
+      "path": "showcase/01-swiss-flat.svg",
+      "bytes": 6147,
+      "sha256": "d6bcaef71ecd4737748d27ed810891ced4f44d298cb9c2bb46e7aa9dfe451346"
+    },
+    {
+      "path": "showcase/02-ink-field.png",
+      "bytes": 38385,
+      "sha256": "bb2840a72c61be5a61df6c6c1432bbd7fc15de8e557abfc2643fb8b857cabbdb"
+    },
+    {
+      "path": "showcase/02-ink-field.svg",
+      "bytes": 6010,
+      "sha256": "446e06bd6b04099bd75944a5eee6406e3a62d3c6bfa6ec77eb424bae482257fe"
+    },
+    {
+      "path": "showcase/03-product-context.png",
+      "bytes": 54279,
+      "sha256": "b7b7b3ffcfd89e16ea1648ccacdd21cc4791792d2621ed4df4be3bd0d9e809d1"
+    },
+    {
+      "path": "showcase/03-product-context.svg",
+      "bytes": 6749,
+      "sha256": "2c01b3d56b4600c28155786c82f9b52b12b434ee6bce8b90d5bad92d7f57b568"
+    },
+    {
+      "path": "showcase/04-monochrome.png",
+      "bytes": 47521,
+      "sha256": "a05a203d15e37f521aeab9e511f8944a2936d6d6a15022421098b5c2a500e61d"
+    },
+    {
+      "path": "showcase/04-monochrome.svg",
+      "bytes": 11774,
+      "sha256": "31e2257ee0366f59fb8d0c50733ede60e8ea9ca1780e24afbb1e1dc14c423a41"
+    },
+    {
+      "path": "tmp/reports/delivery-checks.json",
+      "bytes": 4284,
+      "sha256": "1705711a7bab73907a5166f084eeab3fb560145001ab7ffe52091cced13b58ba"
+    },
+    {
+      "path": "tmp/work/check_delivery.py",
+      "bytes": 5134,
+      "sha256": "fc6366bddebb5000bec65cc40bb0c854fe3073c3982a4cc429ac379c0dedd314"
+    },
+    {
+      "path": "tmp/work/geometry.json",
+      "bytes": 1157,
+      "sha256": "cab9720e92f70c83041725435ec13a1b691398361ac1df96469280f9a752ce96"
+    },
+    {
+      "path": "tmp/work/prepare.mjs",
+      "bytes": 9927,
+      "sha256": "6e2d4f5cafb21250671ce5c275a96b053ce7e29518d6820ebd8fc6c80f99c0c9"
+    },
+    {
+      "path": "tmp/work/present.mjs",
+      "bytes": 19828,
+      "sha256": "d604598e73f6102cf7d23c9a54f9ebb324ade1020bdd38220a4ea727dc848e4f"
+    },
+    {
+      "path": "tmp/work/small-size-review.png",
+      "bytes": 26398,
+      "sha256": "826c38908ae6c52474e4980349c0c2559277c4ccc7875b2cc34c58247a278269"
+    },
+    {
+      "path": "tmp/work/typography.json",
+      "bytes": 232,
+      "sha256": "bd1c64b7ae43ee5a920651e30fcbcd6382be5bd123b89e5db2c4490a1347ba32"
+    }
+  ]
+}

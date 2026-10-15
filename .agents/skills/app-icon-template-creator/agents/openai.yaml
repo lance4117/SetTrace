@@ -1,0 +1,4 @@
+interface:
+  display_name: "App Icon Template Creator"
+  short_description: "Create reusable Apple app icon style templates"
+  default_prompt: "Use $app-icon-template-creator to turn the provided Apple app icon reference into a reusable app-icon-gen template."

@@ -1,0 +1,193 @@
+{
+  "status": "ok",
+  "svg_assets": [
+    {
+      "path": "logo/settrace-lockup-black.svg",
+      "valid_xml": true,
+      "no_font_dependency": true
+    },
+    {
+      "path": "logo/settrace-lockup-white.svg",
+      "valid_xml": true,
+      "no_font_dependency": true
+    },
+    {
+      "path": "logo/settrace-lockup.svg",
+      "valid_xml": true,
+      "no_font_dependency": true
+    },
+    {
+      "path": "logo/settrace-stacked.svg",
+      "valid_xml": true,
+      "no_font_dependency": true
+    },
+    {
+      "path": "logo/settrace-symbol-black.svg",
+      "valid_xml": true,
+      "no_font_dependency": true
+    },
+    {
+      "path": "logo/settrace-symbol-white.svg",
+      "valid_xml": true,
+      "no_font_dependency": true
+    },
+    {
+      "path": "logo/settrace-symbol.svg",
+      "valid_xml": true,
+      "no_font_dependency": true
+    },
+    {
+      "path": "showcase/01-swiss-flat.svg",
+      "valid_xml": true,
+      "no_font_dependency": false
+    },
+    {
+      "path": "showcase/02-ink-field.svg",
+      "valid_xml": true,
+      "no_font_dependency": false
+    },
+    {
+      "path": "showcase/03-product-context.svg",
+      "valid_xml": true,
+      "no_font_dependency": false
+    },
+    {
+      "path": "showcase/04-monochrome.svg",
+      "valid_xml": true,
+      "no_font_dependency": false
+    },
+    {
+      "path": "settrace-icon/settrace-icon.origin.svg",
+      "valid_xml": true,
+      "no_font_dependency": false
+    },
+    {
+      "path": "settrace-icon/settrace-icon.preview.svg",
+      "valid_xml": true,
+      "no_font_dependency": false
+    },
+    {
+      "path": "settrace-icon/settrace-icon.svg",
+      "valid_xml": true,
+      "no_font_dependency": false
+    },
+    {
+      "path": "settrace-icon/layers/01-background.svg",
+      "valid_xml": true,
+      "no_font_dependency": false
+    },
+    {
+      "path": "settrace-icon/layers/02-continuous-sets.svg",
+      "valid_xml": true,
+      "no_font_dependency": false
+    },
+    {
+      "path": "settrace-icon/layers/03-interval-set.svg",
+      "valid_xml": true,
+      "no_font_dependency": false
+    },
+    {
+      "path": "overview.svg",
+      "valid_xml": true,
+      "no_font_dependency": false
+    }
+  ],
+  "small_size_components": [
+    {
+      "size": 16,
+      "separated_foreground_components": 4,
+      "component_areas_px": [
+        9,
+        7,
+        3,
+        2
+      ]
+    },
+    {
+      "size": 24,
+      "separated_foreground_components": 4,
+      "component_areas_px": [
+        22,
+        22,
+        8,
+        7
+      ]
+    },
+    {
+      "size": 32,
+      "separated_foreground_components": 4,
+      "component_areas_px": [
+        45,
+        42,
+        17,
+        15
+      ]
+    },
+    {
+      "size": 48,
+      "separated_foreground_components": 4,
+      "component_areas_px": [
+        112,
+        112,
+        43,
+        41
+      ]
+    },
+    {
+      "size": 64,
+      "separated_foreground_components": 4,
+      "component_areas_px": [
+        208,
+        208,
+        81,
+        81
+      ]
+    },
+    {
+      "size": 128,
+      "separated_foreground_components": 4,
+      "component_areas_px": [
+        892,
+        890,
+        348,
+        345
+      ]
+    },
+    {
+      "size": 256,
+      "separated_foreground_components": 4,
+      "component_areas_px": [
+        3679,
+        3678,
+        1443,
+        1442
+      ]
+    },
+    {
+      "size": 512,
+      "separated_foreground_components": 4,
+      "component_areas_px": [
+        14960,
+        14955,
+        5883,
+        5879
+      ]
+    }
+  ],
+  "foreground_centroid_px": [
+    511.458,
+    511.495
+  ],
+  "brand_white_contrast": 12.15,
+  "square_source_full_bleed": true,
+  "preview_transparent_corners": true,
+  "visual_checks": [
+    "1024px rounded icon and closed vector capsules",
+    "64/48/32/24/16px native-size strip",
+    "circular crop",
+    "outlined horizontal and stacked lockups",
+    "four showcase contexts",
+    "HTML preview mode switch and enlarged reversed-color showcase"
+  ],
+  "limits": "Generic design/source assets. No native launcher integration or device-rendering claim."
+}

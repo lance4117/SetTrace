@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1150" viewBox="0 0 1800 1150">
+  <rect width="1800" height="1150" fill="#F5F7F8"/>
+  <g font-family="Segoe UI, Microsoft YaHei, sans-serif">
+    <text x="64" y="87" font-size="43" fill="#19262C" font-weight="650" letter-spacing="-1">SetTrace</text>
+    <text x="274" y="84" font-size="29" fill="#19262C" font-weight="500">/  Logo 与 App 图标 · 五方向草图</text>
+    <text x="64" y="133" font-size="19" fill="#586970" >同一配色、同一尺寸，先比较图形。每个方向各一稿，尚未定稿。</text>
+    <text x="1572" y="82" font-size="13" fill="#586970" letter-spacing="2">ROUND 01</text>
+    <text x="1572" y="113" font-size="15" fill="#586970" >2026.10.15</text>
+    <g>
+    <rect x="64" y="196" width="316" height="858" rx="20" fill="#FFFFFF" stroke="#DBE3E5"/>
+    <rect x="88" y="220" width="34" height="34" rx="9" fill="#E2F2ED"/>
+    <text x="99" y="244" font-size="20" fill="#087F6B" font-weight="700">A</text>
+    <text x="88" y="293" font-size="26" fill="#19262C" font-weight="700">组间节奏</text>
+    <text x="88" y="321" font-size="12" fill="#586970" letter-spacing="1.4">SET RHYTHM</text>
+    <rect x="126" y="359" width="192" height="192" rx="45.12" fill="#087F6B"/><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" x="126" y="359" width="192" height="192" style="color:#FFFFFF"><g fill="none" stroke="currentColor" stroke-width="11" stroke-linecap="round"><path d="M28 28 18 72 M46 28 36 72 M64 28 54 72 M82 28 78.5 43.4 M75.5 56.6 72 72"/></g></svg>
+    <text x="88" y="608" font-size="19" fill="#19262C" font-weight="600">重复的组，清楚的间歇。</text>
+    <text x="88" y="639" font-size="17" fill="#586970" >四道短节形成稳定节拍。</text>
+    <path d="M88 678H356" stroke="#DBE3E5"/>
+    <text x="88" y="710" font-size="11" fill="#586970" letter-spacing="1.2">LOGO 组合</text>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" x="91" y="731" width="52" height="52" style="color:#087F6B"><g fill="none" stroke="currentColor" stroke-width="11" stroke-linecap="round"><path d="M28 28 18 72 M46 28 36 72 M64 28 54 72 M82 28 78.5 43.4 M75.5 56.6 72 72"/></g></svg>
+    <text x="154" y="768" font-size="29" fill="#19262C" font-weight="600" letter-spacing="-.6">SetTrace</text>
+    <text x="88" y="830" font-size="12" fill="#586970" >深色 / 浅色 / 单色缩略</text>
+    <rect x="92" y="854" width="64" height="64" rx="15.04" fill="#111518"/><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" x="92" y="854" width="64" height="64" style="color:#5DD9B6"><g fill="none" stroke="currentColor" stroke-width="11" stroke-linecap="round"><path d="M28 28 18 72 M46 28 36 72 M64 28 54 72 M82 28 78.5 43.4 M75.5 56.6 72 72"/></g></svg>
+    <rect x="199" y="870" width="48" height="48" rx="11.28" fill="#E2F2ED"/><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" x="199" y="870" width="48" height="48" style="color:#087F6B"><g fill="none" stroke="currentColor" stroke-width="11" stroke-linecap="round"><path d="M28 28 18 72 M46 28 36 72 M64 28 54 72 M82 28 78.5 43.4 M75.5 56.6 72 72"/></g></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" x="299" y="886" width="32" height="32" style="color:#19262C"><g fill="none" stroke="currentColor" stroke-width="11" stroke-linecap="round"><path d="M28 28 18 72 M46 28 36 72 M64 28 54 72 M82 28 78.5 43.4 M75.5 56.6 72 72"/></g></svg>
+    <text x="112" y="942" font-size="12" fill="#586970" >64</text>
+    <text x="214" y="942" font-size="12" fill="#586970" >48</text>
+    <text x="306" y="942" font-size="12" fill="#586970" >32</text>
+    <path d="M88 972H356" stroke="#DBE3E5"/>
+    <text x="88" y="1015" font-size="14" fill="#586970" >重复单元 / 间歇 / 行动感</text>
+  </g><g>
+    <rect x="403" y="196" width="316" height="858" rx="20" fill="#FFFFFF" stroke="#DBE3E5"/>
+    <rect x="427" y="220" width="34" height="34" rx="9" fill="#E2F2ED"/>
+    <text x="438" y="244" font-size="20" fill="#087F6B" font-weight="700">B</text>
+    <text x="427" y="293" font-size="26" fill="#19262C" font-weight="700">行进的 S</text>
+    <text x="427" y="321" font-size="12" fill="#586970" letter-spacing="1.4">TRACE S</text>
+    <rect x="465" y="359" width="192" height="192" rx="45.12" fill="#087F6B"/><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" x="465" y="359" width="192" height="192" style="color:#FFFFFF"><g fill="none" stroke="currentColor" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"><path d="M74 25H39C30.7 25 25 30.7 25 38S30.7 50 39 50H61C69.3 50 75 55.7 75 63S69.3 76 61 76H26"/></g></svg>
+    <text x="427" y="608" font-size="19" fill="#19262C" font-weight="600">一条轨迹，持续向前。</text>
+    <text x="427" y="639" font-size="17" fill="#586970" >用完整的回折形成字母 S。</text>
+    <path d="M427 678H695" stroke="#DBE3E5"/>
+    <text x="427" y="710" font-size="11" fill="#586970" letter-spacing="1.2">LOGO 组合</text>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" x="430" y="731" width="52" height="52" style="color:#087F6B"><g fill="none" stroke="currentColor" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"><path d="M74 25H39C30.7 25 25 30.7 25 38S30.7 50 39 50H61C69.3 50 75 55.7 75 63S69.3 76 61 76H26"/></g></svg>
+    <text x="493" y="768" font-size="29" fill="#19262C" font-weight="600" letter-spacing="-.6">SetTrace</text>
+    <text x="427" y="830" font-size="12" fill="#586970" >深色 / 浅色 / 单色缩略</text>
+    <rect x="431" y="854" width="64" height="64" rx="15.04" fill="#111518"/><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" x="431" y="854" width="64" height="64" style="color:#5DD9B6"><g fill="none" stroke="currentColor" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"><path d="M74 25H39C30.7 25 25 30.7 25 38S30.7 50 39 50H61C69.3 50 75 55.7 75 63S69.3 76 61 76H26"/></g></svg>
+    <rect x="538" y="870" width="48" height="48" rx="11.28" fill="#E2F2ED"/><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" x="538" y="870" width="48" height="48" style="color:#087F6B"><g fill="none" stroke="currentColor" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"><path d="M74 25H39C30.7 25 25 30.7 25 38S30.7 50 39 50H61C69.3 50 75 55.7 75 63S69.3 76 61 76H26"/></g></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" x="638" y="886" width="32" height="32" style="color:#19262C"><g fill="none" stroke="currentColor" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"><path d="M74 25H39C30.7 25 25 30.7 25 38S30.7 50 39 50H61C69.3 50 75 55.7 75 63S69.3 76 61 76H26"/></g></svg>
+    <text x="451" y="942" font-size="12" fill="#586970" >64</text>
+    <text x="553" y="942" font-size="12" fill="#586970" >48</text>
+    <text x="645" y="942" font-size="12" fill="#586970" >32</text>
+    <path d="M427 972H695" stroke="#DBE3E5"/>
+    <text x="427" y="1015" font-size="14" fill="#586970" >连续轨迹 / 字母 S / 留白</text>
+  </g><g>
+    <rect x="742" y="196" width="316" height="858" rx="20" fill="#FFFFFF" stroke="#DBE3E5"/>
+    <rect x="766" y="220" width="34" height="34" rx="9" fill="#E2F2ED"/>
+    <text x="777" y="244" font-size="20" fill="#087F6B" font-weight="700">C</text>
+    <text x="766" y="293" font-size="26" fill="#19262C" font-weight="700">当前一格</text>
+    <text x="766" y="321" font-size="12" fill="#586970" letter-spacing="1.4">CURRENT CELL</text>
+    <rect x="804" y="359" width="192" height="192" rx="45.12" fill="#087F6B"/><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" x="804" y="359" width="192" height="192" style="color:#FFFFFF"><g fill="currentColor"><rect x="20" y="20" width="25" height="25" rx="6"/><rect x="55" y="20" width="25" height="25" rx="6"/><rect x="20" y="55" width="25" height="25" rx="6"/><rect x="58.5" y="58.5" width="18" height="18" rx="3" fill="none" stroke="currentColor" stroke-width="7"/></g></svg>
+    <text x="766" y="608" font-size="19" fill="#19262C" font-weight="600">有序的组，明确的当前。</text>
+    <text x="766" y="639" font-size="17" fill="#586970" >用一格留白建立视觉焦点。</text>
+    <path d="M766 678H1034" stroke="#DBE3E5"/>
+    <text x="766" y="710" font-size="11" fill="#586970" letter-spacing="1.2">LOGO 组合</text>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" x="769" y="731" width="52" height="52" style="color:#087F6B"><g fill="currentColor"><rect x="20" y="20" width="25" height="25" rx="6"/><rect x="55" y="20" width="25" height="25" rx="6"/><rect x="20" y="55" width="25" height="25" rx="6"/><rect x="58.5" y="58.5" width="18" height="18" rx="3" fill="none" stroke="currentColor" stroke-width="7"/></g></svg>
+    <text x="832" y="768" font-size="29" fill="#19262C" font-weight="600" letter-spacing="-.6">SetTrace</text>
+    <text x="766" y="830" font-size="12" fill="#586970" >深色 / 浅色 / 单色缩略</text>
+    <rect x="770" y="854" width="64" height="64" rx="15.04" fill="#111518"/><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" x="770" y="854" width="64" height="64" style="color:#5DD9B6"><g fill="currentColor"><rect x="20" y="20" width="25" height="25" rx="6"/><rect x="55" y="20" width="25" height="25" rx="6"/><rect x="20" y="55" width="25" height="25" rx="6"/><rect x="58.5" y="58.5" width="18" height="18" rx="3" fill="none" stroke="currentColor" stroke-width="7"/></g></svg>
+    <rect x="877" y="870" width="48" height="48" rx="11.28" fill="#E2F2ED"/><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" x="877" y="870" width="48" height="48" style="color:#087F6B"><g fill="currentColor"><rect x="20" y="20" width="25" height="25" rx="6"/><rect x="55" y="20" width="25" height="25" rx="6"/><rect x="20" y="55" width="25" height="25" rx="6"/><rect x="58.5" y="58.5" width="18" height="18" rx="3" fill="none" stroke="currentColor" stroke-width="7"/></g></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" x="977" y="886" width="32" height="32" style="color:#19262C"><g fill="currentColor"><rect x="20" y="20" width="25" height="25" rx="6"/><rect x="55" y="20" width="25" height="25" rx="6"/><rect x="20" y="55" width="25" height="25" rx="6"/><rect x="58.5" y="58.5" width="18" height="18" rx="3" fill="none" stroke="currentColor" stroke-width="7"/></g></svg>
+    <text x="790" y="942" font-size="12" fill="#586970" >64</text>
+    <text x="892" y="942" font-size="12" fill="#586970" >48</text>
+    <text x="984" y="942" font-size="12" fill="#586970" >32</text>
+    <path d="M766 972H1034" stroke="#DBE3E5"/>
+    <text x="766" y="1015" font-size="14" fill="#586970" >模块 / 当前焦点 / 秩序</text>
+  </g><g>
+    <rect x="1081" y="196" width="316" height="858" rx="20" fill="#FFFFFF" stroke="#DBE3E5"/>
+    <rect x="1105" y="220" width="34" height="34" rx="9" fill="#E2F2ED"/>
+    <text x="1116" y="244" font-size="20" fill="#087F6B" font-weight="700">D</text>
+    <text x="1105" y="293" font-size="26" fill="#19262C" font-weight="700">训练刻度</text>
+    <text x="1105" y="321" font-size="12" fill="#586970" letter-spacing="1.4">TRAINING TICKS</text>
+    <rect x="1143" y="359" width="192" height="192" rx="45.12" fill="#087F6B"/><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" x="1143" y="359" width="192" height="192" style="color:#FFFFFF"><g fill="none" stroke="currentColor" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"><path d="M25 25H75 M50 25V75 M50 46H69 M50 64H63"/></g></svg>
+    <text x="1105" y="608" font-size="19" fill="#19262C" font-weight="600">一根主轴，逐组记录。</text>
+    <text x="1105" y="639" font-size="17" fill="#586970" >把计数刻度融入字母 T。</text>
+    <path d="M1105 678H1373" stroke="#DBE3E5"/>
+    <text x="1105" y="710" font-size="11" fill="#586970" letter-spacing="1.2">LOGO 组合</text>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" x="1108" y="731" width="52" height="52" style="color:#087F6B"><g fill="none" stroke="currentColor" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"><path d="M25 25H75 M50 25V75 M50 46H69 M50 64H63"/></g></svg>
+    <text x="1171" y="768" font-size="29" fill="#19262C" font-weight="600" letter-spacing="-.6">SetTrace</text>
+    <text x="1105" y="830" font-size="12" fill="#586970" >深色 / 浅色 / 单色缩略</text>
+    <rect x="1109" y="854" width="64" height="64" rx="15.04" fill="#111518"/><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" x="1109" y="854" width="64" height="64" style="color:#5DD9B6"><g fill="none" stroke="currentColor" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"><path d="M25 25H75 M50 25V75 M50 46H69 M50 64H63"/></g></svg>
+    <rect x="1216" y="870" width="48" height="48" rx="11.28" fill="#E2F2ED"/><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" x="1216" y="870" width="48" height="48" style="color:#087F6B"><g fill="none" stroke="currentColor" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"><path d="M25 25H75 M50 25V75 M50 46H69 M50 64H63"/></g></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" x="1316" y="886" width="32" height="32" style="color:#19262C"><g fill="none" stroke="currentColor" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"><path d="M25 25H75 M50 25V75 M50 46H69 M50 64H63"/></g></svg>
+    <text x="1129" y="942" font-size="12" fill="#586970" >64</text>
+    <text x="1231" y="942" font-size="12" fill="#586970" >48</text>
+    <text x="1323" y="942" font-size="12" fill="#586970" >32</text>
+    <path d="M1105 972H1373" stroke="#DBE3E5"/>
+    <text x="1105" y="1015" font-size="14" fill="#586970" >字母 T / 计数 / 工具感</text>
+  </g><g>
+    <rect x="1420" y="196" width="316" height="858" rx="20" fill="#FFFFFF" stroke="#DBE3E5"/>
+    <rect x="1444" y="220" width="34" height="34" rx="9" fill="#E2F2ED"/>
+    <text x="1455" y="244" font-size="20" fill="#087F6B" font-weight="700">E</text>
+    <text x="1444" y="293" font-size="26" fill="#19262C" font-weight="700">留痕印记</text>
+    <text x="1444" y="321" font-size="12" fill="#586970" letter-spacing="1.4">TRACE IMPRINT</text>
+    <rect x="1482" y="359" width="192" height="192" rx="45.12" fill="#087F6B"/><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" x="1482" y="359" width="192" height="192" style="color:#FFFFFF"><g fill="currentColor"><path fill-rule="evenodd" d="M83 50A33 33 0 1 1 17 50A33 33 0 1 1 83 50Z M35 58H43V41Q43 32 52 32H65A6 6 0 0 1 65 44H57V59Q57 70 46 70H35A6 6 0 0 1 35 58Z"/></g></svg>
+    <text x="1444" y="608" font-size="19" fill="#19262C" font-weight="600">完成一组，留下一笔。</text>
+    <text x="1444" y="639" font-size="17" fill="#586970" >在完整形体中刻出轨迹。</text>
+    <path d="M1444 678H1712" stroke="#DBE3E5"/>
+    <text x="1444" y="710" font-size="11" fill="#586970" letter-spacing="1.2">LOGO 组合</text>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" x="1447" y="731" width="52" height="52" style="color:#087F6B"><g fill="currentColor"><path fill-rule="evenodd" d="M83 50A33 33 0 1 1 17 50A33 33 0 1 1 83 50Z M35 58H43V41Q43 32 52 32H65A6 6 0 0 1 65 44H57V59Q57 70 46 70H35A6 6 0 0 1 35 58Z"/></g></svg>
+    <text x="1510" y="768" font-size="29" fill="#19262C" font-weight="600" letter-spacing="-.6">SetTrace</text>
+    <text x="1444" y="830" font-size="12" fill="#586970" >深色 / 浅色 / 单色缩略</text>
+    <rect x="1448" y="854" width="64" height="64" rx="15.04" fill="#111518"/><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" x="1448" y="854" width="64" height="64" style="color:#5DD9B6"><g fill="currentColor"><path fill-rule="evenodd" d="M83 50A33 33 0 1 1 17 50A33 33 0 1 1 83 50Z M35 58H43V41Q43 32 52 32H65A6 6 0 0 1 65 44H57V59Q57 70 46 70H35A6 6 0 0 1 35 58Z"/></g></svg>
+    <rect x="1555" y="870" width="48" height="48" rx="11.28" fill="#E2F2ED"/><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" x="1555" y="870" width="48" height="48" style="color:#087F6B"><g fill="currentColor"><path fill-rule="evenodd" d="M83 50A33 33 0 1 1 17 50A33 33 0 1 1 83 50Z M35 58H43V41Q43 32 52 32H65A6 6 0 0 1 65 44H57V59Q57 70 46 70H35A6 6 0 0 1 35 58Z"/></g></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" x="1655" y="886" width="32" height="32" style="color:#19262C"><g fill="currentColor"><path fill-rule="evenodd" d="M83 50A33 33 0 1 1 17 50A33 33 0 1 1 83 50Z M35 58H43V41Q43 32 52 32H65A6 6 0 0 1 65 44H57V59Q57 70 46 70H35A6 6 0 0 1 35 58Z"/></g></svg>
+    <text x="1468" y="942" font-size="12" fill="#586970" >64</text>
+    <text x="1570" y="942" font-size="12" fill="#586970" >48</text>
+    <text x="1662" y="942" font-size="12" fill="#586970" >32</text>
+    <path d="M1444 972H1712" stroke="#DBE3E5"/>
+    <text x="1444" y="1015" font-size="14" fill="#586970" >负形 / 印记 / 记录感</text>
+  </g>
+    <circle cx="72" cy="1106" r="7" fill="#087F6B"/>
+    <text x="90" y="1112" font-size="14" fill="#586970" >青绿 #087F6B</text>
+    <circle cx="272" cy="1106" r="7" fill="#111518"/>
+    <text x="290" y="1112" font-size="14" fill="#586970" >石墨 #111518</text>
+    <circle cx="472" cy="1106" r="7" fill="#5DD9B6"/>
+    <text x="490" y="1112" font-size="14" fill="#586970" >薄荷 #5DD9B6</text>
+    <text x="1290" y="1112" font-size="15" fill="#586970" >Focus UI 视觉基线 / 仅用于方案选择</text>
+  </g>
+</svg>

@@ -1,0 +1,423 @@
+{
+  "version": "semantic-icon-design/v0.1",
+  "route": "concept-to-package",
+  "stage": "B direction refinement sketches for selection only",
+  "app_context": {
+    "app_name": "SetTrace",
+    "category": "offline workout set tracker",
+    "job_to_be_done": "focus on the current training set and retain successive records",
+    "tone": "calm, ordered, precise"
+  },
+  "source_reference": "C:/Users/Lance/.codex/generated_images/01a13d25-d877-7023-bfae-224aaedcbf9d/exec-99a34503-7c02-4ef1-8f99-ab18b343e3f3.png",
+  "style": {
+    "direction": "black-stage-mark",
+    "svg_convertibility": "high",
+    "style_notes": "Adapted to teal field with three related pale opaque plates. Maintain selected stepped diagonal identity."
+  },
+  "icon_intent": {
+    "metaphor": "three successive training records, current one at the front",
+    "small_size_readability": "three distinct broad plates at 64px",
+    "must_feel_like": [
+      "quiet",
+      "balanced",
+      "substantial"
+    ],
+    "must_not_feel_like": [
+      "menu",
+      "wallet",
+      "document illustration",
+      "3D stack"
+    ]
+  },
+  "canvas": {
+    "size": 1024,
+    "alignment": "optically centered",
+    "composition_anchor": "center",
+    "safe_area": {
+      "x": [
+        145,
+        879
+      ],
+      "y": [
+        145,
+        879
+      ]
+    }
+  },
+  "background": {
+    "type": "solid",
+    "color": "#087F6B"
+  },
+  "layering_policy": {
+    "negative_space_strategy": "overlay-fill-layer",
+    "cutouts_are_layers": true,
+    "description": "Three opaque overlapping plates; no holes, masks, material simulation or baked shadows."
+  },
+  "must_preserve": [
+    "Exactly three equal-sized horizontal rounded plates",
+    "Top plate shifted right, middle central, front shifted left",
+    "Back mint #5DD9B6, middle #B5E8D8, front cool-white #F5F7F8",
+    "No symbols or content added"
+  ],
+  "must_not_add": [
+    "Text",
+    "Dumbbells",
+    "Checks",
+    "Dots",
+    "Tilt or perspective",
+    "Gradients",
+    "Texture",
+    "Shadow",
+    "Gloss"
+  ],
+  "variants": [
+    {
+      "id": "B1-balanced",
+      "generation_seed": 326951,
+      "description": "Closest to the chosen image with tidier, slightly tighter spacing.",
+      "plate": {
+        "width": 554,
+        "height": 236,
+        "radius": 57
+      },
+      "step": {
+        "x": -72,
+        "y": 174
+      },
+      "first": {
+        "x": 307,
+        "y": 220
+      },
+      "layers": [
+        {
+          "id": "rear",
+          "order": 1,
+          "role": "previous record",
+          "format_target": "svg",
+          "shape_model": "opaque rounded rectangle",
+          "fill": "#5DD9B6",
+          "bounds": {
+            "x": [
+              307,
+              861
+            ],
+            "y": [
+              220,
+              456
+            ]
+          },
+          "geometry_constraints": [
+            "Equal size and radius for all three siblings",
+            "Perfectly horizontal edges",
+            "No material effects"
+          ],
+          "must_preserve": [
+            "Visible flat front faces",
+            "Even stepping rhythm"
+          ],
+          "must_not_add": [
+            "Text",
+            "Outline",
+            "Shadow"
+          ]
+        },
+        {
+          "id": "middle",
+          "order": 2,
+          "role": "previous record",
+          "format_target": "svg",
+          "shape_model": "opaque rounded rectangle",
+          "fill": "#B5E8D8",
+          "bounds": {
+            "x": [
+              235,
+              789
+            ],
+            "y": [
+              394,
+              630
+            ]
+          },
+          "geometry_constraints": [
+            "Equal size and radius for all three siblings",
+            "Perfectly horizontal edges",
+            "No material effects"
+          ],
+          "must_preserve": [
+            "Visible flat front faces",
+            "Even stepping rhythm"
+          ],
+          "must_not_add": [
+            "Text",
+            "Outline",
+            "Shadow"
+          ]
+        },
+        {
+          "id": "front",
+          "order": 3,
+          "role": "current record",
+          "format_target": "svg",
+          "shape_model": "opaque rounded rectangle",
+          "fill": "#F5F7F8",
+          "bounds": {
+            "x": [
+              163,
+              717
+            ],
+            "y": [
+              568,
+              804
+            ]
+          },
+          "geometry_constraints": [
+            "Equal size and radius for all three siblings",
+            "Perfectly horizontal edges",
+            "No material effects"
+          ],
+          "must_preserve": [
+            "Visible flat front faces",
+            "Even stepping rhythm"
+          ],
+          "must_not_add": [
+            "Text",
+            "Outline",
+            "Shadow"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "B2-compact",
+      "generation_seed": 827164,
+      "description": "Shorter wider-faced plates, less horizontal drift and near-square aggregate.",
+      "plate": {
+        "width": 512,
+        "height": 276,
+        "radius": 60
+      },
+      "step": {
+        "x": -56,
+        "y": 182
+      },
+      "first": {
+        "x": 312,
+        "y": 192
+      },
+      "layers": [
+        {
+          "id": "rear",
+          "order": 1,
+          "role": "previous record",
+          "format_target": "svg",
+          "shape_model": "opaque rounded rectangle",
+          "fill": "#5DD9B6",
+          "bounds": {
+            "x": [
+              312,
+              824
+            ],
+            "y": [
+              192,
+              468
+            ]
+          },
+          "geometry_constraints": [
+            "Equal size and radius for all three siblings",
+            "Perfectly horizontal edges",
+            "No material effects"
+          ],
+          "must_preserve": [
+            "Visible flat front faces",
+            "Even stepping rhythm"
+          ],
+          "must_not_add": [
+            "Text",
+            "Outline",
+            "Shadow"
+          ]
+        },
+        {
+          "id": "middle",
+          "order": 2,
+          "role": "previous record",
+          "format_target": "svg",
+          "shape_model": "opaque rounded rectangle",
+          "fill": "#B5E8D8",
+          "bounds": {
+            "x": [
+              256,
+              768
+            ],
+            "y": [
+              374,
+              650
+            ]
+          },
+          "geometry_constraints": [
+            "Equal size and radius for all three siblings",
+            "Perfectly horizontal edges",
+            "No material effects"
+          ],
+          "must_preserve": [
+            "Visible flat front faces",
+            "Even stepping rhythm"
+          ],
+          "must_not_add": [
+            "Text",
+            "Outline",
+            "Shadow"
+          ]
+        },
+        {
+          "id": "front",
+          "order": 3,
+          "role": "current record",
+          "format_target": "svg",
+          "shape_model": "opaque rounded rectangle",
+          "fill": "#F5F7F8",
+          "bounds": {
+            "x": [
+              200,
+              712
+            ],
+            "y": [
+              556,
+              832
+            ]
+          },
+          "geometry_constraints": [
+            "Equal size and radius for all three siblings",
+            "Perfectly horizontal edges",
+            "No material effects"
+          ],
+          "must_preserve": [
+            "Visible flat front faces",
+            "Even stepping rhythm"
+          ],
+          "must_not_add": [
+            "Text",
+            "Outline",
+            "Shadow"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "B3-precise",
+      "generation_seed": 594283,
+      "description": "A quieter, nearly vertical stepped arrangement with smaller corner radius.",
+      "plate": {
+        "width": 574,
+        "height": 225,
+        "radius": 38
+      },
+      "step": {
+        "x": -36,
+        "y": 174
+      },
+      "first": {
+        "x": 261,
+        "y": 226
+      },
+      "layers": [
+        {
+          "id": "rear",
+          "order": 1,
+          "role": "previous record",
+          "format_target": "svg",
+          "shape_model": "opaque rounded rectangle",
+          "fill": "#5DD9B6",
+          "bounds": {
+            "x": [
+              261,
+              835
+            ],
+            "y": [
+              226,
+              451
+            ]
+          },
+          "geometry_constraints": [
+            "Equal size and radius for all three siblings",
+            "Perfectly horizontal edges",
+            "No material effects"
+          ],
+          "must_preserve": [
+            "Visible flat front faces",
+            "Even stepping rhythm"
+          ],
+          "must_not_add": [
+            "Text",
+            "Outline",
+            "Shadow"
+          ]
+        },
+        {
+          "id": "middle",
+          "order": 2,
+          "role": "previous record",
+          "format_target": "svg",
+          "shape_model": "opaque rounded rectangle",
+          "fill": "#B5E8D8",
+          "bounds": {
+            "x": [
+              225,
+              799
+            ],
+            "y": [
+              400,
+              625
+            ]
+          },
+          "geometry_constraints": [
+            "Equal size and radius for all three siblings",
+            "Perfectly horizontal edges",
+            "No material effects"
+          ],
+          "must_preserve": [
+            "Visible flat front faces",
+            "Even stepping rhythm"
+          ],
+          "must_not_add": [
+            "Text",
+            "Outline",
+            "Shadow"
+          ]
+        },
+        {
+          "id": "front",
+          "order": 3,
+          "role": "current record",
+          "format_target": "svg",
+          "shape_model": "opaque rounded rectangle",
+          "fill": "#F5F7F8",
+          "bounds": {
+            "x": [
+              189,
+              763
+            ],
+            "y": [
+              574,
+              799
+            ]
+          },
+          "geometry_constraints": [
+            "Equal size and radius for all three siblings",
+            "Perfectly horizontal edges",
+            "No material effects"
+          ],
+          "must_preserve": [
+            "Visible flat front faces",
+            "Even stepping rhythm"
+          ],
+          "must_not_add": [
+            "Text",
+            "Outline",
+            "Shadow"
+          ]
+        }
+      ]
+    }
+  ]
+}

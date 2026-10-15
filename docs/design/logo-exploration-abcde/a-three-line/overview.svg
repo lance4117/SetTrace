@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1280" viewBox="0 0 1600 1280">
+<rect width="1600" height="1280" fill="#F5F7F8"/>
+<g font-family="Segoe UI, Microsoft YaHei, sans-serif">
+  <text x="64" y="64" font-size="12" fill="#586970" letter-spacing="2">SETTRACE / LOGO EXPLORATION / ROUND 02</text>
+  <text x="64" y="118" font-size="38" fill="#111518" font-weight="650">A · 组间节奏</text>
+  <text x="328" y="116" font-size="24" fill="#586970" >三条主线，两条完整，一条断开。</text>
+  <text x="1380" y="65" font-size="14" fill="#586970" >2026.10.15</text>
+  <rect x="64" y="165" width="1472" height="532" rx="22" fill="#FFFFFF" stroke="#DBE3E5"/>
+  <path d="M554 196V666 M1045 196V666" stroke="#DBE3E5"/>
+  <text x="96" y="210" font-size="14" fill="#586970" letter-spacing="1">01 / 标记与字标</text>
+  <text x="587" y="210" font-size="14" fill="#586970" letter-spacing="1">02 / 浅色图标</text>
+  <text x="1077" y="210" font-size="14" fill="#586970" letter-spacing="1">03 / 深色图标</text>
+  <svg x="166" y="246" width="286" height="286" viewBox="0 0 100 100" style="color:#111518"><g fill="none" stroke="currentColor" stroke-width="11" stroke-linecap="round"><path d="M34 28 24 72 M55 28 45 72 M76 28 72.82 42 M69.18 58 66 72"/></g></svg>
+  <text x="309" y="586" font-size="42" fill="#111518" text-anchor="middle" font-weight="600" letter-spacing="-1.2">SetTrace</text>
+  <text x="309" y="650" font-size="17" fill="#586970" text-anchor="middle">单色标记，保留形体与留白。</text>
+  <rect x="660" y="268" width="280" height="280" rx="65.8" fill="#FFFFFF" stroke="#DBE3E5"/><svg x="660" y="268" width="280" height="280" viewBox="0 0 100 100" style="color:#111518"><g fill="none" stroke="currentColor" stroke-width="11" stroke-linecap="round"><path d="M34 28 24 72 M55 28 45 72 M76 28 72.82 42 M69.18 58 66 72"/></g></svg>
+  <text x="800" y="586" font-size="22" fill="#111518" text-anchor="middle" font-weight="500">SetTrace</text>
+  <text x="800" y="650" font-size="17" fill="#586970" text-anchor="middle">白底黑标，线条本身成为主角。</text>
+  <rect x="1150" y="268" width="280" height="280" rx="65.8" fill="#111518" /><svg x="1150" y="268" width="280" height="280" viewBox="0 0 100 100" style="color:#FFFFFF"><g fill="none" stroke="currentColor" stroke-width="11" stroke-linecap="round"><path d="M34 28 24 72 M55 28 45 72 M76 28 72.82 42 M69.18 58 66 72"/></g></svg>
+  <text x="1290" y="586" font-size="22" fill="#111518" text-anchor="middle" font-weight="500">SetTrace</text>
+  <text x="1290" y="650" font-size="17" fill="#586970" text-anchor="middle">黑底白标，紧凑而清晰。</text>
+
+  <text x="64" y="751" font-size="23" fill="#111518" font-weight="600">同一图形，比较色彩分配。</text>
+  <text x="1030" y="750" font-size="15" fill="#586970" >统一图形与尺寸，观察色彩面积的影响。</text>
+  <rect x="64" y="785" width="350" height="216" rx="16" fill="#FFFFFF" stroke="#DBE3E5"/>
+    <rect x="89" y="823" width="112" height="112" rx="26.32" fill="#111518" /><svg x="89" y="823" width="112" height="112" viewBox="0 0 100 100" style="color:#FFFFFF"><g fill="none" stroke="currentColor" stroke-width="11" stroke-linecap="round"><path d="M34 28 24 72 M55 28 45 72 M76 28 72.82 42 M69.18 58 66 72"/></g></svg>
+    <text x="220" y="861" font-size="20" fill="#111518" font-weight="600">石墨黑</text>
+    <text x="220" y="890" font-size="13" fill="#586970" >深色底 + 白色标记</text>
+    <rect x="438" y="785" width="350" height="216" rx="16" fill="#FFFFFF" stroke="#DBE3E5"/>
+    <rect x="463" y="823" width="112" height="112" rx="26.32" fill="#52615C" /><svg x="463" y="823" width="112" height="112" viewBox="0 0 100 100" style="color:#FFFFFF"><g fill="none" stroke="currentColor" stroke-width="11" stroke-linecap="round"><path d="M34 28 24 72 M55 28 45 72 M76 28 72.82 42 M69.18 58 66 72"/></g></svg>
+    <text x="594" y="861" font-size="20" fill="#111518" font-weight="600">低彩灰绿</text>
+    <text x="594" y="890" font-size="13" fill="#586970" >降低彩度，保留一点色温</text>
+    <rect x="812" y="785" width="350" height="216" rx="16" fill="#FFFFFF" stroke="#DBE3E5"/>
+    <rect x="837" y="823" width="112" height="112" rx="26.32" fill="#087F6B" /><svg x="837" y="823" width="112" height="112" viewBox="0 0 100 100" style="color:#FFFFFF"><g fill="none" stroke="currentColor" stroke-width="11" stroke-linecap="round"><path d="M34 28 24 72 M55 28 45 72 M76 28 72.82 42 M69.18 58 66 72"/></g></svg>
+    <text x="968" y="861" font-size="20" fill="#111518" font-weight="600">界面青绿</text>
+    <text x="968" y="890" font-size="13" fill="#586970" >原 UI 主色铺满底板</text>
+    <rect x="1186" y="785" width="350" height="216" rx="16" fill="#FFFFFF" stroke="#DBE3E5"/>
+    <rect x="1211" y="823" width="112" height="112" rx="26.32" fill="#FFFFFF" stroke="#DBE3E5"/><svg x="1211" y="823" width="112" height="112" viewBox="0 0 100 100" style="color:#087F6B"><g fill="none" stroke="currentColor" stroke-width="11" stroke-linecap="round"><path d="M34 28 24 72 M55 28 45 72 M76 28 72.82 42 M69.18 58 66 72"/></g></svg>
+    <text x="1342" y="861" font-size="20" fill="#111518" font-weight="600">青绿只作标记</text>
+    <text x="1342" y="890" font-size="13" fill="#586970" >缩小色彩面积，保留留白</text>
+    
+
+  <rect x="64" y="1035" width="1472" height="170" rx="18" fill="#FFFFFF" stroke="#DBE3E5"/>
+  <text x="91" y="1075" font-size="14" fill="#586970" >数量调整</text>
+  <svg x="103" y="1082" width="90" height="90" viewBox="0 0 100 100" style="color:#111518"><g fill="none" stroke="currentColor" stroke-width="11" stroke-linecap="round"><path d="M28 28 18 72 M46 28 36 72 M64 28 54 72 M82 28 78.5 43.4 M75.5 56.6 72 72"/></g></svg>
+  <text x="210" y="1137" font-size="25" fill="#586970" >→</text>
+  <svg x="250" y="1082" width="90" height="90" viewBox="0 0 100 100" style="color:#111518"><g fill="none" stroke="currentColor" stroke-width="11" stroke-linecap="round"><path d="M34 28 24 72 M55 28 45 72 M76 28 72.82 42 M69.18 58 66 72"/></g></svg>
+  <text x="363" y="1118" font-size="19" fill="#111518" font-weight="600">四道 → 三道</text>
+  <text x="363" y="1152" font-size="14" fill="#586970" >笔画厚度和倾斜角度保持一致。</text>
+  <path d="M686 1063V1177" stroke="#DBE3E5"/>
+  <text x="721" y="1075" font-size="14" fill="#586970" >小尺寸检查</text>
+  <rect x="748" y="1096" width="64" height="64" rx="15.04" fill="#111518" /><svg x="748" y="1096" width="64" height="64" viewBox="0 0 100 100" style="color:#FFFFFF"><g fill="none" stroke="currentColor" stroke-width="11" stroke-linecap="round"><path d="M34 28 24 72 M55 28 45 72 M76 28 72.82 42 M69.18 58 66 72"/></g></svg>
+  <rect x="872" y="1112" width="48" height="48" rx="11.28" fill="#111518" /><svg x="872" y="1112" width="48" height="48" viewBox="0 0 100 100" style="color:#FFFFFF"><g fill="none" stroke="currentColor" stroke-width="11" stroke-linecap="round"><path d="M34 28 24 72 M55 28 45 72 M76 28 72.82 42 M69.18 58 66 72"/></g></svg>
+  <rect x="982" y="1128" width="32" height="32" rx="7.52" fill="#111518" /><svg x="982" y="1128" width="32" height="32" viewBox="0 0 100 100" style="color:#FFFFFF"><g fill="none" stroke="currentColor" stroke-width="11" stroke-linecap="round"><path d="M34 28 24 72 M55 28 45 72 M76 28 72.82 42 M69.18 58 66 72"/></g></svg>
+  <text x="780" y="1187" font-size="11" fill="#586970" text-anchor="middle">64 px</text>
+  <text x="896" y="1187" font-size="11" fill="#586970" text-anchor="middle">48 px</text>
+  <text x="998" y="1187" font-size="11" fill="#586970" text-anchor="middle">32 px</text>
+  <text x="1080" y="1118" font-size="19" fill="#111518" font-weight="600">少一条线，多一点呼吸。</text>
+  <text x="1080" y="1152" font-size="14" fill="#586970" >保留断口作为唯一的形体变化。</text>
+  <text x="64" y="1249" font-size="14" fill="#586970" >两条完整线 + 一条断开线 / 圆头 / 恒定线宽 / 固定倾斜</text>
+  <text x="1170" y="1249" font-size="14" fill="#586970" >概念细化 · 仅用于方向选择</text>
+</g></svg>

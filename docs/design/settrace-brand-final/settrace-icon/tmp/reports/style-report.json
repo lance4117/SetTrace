@@ -1,0 +1,118 @@
+{
+  "mode": "icon-spec-authoring",
+  "layout": "delivery",
+  "spec": "D:\\000_MyLibrary\\100_code\\110_Project\\5_SetTrace\\docs\\design\\settrace-brand-final\\settrace-icon\\tmp\\work\\spec.json",
+  "work_spec": "tmp/work/spec.json",
+  "name": "SetTraceFinal",
+  "canvas": 1024,
+  "target_platforms": [
+    "Android"
+  ],
+  "deliverable_type": "source-package",
+  "source_reference": "User selected the deep-green A three-track concept in this conversation; original vector preserved as settrace-icon.origin.svg.",
+  "brief": "Finalize the selected SetTrace training-rhythm identity: two continuous diagonal capsules, one interrupted track, white on #153C34. Refine optical alignment and small-size gaps without changing the concept.",
+  "renderer": "@resvg/resvg-js",
+  "generated_files": [
+    "settrace-icon.preview.svg",
+    "settrace-icon.preview.png",
+    "settrace-icon.svg",
+    "settrace-icon.png",
+    "layers/01-background.svg",
+    "layers/02-continuous-sets.svg",
+    "layers/03-interval-set.svg",
+    "tmp/README.md",
+    "tmp/reports/style-report.json",
+    "tmp/reports/package-verification.json",
+    "tmp/reports/reference-diff.png",
+    "tmp/reports/reference-overlay.png",
+    "tmp/reports/reference-side-by-side.png",
+    "tmp/reports/visual-review.json"
+  ],
+  "generated_directories": [
+    "tmp/reports",
+    "layers",
+    "tmp"
+  ],
+  "preview_svg": "settrace-icon.preview.svg",
+  "preview_png": "settrace-icon.preview.png",
+  "app_svg": "settrace-icon.svg",
+  "app_png": "settrace-icon.png",
+  "layers": [
+    "layers/01-background.svg",
+    "layers/02-continuous-sets.svg",
+    "layers/03-interval-set.svg"
+  ],
+  "apple_adapter": null,
+  "preview_background_layers": [
+    {
+      "layer": "background",
+      "source_layer": "layers/01-background.svg",
+      "role": "preview-only-simple-fill"
+    }
+  ],
+  "icon_composer_layer_decisions": [],
+  "background_mode": "spec",
+  "semantic_review": {
+    "status": "exact-enough",
+    "identity_risk": "low",
+    "basis": "Original in-task concept selected by the user; explicit authorization to optimize its geometry and finish the design. No third-party mark or bitmap reconstruction.",
+    "route": "semantic-svg",
+    "notes": "Selected identity retained; deliberate finalization changes are 13-degree exact angle, 10.8-unit width, 9-unit interruption and calculated optical centering."
+  },
+  "source_analysis": {
+    "fidelity_target": "Preserve the selected deep-green three-track rhythm, round terminals and interrupted right track.",
+    "identity_risk": "low",
+    "route": "semantic-svg",
+    "must_preserve": [
+      "exactly three track positions and four disconnected capsules",
+      "two full tracks and an interrupted third track",
+      "white foreground on deep green #153C34",
+      "round caps and uniform parallel lean"
+    ],
+    "must_not_add": [
+      "fourth track",
+      "gradient, shadow, bevel, outline, text or extra accent color",
+      "background in the transparent foreground",
+      "round mask in the square source canvas"
+    ],
+    "components": [
+      {
+        "id": "continuous-sets",
+        "layer": "continuous-sets",
+        "format": "svg",
+        "spec_constraints": [
+          "two filled capsules",
+          "equal 10.8-unit normal width",
+          "no stroke, no filters, no raster"
+        ],
+        "source_vector": "../../../../logo-exploration-abcde/a-three-line/a-three-line.svg",
+        "source_provenance": "generated-in-task",
+        "alignment_basis": "Two original continuous tracks retained; 13-degree analytical geometry and optical mass centering."
+      },
+      {
+        "id": "interval-set",
+        "layer": "interval-set",
+        "format": "svg",
+        "spec_constraints": [
+          "two disconnected filled capsules are intentional",
+          "no cover layer or true carved counter",
+          "gap is the existing background between separate pieces"
+        ]
+      }
+    ],
+    "acceptance_checks": [
+      "source foreground has four closed filled capsule contours",
+      "SVG/PNG square source and rounded preview are both provided",
+      "64, 48, 32, 24 and 16 px are visually inspected",
+      "circular crop does not touch the symbol",
+      "vector layer geometry and material checks pass"
+    ]
+  },
+  "warnings": [],
+  "claims": [
+    "spec-driven reusable cross-platform icon source package",
+    "semantic source layers retained",
+    "rounded preview PNG rendered by @resvg/resvg-js",
+    "unrounded app/source canvas outputs retained separately from preview masking"
+  ]
+}

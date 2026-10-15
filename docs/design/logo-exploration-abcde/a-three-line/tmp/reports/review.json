@@ -1,0 +1,22 @@
+{
+  "svg_valid": [
+    "a-three-line.svg",
+    "overview.svg"
+  ],
+  "png_dimensions": {
+    "a-three-line-black.png": [
+      1024,
+      1024
+    ],
+    "a-three-line-white.png": [
+      1024,
+      1024
+    ],
+    "overview.png": [
+      1600,
+      1280
+    ]
+  },
+  "visual_review": "overview inspected: monochrome mark, light/dark icon, four color treatments, old/new counts and 64/48/32 px previews",
+  "status": "ready for concept review"
+}

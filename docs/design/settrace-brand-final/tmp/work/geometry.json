@@ -1,0 +1,38 @@
+{
+  "name": "SetTrace / Set Rhythm",
+  "version": "1.0",
+  "date": "2026-10-15",
+  "tracks": 3,
+  "components": 4,
+  "angleDegrees": 13,
+  "weight": 10.8,
+  "pitch": 21,
+  "clearIntertrackGap": 9.66177,
+  "clearInterruptionGap": 9,
+  "opticalTranslationX": 1.5887,
+  "foregroundCentroid": [
+    50,
+    50
+  ],
+  "markBounds": [
+    20.1096,
+    22.6,
+    83.0678,
+    77.4
+  ],
+  "palette": {
+    "brand": "#153C34",
+    "onBrand": "#FFFFFF",
+    "uiAccent": "#087F6B",
+    "uiAccentDark": "#5DD9B6",
+    "soft": "#E2F2ED",
+    "ink": "#111518"
+  },
+  "paths": [
+    "M40.9294 29.21474L30.7712 73.21474A5.4 5.4 0 0 1 20.248 70.78526L30.4062 26.78526A5.4 5.4 0 0 1 40.9294 29.21474Z",
+    "M61.9294 29.21474L51.7712 73.21474A5.4 5.4 0 0 1 41.248 70.78526L51.4062 26.78526A5.4 5.4 0 0 1 61.9294 29.21474Z",
+    "M82.9294 29.21474L80.07731 41.56847A5.4 5.4 0 0 1 69.55412 39.139L72.4062 26.78526A5.4 5.4 0 0 1 82.9294 29.21474Z",
+    "M75.62328 60.861L72.7712 73.21474A5.4 5.4 0 0 1 62.248 70.78526L65.10009 58.43153A5.4 5.4 0 0 1 75.62328 60.861Z"
+  ],
+  "source": "../../../logo-exploration-abcde/a-three-line/deep-green-study/deep-green-icon.preview.svg"
+}

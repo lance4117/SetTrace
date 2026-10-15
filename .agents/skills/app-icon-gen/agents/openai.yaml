@@ -1,0 +1,4 @@
+interface:
+  display_name: "App Icon Gen"
+  short_description: "Create reusable cross-platform app icon assets"
+  default_prompt: "Use $app-icon-gen to create and verify reusable app icon source assets from the available brief, reference, brand asset, generated concept, existing app icon, or optional Apple .icon bundle."

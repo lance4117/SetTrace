@@ -1,0 +1,304 @@
+{
+  "version": "semantic-icon-design/v0.1",
+  "route": "concept-to-package",
+  "stage": "Three unselected discussion sketches only. No author-icon package, app integration, or native export.",
+  "app_context": {
+    "app_name": "SetTrace",
+    "category": "offline strength workout set tracker",
+    "job_to_be_done": "focus on the current set, record completion and retain training history",
+    "tone": "calm, precise, restrained, purposeful"
+  },
+  "source_policy": "Generate from the three verbal concepts. Do not use existing project icons or prior rejected sketches as references.",
+  "canvas": {
+    "size": 1024,
+    "composition_anchor": "center",
+    "alignment": "optically centered",
+    "safe_area": {
+      "x": [
+        145,
+        879
+      ],
+      "y": [
+        145,
+        879
+      ]
+    }
+  },
+  "background": {
+    "type": "solid",
+    "color": "#087F6B"
+  },
+  "layering_policy": {
+    "negative_space_strategy": "overlay-fill-layer",
+    "cutouts_are_layers": true,
+    "description": "Internal openings use background-colored opaque overlays; clean flat shapes without baked shadows."
+  },
+  "constraints": [
+    "No text, checkmarks, dumbbells, four-tile grids, tiny dots, gradients, shadows, 3D or texture.",
+    "One concept per image, same square full-bleed teal stage and similar optical size.",
+    "Bold clear silhouette with breathing room; original contours rather than stock UI icons."
+  ],
+  "concepts": [
+    {
+      "id": "A-set-trace",
+      "generation_seed": 743816,
+      "style": {
+        "direction": "black-stage-continuous-loop",
+        "svg_convertibility": "high",
+        "style_notes": "Teal stage and one pale continuous thick S-like glyph; no loop or infinity shape."
+      },
+      "icon_intent": {
+        "metaphor": "S, repetition and recorded training trace",
+        "small_size_readability": "Clear at 64px and 32px",
+        "must_feel_like": [
+          "continuous",
+          "balanced",
+          "confident"
+        ],
+        "must_not_feel_like": [
+          "snake",
+          "tube",
+          "font glyph",
+          "infinity"
+        ]
+      },
+      "layers": [
+        {
+          "id": "trace",
+          "order": 1,
+          "role": "primary mark",
+          "format_target": "svg",
+          "shape_model": "one broad S-shaped continuous rounded band with generous open channels and slightly flat terminals",
+          "fill": "#F5F7F8",
+          "bounds": {
+            "x": [
+              200,
+              824
+            ],
+            "y": [
+              170,
+              854
+            ]
+          },
+          "must_preserve": [
+            "Two balanced turns",
+            "Near-square compact mass",
+            "Consistent broad width with subtle optical compensation"
+          ],
+          "must_not_add": [
+            "Closed loop",
+            "Eyes",
+            "Decorative cuts",
+            "Material lighting"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "B-training-records",
+      "generation_seed": 512697,
+      "style": {
+        "direction": "black-stage-mark",
+        "svg_convertibility": "high",
+        "style_notes": "Adapted to teal background with three flat offset plates in related pale greens and cool-white."
+      },
+      "icon_intent": {
+        "metaphor": "successive training records, current record in front",
+        "small_size_readability": "Three broad layers at 64px",
+        "must_feel_like": [
+          "ordered",
+          "quiet",
+          "layered"
+        ],
+        "must_not_feel_like": [
+          "wallet",
+          "file folder",
+          "dashboard"
+        ]
+      },
+      "layers": [
+        {
+          "id": "rear",
+          "order": 1,
+          "role": "previous record",
+          "format_target": "svg",
+          "shape_model": "wide short rounded plate",
+          "fill": "#5DD9B6",
+          "bounds": {
+            "x": [
+              300,
+              844
+            ],
+            "y": [
+              195,
+              425
+            ]
+          },
+          "must_preserve": [
+            "Clear visible rear edge"
+          ],
+          "must_not_add": [
+            "Paper fold",
+            "Shadow"
+          ]
+        },
+        {
+          "id": "middle",
+          "order": 2,
+          "role": "previous record",
+          "format_target": "svg",
+          "shape_model": "same wide short rounded plate shifted left and down",
+          "fill": "#B5E8D8",
+          "bounds": {
+            "x": [
+              240,
+              784
+            ],
+            "y": [
+              375,
+              605
+            ]
+          },
+          "must_preserve": [
+            "Same corner rhythm",
+            "Visible middle edge"
+          ],
+          "must_not_add": [
+            "Text",
+            "Shadow"
+          ]
+        },
+        {
+          "id": "front",
+          "order": 3,
+          "role": "current record",
+          "format_target": "svg",
+          "shape_model": "same broad plate shifted left and down",
+          "fill": "#F5F7F8",
+          "bounds": {
+            "x": [
+              180,
+              724
+            ],
+            "y": [
+              555,
+              785
+            ]
+          },
+          "must_preserve": [
+            "Prominent front face",
+            "Even stepping rhythm"
+          ],
+          "must_not_add": [
+            "Check",
+            "Card contents",
+            "Material lighting"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "C-weight-plate",
+      "generation_seed": 896341,
+      "style": {
+        "direction": "blue-field-cutout-badge",
+        "svg_convertibility": "high",
+        "style_notes": "Teal stage adapted for a weight-disc silhouette with a short notch and broad opening."
+      },
+      "icon_intent": {
+        "metaphor": "a substantial gym weight plate distilled to a distinctive emblem",
+        "small_size_readability": "One full circular mass and two large features at 64px",
+        "must_feel_like": [
+          "substantial",
+          "balanced",
+          "precise"
+        ],
+        "must_not_feel_like": [
+          "power button",
+          "progress ring",
+          "pie chart",
+          "gear"
+        ]
+      },
+      "layers": [
+        {
+          "id": "disc",
+          "order": 1,
+          "role": "weight-plate silhouette",
+          "format_target": "svg",
+          "shape_model": "large near-circular disc",
+          "fill": "#F5F7F8",
+          "bounds": {
+            "x": [
+              180,
+              844
+            ],
+            "y": [
+              180,
+              844
+            ]
+          },
+          "must_preserve": [
+            "Broad circular white mass"
+          ],
+          "must_not_add": [
+            "Concentric rings",
+            "Embossed numbers",
+            "Bolt holes"
+          ]
+        },
+        {
+          "id": "bore",
+          "order": 2,
+          "role": "central opening",
+          "format_target": "svg",
+          "shape_model": "one softly rounded-square teal overlay slightly left and below center",
+          "fill": "#087F6B",
+          "bounds": {
+            "x": [
+              405,
+              595
+            ],
+            "y": [
+              425,
+              615
+            ]
+          },
+          "must_preserve": [
+            "Thick surrounding mass"
+          ],
+          "must_not_add": [
+            "Thin outline",
+            "Decorative detail"
+          ]
+        },
+        {
+          "id": "notch",
+          "order": 3,
+          "role": "distinctive edge feature",
+          "format_target": "svg",
+          "shape_model": "one short broad radial teal inset at two o'clock with rounded inner end, separate from central opening",
+          "fill": "#087F6B",
+          "bounds": {
+            "x": [
+              710,
+              870
+            ],
+            "y": [
+              280,
+              415
+            ]
+          },
+          "must_preserve": [
+            "Notch stops far short of bore"
+          ],
+          "must_not_add": [
+            "Full radial slit",
+            "Power-button stem",
+            "Wedge-shaped pie slice"
+          ]
+        }
+      ]
+    }
+  ]
+}

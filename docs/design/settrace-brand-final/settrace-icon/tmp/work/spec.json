@@ -1,0 +1,97 @@
+{
+  "name": "SetTraceFinal",
+  "canvas": 1024,
+  "radius": 241,
+  "target_platforms": [
+    "Android"
+  ],
+  "deliverable_type": "source-package",
+  "source_reference": "User selected the deep-green A three-track concept in this conversation; original vector preserved as settrace-icon.origin.svg.",
+  "brief": "Finalize the selected SetTrace training-rhythm identity: two continuous diagonal capsules, one interrupted track, white on #153C34. Refine optical alignment and small-size gaps without changing the concept.",
+  "semantic_review": {
+    "status": "exact-enough",
+    "identity_risk": "low",
+    "basis": "Original in-task concept selected by the user; explicit authorization to optimize its geometry and finish the design. No third-party mark or bitmap reconstruction.",
+    "route": "semantic-svg",
+    "notes": "Selected identity retained; deliberate finalization changes are 13-degree exact angle, 10.8-unit width, 9-unit interruption and calculated optical centering."
+  },
+  "source_analysis": {
+    "fidelity_target": "Preserve the selected deep-green three-track rhythm, round terminals and interrupted right track.",
+    "identity_risk": "low",
+    "route": "semantic-svg",
+    "must_preserve": [
+      "exactly three track positions and four disconnected capsules",
+      "two full tracks and an interrupted third track",
+      "white foreground on deep green #153C34",
+      "round caps and uniform parallel lean"
+    ],
+    "must_not_add": [
+      "fourth track",
+      "gradient, shadow, bevel, outline, text or extra accent color",
+      "background in the transparent foreground",
+      "round mask in the square source canvas"
+    ],
+    "components": [
+      {
+        "id": "continuous-sets",
+        "layer": "continuous-sets",
+        "format": "svg",
+        "source_vector": "../../../../logo-exploration-abcde/a-three-line/a-three-line.svg",
+        "source_provenance": "generated-in-task",
+        "alignment_basis": "Two original continuous tracks retained; 13-degree analytical geometry and optical mass centering.",
+        "spec_constraints": [
+          "two filled capsules",
+          "equal 10.8-unit normal width",
+          "no stroke, no filters, no raster"
+        ]
+      },
+      {
+        "id": "interval-set",
+        "layer": "interval-set",
+        "format": "svg",
+        "source_provenance": "generated-in-task",
+        "alignment_basis": "Original open third track retained with symmetric caps and a 9-unit clear interval.",
+        "spec_constraints": [
+          "two disconnected filled capsules are intentional",
+          "no cover layer or true carved counter",
+          "gap is the existing background between separate pieces"
+        ]
+      }
+    ],
+    "acceptance_checks": [
+      "source foreground has four closed filled capsule contours",
+      "SVG/PNG square source and rounded preview are both provided",
+      "64, 48, 32, 24 and 16 px are visually inspected",
+      "circular crop does not touch the symbol",
+      "vector layer geometry and material checks pass"
+    ]
+  },
+  "fill": {
+    "solid": "extended-srgb:0.082353,0.235294,0.203922,1.000000"
+  },
+  "layers": [
+    {
+      "name": "background",
+      "svg": "<rect width=\"1024\" height=\"1024\" fill=\"#153C34\"/>",
+      "composer": {
+        "include": false
+      }
+    },
+    {
+      "name": "continuous-sets",
+      "svg": "<path d=\"M419.11704 299.15889L315.09707 749.71889A55.296 55.296 0 0 1 207.33954 724.84111L311.35951 274.28111A55.296 55.296 0 0 1 419.11704 299.15889Z\" fill=\"#FFFFFF\"/><path d=\"M634.15704 299.15889L530.13707 749.71889A55.296 55.296 0 0 1 422.37954 724.84111L526.39951 274.28111A55.296 55.296 0 0 1 634.15704 299.15889Z\" fill=\"#FFFFFF\"/>",
+      "composer": {
+        "format": "svg",
+        "reason": "Two intentional continuous capsule contours remain editable as filled vectors."
+      }
+    },
+    {
+      "name": "interval-set",
+      "svg": "<path d=\"M849.19704 299.15889L819.9917 425.66115A55.296 55.296 0 0 1 712.23416 400.78337L741.43951 274.28111A55.296 55.296 0 0 1 849.19704 299.15889Z\" fill=\"#FFFFFF\"/><path d=\"M774.38242 623.21663L745.17707 749.71889A55.296 55.296 0 0 1 637.41954 724.84111L666.62489 598.33885A55.296 55.296 0 0 1 774.38242 623.21663Z\" fill=\"#FFFFFF\"/>",
+      "composer": {
+        "format": "svg",
+        "reason": "The two disconnected interval capsules retain independent clean boundaries."
+      }
+    }
+  ]
+}

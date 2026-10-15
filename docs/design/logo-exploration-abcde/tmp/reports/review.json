@@ -1,0 +1,37 @@
+{
+  "svg_sources": [
+    {
+      "file": "a-set-rhythm.svg",
+      "viewBox": "0 0 100 100",
+      "uses_currentColor": true
+    },
+    {
+      "file": "b-trace-s.svg",
+      "viewBox": "0 0 100 100",
+      "uses_currentColor": true
+    },
+    {
+      "file": "c-current-cell.svg",
+      "viewBox": "0 0 100 100",
+      "uses_currentColor": true
+    },
+    {
+      "file": "d-training-ticks.svg",
+      "viewBox": "0 0 100 100",
+      "uses_currentColor": true
+    },
+    {
+      "file": "e-trace-imprint.svg",
+      "viewBox": "0 0 100 100",
+      "uses_currentColor": true
+    }
+  ],
+  "comparison_valid": true,
+  "visual_review": "comparison.png inspected at full board scale and at the displayed 64/48/32 px sizes",
+  "browser_checks": [
+    "B enlargement displays its symbol and rationale",
+    "dark color mode displays mint marks on graphite",
+    "monochrome color mode displays dark marks on white"
+  ],
+  "status": "concept sketches ready for selection"
+}

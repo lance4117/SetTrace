@@ -1,0 +1,170 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://xzhih.github.io/app-icon-skill/template-conversion-contract.schema.json",
+  "title": "App Icon Template Conversion Contract",
+  "type": "object",
+  "required": [
+    "task",
+    "generation_seed",
+    "priority",
+    "conversion_policy",
+    "semantic_icon_design"
+  ],
+  "properties": {
+    "task": {
+      "const": "generate_app_icon_reference"
+    },
+    "generation_seed": {
+      "oneOf": [
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "const": "{fresh random integer}"
+        }
+      ]
+    },
+    "priority": {
+      "type": "string",
+      "minLength": 1
+    },
+    "conversion_policy": {
+      "type": "string",
+      "minLength": 1
+    },
+    "semantic_icon_design": {
+      "type": "object",
+      "required": [
+        "version",
+        "route",
+        "app_context",
+        "style",
+        "icon_intent",
+        "layering_policy",
+        "canvas",
+        "background",
+        "layers",
+        "conversion_constraints"
+      ],
+      "properties": {
+        "version": {
+          "const": "semantic-icon-design/v0.1"
+        },
+        "route": {
+          "type": "string",
+          "minLength": 1
+        },
+        "app_context": {
+          "type": "object",
+          "required": ["app_name", "category", "job_to_be_done", "tone"],
+          "properties": {
+            "app_name": { "type": "string", "minLength": 1 },
+            "category": { "type": "string", "minLength": 1 },
+            "job_to_be_done": { "type": "string", "minLength": 1 },
+            "tone": { "type": "string", "minLength": 1 }
+          }
+        },
+        "style": {
+          "type": "object",
+          "required": ["direction", "svg_convertibility", "style_notes"],
+          "properties": {
+            "direction": { "type": "string", "minLength": 1 },
+            "svg_convertibility": { "enum": ["high", "medium", "low"] },
+            "style_notes": { "type": "string", "minLength": 1 }
+          }
+        },
+        "icon_intent": {
+          "type": "object",
+          "required": ["metaphor", "small_size_readability", "must_feel_like", "must_not_feel_like"],
+          "properties": {
+            "metaphor": { "type": "string", "minLength": 1 },
+            "small_size_readability": { "type": "string", "minLength": 1 },
+            "must_feel_like": {
+              "type": "array",
+              "minItems": 1,
+              "items": { "type": "string", "minLength": 1 }
+            },
+            "must_not_feel_like": {
+              "type": "array",
+              "minItems": 1,
+              "items": { "type": "string", "minLength": 1 }
+            }
+          }
+        },
+        "layering_policy": {
+          "type": "object",
+          "required": ["negative_space_strategy", "cutouts_are_layers", "description"],
+          "properties": {
+            "negative_space_strategy": { "type": "string", "minLength": 1 },
+            "cutouts_are_layers": { "type": "boolean" },
+            "description": { "type": "string", "minLength": 1 }
+          }
+        },
+        "canvas": {
+          "type": "object",
+          "required": ["size", "composition_anchor", "subject_scale", "safe_area", "alignment"],
+          "properties": {
+            "size": { "const": 1024 },
+            "composition_anchor": { "type": "string", "minLength": 1 },
+            "subject_scale": { "type": "object", "minProperties": 1 },
+            "safe_area": { "type": "object", "minProperties": 1 },
+            "alignment": { "type": "string", "minLength": 1 }
+          }
+        },
+        "background": {
+          "type": "object",
+          "required": ["type"],
+          "properties": {
+            "type": { "type": "string", "minLength": 1 }
+          }
+        },
+        "layers": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "order",
+              "role",
+              "format_target",
+              "shape_model",
+              "description",
+              "geometry_constraints",
+              "must_preserve",
+              "must_not_add"
+            ],
+            "properties": {
+              "id": { "type": "string", "minLength": 1 },
+              "order": { "type": "integer", "minimum": 1 },
+              "role": { "type": "string", "minLength": 1 },
+              "format_target": { "type": "string", "minLength": 1 },
+              "shape_model": { "type": "string", "minLength": 1 },
+              "description": { "type": "string", "minLength": 1 },
+              "geometry_constraints": {
+                "type": "array",
+                "minItems": 1,
+                "items": { "type": "string", "minLength": 1 }
+              },
+              "must_preserve": {
+                "type": "array",
+                "minItems": 1,
+                "items": { "type": "string", "minLength": 1 }
+              },
+              "must_not_add": {
+                "type": "array",
+                "minItems": 1,
+                "items": { "type": "string", "minLength": 1 }
+              }
+            }
+          }
+        },
+        "conversion_constraints": {
+          "type": "object",
+          "minProperties": 1
+        }
+      }
+    }
+  }
+}

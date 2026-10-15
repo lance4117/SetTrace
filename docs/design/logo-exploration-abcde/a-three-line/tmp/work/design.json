@@ -1,0 +1,35 @@
+{
+  "status": "concept-refinement",
+  "concept": "A",
+  "tracks": 3,
+  "segments": 4,
+  "strokeWidth": 11,
+  "trackSpacing": 21,
+  "geometry": "<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"11\" stroke-linecap=\"round\"><path d=\"M34 28 24 72 M55 28 45 72 M76 28 72.82 42 M69.18 58 66 72\"/></g>",
+  "colorCases": [
+    {
+      "name": "石墨黑",
+      "note": "深色底 + 白色标记",
+      "bg": "#111518",
+      "fg": "#FFFFFF"
+    },
+    {
+      "name": "低彩灰绿",
+      "note": "降低彩度，保留一点色温",
+      "bg": "#52615C",
+      "fg": "#FFFFFF"
+    },
+    {
+      "name": "界面青绿",
+      "note": "原 UI 主色铺满底板",
+      "bg": "#087F6B",
+      "fg": "#FFFFFF"
+    },
+    {
+      "name": "青绿只作标记",
+      "note": "缩小色彩面积，保留留白",
+      "bg": "#FFFFFF",
+      "fg": "#087F6B"
+    }
+  ]
+}

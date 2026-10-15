@@ -1,0 +1,25 @@
+{
+  "status": "color-study",
+  "geometryUnchanged": true,
+  "source": "../tmp/work/design.json",
+  "foreground": "#FFFFFF",
+  "iconBackground": "#153C34",
+  "uiAccent": "#087F6B",
+  "cases": [
+    {
+      "title": "石墨黑",
+      "color": "#111518",
+      "note": "先看轮廓，色彩最克制。"
+    },
+    {
+      "title": "深墨绿",
+      "color": "#153C34",
+      "note": "保留深色质感，带一点绿色。"
+    },
+    {
+      "title": "界面青绿",
+      "color": "#087F6B",
+      "note": "与主按钮同色，色彩更鲜明。"
+    }
+  ]
+}
