@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:package_info_plus/package_info_plus.dart';
 
 import 'dart:io';
@@ -243,7 +245,8 @@ void main() {
         ),
       );
       await settle(t);
-      await t.scrollUntilVisible(find.byType(Switch), 120);
+      final reminderToggle = find.widgetWithText(SwitchListTile, '休息结束提醒');
+      await t.scrollUntilVisible(reminderToggle, 120);
       await t.pumpAndSettle();
       expect(find.textContaining('后台通知不可用'), findsOneWidget);
       await t.runAsync(
@@ -252,9 +255,9 @@ void main() {
       BEGIN SELECT RAISE(ABORT, 'test'); END""",
         ),
       );
-      await t.tap(find.byType(Switch));
+      await t.tap(reminderToggle);
       await settle(t);
-      expect(t.widget<SwitchListTile>(find.byType(SwitchListTile)).value, true);
+      expect(t.widget<SwitchListTile>(reminderToggle).value, true);
       expect(find.text('提醒设置保存失败，已保留原设置。'), findsOneWidget);
       expect(platform.permissionCalls, 0);
       await t.pumpWidget(const SizedBox.shrink());
@@ -281,14 +284,14 @@ void main() {
       );
       await settle(t);
       final root = t.state<RootTabsState>(find.byType(RootTabs));
-      await t.runAsync(() => root.openFromNotification(s.id));
+      unawaited(root.openFromNotification(s.id));
       await settle(t);
       expect(find.byType(WorkoutPage), findsOneWidget);
-      await t.runAsync(() => root.openFromNotification(s.id));
+      unawaited(root.openFromNotification(s.id));
       await settle(t);
       expect(find.byType(WorkoutPage), findsOneWidget);
       await t.runAsync(() => repo.finish(s.id));
-      await t.runAsync(() => root.openFromNotification(s.id));
+      unawaited(root.openFromNotification(s.id));
       await settle(t);
       expect(find.text('该训练已结束或已不可用。'), findsOneWidget);
       await t.pumpWidget(const SizedBox.shrink());
@@ -315,7 +318,7 @@ void main() {
     await settle(t);
     expect(find.text('继续训练'), findsOneWidget);
     final root = t.state<RootTabsState>(find.byType(RootTabs));
-    await t.runAsync(() => root.openFromNotification(s.id));
+    unawaited(root.openFromNotification(s.id));
     await settle(t);
     await tap(t, '跳过剩余 2 组');
     await tap(t, '确认跳过剩余组');

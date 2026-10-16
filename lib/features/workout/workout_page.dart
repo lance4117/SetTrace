@@ -1,4 +1,7 @@
 import 'dart:async';
+
+import '../rest_alerts/rest_alert_service.dart';
+
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
@@ -22,9 +25,11 @@ class WorkoutPage extends StatefulWidget {
     super.key,
     required this.workouts,
     required this.sessionId,
+    this.alerts,
   });
   final WorkoutRepository workouts;
   final int sessionId;
+  final RestAlertService? alerts;
 
   @override
   State<WorkoutPage> createState() => WorkoutPageState();
@@ -35,16 +40,18 @@ class WorkoutPageState extends State<WorkoutPage> with WidgetsBindingObserver {
   LocalizedMessage? loadError;
   LocalizedMessage? actionError;
   Timer? ticker;
-  bool busy = false;
+  bool busy = false, stoppingReminder = false;
   int writeRevision = 0, loadGeneration = 0;
   bool reloadPending = false;
   bool exitDialogOpen = false, finishOffered = false, actionDialogOpen = false;
   DateTime now = DateTime.now();
+  bool get loadedSuccessfully => session != null && loadError == null;
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
+    widget.alerts?.addListener(remindersChanged);
     reload();
     ticker = Timer.periodic(Duration(seconds: 1), (_) {
       if (!mounted) return;
@@ -59,8 +66,13 @@ class WorkoutPageState extends State<WorkoutPage> with WidgetsBindingObserver {
     if (state == AppLifecycleState.resumed) reload();
   }
 
+  void remindersChanged() {
+    if (mounted) setState(() {});
+  }
+
   @override
   void dispose() {
+    widget.alerts?.removeListener(remindersChanged);
     ticker?.cancel();
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
@@ -486,6 +498,9 @@ class WorkoutPageState extends State<WorkoutPage> with WidgetsBindingObserver {
                                 Navigator.pop(sheetContext);
                                 await Navigator.of(context).push(
                                   MaterialPageRoute<void>(
+                                    settings: const RouteSettings(
+                                      name: 'editing',
+                                    ),
                                     builder: (_) => SessionExerciseEditorPage(
                                       workouts: widget.workouts,
                                       sessionId: widget.sessionId,
@@ -600,6 +615,35 @@ class WorkoutPageState extends State<WorkoutPage> with WidgetsBindingObserver {
                     data.resting
                         ? _rest(context, data)
                         : _training(context, data),
+                    if (widget.alerts != null &&
+                        widget.alerts!.awaiting.any(
+                          (e) => e.sessionId == widget.sessionId,
+                        )) ...[
+                      const SizedBox(height: 12),
+                      AppButton(
+                        label: context.l10n.restReminderStop,
+                        variant: AppButtonVariant.outline,
+                        onPressed: busy
+                            ? null
+                            : () async {
+                                final alerts = widget.alerts!;
+                                final current = alerts.awaiting.where(
+                                  (e) => e.sessionId == widget.sessionId,
+                                );
+                                if (current.isEmpty) return;
+                                try {
+                                  await alerts.acknowledge(current.first);
+                                } catch (_) {
+                                  if (context.mounted) {
+                                    showAppSnackBar(
+                                      context,
+                                      (l) => l.restReminderConfirmFailed,
+                                    );
+                                  }
+                                }
+                              },
+                      ),
+                    ],
                     if (data.canSkipRemaining) ...[
                       const SizedBox(height: 12),
                       AppButton(

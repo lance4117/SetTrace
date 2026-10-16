@@ -15,7 +15,7 @@ class AppDatabase {
     final db = await databaseFactory.openDatabase(
       path,
       options: OpenDatabaseOptions(
-        version: 3,
+        version: 4,
         onConfigure: (db) async => db.execute('PRAGMA foreign_keys = ON'),
         onCreate: (db, version) async {
           await _createV1(db, 1);
@@ -247,7 +247,34 @@ class AppDatabase {
         'ALTER TABLE workout_sessions ADD COLUMN current_rest_alert_id INTEGER',
       );
     }
-    if (newVersion != 3) {
+    if (oldVersion < 4 && newVersion >= 4) {
+      await db.execute(
+        "ALTER TABLE rest_alert_preferences ADD COLUMN sound_id TEXT NOT NULL DEFAULT 'three_tone' CHECK(sound_id IN ('three_tone','double_beep','voice'))",
+      );
+      await db.execute(
+        'ALTER TABLE rest_alert_preferences ADD COLUMN vibration_enabled INTEGER NOT NULL DEFAULT 1 CHECK(vibration_enabled IN (0,1))',
+      );
+      await db.execute(
+        'ALTER TABLE rest_alert_preferences ADD COLUMN repeat_enabled INTEGER NOT NULL DEFAULT 1 CHECK(repeat_enabled IN (0,1))',
+      );
+      await db.execute(
+        'ALTER TABLE rest_alert_preferences ADD COLUMN interval_seconds INTEGER NOT NULL DEFAULT 10 CHECK(interval_seconds IN (10,15,30,60))',
+      );
+      await db.execute(
+        'ALTER TABLE rest_alerts ADD COLUMN acknowledged_at INTEGER',
+      );
+      await db.execute(
+        'ALTER TABLE rest_alerts ADD COLUMN delivery_sequence INTEGER NOT NULL DEFAULT 0',
+      );
+      await db.execute(
+        'ALTER TABLE rest_alerts ADD COLUMN next_delivery_at INTEGER',
+      );
+      // v3 consumption is terminal; upgrading must never create an old repeat chain.
+      await db.execute(
+        "UPDATE rest_alerts SET acknowledged_at = COALESCE(consumed_at, due_at) WHERE state = 'consumed'",
+      );
+    }
+    if (newVersion != 4) {
       throw StateError(
         'No migration from database v$oldVersion to v$newVersion',
       );

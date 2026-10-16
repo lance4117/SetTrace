@@ -51,11 +51,14 @@ class ErrorFiles implements PlanTransferPlatform {
 }
 
 Future<void> flush(WidgetTester tester) async {
-  for (var i = 0; i < 5; i++) {
+  for (var i = 0; i < 100; i++) {
     await tester.runAsync(
       () => Future<void>.delayed(const Duration(milliseconds: 20)),
     );
     await tester.pump(const Duration(milliseconds: 100));
+    if (i >= 4 && find.byType(CircularProgressIndicator).evaluate().isEmpty) {
+      break;
+    }
   }
 }
 
@@ -110,6 +113,7 @@ void main() {
           .widget<RootTabs>(find.byType(RootTabs, skipOffstage: false))
           .onLocaleChanged(locale),
     );
+    await flush(tester);
     await tester.pumpAndSettle();
   }
 

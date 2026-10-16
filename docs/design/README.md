@@ -15,6 +15,8 @@
 
 ## 阅读入口
 
+最新增量：[休息提醒增强](#休息提醒增强已实现待真机验收)（2026-10-16，已实现，待真机验收）。
+
 代理处理 SetTrace UI 相关工作时，先实际读取下列 Markdown；仅知道路径、浏览图片或运行原型不等于已读取规范。
 
 1. [主规范：视觉、组件与 Flutter 映射](SetTrace_UI_Design_System_and_Flutter_Spec.md)。
@@ -49,7 +51,7 @@
 - 适配：[浅色中文](previews/adaptation-light-zh.png) / [深色英文](previews/adaptation-dark-en.png)。
 - [SVG 导入包](exports/SetTrace-Focus-SVG.zip)：222 个矢量文件，包含页面与弹窗的四种外观／语言组合、长内容展开稿和补充样本；不是 222 个独立功能页面。`*-full.svg` 是完整滚动内容，不是设备屏幕高度。
 - 应用图标维持本目录原图标资源，不在本次视觉替换范围内。
-- 当前选定的品牌方向为 **A · 组间节奏（三线 / 深墨绿）**，正式设计见[最终品牌设计](settrace-brand-final/README.md)与[使用规范](settrace-brand-final/design-guide.md)，包含轮廓 SVG、透明 PNG、横竖 Logo、分层图标源文件和小尺寸导出；已按用户要求替换 Android 启动器资源，构建结果及限制见[图标接入核验](android-icon-integration.md)。[五方向草图](logo-exploration-abcde/index.html)和后续配色讨论稿保留供追溯。此前的[错位训练记录](app-icon-record-stack.md)与[哑铃方案](app-icon-package.md)为未选用的早期候选。
+- 当前选定的品牌方向为 **A · 组间节奏（三线 / 深墨绿）**，正式设计见[最终品牌设计](settrace-brand-final/README.md)与[使用规范](settrace-brand-final/design-guide.md)，包含轮廓 SVG、透明 PNG、横竖 Logo、分层图标源文件和小尺寸导出；已按用户要求替换 Android 启动器资源，构建结果及限制见[图标接入核验](android-icon-integration.md)。[五方向草图](logo-exploration-abcde/index.html)和后续配色讨论稿保留供追溯。此前的错位训练记录与哑铃方案为未选用的早期候选。
 
 ## 原型与 Figma 的边界
 
@@ -74,3 +76,9 @@ HTML 是浏览器中的静态设计与模拟交互，不执行真实剪贴板、
 ## 主题色增量
 
 `add-theme-color-presets` 在 A 方案上增加设置内即时主题色选择：青色（默认）、蓝色、紫色、石墨，深浅配对且独立于明暗模式。卡片、配色和状态规则已补充至主规范第 10 节、C01/C02/C04 与 INT-10；检查见 COLOR-01–05，实际验证范围见 [主题色验收](../qa/theme-color-presets-acceptance.md)。已于 2026-10-15 同步 `app-experience`／`app-localization` 主规格并[归档](../../openspec/changes/archive/2026-10-15-add-theme-color-presets/README.md)，16/16 项任务完成；未执行 Git 提交或发布。
+
+## 休息提醒增强（已实现，待真机验收）
+
+2026-10-16 确认前台弹窗与暗色遮罩、后台通知、较明显提示音及可设置间隔的重复提醒。[设计总览](previews/rest-reminders-2026-10-16.png)展示浅深弹窗、提醒设置与间隔选择；文字规则优先，图中数据、导航图标与布局细节仍以既有规范为准。
+
+视觉见[主规范第 11 节](SetTrace_UI_Design_System_and_Flutter_Spec.md#11-休息提醒增强已实现待真机验收)，画面见页面清单 D17–D19，行为见 INT-12，待验收项见 REM-01–06。此增量已实现前台弹窗、后台重复、确认与设置；Widget／原生与模拟器证据见[独立验收](../qa/rest-reminders-acceptance.md)。真人听感、触感及设备矩阵剩余项待验；OpenSpec 主规格已同步并[归档](../../openspec/changes/archive/2026-10-16-enhance-rest-reminders/README.md)，3 项待验保持未完成，旧 HTML 与原图仍是示意。

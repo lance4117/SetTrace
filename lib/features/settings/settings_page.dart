@@ -9,6 +9,7 @@ import '../../core/widgets/app_card.dart';
 import '../../l10n/language_settings.dart';
 import '../../l10n/localization.dart';
 import '../rest_alerts/rest_alert_service.dart';
+import '../rest_alerts/rest_reminder_controls.dart';
 import '../about/about_section.dart';
 import '../about/app_info_service.dart';
 
@@ -142,6 +143,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   value: alerts.enabled,
                   onChanged: savingReminder ? null : changeReminders,
                 ),
+                if (alerts.enabled) RestReminderControls(alerts: alerts),
                 if (savingReminder) const LinearProgressIndicator(),
                 if (reminderSaveError)
                   Text(
@@ -174,6 +176,31 @@ class _SettingsPageState extends State<SettingsPage> {
               ],
             ),
           ),
+          if (alerts.enabled) ...[
+            const SizedBox(height: 12),
+            Text(
+              l.restReminderStopHelp,
+              style: TextStyle(
+                color: context.appColors.textSecondary,
+                fontSize: 14,
+              ),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              l.restReminderSystemHelp,
+              style: TextStyle(
+                color: context.appColors.textSecondary,
+                fontSize: 14,
+              ),
+            ),
+            Text(
+              l.restReminderDelayHelp,
+              style: TextStyle(
+                color: context.appColors.textSecondary,
+                fontSize: 14,
+              ),
+            ),
+          ],
         ],
       );
     },

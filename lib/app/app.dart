@@ -15,6 +15,9 @@ import '../features/workout/workout_models.dart';
 import '../features/workout/workout_page.dart';
 import '../features/workout/workout_repository.dart';
 import 'theme/app_theme.dart';
+import 'presentation_observer.dart';
+import '../features/rest_alerts/rest_reminder_dialog.dart';
+import '../features/rest_alerts/rest_alert_platform.dart';
 import 'theme/theme_color_controller.dart';
 import '../l10n/language_settings.dart';
 import '../l10n/localization.dart';
@@ -63,6 +66,12 @@ class _SetTraceAppState extends State<SetTraceApp> with WidgetsBindingObserver {
   Timer? alertTicker;
   bool permissionDialog = false, reportedReminderFailure = false;
   int? pendingTap;
+  RestAlertTap? pendingTapDetails;
+  final shownRestIds = <int>{};
+  final restDialogKey = GlobalKey<RestReminderDialogState>();
+  late final presentationObserver = PresentationObserver(() {
+    if (mounted) schedulePresentation();
+  });
   late final NoticePreferences noticePreferences =
       widget.noticePreferences ?? NoticePreferences(widget.preferences);
   bool startupReady = false, presentationRunning = false;
@@ -88,13 +97,64 @@ class _SetTraceAppState extends State<SetTraceApp> with WidgetsBindingObserver {
           startupReady = true;
         }
         if (!mounted || !foreground || permissionDialog) return;
+        if (presentationObserver.blocked) return;
         final tap = pendingTap;
+        final details = pendingTapDetails;
         pendingTap = null;
-        if (tap != null) await rootKey.currentState?.openFromNotification(tap);
+        pendingTapDetails = null;
+        if (tap != null) {
+          final opened =
+              await rootKey.currentState?.openFromNotification(tap) ?? false;
+          if (opened && details != null && widget.alerts != null) {
+            try {
+              await widget.alerts!.acknowledgeTap(details);
+            } catch (_) {
+              if (mounted && navigatorKey.currentContext != null) {
+                showAppSnackBar(
+                  navigatorKey.currentContext!,
+                  (l) => l.restReminderConfirmFailed,
+                  onRetry: () => openNotificationDetails(details),
+                );
+              }
+            }
+          }
+        }
+        if (!mounted ||
+            !foreground ||
+            presentationObserver.blocked ||
+            permissionDialog ||
+            widget.alerts?.permissionNeeded == true) {
+          return;
+        }
+        final alerts = widget.alerts;
+        if (alerts != null) {
+          final pending = alerts.awaiting.where(
+            (e) => !shownRestIds.contains(e.id),
+          );
+          if (pending.isNotEmpty) {
+            final event = pending.first;
+            shownRestIds.add(event.id);
+            await showDialog<void>(
+              context: navigatorKey.currentContext!,
+              barrierDismissible: false,
+              barrierColor: Colors.black.withValues(alpha: .5),
+              routeSettings: const RouteSettings(name: 'rest-reminder'),
+              builder: (_) => RestReminderDialog(
+                key: restDialogKey,
+                alerts: alerts,
+                event: event,
+              ),
+            );
+          }
+        }
       } finally {
         presentationRunning = false;
         if (mounted && foreground && startupReady) {
-          if (pendingTap != null && !permissionDialog) schedulePresentation();
+          if (pendingTap != null &&
+              !permissionDialog &&
+              !presentationObserver.blocked) {
+            schedulePresentation();
+          }
           alertsChanged();
         }
       }
@@ -111,13 +171,7 @@ class _SetTraceAppState extends State<SetTraceApp> with WidgetsBindingObserver {
     final alerts = widget.alerts;
     if (alerts != null) {
       alerts.onTap = openNotification;
-      alerts.onDelivered = (body) {
-        final context = navigatorKey.currentContext;
-        if (context != null && mounted) {
-          ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text(body)));
-        }
-      };
+      alerts.onTapDetails = openNotificationDetails;
       alerts.addListener(alertsChanged);
       widget.workouts.onChanged = () => syncAlerts(offerPermission: true);
       setupAlerts(expireElapsed: true);
@@ -142,8 +196,8 @@ class _SetTraceAppState extends State<SetTraceApp> with WidgetsBindingObserver {
     try {
       final strings = await AppLocalizations.delegate.load(locale);
       await alerts.configure(strings, expireElapsed: expireElapsed);
-      final tap = await alerts.takeInitialTap();
-      if (tap != null && mounted) openNotification(tap);
+      final tap = await alerts.takeInitialTapDetails();
+      if (tap != null && mounted) openNotificationDetails(tap);
     } catch (_) {
       alertsChanged();
     }
@@ -152,12 +206,30 @@ class _SetTraceAppState extends State<SetTraceApp> with WidgetsBindingObserver {
   void openNotification(int id) {
     if (!mounted) return;
     pendingTap = id;
+    pendingTapDetails = null;
+    restDialogKey.currentState?.dismiss();
+    schedulePresentation();
+  }
+
+  void openNotificationDetails(RestAlertTap tap) {
+    if (!mounted) return;
+    pendingTap = tap.sessionId;
+    pendingTapDetails = tap;
+    restDialogKey.currentState?.dismiss();
     schedulePresentation();
   }
 
   void alertsChanged() {
     if (!mounted || widget.alerts == null) return;
     final alerts = widget.alerts!;
+    if (startupReady &&
+        !presentationRunning &&
+        !permissionDialog &&
+        !presentationObserver.blocked &&
+        foreground &&
+        alerts.awaiting.any((e) => !shownRestIds.contains(e.id))) {
+      schedulePresentation();
+    }
     if (alerts.failed && !reportedReminderFailure) {
       reportedReminderFailure = true;
       final context = navigatorKey.currentContext;
@@ -175,6 +247,7 @@ class _SetTraceAppState extends State<SetTraceApp> with WidgetsBindingObserver {
         !permissionDialog &&
         startupReady &&
         !presentationRunning &&
+        !presentationObserver.blocked &&
         foreground) {
       explainNotificationPermission();
     }
@@ -187,6 +260,7 @@ class _SetTraceAppState extends State<SetTraceApp> with WidgetsBindingObserver {
         !mounted ||
         !startupReady ||
         presentationRunning ||
+        presentationObserver.blocked ||
         !foreground) {
       return;
     }
@@ -215,7 +289,7 @@ class _SetTraceAppState extends State<SetTraceApp> with WidgetsBindingObserver {
       syncAlerts();
     } finally {
       permissionDialog = false;
-      if (pendingTap != null) schedulePresentation();
+      schedulePresentation();
     }
   }
 
@@ -291,6 +365,7 @@ class _SetTraceAppState extends State<SetTraceApp> with WidgetsBindingObserver {
         ? Duration.zero
         : const Duration(milliseconds: 200),
     navigatorKey: navigatorKey,
+    navigatorObservers: [presentationObserver],
     debugShowCheckedModeBanner: false,
     locale: locale,
     supportedLocales: AppLocalizations.supportedLocales,
@@ -349,15 +424,15 @@ class RootTabsState extends State<RootTabs> {
   GlobalKey<WorkoutPageState>? workoutKey;
   bool handlingNotification = false;
 
-  Future<void> openFromNotification(int id) async {
-    if (handlingNotification || !mounted) return;
+  Future<bool> openFromNotification(int id) async {
+    if (handlingNotification || !mounted) return false;
     handlingNotification = true;
     try {
       final session = await widget.workouts.getSession(id);
-      if (!mounted) return;
+      if (!mounted) return false;
       if (session == null || !session.inProgress) {
         showAppSnackBar(context, (l) => l.notificationWorkoutUnavailable);
-        return;
+        return false;
       }
       await widget.workouts.normalizeRest(id);
       if (mounted) {
@@ -367,8 +442,14 @@ class RootTabsState extends State<RootTabs> {
           unawaited(openWorkout((await widget.workouts.getSession(id))!));
         }
       }
+      await WidgetsBinding.instance.endOfFrame;
+      final page = workoutKey?.currentState;
+      if (!mounted || openSessionId != id || page == null) return false;
+      await page.reload();
+      return mounted && openSessionId == id && page.loadedSuccessfully;
     } catch (_) {
       if (mounted) showAppSnackBar(context, (l) => l.loadFailed);
+      return false;
     } finally {
       handlingNotification = false;
     }
@@ -386,6 +467,7 @@ class RootTabsState extends State<RootTabs> {
     final route = Navigator.of(context).push(
       MaterialPageRoute<void>(
         builder: (_) => WorkoutPage(
+          alerts: widget.alerts,
           key: pageKey,
           workouts: widget.workouts,
           sessionId: session.id,

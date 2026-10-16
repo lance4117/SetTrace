@@ -1,0 +1,20 @@
+{
+  "forced": "Now forced in to deep idle mode",
+  "deadline": 1792086220000,
+  "observed_at": 1792086238000,
+  "event": {
+    "id": 7,
+    "session_id": 1,
+    "exercise_id": 2,
+    "set_number": 1,
+    "revision": 2,
+    "due_at": 1792086220000,
+    "state": "consumed",
+    "title": "Rest is over",
+    "body": "高位下拉 / Lat pulldown · set 1 of 3 is ready.",
+    "consumed_at": 1792086220009,
+    "acknowledged_at": null,
+    "delivery_sequence": 2,
+    "next_delivery_at": 1792086240016
+  }
+}

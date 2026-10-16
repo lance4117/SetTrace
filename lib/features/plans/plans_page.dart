@@ -164,6 +164,7 @@ class _PlansPageState extends State<PlansPage> {
     } else {
       final count = await Navigator.of(context).push<int>(
         MaterialPageRoute(
+          settings: const RouteSettings(name: 'editing'),
           builder: (_) =>
               PlanImportPage(plans: widget.plans, platform: transferPlatform),
         ),
@@ -504,6 +505,7 @@ class _PlanDetailPageState extends State<PlanDetailPage> {
   Future<void> openEditor([PlanExercise? exercise]) async {
     await Navigator.of(context).push(
       MaterialPageRoute<bool>(
+        settings: const RouteSettings(name: 'editing'),
         builder: (_) => ExerciseEditorPage(
           plans: widget.plans,
           planId: widget.planId,

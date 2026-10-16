@@ -1395,7 +1395,7 @@
   "@restAlertsOff": {
     "description": "SetTrace restAlertsOff: rest reminder or skipped workout set. Preserve user exercise names."
   },
-  "restAlertsAvailable": "支持后台及锁屏休息提醒。",
+  "restAlertsAvailable": "已启用。休息结束后提醒，确认后停止。",
   "@restAlertsAvailable": {
     "description": "SetTrace restAlertsAvailable: rest reminder or skipped workout set. Preserve user exercise names."
   },
@@ -1790,5 +1790,129 @@
   "themeColorSaveFailed": "主题色未能保存，请重试。",
   "@themeColorSaveFailed": {
     "description": "Theme color setting: themeColorSaveFailed. Applies to the accent palette, independently of light/dark appearance."
+  },
+  "restReminderReady": "可以开始下一组了",
+  "@restReminderReady": {
+    "description": "SetTrace rest reminder: restReminderReady."
+  },
+  "restReminderConfirm": "知道了，停止提醒",
+  "@restReminderConfirm": {
+    "description": "SetTrace rest reminder: restReminderConfirm."
+  },
+  "restReminderStop": "停止本次提醒",
+  "@restReminderStop": {
+    "description": "SetTrace rest reminder: restReminderStop."
+  },
+  "restReminderConfirmFailed": "停止提醒失败，请重试",
+  "@restReminderConfirmFailed": {
+    "description": "SetTrace rest reminder: restReminderConfirmFailed."
+  },
+  "restReminderRepeats": "未确认时，每 {seconds} 秒提醒",
+  "@restReminderRepeats": {
+    "description": "SetTrace rest reminder: restReminderRepeats.",
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
+  },
+  "restReminderSound": "提示音",
+  "@restReminderSound": {
+    "description": "SetTrace rest reminder: restReminderSound."
+  },
+  "restReminderSoundThree": "三音提示",
+  "@restReminderSoundThree": {
+    "description": "SetTrace rest reminder: restReminderSoundThree."
+  },
+  "restReminderSoundDouble": "双段电子提示",
+  "@restReminderSoundDouble": {
+    "description": "SetTrace rest reminder: restReminderSoundDouble."
+  },
+  "restReminderSoundVoice": "短音＋语音",
+  "@restReminderSoundVoice": {
+    "description": "SetTrace rest reminder: restReminderSoundVoice."
+  },
+  "restReminderPreview": "试听",
+  "@restReminderPreview": {
+    "description": "SetTrace rest reminder: restReminderPreview."
+  },
+  "restReminderPreviewSound": "试听{sound}",
+  "@restReminderPreviewSound": {
+    "description": "SetTrace rest reminder: restReminderPreviewSound.",
+    "placeholders": {
+      "sound": {
+        "type": "String"
+      }
+    }
+  },
+  "restReminderVibration": "振动",
+  "@restReminderVibration": {
+    "description": "SetTrace rest reminder: restReminderVibration."
+  },
+  "restReminderRepeat": "重复提醒",
+  "@restReminderRepeat": {
+    "description": "SetTrace rest reminder: restReminderRepeat."
+  },
+  "restReminderRepeatHelp": "未确认时，按设定间隔再次提醒",
+  "@restReminderRepeatHelp": {
+    "description": "SetTrace rest reminder: restReminderRepeatHelp."
+  },
+  "restReminderInterval": "提醒间隔",
+  "@restReminderInterval": {
+    "description": "SetTrace rest reminder: restReminderInterval."
+  },
+  "restReminderIntervalHelp": "未确认时，再次提醒的等待时间",
+  "@restReminderIntervalHelp": {
+    "description": "SetTrace rest reminder: restReminderIntervalHelp."
+  },
+  "restReminderEvery": "每 {seconds} 秒",
+  "@restReminderEvery": {
+    "description": "SetTrace rest reminder: restReminderEvery.",
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
+  },
+  "restReminderSeconds": "{seconds} 秒",
+  "@restReminderSeconds": {
+    "description": "SetTrace rest reminder: restReminderSeconds.",
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
+  },
+  "restReminderDeliveryHelp": "前台弹窗，后台通知",
+  "@restReminderDeliveryHelp": {
+    "description": "SetTrace rest reminder: restReminderDeliveryHelp."
+  },
+  "restReminderStopHelp": "点击通知返回训练，或点击“知道了”，停止本次提醒。",
+  "@restReminderStopHelp": {
+    "description": "SetTrace rest reminder: restReminderStopHelp."
+  },
+  "restReminderSystemHelp": "声音与振动遵循系统设置。",
+  "@restReminderSystemHelp": {
+    "description": "SetTrace rest reminder: restReminderSystemHelp."
+  },
+  "restReminderDelayHelp": "后台提醒间隔可能受系统调度影响。",
+  "@restReminderDelayHelp": {
+    "description": "SetTrace rest reminder: restReminderDelayHelp."
+  },
+  "restReminderPreviewFailed": "无法试听，请重试",
+  "@restReminderPreviewFailed": {
+    "description": "SetTrace rest reminder: restReminderPreviewFailed."
+  },
+  "restReminderSet": "第 {number} / {total} 组",
+  "@restReminderSet": {
+    "description": "Current next set in the rest ended dialog.",
+    "placeholders": {
+      "number": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
   }
 }

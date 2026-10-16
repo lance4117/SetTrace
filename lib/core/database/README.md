@@ -95,3 +95,25 @@ even if cancelling the operating-system alarm failed. See docs/rest-alerts.md.
 Rollback builds must read v3 and preserve skipped-group semantics. Disabling new
 buttons alone must not make skipped groups pending again. Do not reinstall a v2
 binary over v3 data, reset the database or uninstall to roll back.
+
+## v4 rest reminder acknowledgment and rounds
+
+The v4 migration only extends rest_alert_preferences and rest_alerts. Existing
+workout, history, plan, snapshot and deadline values retain their meanings.
+Preferences add sound_id (three_tone/double_beep/voice), vibration_enabled,
+repeat_enabled and interval_seconds (10/15/30/60). Defaults are three_tone,
+vibration on, repeat on, 10 seconds; the existing enabled preference is retained.
+
+A pending event owns its first due_at. A consumed event with acknowledged_at NULL
+is awaiting confirmation; delivery_sequence and next_delivery_at identify the
+next round. consumed_at remains the first consumption time. Both Dart and Android
+claim by id/revision/expected sequence in one transaction. Only the first claim
+uses the due_at + 30 second expiry window; late repeat callbacks claim one round
+and schedule from actual processing time. Confirmation and cancellation commit
+before canceling system projections; stale callbacks cannot revive output.
+
+Upgraded v3 consumed events receive acknowledged_at and never start repeating.
+Cold restoration expires elapsed pending first deliveries; valid v4 awaiting
+confirmations only resume a future round, without replaying missed intervals.
+The Android reader accepts v4 but never migrates the database. Tests live in
+rest_alert_repeating_test.dart and database_migration_test.dart.

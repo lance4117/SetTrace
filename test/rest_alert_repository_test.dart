@@ -17,6 +17,12 @@ class FakeAlertsPlatform extends RestAlertPlatform {
   final RestAlertRepository repo;
   final scheduled = <int, int>{};
   final sounds = <int>[];
+  final refreshed = <RestAlertEvent>[];
+  @override
+  Future<void> refreshNotification(RestAlertEvent e) async {
+    refreshed.add(e);
+  }
+
   Set<int> validIds = {};
   bool failSchedule = false, failCancel = false;
   int permissionCalls = 0;
@@ -33,7 +39,7 @@ class FakeAlertsPlatform extends RestAlertPlatform {
 
   @override
   Future<void> deliver(RestAlertEvent e) async {
-    if (await repo.consume(e.id, e.revision) != null) {
+    if (await repo.consume(e.id, e.revision, sequence: e.sequence) != null) {
       sounds.add(e.id);
       onDelivered?.call(e.body);
     }
@@ -106,6 +112,43 @@ void main() {
     );
     return session;
   }
+
+  test('language refresh updates existing notification identity without a new round', () async {
+    await done();
+    now = now.add(const Duration(seconds: 60));
+    await service.synchronize();
+    final before = service.awaiting.single;
+    await service.configure(AppLocalizationsZh());
+    final refreshed = platform.refreshed.last;
+    expect(refreshed.id, before.id);
+    expect(refreshed.revision, greaterThan(before.revision));
+    expect(refreshed.sequence, before.sequence);
+    expect(platform.sounds, hasLength(1));
+    await service.acknowledgeTap(
+      RestAlertTap(
+        session.id,
+        eventId: refreshed.id,
+        revision: refreshed.revision,
+      ),
+    );
+    expect(service.awaiting, isEmpty);
+  });
+
+  test(
+    'concurrent service confirmations are idempotent and never complete a set',
+    () async {
+      await done();
+      now = now.add(const Duration(seconds: 60));
+      await service.synchronize();
+      final event = service.awaiting.single;
+      await Future.wait([
+        service.acknowledge(event),
+        service.acknowledge(event),
+      ]);
+      expect(service.awaiting, isEmpty);
+      expect((await workouts.getSession(session.id))!.completedSets, 1);
+    },
+  );
 
   test('default does not request permission before a real rest; refusal is remembered', () async {
     expect(service.enabled, true);
@@ -225,16 +268,18 @@ void main() {
     expect(translated.revision, greaterThan(old.revision));
   });
 
-
-  test('restoring an ongoing future rest does not prompt during upgrade startup', () async {
-    await done();
-    await service.configure(AppLocalizationsEn(), expireElapsed: true);
-    expect(service.permissionNeeded, false);
-    expect(platform.permissionCalls, 0);
-    expect(platform.scheduled, isNotEmpty);
-    await service.synchronize(offerPermission: true);
-    expect(service.permissionNeeded, true);
-  });
+  test(
+    'restoring an ongoing future rest does not prompt during upgrade startup',
+    () async {
+      await done();
+      await service.configure(AppLocalizationsEn(), expireElapsed: true);
+      expect(service.permissionNeeded, false);
+      expect(platform.permissionCalls, 0);
+      expect(platform.scheduled, isNotEmpty);
+      await service.synchronize(offerPermission: true);
+      expect(service.permissionNeeded, true);
+    },
+  );
 
   test('skip remaining, undo and finish invalidate the old alert', () async {
     await done();
@@ -258,13 +303,14 @@ void main() {
     expect(platform.validIds, isEmpty);
   });
   test('elapsed rest cannot be extended by a stale adjustment', () async {
-    await done(); await service.synchronize();
+    await done();
+    await service.synchronize();
     final event = (await alerts.pending()).single;
     now = now.add(const Duration(seconds: 60));
     await expectLater(workouts.adjustRest(session.id, 30), throwsStateError);
     await workouts.normalizeRest(session.id);
     expect((await workouts.getSession(session.id))!.resting, false);
-    await platform.deliver(event); expect(platform.sounds, [event.id]);
+    await platform.deliver(event);
+    expect(platform.sounds, [event.id]);
   });
-
 }

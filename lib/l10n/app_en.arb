@@ -1473,7 +1473,7 @@
   "@restAlertsOff": {
     "description": "SetTrace restAlertsOff: rest reminder or skipped workout set. Preserve user exercise names."
   },
-  "restAlertsAvailable": "Reminders work in the background and on the lock screen.",
+  "restAlertsAvailable": "Enabled. Reminders stop when acknowledged.",
   "@restAlertsAvailable": {
     "description": "SetTrace restAlertsAvailable: rest reminder or skipped workout set. Preserve user exercise names."
   },
@@ -1868,5 +1868,129 @@
   "themeColorSaveFailed": "Could not save the theme color. Please try again.",
   "@themeColorSaveFailed": {
     "description": "Theme color setting: themeColorSaveFailed. Applies to the accent palette, independently of light/dark appearance."
+  },
+  "restReminderReady": "Your next set is ready",
+  "@restReminderReady": {
+    "description": "SetTrace rest reminder: restReminderReady."
+  },
+  "restReminderConfirm": "Got it, stop reminders",
+  "@restReminderConfirm": {
+    "description": "SetTrace rest reminder: restReminderConfirm."
+  },
+  "restReminderStop": "Stop this reminder",
+  "@restReminderStop": {
+    "description": "SetTrace rest reminder: restReminderStop."
+  },
+  "restReminderConfirmFailed": "Could not stop the reminder. Try again.",
+  "@restReminderConfirmFailed": {
+    "description": "SetTrace rest reminder: restReminderConfirmFailed."
+  },
+  "restReminderRepeats": "Repeats every {seconds} seconds until acknowledged",
+  "@restReminderRepeats": {
+    "description": "SetTrace rest reminder: restReminderRepeats.",
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
+  },
+  "restReminderSound": "Reminder sound",
+  "@restReminderSound": {
+    "description": "SetTrace rest reminder: restReminderSound."
+  },
+  "restReminderSoundThree": "Three-tone chime",
+  "@restReminderSoundThree": {
+    "description": "SetTrace rest reminder: restReminderSoundThree."
+  },
+  "restReminderSoundDouble": "Double beep",
+  "@restReminderSoundDouble": {
+    "description": "SetTrace rest reminder: restReminderSoundDouble."
+  },
+  "restReminderSoundVoice": "Chime and voice",
+  "@restReminderSoundVoice": {
+    "description": "SetTrace rest reminder: restReminderSoundVoice."
+  },
+  "restReminderPreview": "Preview",
+  "@restReminderPreview": {
+    "description": "SetTrace rest reminder: restReminderPreview."
+  },
+  "restReminderPreviewSound": "Preview {sound}",
+  "@restReminderPreviewSound": {
+    "description": "SetTrace rest reminder: restReminderPreviewSound.",
+    "placeholders": {
+      "sound": {
+        "type": "String"
+      }
+    }
+  },
+  "restReminderVibration": "Vibration",
+  "@restReminderVibration": {
+    "description": "SetTrace rest reminder: restReminderVibration."
+  },
+  "restReminderRepeat": "Repeat reminders",
+  "@restReminderRepeat": {
+    "description": "SetTrace rest reminder: restReminderRepeat."
+  },
+  "restReminderRepeatHelp": "Repeat at the selected interval until acknowledged",
+  "@restReminderRepeatHelp": {
+    "description": "SetTrace rest reminder: restReminderRepeatHelp."
+  },
+  "restReminderInterval": "Reminder interval",
+  "@restReminderInterval": {
+    "description": "SetTrace rest reminder: restReminderInterval."
+  },
+  "restReminderIntervalHelp": "Time between reminders while unacknowledged",
+  "@restReminderIntervalHelp": {
+    "description": "SetTrace rest reminder: restReminderIntervalHelp."
+  },
+  "restReminderEvery": "Every {seconds} seconds",
+  "@restReminderEvery": {
+    "description": "SetTrace rest reminder: restReminderEvery.",
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
+  },
+  "restReminderSeconds": "{seconds} seconds",
+  "@restReminderSeconds": {
+    "description": "SetTrace rest reminder: restReminderSeconds.",
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
+  },
+  "restReminderDeliveryHelp": "Dialog in app, notification in background",
+  "@restReminderDeliveryHelp": {
+    "description": "SetTrace rest reminder: restReminderDeliveryHelp."
+  },
+  "restReminderStopHelp": "Tap the notification to return to your workout, or acknowledge the dialog, to stop this reminder.",
+  "@restReminderStopHelp": {
+    "description": "SetTrace rest reminder: restReminderStopHelp."
+  },
+  "restReminderSystemHelp": "Sound and vibration follow system settings.",
+  "@restReminderSystemHelp": {
+    "description": "SetTrace rest reminder: restReminderSystemHelp."
+  },
+  "restReminderDelayHelp": "Background reminder intervals may be delayed by the system.",
+  "@restReminderDelayHelp": {
+    "description": "SetTrace rest reminder: restReminderDelayHelp."
+  },
+  "restReminderPreviewFailed": "Could not play the preview. Try again.",
+  "@restReminderPreviewFailed": {
+    "description": "SetTrace rest reminder: restReminderPreviewFailed."
+  },
+  "restReminderSet": "Set {number} of {total}",
+  "@restReminderSet": {
+    "description": "Current next set in the rest ended dialog.",
+    "placeholders": {
+      "number": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
   }
 }

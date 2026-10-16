@@ -544,8 +544,9 @@ void main() {
         ),
       );
       await flush(t);
-      await t.runAsync(() => alerts.synchronize(offerPermission: true));
+      final synchronization = alerts.synchronize(offerPermission: true);
       await flush(t);
+      await synchronization;
       expect(find.byType(AlertDialog), findsOneWidget);
       expect(find.byType(AppNoticeDialog), findsOneWidget);
       expect(platform.permissionCalls, 0);

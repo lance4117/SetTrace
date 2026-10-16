@@ -1,6 +1,20 @@
 import 'package:flutter/services.dart';
 
 import 'rest_alert_repository.dart';
+import 'rest_alert_options.dart';
+
+class RestAlertTap {
+  const RestAlertTap(this.sessionId, {this.eventId, this.revision});
+  final int sessionId;
+  final int? eventId, revision;
+  factory RestAlertTap.fromValue(dynamic value) => value is int
+      ? RestAlertTap(value)
+      : RestAlertTap(
+          (value['session_id'] as num).toInt(),
+          eventId: (value['id'] as num?)?.toInt(),
+          revision: (value['revision'] as num?)?.toInt(),
+        );
+}
 
 class RestAlertCapabilities {
   const RestAlertCapabilities({
@@ -17,6 +31,7 @@ class RestAlertCapabilities {
 
 abstract class RestAlertPlatform {
   void Function(int sessionId)? onTap;
+  void Function(RestAlertTap)? onTapDetails;
   void Function(String body)? onDelivered;
   Future<void> initialize(
     String databasePath,
@@ -30,6 +45,16 @@ abstract class RestAlertPlatform {
   Future<void> requestNotifications();
   Future<void> openSettings({required bool exact});
   Future<int?> takeInitialTap();
+  Future<RestAlertTap?> takeInitialTapDetails() async {
+    final id = await takeInitialTap();
+    return id == null ? null : RestAlertTap(id);
+  }
+
+  Future<void> configureOutput(RestAlertOptions options, String locale) async {}
+  Future<void> preview(String sound, String locale) async {}
+  Future<void> stopPreview() async {}
+  Future<void> stopOutput(int id) async {}
+  Future<void> refreshNotification(RestAlertEvent event) async {}
   void dispose() {}
 }
 
@@ -37,9 +62,20 @@ class AndroidRestAlertPlatform extends RestAlertPlatform {
   final MethodChannel channel = const MethodChannel('settrace/rest_alerts');
   AndroidRestAlertPlatform() {
     channel.setMethodCallHandler((call) async {
-      if (call.method == 'notificationTap') onTap?.call(call.arguments as int);
+      if (call.method == 'notificationTap') {
+        final tap = RestAlertTap.fromValue(call.arguments);
+        if (onTapDetails != null) {
+          onTapDetails!(tap);
+        } else {
+          onTap?.call(tap.sessionId);
+        }
+      }
       if (call.method == 'delivered') {
-        onDelivered?.call(call.arguments as String);
+        onDelivered?.call(
+          call.arguments is String
+              ? call.arguments as String
+              : (call.arguments as Map)['body'] as String,
+        );
       }
     });
   }
@@ -64,7 +100,7 @@ class AndroidRestAlertPlatform extends RestAlertPlatform {
   @override
   Future<void> deliver(RestAlertEvent event) => channel.invokeMethod(
     'deliver',
-    {'id': event.id, 'revision': event.revision},
+    {'id': event.id, 'revision': event.revision, 'sequence': event.sequence},
   );
   @override
   Future<void> cancelExcept(Set<int> validIds) =>
@@ -76,7 +112,34 @@ class AndroidRestAlertPlatform extends RestAlertPlatform {
   Future<void> openSettings({required bool exact}) =>
       channel.invokeMethod('openSettings', {'exact': exact});
   @override
-  Future<int?> takeInitialTap() => channel.invokeMethod<int>('takeInitialTap');
+  Future<int?> takeInitialTap() async =>
+      (await takeInitialTapDetails())?.sessionId;
+  @override
+  Future<RestAlertTap?> takeInitialTapDetails() async {
+    final value = await channel.invokeMethod('takeInitialTap');
+    return value == null ? null : RestAlertTap.fromValue(value);
+  }
+
+  @override
+  Future<void> configureOutput(RestAlertOptions options, String locale) =>
+      channel.invokeMethod('configureOutput', {
+        ...options.toMap(),
+        'locale': locale,
+      });
+  @override
+  Future<void> preview(String sound, String locale) =>
+      channel.invokeMethod('preview', {'sound': sound, 'locale': locale});
+  @override
+  Future<void> refreshNotification(RestAlertEvent event) =>
+      channel.invokeMethod('refreshNotification', {
+        'id': event.id,
+        'revision': event.revision,
+      });
+  @override
+  Future<void> stopPreview() => channel.invokeMethod('stopPreview');
+  @override
+  Future<void> stopOutput(int id) =>
+      channel.invokeMethod('stopOutput', {'id': id});
   @override
   void dispose() {
     channel.setMethodCallHandler(null);

@@ -1,0 +1,13 @@
+{
+  "version": 4,
+  "business_tables_identical": [
+    "plans",
+    "plan_exercises",
+    "workout_sessions",
+    "session_exercises",
+    "session_sets",
+    "session_skip_batches"
+  ],
+  "future_due_at": 1792086253000,
+  "legacy_consumed_terminal": true
+}

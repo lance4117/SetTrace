@@ -1,0 +1,41 @@
+{
+  "change": "enhance-rest-reminders",
+  "date": "2026-10-16",
+  "tasks": {
+    "completed": 14,
+    "total": 17,
+    "pending": [
+      "4.2 TalkBack device navigation",
+      "5.2 remaining device matrix",
+      "5.3 real phone audio and vibration"
+    ]
+  },
+  "flutter": {
+    "analysis": "passed",
+    "full_suite_log": "build/qa/rest-reminders/flutter-final-pass.log",
+    "localization_check": "passed",
+    "passed_tests": 951
+  },
+  "android": {
+    "api36_rest_tests": 15,
+    "api28_rest_tests": 15,
+    "instrumentation_output": "OK (20 tests), including opt-in localization scenarios not enabled"
+  },
+  "apk": {
+    "path": "build/app/outputs/apk/debug/app-debug.apk",
+    "sha256": "D9F5526FAEBE4486BE4DAFED8D03FF8222B3AA1F9A761B669A4B5971ECB67B4C"
+  },
+  "device_evidence": [
+    "device-states.jsonl",
+    "upgrade-result.json",
+    "recovery-result.json",
+    "doze-result.json"
+  ],
+  "archive": {
+    "date": "2026-10-16",
+    "path": "openspec/changes/archive/2026-10-16-enhance-rest-reminders",
+    "specs_synced": true,
+    "incomplete_tasks_preserved": 3,
+    "authorized_by_user": true
+  }
+}
