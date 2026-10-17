@@ -1,0 +1,113 @@
+{
+  "format": "settrace.user-backup",
+  "schemaVersion": 2,
+  "backupId": "golden-v1-history",
+  "snapshotAt": "2026-10-16T00:00:00.000Z",
+  "exportedAt": "2026-10-16T00:00:00.000Z",
+  "sourceAppVersion": "0.2.4+10",
+  "data": {
+    "plans": [
+      {
+        "key": "p1",
+        "name": "力量 Strength",
+        "createdAt": 1000,
+        "updatedAt": 2000,
+        "exercises": [
+          {
+            "key": "e1",
+            "name": "深蹲 Squat",
+            "targetSets": 3,
+            "restBetweenSetsSeconds": 60,
+            "restAfterExerciseSeconds": 90,
+            "defaultWeightKg": 25.5
+          }
+        ]
+      },
+      {
+        "key": "p2",
+        "name": "力量 Strength",
+        "createdAt": 1000,
+        "updatedAt": 2000,
+        "exercises": []
+      }
+    ],
+    "workouts": [
+      {
+        "key": "w1",
+        "sourcePlanKey": null,
+        "planNameSnapshot": "已删除的计划",
+        "startedAt": 2000,
+        "startedLocalDate": "2026-10-15",
+        "endedAt": 1000,
+        "durationSeconds": 0,
+        "exercises": [
+          {
+            "key": "we1",
+            "sourceExerciseKey": null,
+            "nameSnapshot": "深蹲 Squat",
+            "targetSets": 3,
+            "restBetweenSetsSeconds": 60,
+            "restAfterExerciseSeconds": 90,
+            "defaultWeightKg": 25.5,
+            "skipBatches": [
+              {
+                "key": "b1",
+                "createdAt": 3000,
+                "undoneAt": null
+              },
+              {
+                "key": "b2",
+                "createdAt": 4000,
+                "undoneAt": 5000
+              }
+            ],
+            "sets": [
+              {
+                "setNumber": 1,
+                "completedAt": 3000,
+                "completedSequence": 1,
+                "skippedAt": null,
+                "skipBatchKey": null
+              },
+              {
+                "setNumber": 2,
+                "completedAt": null,
+                "completedSequence": null,
+                "skippedAt": 3000,
+                "skipBatchKey": "b1"
+              },
+              {
+                "setNumber": 3,
+                "completedAt": null,
+                "completedSequence": null,
+                "skippedAt": null,
+                "skipBatchKey": null
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "settings": {
+      "themeMode": "system",
+      "themeColor": "teal",
+      "languageTag": "zh",
+      "reminder": {
+        "enabled": true,
+        "sound": "three_tone",
+        "vibration": true,
+        "repeat": true,
+        "interval": 10
+      }
+    }
+  },
+  "metadata": {
+    "extensions": {
+      "fixture": "Synthetic future format. Never published."
+    }
+  },
+  "integrity": {
+    "algorithm": "sha256",
+    "digest": "d57add39f283f7d12b89ff0681230fa6d41efda011adfe1730ab0b00a4da1206"
+  }
+}

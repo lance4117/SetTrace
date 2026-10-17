@@ -47,7 +47,7 @@ void main() {
     );
     plans = PlanRepository(db.db);
     repo = WorkoutRepository(db.db);
-    SharedPreferences.setMockInitialValues({'app_notice_seen_version': 1});
+    SharedPreferences.setMockInitialValues({'app_notice_seen_version': 2});
   });
   tearDown(() async {
     await db.close();

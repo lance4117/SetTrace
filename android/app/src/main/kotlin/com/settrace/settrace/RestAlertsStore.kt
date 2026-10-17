@@ -21,7 +21,13 @@ internal object RestDeliveryPolicy {
             channelImportance >= NotificationManager.IMPORTANCE_DEFAULT
 }
 
-/** Shared v4 contract; native receivers never migrate or modify workout records. */
+internal object BackupDatabasePolicy {
+    fun supported(version: Int) = version == 4 || version == 5 || version == 6
+    fun blocksOutput(kind: String, phase: String) = kind in setOf("restore", "undo") &&
+        phase in setOf("preparing", "protected", "indeterminate")
+}
+
+/** Shared v4/v5/v6 contract; native receivers never migrate or modify workout records. */
 internal object RestAlertsStore {
     fun <T> withDatabase(context: Context, action: (SQLiteDatabase) -> T): T {
         val path = context.getSharedPreferences("rest_alerts_native", Context.MODE_PRIVATE)
@@ -32,7 +38,8 @@ internal object RestAlertsStore {
         repeat(3) { attempt ->
             try {
                 SQLiteDatabase.openDatabase(path, null, SQLiteDatabase.OPEN_READWRITE).use { db ->
-                    check(db.version == 4) { "unsupportedDatabase" }
+                    check(BackupDatabasePolicy.supported(db.version)) { "unsupportedDatabase" }
+                    check(!backupPending(db)) { "backupPending" }
                     return action(db)
                 }
             } catch (error: SQLiteDatabaseLockedException) {
@@ -41,6 +48,15 @@ internal object RestAlertsStore {
             }
         }
         error("databaseBusy")
+    }
+    private fun backupPending(db: SQLiteDatabase): Boolean {
+        if (db.version == 4) return false
+        check(db.version == 5 || db.version == 6) { "unsupportedDatabase" }
+        return db.rawQuery("""SELECT kind,phase FROM backup_operations
+            WHERE kind IN ('restore','undo')
+            AND phase IN ('preparing','protected','indeterminate') LIMIT 1""", null).use {
+            it.moveToFirst() && BackupDatabasePolicy.blocksOutput(it.getString(0), it.getString(1))
+        }
     }
     fun settings(db: SQLiteDatabase): RestAlertSettings = db.rawQuery(
         "SELECT sound_id,vibration_enabled,repeat_enabled,interval_seconds FROM rest_alert_preferences WHERE id=1", null).use {
@@ -55,11 +71,11 @@ internal object RestAlertsStore {
           AND s.status='in_progress' AND s.current_rest_alert_id=a.id
           AND s.current_session_exercise_id=a.exercise_id AND s.current_set_number=a.set_number
     """
-    fun valid(db: SQLiteDatabase, event: RestDelivery): Boolean = db.rawQuery(
+    fun valid(db: SQLiteDatabase, event: RestDelivery): Boolean = !backupPending(db) && db.rawQuery(
         "SELECT a.id $VALID AND a.state='consumed' AND a.delivery_sequence=?",
         arrayOf(event.id.toString(), event.revision.toString(), event.sequence.toString())).use { it.moveToFirst() }
 
-    fun projection(db: SQLiteDatabase, id: Int, revision: Int): RestDelivery? = db.rawQuery(
+    fun projection(db: SQLiteDatabase, id: Int, revision: Int): RestDelivery? = if (backupPending(db)) null else db.rawQuery(
         "SELECT a.session_id,a.title,a.body,a.delivery_sequence,a.next_delivery_at $VALID AND a.state='consumed'",
         arrayOf(id.toString(), revision.toString())).use { row ->
         if (!row.moveToFirst()) null else RestDelivery(id,row.getInt(0),row.getString(1),row.getString(2),
@@ -69,6 +85,7 @@ internal object RestAlertsStore {
     fun claim(db: SQLiteDatabase, id: Int, revision: Int, now: Long, sequence: Int = 0): RestDelivery? {
         db.beginTransaction()
         try {
+            if (backupPending(db)) return null
             val settings = settings(db)
             val event = db.rawQuery("""SELECT a.session_id,a.due_at,a.title,a.body,a.state,
                 a.next_delivery_at,a.consumed_at $VALID

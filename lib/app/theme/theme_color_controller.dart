@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'theme_color_preset.dart';
+import '../../features/backup/data_write_coordinator.dart';
 
 abstract interface class ThemeColorStore {
   Object? read();
@@ -38,7 +39,7 @@ class PreferencesThemeColorStore implements ThemeColorStore {
 }
 
 class ThemeColorController extends ChangeNotifier {
-  ThemeColorController(this.store) {
+  ThemeColorController(this.store, {this.coordinator}) {
     try {
       _committed = ThemeColorPreset.parse(store.read());
     } catch (_) {
@@ -48,6 +49,8 @@ class ThemeColorController extends ChangeNotifier {
   }
 
   final ThemeColorStore store;
+  final DataWriteCoordinator? coordinator;
+  Future<void> Function()? beforeWrite;
   late ThemeColorPreset _committed, _desired;
   ThemeColorPreset? _failed;
   bool _saving = false, _disposed = false;
@@ -62,12 +65,17 @@ class ThemeColorController extends ChangeNotifier {
 
   void select(ThemeColorPreset next) {
     if (_disposed || next == _desired) return;
+    if (coordinator?.blocked == true) {
+      _failed = next;
+      _emit();
+      return;
+    }
     _desired = next;
     _failed = null;
     _revision++;
     if (!_saving) {
       _saving = true;
-      _work = _save();
+      _work = coordinator?.write(_save) ?? _save();
     }
     _emit();
   }
@@ -83,6 +91,8 @@ class ThemeColorController extends ChangeNotifier {
       final revision = _revision;
       var saved = false;
       try {
+        final prepare = beforeWrite;
+        if (prepare != null) await prepare();
         saved = await store.write(target);
       } catch (_) {
         // Failure categories are displayed in the current UI language.
@@ -103,6 +113,25 @@ class ThemeColorController extends ChangeNotifier {
       }
     }
     _saving = false;
+    _emit();
+  }
+
+  /// Called by the exclusive backup settings phase after all admitted saves
+  /// have settled. Updates the confirmed cache and removes obsolete previews.
+  Future<void> restoreConfirmed(ThemeColorPreset next) async {
+    await settled;
+    try {
+      if (!await store.write(next)) throw StateError('themeColorRestoreFailed');
+    } catch (_) {
+      try {
+        await store.recover(_committed);
+      } catch (_) {}
+      rethrow;
+    }
+    _committed = next;
+    _desired = next;
+    _failed = null;
+    _revision++;
     _emit();
   }
 

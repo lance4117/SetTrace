@@ -15,7 +15,7 @@ class AppDatabase {
     final db = await databaseFactory.openDatabase(
       path,
       options: OpenDatabaseOptions(
-        version: 4,
+        version: 6,
         onConfigure: (db) async => db.execute('PRAGMA foreign_keys = ON'),
         onCreate: (db, version) async {
           await _createV1(db, 1);
@@ -274,7 +274,114 @@ class AppDatabase {
         "UPDATE rest_alerts SET acknowledged_at = COALESCE(consumed_at, due_at) WHERE state = 'consumed'",
       );
     }
-    if (newVersion != 4) {
+    if (oldVersion < 5 && newVersion >= 5) {
+      await db.execute('''
+        CREATE TABLE backup_operations (
+          id TEXT PRIMARY KEY NOT NULL,
+          kind TEXT NOT NULL CHECK(kind IN ('export','restore','undo')),
+          phase TEXT NOT NULL CHECK(phase IN ('preparing','protected',
+            'core_committed','settings_pending','completed','settings_skipped',
+            'aborted','indeterminate','export_pending','export_published')),
+          source_digest TEXT NOT NULL,
+          target_digest TEXT NOT NULL,
+          candidate_digest TEXT,
+          before_copy_id TEXT,
+          restore_settings INTEGER NOT NULL CHECK(restore_settings IN (0,1)),
+          settings_target TEXT,
+          settings_results TEXT NOT NULL DEFAULT '{}',
+          source_epoch INTEGER NOT NULL,
+          target_epoch INTEGER,
+          undo_of TEXT,
+          undone_by TEXT,
+          export_target TEXT,
+          export_result TEXT,
+          error_code TEXT,
+          result_seen INTEGER NOT NULL DEFAULT 0 CHECK(result_seen IN (0,1)),
+          created_at INTEGER NOT NULL,
+          updated_at INTEGER NOT NULL
+        )
+      ''');
+      await db.execute('''
+        CREATE TABLE backup_copies (
+          id TEXT PRIMARY KEY NOT NULL,
+          operation_id TEXT,
+          snapshot_at TEXT NOT NULL,
+          relative_path TEXT NOT NULL UNIQUE,
+          digest TEXT NOT NULL,
+          schema_version INTEGER NOT NULL,
+          plan_count INTEGER NOT NULL,
+          workout_count INTEGER NOT NULL,
+          byte_count INTEGER NOT NULL,
+          state TEXT NOT NULL CHECK(state IN ('ready','deleting','missing')),
+          created_at INTEGER NOT NULL
+        )
+      ''');
+      await db.execute('''
+        CREATE TABLE backup_state (
+          id INTEGER PRIMARY KEY CHECK(id=1),
+          epoch INTEGER NOT NULL DEFAULT 0,
+          last_export_operation_id TEXT,
+          last_export_digest TEXT,
+          last_export_at INTEGER,
+          last_export_result TEXT,
+          undo_operation_id TEXT
+        )
+      ''');
+      await db.insert('backup_state', {'id': 1});
+      await db.execute(
+        'CREATE INDEX backup_operations_by_phase ON backup_operations(phase, created_at)',
+      );
+    }
+    if (oldVersion < 6 && newVersion >= 6) {
+      await db.execute(
+        'ALTER TABLE backup_operations ADD COLUMN target_summary TEXT',
+      );
+      await db.execute('ALTER TABLE plans ADD COLUMN sort_order INTEGER');
+      await db.execute(
+        'ALTER TABLE workout_sessions ADD COLUMN backup_order INTEGER',
+      );
+      for (final (table, column, order, filter) in [
+        ('plans', 'sort_order', 'created_at ASC, id ASC', null),
+        (
+          'workout_sessions',
+          'backup_order',
+          'started_at ASC, id ASC',
+          "status='completed'",
+        ),
+      ]) {
+        final rows = await db.query(
+          table,
+          columns: ['id'],
+          where: filter,
+          orderBy: order,
+        );
+        for (var i = 0; i < rows.length; i++) {
+          await db.update(
+            table,
+            {column: i + 1},
+            where: 'id=?',
+            whereArgs: [rows[i]['id']],
+          );
+        }
+      }
+      // All creation paths (including plan import) append atomically. Restore
+      // supplies explicit order values and therefore bypasses these triggers.
+      await db.execute(
+        '''CREATE TRIGGER plans_append_order AFTER INSERT ON plans
+        WHEN NEW.sort_order IS NULL BEGIN
+        UPDATE plans SET sort_order=(SELECT COALESCE(MAX(sort_order),0)+1 FROM plans)
+        WHERE id=NEW.id; END''',
+      );
+      for (final event in ['INSERT', 'UPDATE OF status']) {
+        final suffix = event == 'INSERT' ? 'insert' : 'complete';
+        await db.execute('''CREATE TRIGGER workouts_append_order_$suffix
+          AFTER $event ON workout_sessions
+          WHEN NEW.status='completed' AND NEW.backup_order IS NULL BEGIN
+          UPDATE workout_sessions SET backup_order=(SELECT COALESCE(MAX(backup_order),0)+1 FROM workout_sessions)
+          WHERE id=NEW.id; END''');
+      }
+    }
+    if (newVersion != 6) {
       throw StateError(
         'No migration from database v$oldVersion to v$newVersion',
       );

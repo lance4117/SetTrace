@@ -1,3 +1,5 @@
+import '../backup/data_write_coordinator.dart';
+
 import 'package:sqflite/sqflite.dart';
 
 import 'rest_alert_options.dart';
@@ -22,9 +24,13 @@ class RestAlertEvent {
 /// Shared durable contract with the Android receiver. Training writes use its
 /// existing transaction; AlarmManager work runs only after that commit.
 class RestAlertRepository {
-  RestAlertRepository(this.db, {DateTime Function()? clock})
+  RestAlertRepository(this.db, {DateTime Function()? clock, this.coordinator})
     : clock = clock ?? DateTime.now;
   final Database db;
+  final DataWriteCoordinator? coordinator;
+  Future<void> Function()? beforePreferencesWrite;
+  Future<T> _write<T>(Future<T> Function() action) =>
+      coordinator?.write(action) ?? action();
   final DateTime Function() clock;
   int get nowMs => clock().toUtc().millisecondsSinceEpoch;
 
@@ -102,7 +108,8 @@ class RestAlertRepository {
   Future<Map<String, Object?>> preferences() async =>
       (await db.query('rest_alert_preferences', where: 'id = 1')).single;
 
-  Future<void> setOptions(RestAlertOptions options) async {
+  Future<void> setOptions(RestAlertOptions options) => _write(() async {
+    await beforePreferencesWrite?.call();
     if (!RestAlertOptions.sounds.contains(options.sound) ||
         !RestAlertOptions.intervals.contains(options.interval)) {
       throw ArgumentError('invalidReminderOptions');
@@ -130,30 +137,31 @@ class RestAlertRepository {
         ],
       );
     });
-  }
+  });
 
-  Future<bool> acknowledge(int id, int sessionId, {int? revision}) =>
-      db.transaction((txn) async {
-        final rows = await _active(txn, id: id);
-        if (rows.isEmpty) return false;
-        final event = rows.single;
-        if (event.sessionId != sessionId ||
-            !event.awaitingConfirmation ||
-            (revision != null && event.revision != revision)) {
-          return false;
-        }
-        await txn.update(
-          'rest_alerts',
-          {
-            'acknowledged_at': nowMs,
-            'next_delivery_at': null,
-            'revision': event.revision + 1,
-          },
-          where: 'id = ?',
-          whereArgs: [id],
-        );
-        return true;
-      });
+  Future<bool> acknowledge(int id, int sessionId, {int? revision}) => _write(
+    () => db.transaction((txn) async {
+      final rows = await _active(txn, id: id);
+      if (rows.isEmpty) return false;
+      final event = rows.single;
+      if (event.sessionId != sessionId ||
+          !event.awaitingConfirmation ||
+          (revision != null && event.revision != revision)) {
+        return false;
+      }
+      await txn.update(
+        'rest_alerts',
+        {
+          'acknowledged_at': nowMs,
+          'next_delivery_at': null,
+          'revision': event.revision + 1,
+        },
+        where: 'id = ?',
+        whereArgs: [id],
+      );
+      return true;
+    }),
+  );
 
   Future<List<RestAlertEvent>> _active(
     DatabaseExecutor executor, {
@@ -177,13 +185,14 @@ class RestAlertRepository {
   Future<List<RestAlertEvent>> awaiting() async =>
       (await active()).where((e) => e.awaitingConfirmation).toList();
 
-  Future<void> markPermissionRequested() => db.update(
-    'rest_alert_preferences',
-    {'permission_requested': 1},
-    where: 'id = 1',
-  );
+  Future<void> markPermissionRequested() => _write(() async {
+    await db.update('rest_alert_preferences', {
+      'permission_requested': 1,
+    }, where: 'id = 1');
+  });
 
-  Future<void> setEnabled(bool enabled) async {
+  Future<void> setEnabled(bool enabled) => _write(() async {
+    await beforePreferencesWrite?.call();
     await db.transaction((txn) async {
       await txn.update('rest_alert_preferences', {
         'enabled': enabled ? 1 : 0,
@@ -202,9 +211,9 @@ class RestAlertRepository {
         }
       }
     });
-  }
+  });
 
-  Future<void> restore({required bool expireElapsed}) async {
+  Future<void> restore({required bool expireElapsed}) => _write(() async {
     await db.transaction((txn) async {
       if (expireElapsed) {
         await txn.rawUpdate(
@@ -232,9 +241,9 @@ class RestAlertRepository {
         await refresh(txn, s['id'] as int);
       }
     });
-  }
+  });
 
-  Future<List<RestAlertEvent>> pending() async {
+  Future<List<RestAlertEvent>> pending() => _write(() async {
     final rows = await db.rawQuery("""
       SELECT a.*, e.name_snapshot, e.target_sets FROM rest_alerts a
       JOIN workout_sessions s ON s.id = a.session_id
@@ -247,13 +256,13 @@ class RestAlertRepository {
       ORDER BY a.id
     """);
     return rows.map(RestAlertEvent.new).toList();
-  }
+  });
 
   Future<RestAlertEvent> setContent(
     RestAlertEvent event,
     String title,
     String body,
-  ) async {
+  ) => _write(() async {
     if (event.title == title && event.body == body) return event;
     return db.transaction((txn) async {
       await txn.rawUpdate(
@@ -268,18 +277,15 @@ class RestAlertRepository {
       );
       return RestAlertEvent(rows.single);
     });
-  }
+  });
 
   /// Used by platform fakes and repository tests; Android implements the same
   /// conditional claim without starting a Flutter engine in the background.
-  Future<RestAlertEvent?> consume(
-    int id,
-    int revision, {
-    int sequence = 0,
-  }) async {
-    return db.transaction((txn) async {
-      final rows = await txn.rawQuery(
-        """
+  Future<RestAlertEvent?> consume(int id, int revision, {int sequence = 0}) =>
+      _write(() async {
+        return db.transaction((txn) async {
+          final rows = await txn.rawQuery(
+            """
         SELECT a.* FROM rest_alerts a JOIN workout_sessions s ON s.id = a.session_id
         JOIN rest_alert_preferences p ON p.id = 1
         WHERE a.id = ? AND a.revision = ? AND a.state IN ('pending','consumed')
@@ -287,46 +293,46 @@ class RestAlertRepository {
           AND s.status = 'in_progress' AND s.current_rest_alert_id = a.id
           AND s.current_session_exercise_id = a.exercise_id AND s.current_set_number = a.set_number
       """,
-        [id, revision, sequence],
-      );
-      if (rows.isEmpty) return null;
-      final e = RestAlertEvent(rows.single);
-      final at = e.deliveryAt;
-      if (at == null || nowMs < at) return null;
-      if (!e.awaitingConfirmation && nowMs > e.dueAt + 30000) {
-        await txn.update(
-          'rest_alerts',
-          {'state': 'expired'},
-          where: 'id = ?',
-          whereArgs: [id],
-        );
-        return null;
-      }
-      final options = RestAlertOptions.fromMap(
-        (await txn.query('rest_alert_preferences')).single,
-      );
-      final updated = await txn.update(
-        'rest_alerts',
-        {
-          'state': 'consumed',
-          'consumed_at': e.row['consumed_at'] ?? nowMs,
-          'delivery_sequence': sequence + 1,
-          'next_delivery_at': options.repeat
-              ? nowMs + options.interval * 1000
-              : null,
-        },
-        where: 'id = ? AND revision = ? AND delivery_sequence = ? AND acknowledged_at IS NULL',
-        whereArgs: [id, revision, sequence],
-      );
-      return updated == 1
-          ? RestAlertEvent(
-              (await txn.query(
-                'rest_alerts',
-                where: 'id = ?',
-                whereArgs: [id],
-              )).single,
-            )
-          : null;
-    });
-  }
+            [id, revision, sequence],
+          );
+          if (rows.isEmpty) return null;
+          final e = RestAlertEvent(rows.single);
+          final at = e.deliveryAt;
+          if (at == null || nowMs < at) return null;
+          if (!e.awaitingConfirmation && nowMs > e.dueAt + 30000) {
+            await txn.update(
+              'rest_alerts',
+              {'state': 'expired'},
+              where: 'id = ?',
+              whereArgs: [id],
+            );
+            return null;
+          }
+          final options = RestAlertOptions.fromMap(
+            (await txn.query('rest_alert_preferences')).single,
+          );
+          final updated = await txn.update(
+            'rest_alerts',
+            {
+              'state': 'consumed',
+              'consumed_at': e.row['consumed_at'] ?? nowMs,
+              'delivery_sequence': sequence + 1,
+              'next_delivery_at': options.repeat
+                  ? nowMs + options.interval * 1000
+                  : null,
+            },
+            where: 'id = ? AND revision = ? AND delivery_sequence = ? AND acknowledged_at IS NULL',
+            whereArgs: [id, revision, sequence],
+          );
+          return updated == 1
+              ? RestAlertEvent(
+                  (await txn.query(
+                    'rest_alerts',
+                    where: 'id = ?',
+                    whereArgs: [id],
+                  )).single,
+                )
+              : null;
+        });
+      });
 }

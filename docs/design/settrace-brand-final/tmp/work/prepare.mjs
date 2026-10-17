@@ -3,7 +3,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createRequire } from 'node:module';
 const require=createRequire(import.meta.url);
-const modules='C:/Users/Lance/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules';
+const modules=process.env.SETTRACE_NODE_MODULES ?? 'D:/ProgramData/DevCache/Node/node_modules';
 const sharp=require(path.join(modules,'sharp'));
 const {GlobalFonts,convertSVGTextToPath,createCanvas}=require(path.join(modules,'@napi-rs/canvas'));
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..');

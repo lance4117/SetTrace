@@ -79,6 +79,7 @@ class PlanFilesBridge(private val activity: Activity, messenger: BinaryMessenger
             }
             "pickFile" -> {
                 val request = Request(result, "pick")
+                if (!FilePickerGate.acquire(request)) { result.success(error("fileBusy")); return }
                 pending = request
                 try {
                     val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
@@ -199,6 +200,7 @@ class PlanFilesBridge(private val activity: Activity, messenger: BinaryMessenger
     private fun finish(request: Request, value: Map<String, Any>) {
         main.post {
             if (request.completed.compareAndSet(false, true)) {
+                FilePickerGate.release(request)
                 if (pending === request) pending = null
                 request.result.success(value)
             }

@@ -1,3 +1,5 @@
+import '../backup/data_write_coordinator.dart';
+
 import 'package:sqflite/sqflite.dart';
 
 import 'plan_models.dart';
@@ -5,14 +7,17 @@ import 'plan_failure.dart';
 import 'plan_transfer.dart';
 
 class PlanRepository {
-  const PlanRepository(this.db);
+  const PlanRepository(this.db, {this.coordinator});
   final Database db;
+  final DataWriteCoordinator? coordinator;
+  Future<T> _write<T>(Future<T> Function() action) =>
+      coordinator?.write(action) ?? action();
   Future<List<TransferPlan>> exportPlans(Set<int> selectedIds) async {
     if (selectedIds.isEmpty) {
       throw const PlanTransferException(PlanTransferFailure.selectPlans);
     }
     return db.transaction((txn) async {
-      final rows = await txn.query('plans', orderBy: 'created_at ASC, id ASC');
+      final rows = await txn.query('plans', orderBy: 'sort_order ASC, id ASC');
       final selected = rows
           .where((row) => selectedIds.contains(row['id']))
           .toList();
@@ -56,7 +61,7 @@ class PlanRepository {
   Future<List<int>> importPlans(
     List<TransferPlan> plans, {
     required ImportSuffix suffixFor,
-  }) async {
+  }) => _write(() async {
     // The source byte limit is checked by decode; validate edited fields here.
     // Re-encoding with export indentation must not reject a valid compact input.
     const PlanTransferCodec().validatePlans(plans);
@@ -95,10 +100,10 @@ class PlanRepository {
       }
       return ids;
     });
-  }
+  });
 
   Future<List<WorkoutPlan>> listPlans() async {
-    final rows = await db.query('plans', orderBy: 'created_at ASC, id ASC');
+    final rows = await db.query('plans', orderBy: 'sort_order ASC, id ASC');
     final result = <WorkoutPlan>[];
     for (final row in rows) {
       result.add(
@@ -137,7 +142,7 @@ class PlanRepository {
     return rows.map(PlanExercise.fromRow).toList();
   }
 
-  Future<int> createPlan(String name) async {
+  Future<int> createPlan(String name) => _write(() async {
     final trimmed = name.trim();
     if (trimmed.isEmpty) {
       throw PlanValidationException(PlanFailure.nameRequired);
@@ -148,9 +153,9 @@ class PlanRepository {
       'created_at': now,
       'updated_at': now,
     });
-  }
+  });
 
-  Future<void> renamePlan(int id, String name) async {
+  Future<void> renamePlan(int id, String name) => _write(() async {
     final trimmed = name.trim();
     if (trimmed.isEmpty) {
       throw PlanValidationException(PlanFailure.nameRequired);
@@ -164,11 +169,11 @@ class PlanRepository {
       where: 'id = ?',
       whereArgs: [id],
     );
-  }
+  });
 
-  Future<void> deletePlan(int id) async {
+  Future<void> deletePlan(int id) => _write(() async {
     await db.delete('plans', where: 'id = ?', whereArgs: [id]);
-  }
+  });
 
   Future<int> addExercise({
     required int planId,
@@ -177,7 +182,7 @@ class PlanRepository {
     required int restBetweenSetsSeconds,
     required int restAfterExerciseSeconds,
     double? defaultWeightKg,
-  }) async {
+  }) => _write(() async {
     _validate(
       name,
       targetSets,
@@ -201,7 +206,7 @@ class PlanRepository {
         'default_weight_kg': defaultWeightKg,
       });
     });
-  }
+  });
 
   Future<void> updateExercise({
     required int id,
@@ -210,7 +215,7 @@ class PlanRepository {
     required int restBetweenSetsSeconds,
     required int restAfterExerciseSeconds,
     double? defaultWeightKg,
-  }) async {
+  }) => _write(() async {
     _validate(
       name,
       targetSets,
@@ -230,9 +235,9 @@ class PlanRepository {
       where: 'id = ?',
       whereArgs: [id],
     );
-  }
+  });
 
-  Future<void> deleteExercise(int id, int planId) async {
+  Future<void> deleteExercise(int id, int planId) => _write(() async {
     await db.transaction((txn) async {
       await txn.delete(
         'plan_exercises',
@@ -241,9 +246,9 @@ class PlanRepository {
       );
       await _renumber(txn, planId);
     });
-  }
+  });
 
-  Future<void> reorder(int planId, List<int> orderedIds) async {
+  Future<void> reorder(int planId, List<int> orderedIds) => _write(() async {
     await db.transaction((txn) async {
       final rows = await txn.query(
         'plan_exercises',
@@ -274,7 +279,7 @@ class PlanRepository {
         );
       }
     });
-  }
+  });
 
   Future<void> _renumber(Transaction txn, int planId) async {
     final rows = await txn.query(

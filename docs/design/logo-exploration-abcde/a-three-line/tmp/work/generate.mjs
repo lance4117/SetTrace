@@ -4,7 +4,8 @@ import { fileURLToPath } from 'node:url';
 import { createRequire } from 'node:module';
 
 const require = createRequire(import.meta.url);
-const sharp = require('C:/Users/Lance/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/sharp');
+const modules = process.env.SETTRACE_NODE_MODULES ?? 'D:/ProgramData/DevCache/Node/node_modules';
+const sharp = require(path.join(modules, 'sharp'));
 const out = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 const ink = '#111518', secondary = '#586970', line = '#DBE3E5';
 // Same lean, round caps and stroke weight as the first A concept.

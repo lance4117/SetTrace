@@ -20,12 +20,12 @@ root=Path(__file__).resolve().parent.parent
 destination=root/"docs/qa/focus-a-redesign-evidence"/args.label
 destination.mkdir(parents=True,exist_ok=True)
 log=Path(args.log)
-adb="C:/Users/Lance/AppData/Local/Android/sdk/platform-tools/adb.exe"
+adb="D:/ProgramData/Android_SDK/platform-tools/adb.exe"
 folder="focus-a-journey" if args.journey else "focus-a-legacy" if args.legacy else "focus-a-accessibility" if args.keyboard else "focus-a-evidence"
 process=None
 if not args.watch_log:
     target="integration_test/localization_android_test.dart" if args.journey else "integration_test/localization_legacy_test.dart" if args.legacy else "integration_test/focus_a_keyboard_test.dart" if args.keyboard else "integration_test/focus_a_redesign_test.dart"
-    command=["C:/dev/flutter/bin/cache/dart-sdk/bin/dart.exe","C:/dev/flutter/bin/cache/flutter_tools.snapshot",
+    command=["D:/DevTools/Flutter/bin/cache/dart-sdk/bin/dart.exe","D:/DevTools/Flutter/bin/cache/flutter_tools.snapshot",
              "--no-version-check","test",target,"-d",args.serial,"--no-pub","--reporter","expanded",
              "--dart-define=FOCUS_EXPORT_WAIT=true"]
     if args.scenes:

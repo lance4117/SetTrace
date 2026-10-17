@@ -1,7 +1,7 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 const noticePreferenceKey = 'app_notice_seen_version';
-const currentNoticeVersion = 1;
+const currentNoticeVersion = 2;
 
 class NoticePreferences {
   NoticePreferences(this.preferences);

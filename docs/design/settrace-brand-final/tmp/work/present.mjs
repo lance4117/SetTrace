@@ -3,7 +3,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createRequire } from 'node:module';
 const require=createRequire(import.meta.url);
-const modules='C:/Users/Lance/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules';
+const modules=process.env.SETTRACE_NODE_MODULES ?? 'D:/ProgramData/DevCache/Node/node_modules';
 const sharp=require(path.join(modules,'sharp'));
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..');
 const data=JSON.parse(await fs.readFile(path.join(root,'tmp/work/geometry.json'),'utf8'));

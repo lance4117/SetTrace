@@ -1,5 +1,13 @@
 import 'dart:async';
 
+import '../features/backup/backup_coordinator.dart';
+import '../features/backup/backup_files_platform.dart';
+import '../features/backup/backup_pages.dart';
+import '../features/backup/data_write_coordinator.dart';
+import '../features/backup/live_backup_preferences.dart';
+import '../features/plans/plan_transfer_pages.dart';
+import '../features/plans/plan_transfer_platform.dart';
+
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -34,6 +42,8 @@ class SetTraceApp extends StatefulWidget {
     this.noticePreferences,
     this.info = const AppInfoService(),
     this.alerts,
+    this.dataWrites,
+    this.backupFiles,
   });
 
   final PlanRepository plans;
@@ -44,6 +54,8 @@ class SetTraceApp extends StatefulWidget {
   final NoticePreferences? noticePreferences;
   final AppInfoService info;
   final RestAlertService? alerts;
+  final DataWriteCoordinator? dataWrites;
+  final BackupFilesPlatform? backupFiles;
 
   @override
   State<SetTraceApp> createState() => _SetTraceAppState();
@@ -53,7 +65,48 @@ class _SetTraceAppState extends State<SetTraceApp> with WidgetsBindingObserver {
   late ThemeMode mode = _readMode();
   late final themeColors = ThemeColorController(
     widget.themeColorStore ?? PreferencesThemeColorStore(widget.preferences),
+    coordinator: widget.dataWrites,
   );
+  BackupCoordinator? backups;
+  bool backupReady = false, backupCheckFailed = false;
+  bool startupBackupOutcome = false;
+
+  Future<void> initializeBackup() async {
+    if (mounted) setState(() => backupCheckFailed = false);
+    try {
+      await backups!.reconcileStartup();
+      final operations = await backups!.metadata.operations();
+      startupBackupOutcome = operations.any(
+        (op) =>
+            op['kind'] != 'export' &&
+            op['result_seen'] == 0 &&
+            [
+              'completed',
+              'aborted',
+              'settings_skipped',
+              'settings_pending',
+              'core_committed',
+            ].contains(op['phase']),
+      );
+      await initializeAppLocale(widget.preferences);
+      if (!mounted) return;
+      setState(() => backupReady = true);
+      startAlerts();
+      schedulePresentation();
+    } catch (_) {
+      widget.dataWrites?.restrict();
+      if (mounted) setState(() => backupCheckFailed = true);
+    }
+  }
+
+  Future<void> backupCommitted() async {
+    pendingTap = null;
+    pendingTapDetails = null;
+    shownRestIds.clear();
+    rootKey.currentState?.refreshDataset();
+    await widget.alerts?.synchronize(expireElapsed: true);
+  }
+
   void colorChanged() {
     if (mounted) setState(() {});
   }
@@ -82,6 +135,10 @@ class _SetTraceAppState extends State<SetTraceApp> with WidgetsBindingObserver {
   }
 
   void schedulePresentation() {
+    if (backups != null &&
+        (!backupReady || widget.dataWrites?.blocked == true)) {
+      return;
+    }
     if (!mounted || presentationRunning || !foreground) return;
     presentationRunning = true;
     WidgetsBinding.instance.addPostFrameCallback((_) async {
@@ -98,6 +155,11 @@ class _SetTraceAppState extends State<SetTraceApp> with WidgetsBindingObserver {
         }
         if (!mounted || !foreground || permissionDialog) return;
         if (presentationObserver.blocked) return;
+        if (startupBackupOutcome) {
+          startupBackupOutcome = false;
+          await rootKey.currentState?.openBackup();
+          if (!mounted || !foreground || presentationObserver.blocked) return;
+        }
         final tap = pendingTap;
         final details = pendingTapDetails;
         pendingTap = null;
@@ -167,7 +229,39 @@ class _SetTraceAppState extends State<SetTraceApp> with WidgetsBindingObserver {
     super.initState();
     themeColors.addListener(colorChanged);
     WidgetsBinding.instance.addObserver(this);
-    schedulePresentation();
+    if (widget.backupFiles != null && widget.dataWrites != null) {
+      widget.dataWrites!.restrict();
+      backups = BackupCoordinator(
+        db: widget.plans.db,
+        writes: widget.dataWrites!,
+        files: widget.backupFiles!,
+        appVersion: () async {
+          final version = await widget.info.readVersion();
+          return '${version.version}+${version.buildNumber}';
+        },
+        preferences: LiveBackupPreferences(
+          db: widget.plans.db,
+          colors: themeColors,
+          mode: () => mode.name,
+          language: () => locale.toLanguageTag(),
+          saveMode: (value) =>
+              setMode(ThemeMode.values.byName(value), fromBackup: true),
+          saveLanguage: (value) => setLocale(Locale(value), fromBackup: true),
+        ),
+        onCommitted: backupCommitted,
+      );
+      themeColors.beforeWrite = () => backups!.supersedeSettings('themeColor');
+      widget.alerts?.repository.beforePreferencesWrite = () =>
+          backups!.supersedeSettings('reminder');
+      unawaited(initializeBackup());
+    } else {
+      backupReady = true;
+      startAlerts();
+      schedulePresentation();
+    }
+  }
+
+  void startAlerts() {
     final alerts = widget.alerts;
     if (alerts != null) {
       alerts.onTap = openNotification;
@@ -185,6 +279,7 @@ class _SetTraceAppState extends State<SetTraceApp> with WidgetsBindingObserver {
   }
 
   void syncAlerts({bool offerPermission = false}) {
+    if (!backupReady || widget.dataWrites?.blocked == true) return;
     widget.alerts
         ?.synchronize(offerPermission: offerPermission)
         .catchError((Object _) {});
@@ -295,7 +390,9 @@ class _SetTraceAppState extends State<SetTraceApp> with WidgetsBindingObserver {
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.resumed) {
+    if (state == AppLifecycleState.resumed &&
+        backupReady &&
+        widget.dataWrites?.blocked != true) {
       schedulePresentation();
       widget.alerts?.synchronize(expireElapsed: true).catchError((Object _) {});
     }
@@ -303,6 +400,7 @@ class _SetTraceAppState extends State<SetTraceApp> with WidgetsBindingObserver {
 
   @override
   void dispose() {
+    backups?.dispose();
     themeColors.removeListener(colorChanged);
     themeColors.dispose();
     alertTicker?.cancel();
@@ -313,7 +411,11 @@ class _SetTraceAppState extends State<SetTraceApp> with WidgetsBindingObserver {
     super.dispose();
   }
 
-  Future<void> setLocale(Locale next) async {
+  Future<void> setLocale(
+    Locale next, {
+    bool fromBackup = false,
+  }) => _settingsWrite(() async {
+    if (!fromBackup) await backups?.supersedeSettings('languageTag');
     try {
       final saved = await widget.preferences.setString(
         languagePreferenceKey,
@@ -330,9 +432,12 @@ class _SetTraceAppState extends State<SetTraceApp> with WidgetsBindingObserver {
     }
     if (mounted) {
       setState(() => locale = next);
-      await setupAlerts();
+      if (!fromBackup) await setupAlerts();
     }
-  }
+  });
+
+  Future<void> _settingsWrite(Future<void> Function() action) =>
+      widget.dataWrites?.write(action) ?? action();
 
   ThemeMode _readMode() => switch (widget.preferences.getString('theme_mode')) {
     'light' => ThemeMode.light,
@@ -340,18 +445,23 @@ class _SetTraceAppState extends State<SetTraceApp> with WidgetsBindingObserver {
     _ => ThemeMode.system,
   };
 
-  Future<void> setMode(ThemeMode next) async {
-    try {
-      final saved = await widget.preferences.setString('theme_mode', next.name);
-      if (!saved) throw StateError('themePreferenceWriteFailed');
-    } catch (_) {
-      try {
-        await widget.preferences.reload();
-      } catch (_) {}
-      rethrow;
-    }
-    if (mounted) setState(() => mode = next);
-  }
+  Future<void> setMode(ThemeMode next, {bool fromBackup = false}) =>
+      _settingsWrite(() async {
+        if (!fromBackup) await backups?.supersedeSettings('themeMode');
+        try {
+          final saved = await widget.preferences.setString(
+            'theme_mode',
+            next.name,
+          );
+          if (!saved) throw StateError('themePreferenceWriteFailed');
+        } catch (_) {
+          try {
+            await widget.preferences.reload();
+          } catch (_) {}
+          rethrow;
+        }
+        if (mounted) setState(() => mode = next);
+      });
 
   @override
   Widget build(BuildContext context) => MaterialApp(
@@ -373,18 +483,24 @@ class _SetTraceAppState extends State<SetTraceApp> with WidgetsBindingObserver {
     theme: AppTheme.forPreset(Brightness.light, themeColors.selected),
     darkTheme: AppTheme.forPreset(Brightness.dark, themeColors.selected),
     themeMode: mode,
-    home: RootTabs(
-      key: rootKey,
-      info: widget.info,
-      themeColors: themeColors,
-      alerts: widget.alerts,
-      plans: widget.plans,
-      workouts: widget.workouts,
-      mode: mode,
-      onModeChanged: setMode,
-      locale: locale,
-      onLocaleChanged: setLocale,
-    ),
+    home: !backupReady
+        ? BackupStartupPage(
+            failed: backupCheckFailed,
+            onRetry: initializeBackup,
+          )
+        : RootTabs(
+            key: rootKey,
+            info: widget.info,
+            backups: backups,
+            themeColors: themeColors,
+            alerts: widget.alerts,
+            plans: widget.plans,
+            workouts: widget.workouts,
+            mode: mode,
+            onModeChanged: setMode,
+            locale: locale,
+            onLocaleChanged: setLocale,
+          ),
   );
 }
 
@@ -392,6 +508,7 @@ class RootTabs extends StatefulWidget {
   const RootTabs({
     super.key,
     this.alerts,
+    this.backups,
     this.themeColors,
     this.info = const AppInfoService(),
     required this.plans,
@@ -403,6 +520,7 @@ class RootTabs extends StatefulWidget {
   });
 
   final RestAlertService? alerts;
+  final BackupCoordinator? backups;
   final ThemeColorController? themeColors;
   final AppInfoService info;
   final PlanRepository plans;
@@ -417,6 +535,56 @@ class RootTabs extends StatefulWidget {
 }
 
 class RootTabsState extends State<RootTabs> {
+  void refreshDataset() {
+    if (mounted) {
+      setState(() {
+        historyRevision++;
+        workoutRevision++;
+        datasetRevision++;
+      });
+    }
+  }
+
+  int datasetRevision = 0;
+
+  Future<void> openBackup() async {
+    final service = widget.backups;
+    if (service == null) return;
+    await Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        settings: const RouteSettings(name: 'backup'),
+        builder: (_) => BackupPage(
+          service: service,
+          onWorkout: () async {
+            final active = await widget.workouts.getActive();
+            if (active != null && mounted) await openWorkout(active);
+          },
+          onHistory: () async {
+            Navigator.of(context).popUntil((r) => r.isFirst);
+            if (mounted) {
+              setState(() {
+                index = 1;
+                historyRevision++;
+              });
+            }
+          },
+          onPlanImport: () async {
+            await Navigator.of(context).push(
+              MaterialPageRoute<void>(
+                builder: (_) => PlanImportPage(
+                  plans: widget.plans,
+                  platform: AndroidPlanTransferPlatform(),
+                ),
+              ),
+            );
+            refreshDataset();
+          },
+        ),
+      ),
+    );
+    refreshDataset();
+  }
+
   int index = 0;
   int historyRevision = 0;
   int workoutRevision = 0;
@@ -491,13 +659,19 @@ class RootTabsState extends State<RootTabs> {
       index: index,
       children: [
         PlansPage(
+          key: ValueKey('plans-$datasetRevision'),
           plans: widget.plans,
           workouts: widget.workouts,
           onOpenWorkout: openWorkout,
           workoutRevision: workoutRevision,
         ),
-        HistoryPage(workouts: widget.workouts, revision: historyRevision),
+        HistoryPage(
+          key: ValueKey('history-$datasetRevision'),
+          workouts: widget.workouts,
+          revision: historyRevision,
+        ),
         SettingsPage(
+          onBackup: widget.backups == null ? null : openBackup,
           themeColors: widget.themeColors,
           info: widget.info,
           alerts: widget.alerts,

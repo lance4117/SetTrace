@@ -119,7 +119,7 @@ void main() {
     'deleted',
   ]) {
     test(
-      'v1 to v4 preserves $variant data and corrects only invalid cursor',
+      'v1 to v6 preserves $variant data and corrects only invalid cursor',
       () async {
         final legacy = await seed(variant);
         final originalSets = await legacy.query('session_sets', orderBy: 'id');
@@ -134,7 +134,7 @@ void main() {
           factory: databaseFactoryFfi,
         );
         try {
-          expect(await upgraded.db.getVersion(), 4);
+          expect(await upgraded.db.getVersion(), 6);
           final sets = await upgraded.db.query('session_sets', orderBy: 'id');
           var sequence = 0;
           for (var i = 0; i < sets.length; i++) {
@@ -222,7 +222,7 @@ void main() {
   }
 
   test(
-    'v2 to v4 preserves existing snapshots, sequence, and rest deadline',
+    'v2 to v6 preserves existing snapshots, sequence, and rest deadline',
     () async {
       final legacy = await seed('between_sets');
       await legacy.execute(
@@ -246,7 +246,7 @@ void main() {
         factory: databaseFactoryFfi,
       );
       try {
-        expect(await upgraded.db.getVersion(), 4);
+        expect(await upgraded.db.getVersion(), 6);
         final sets = await upgraded.db.query('session_sets', orderBy: 'id');
         for (var i = 0; i < sets.length; i++) {
           expect(
@@ -259,7 +259,8 @@ void main() {
         }
         expect(
           {...((await upgraded.db.query('workout_sessions')).single)}
-            ..remove('current_rest_alert_id'),
+            ..remove('current_rest_alert_id')
+            ..remove('backup_order'),
           oldSession,
         );
         expect(await upgraded.db.query('session_skip_batches'), isEmpty);
@@ -336,5 +337,4 @@ void main() {
       }
     },
   );
-
 }

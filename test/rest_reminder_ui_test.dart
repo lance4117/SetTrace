@@ -57,7 +57,7 @@ void main() {
       buildNumber: '1',
       buildSignature: '',
     );
-    SharedPreferences.setMockInitialValues({'app_notice_seen_version': 1});
+    SharedPreferences.setMockInitialValues({'app_notice_seen_version': 2});
     dir = await Directory.systemTemp.createTemp('reminder_ui_');
     db = await AppDatabase.open(
       filePath: '${dir.path}/db',

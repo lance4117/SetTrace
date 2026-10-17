@@ -1,4 +1,4 @@
-# Local database v3
+# Local database v6
 
 SetTrace keeps plans, plan exercises, workout sessions, session exercises and
 session sets in SQLite. Session exercises and sets remain independent snapshots:
@@ -27,7 +27,7 @@ not an exercise timer or a user-facing workout metric.
 
 ## v1 migration and rollback
 
-New databases and upgraded databases have the same v3 structure. Upgrade adds
+New databases and upgraded databases have the same current structure. The v2 upgrade adds
 the two nullable integer columns without deleting or recreating tables.
 The v1 cursor is checked against the first unfinished group in its fixed order.
 Valid cursors retain their rest deadline; inconsistent ones follow the existing
@@ -115,5 +115,69 @@ before canceling system projections; stale callbacks cannot revive output.
 Upgraded v3 consumed events receive acknowledged_at and never start repeating.
 Cold restoration expires elapsed pending first deliveries; valid v4 awaiting
 confirmations only resume a future round, without replaying missed intervals.
-The Android reader accepts v4 but never migrates the database. Tests live in
+The Android reader accepts v4, v5 and v6 but never migrates the database. Tests live in
 rest_alert_repeating_test.dart and database_migration_test.dart.
+
+## v5 backup control metadata
+
+v4→v5 only adds three tables and an index. Existing business rows, active
+sessions, skipped sets, stored durations, valid alerts, and preferences are
+unchanged. v1/v2/v3 first follow the existing sequential migrations. A failed
+upgrade rolls back both DDL and data; opening never recreates an empty database.
+
+`backup_operations` records id, kind (export/restore/undo), phase, source/target
+semantic digests, candidate integrity digest, before_copy_id, restore_settings,
+settings_target and settings_results JSON, source/target epoch, undo_of/undone_by,
+export_target/export_result, error_code, result_seen, and created/updated times.
+Phases are preparing, protected, core_committed, settings_pending, completed,
+settings_skipped, aborted, indeterminate, export_pending, export_published.
+
+`backup_copies` records id, operation_id, snapshot_at, trusted relative_path,
+digest, schema_version, plan_count, workout_count, byte_count, state
+(ready/deleting/missing), and created_at. It has no foreign keys to business
+rows. `backup_state` is singleton id=1 with epoch, last_export_operation_id,
+last_export_digest, last_export_at, last_export_result, and undo_operation_id.
+These tables are control state, not part of exported user data, and must survive
+business replacement. Public export bookkeeping is independent of copy exports.
+
+`BackupMetadataRepository.commitCore` accepts the caller's SQLite Transaction:
+business replacement, epoch increment, core_committed marker and undo linkage
+must commit together. Tests inject failure after the marker and verify all
+changes roll back. A duplicate commit fails the phase/epoch precondition.
+
+The native reader accepts ONLY v4/v5/v6. In v5/v6, restore/undo operations in preparing,
+protected or indeterminate block native reminder output/navigation. Claim checks
+again inside its transaction. Settings-pending does not freeze later valid
+training; committed dataset identity is established by the atomic marker.
+
+A rollback/fix build must keep v6 support and preserve recovery files. Installing
+a v4-only binary, clearing storage, or restoring a stale backup over later valid
+records is not a rollback strategy. Existing archived reports describe their
+historical versions and are intentionally unchanged.
+
+
+## v6 persistent backup order
+
+The v5→v6 migration adds plans.sort_order and workout_sessions.backup_order,
+and backup_operations.target_summary for an interrupted result’s original
+snapshot time and counts. The summary is not used to verify current data.
+Plan order is initialized by the former created_at/id query; completed history
+order is initialized by started_at/id. Existing timestamps, local dates, stored
+durations, active sessions and backup control metadata remain unchanged. An
+active session has no backup order until it is saved. INSERT and completion
+triggers atomically append ordinary plans, plan imports and newly saved sessions.
+Full restore explicitly assigns array positions, independent of timestamps.
+History display and statistics continue using their original date rules.
+
+Frozen v5 upgrade fixtures verify deterministic ties, every original field,
+control metadata survival and rollback of a failed v6 DDL migration. Native
+reminders explicitly support v4/v5/v6 and never perform schema migration.
+Recovery builds must preserve the newest supported schema and recovery files.
+
+
+The pinned Android shared_preferences_android 2.4.28 legacy API returns the
+synchronous SharedPreferences.Editor.commit() result for these preference writes.
+LiveBackupPreferences reads confirmed controllers, not an unconfirmed legacy
+cache. Changes to the preferences backend must preserve this confirmation
+contract and the read-after-restart settings-journal tests. Startup presents an
+unseen verified outcome after the versioned notice, before notification navigation.

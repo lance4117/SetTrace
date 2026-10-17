@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { createRequire } from 'node:module';
 
 const require = createRequire(import.meta.url);
-const runtime = process.env.SETTRACE_NODE_MODULES ?? 'C:/Users/Lance/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules';
+const runtime = process.env.SETTRACE_NODE_MODULES ?? 'D:/ProgramData/DevCache/Node/node_modules';
 const sharp = require(path.join(runtime, 'sharp'));
 const delivery = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 const palette = { green: '#087F6B', ink: '#19262C', gray: '#586970', dark: '#111518', mint: '#5DD9B6', background: '#F5F7F8' };

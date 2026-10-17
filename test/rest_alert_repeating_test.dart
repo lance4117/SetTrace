@@ -223,13 +223,31 @@ void main() {
       ]) {
         await app.db.execute('ALTER TABLE rest_alerts DROP COLUMN $column');
       }
+      for (final table in [
+        'backup_operations',
+        'backup_copies',
+        'backup_state',
+      ]) {
+        await app.db.execute('DROP TABLE $table');
+      }
+      for (final trigger in [
+        'plans_append_order',
+        'workouts_append_order_insert',
+        'workouts_append_order_complete',
+      ]) {
+        await app.db.execute('DROP TRIGGER $trigger');
+      }
+      await app.db.execute('ALTER TABLE plans DROP COLUMN sort_order');
+      await app.db.execute(
+        'ALTER TABLE workout_sessions DROP COLUMN backup_order',
+      );
       await app.db.setVersion(3);
       await app.close();
       app = await AppDatabase.open(
         filePath: '${dir.path}/db',
         factory: databaseFactoryFfi,
       );
-      expect(await app.db.getVersion(), 4);
+      expect(await app.db.getVersion(), 6);
       expect(
         (await app.db.query('rest_alert_preferences')).single['enabled'],
         0,

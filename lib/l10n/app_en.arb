@@ -28,7 +28,7 @@
   "@darkTheme": {
     "description": "Application text in lib/features/settings/settings_page.dart. Chinese source context: 深色. Translate whole messages; preserve user names."
   },
-  "localDataNote": "Your workout data stays on this device.",
+  "localDataNote": "Stored on this device. Export a full backup to keep your saved workouts.",
   "@localDataNote": {
     "description": "Application text in lib/features/settings/settings_page.dart. Chinese source context: 训练数据仅保存在本机。. Translate whole messages; preserve user names."
   },
@@ -1773,15 +1773,15 @@
   "@noticeLocalTitle": {
     "description": "App information and local data notice: noticeLocalTitle"
   },
-  "noticeLocalBody": "Your workout plans, history, and settings are stored on this device. Uninstalling the app or clearing its data removes local data from the current installation. System backup and device transfer depend on your Android settings. Save any plans you want to keep.",
+  "noticeLocalBody": "Plans, workouts, settings and recovery copies are stored on this device. Uninstalling or clearing app data removes them from the current installation. Android system backup and device transfer depend on your system settings.",
   "@noticeLocalBody": {
     "description": "App information and local data notice: noticeLocalBody"
   },
-  "noticeBackupTitle": "Plan backup and sharing",
+  "noticeBackupTitle": "Plan sharing and full backups",
   "@noticeBackupTitle": {
     "description": "App information and local data notice: noticeBackupTitle"
   },
-  "noticeBackupBody": "Import and export workout plans using files or copied text. Backups contain only plan and exercise settings, not workout history or an ongoing workout. Files exported to Downloads are not automatically deleted when you uninstall the app.",
+  "noticeBackupBody": "Plan files or copied text contain only plan and exercise settings. Full backups in Settings include all plans, saved workouts and transferable app settings; handle ongoing workouts first. Restore replaces all plans and saved workouts after saving a verified recovery copy inside the app. Recovery copies are removed on uninstall; files exported to public Downloads remain. Full backups contain personal workout records, are not encrypted and do not update automatically.",
   "@noticeBackupBody": {
     "description": "App information and local data notice: noticeBackupBody"
   },
@@ -1992,5 +1992,377 @@
         "type": "int"
       }
     }
+  },
+  "backupDataSection": "Data",
+  "@backupDataSection": {
+    "description": "Full backup and restore: backupDataSection"
+  },
+  "backupTitle": "Backup & restore",
+  "@backupTitle": {
+    "description": "Full backup and restore: backupTitle"
+  },
+  "backupSubtitle": "Full backup, restore and undo",
+  "@backupSubtitle": {
+    "description": "Full backup and restore: backupSubtitle"
+  },
+  "backupCreate": "Create full backup",
+  "@backupCreate": {
+    "description": "Full backup and restore: backupCreate"
+  },
+  "backupRestore": "Restore from file",
+  "@backupRestore": {
+    "description": "Full backup and restore: backupRestore"
+  },
+  "backupCopies": "Recovery copies",
+  "@backupCopies": {
+    "description": "Full backup and restore: backupCopies"
+  },
+  "backupUndo": "Undo last restore",
+  "@backupUndo": {
+    "description": "Full backup and restore: backupUndo"
+  },
+  "backupCurrent": "On this device",
+  "@backupCurrent": {
+    "description": "Full backup and restore: backupCurrent"
+  },
+  "backupTarget": "After restoring",
+  "@backupTarget": {
+    "description": "Full backup and restore: backupTarget"
+  },
+  "backupCounts": "{plans} plans · {workouts} workouts",
+  "@backupCounts": {
+    "description": "Full backup and restore: backupCounts",
+    "placeholders": {
+      "plans": {
+        "type": "int"
+      },
+      "workouts": {
+        "type": "int"
+      }
+    }
+  },
+  "backupRange": "Original workout dates: {start} – {end}",
+  "@backupRange": {
+    "description": "Full backup and restore: backupRange",
+    "placeholders": {
+      "start": {
+        "type": "String"
+      },
+      "end": {
+        "type": "String"
+      }
+    }
+  },
+  "backupNoDates": "No saved workouts yet",
+  "@backupNoDates": {
+    "description": "Full backup and restore: backupNoDates"
+  },
+  "backupNever": "No full backup exported yet",
+  "@backupNever": {
+    "description": "Full backup and restore: backupNever"
+  },
+  "backupLastExport": "Last successful export: {time}",
+  "@backupLastExport": {
+    "description": "Full backup and restore: backupLastExport",
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "backupChanged": "Your data has changed since that export.",
+  "@backupChanged": {
+    "description": "Full backup and restore: backupChanged"
+  },
+  "backupUnchanged": "Current content matches that export. The file may have been moved or deleted outside this app.",
+  "@backupUnchanged": {
+    "description": "Full backup and restore: backupUnchanged"
+  },
+  "backupScope": "Includes every plan, saved workout and app setting. Finish or discard any ongoing workout through the workout screen first.",
+  "@backupScope": {
+    "description": "Full backup and restore: backupScope"
+  },
+  "backupExportNotice": "Saves a new file in Downloads. It contains personal workout records and is not encrypted. It does not update automatically.",
+  "@backupExportNotice": {
+    "description": "Full backup and restore: backupExportNotice"
+  },
+  "backupSaveFile": "Save backup file",
+  "@backupSaveFile": {
+    "description": "Full backup and restore: backupSaveFile"
+  },
+  "backupChooseFile": "Choose backup file",
+  "@backupChooseFile": {
+    "description": "Full backup and restore: backupChooseFile"
+  },
+  "backupSelectHelp": "Choose a SetTrace full backup. We will check the entire file before showing a preview. Nothing is replaced until you confirm.",
+  "@backupSelectHelp": {
+    "description": "Full backup and restore: backupSelectHelp"
+  },
+  "backupReplaceNotice": "All current plans and saved workouts will be replaced, without merging. A verified recovery copy is saved first.",
+  "@backupReplaceNotice": {
+    "description": "Full backup and restore: backupReplaceNotice"
+  },
+  "backupSettings": "Restore app settings too",
+  "@backupSettings": {
+    "description": "Full backup and restore: backupSettings"
+  },
+  "backupSettingsHelp": "Appearance, theme color, language and reminder preferences. Device permissions stay unchanged.",
+  "@backupSettingsHelp": {
+    "description": "Full backup and restore: backupSettingsHelp"
+  },
+  "backupKeepSettings": "Keep current app settings",
+  "@backupKeepSettings": {
+    "description": "Full backup and restore: backupKeepSettings"
+  },
+  "backupUndoSettings": "Undo also restores settings from the original recovery copy.",
+  "@backupUndoSettings": {
+    "description": "Full backup and restore: backupUndoSettings"
+  },
+  "backupUndoKeepSettings": "Undo keeps all current app settings.",
+  "@backupUndoKeepSettings": {
+    "description": "Full backup and restore: backupUndoKeepSettings"
+  },
+  "backupDetails": "File details",
+  "@backupDetails": {
+    "description": "Full backup and restore: backupDetails"
+  },
+  "backupSourceVersion": "Source app: {version}",
+  "@backupSourceVersion": {
+    "description": "Full backup and restore: backupSourceVersion",
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "backupSize": "File size: {size} KiB",
+  "@backupSize": {
+    "description": "Full backup and restore: backupSize",
+    "placeholders": {
+      "size": {
+        "type": "String"
+      }
+    }
+  },
+  "backupTime": "Snapshot: {time}",
+  "@backupTime": {
+    "description": "Full backup and restore: backupTime",
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "backupContinue": "Continue",
+  "@backupContinue": {
+    "description": "Full backup and restore: backupContinue"
+  },
+  "backupReplace": "Replace and restore",
+  "@backupReplace": {
+    "description": "Full backup and restore: backupReplace"
+  },
+  "backupUndoConfirm": "Keep current data and undo",
+  "@backupUndoConfirm": {
+    "description": "Full backup and restore: backupUndoConfirm"
+  },
+  "backupUndoNotice": "Your current data, including workouts added since restoring, will be saved in a new recovery copy before undoing.",
+  "@backupUndoNotice": {
+    "description": "Full backup and restore: backupUndoNotice"
+  },
+  "backupChecking": "Checking saved results…",
+  "@backupChecking": {
+    "description": "Full backup and restore: backupChecking"
+  },
+  "backupValidating": "Checking the complete file…",
+  "@backupValidating": {
+    "description": "Full backup and restore: backupValidating"
+  },
+  "backupProtecting": "Saving and verifying your current data…",
+  "@backupProtecting": {
+    "description": "Full backup and restore: backupProtecting"
+  },
+  "backupRestoring": "Restoring plans and workouts…",
+  "@backupRestoring": {
+    "description": "Full backup and restore: backupRestoring"
+  },
+  "backupApplyingSettings": "Applying app settings…",
+  "@backupApplyingSettings": {
+    "description": "Full backup and restore: backupApplyingSettings"
+  },
+  "backupExporting": "Saving and verifying the backup file…",
+  "@backupExporting": {
+    "description": "Full backup and restore: backupExporting"
+  },
+  "backupPleaseWait": "Please keep this screen open until the result is checked.",
+  "@backupPleaseWait": {
+    "description": "Full backup and restore: backupPleaseWait"
+  },
+  "backupSaved": "Backup file saved",
+  "@backupSaved": {
+    "description": "Full backup and restore: backupSaved"
+  },
+  "backupSavedLocation": "Saved to public Downloads",
+  "@backupSavedLocation": {
+    "description": "Full backup and restore: backupSavedLocation"
+  },
+  "backupLedgerPending": "The file is saved, but the export status could not be updated. Retry the status update only.",
+  "@backupLedgerPending": {
+    "description": "Full backup and restore: backupLedgerPending"
+  },
+  "backupRepairLedger": "Update export status",
+  "@backupRepairLedger": {
+    "description": "Full backup and restore: backupRepairLedger"
+  },
+  "backupRestored": "Plans and workouts restored",
+  "@backupRestored": {
+    "description": "Full backup and restore: backupRestored"
+  },
+  "backupUndone": "Restore undone",
+  "@backupUndone": {
+    "description": "Full backup and restore: backupUndone"
+  },
+  "backupViewHistory": "View workouts",
+  "@backupViewHistory": {
+    "description": "Full backup and restore: backupViewHistory"
+  },
+  "backupDone": "Done",
+  "@backupDone": {
+    "description": "Full backup and restore: backupDone"
+  },
+  "backupSettingsPending": "Workouts restored; settings need attention",
+  "@backupSettingsPending": {
+    "description": "Full backup and restore: backupSettingsPending"
+  },
+  "backupRetrySettings": "Retry settings only",
+  "@backupRetrySettings": {
+    "description": "Full backup and restore: backupRetrySettings"
+  },
+  "backupSkipSettings": "Continue with current settings",
+  "@backupSkipSettings": {
+    "description": "Full backup and restore: backupSkipSettings"
+  },
+  "backupRefreshFailed": "Restored; the page could not refresh. Reloading will not restore again.",
+  "@backupRefreshFailed": {
+    "description": "Full backup and restore: backupRefreshFailed"
+  },
+  "backupCopiesBoundary": "Recovery copies are stored inside this app and do not expire automatically. Uninstalling or clearing app data deletes them. Export copies you want to keep.",
+  "@backupCopiesBoundary": {
+    "description": "Full backup and restore: backupCopiesBoundary"
+  },
+  "backupNoCopies": "No recovery copies yet",
+  "@backupNoCopies": {
+    "description": "Full backup and restore: backupNoCopies"
+  },
+  "backupCopyUnavailable": "This copy is missing or unreadable. It cannot currently be restored.",
+  "@backupCopyUnavailable": {
+    "description": "Full backup and restore: backupCopyUnavailable"
+  },
+  "backupCopyExport": "Export this copy",
+  "@backupCopyExport": {
+    "description": "Full backup and restore: backupCopyExport"
+  },
+  "backupCopyRestore": "Restore this copy",
+  "@backupCopyRestore": {
+    "description": "Full backup and restore: backupCopyRestore"
+  },
+  "backupCopyDelete": "Delete this copy",
+  "@backupCopyDelete": {
+    "description": "Full backup and restore: backupCopyDelete"
+  },
+  "backupDeleteNotice": "Delete this recovery copy? Current plans and workouts stay unchanged. You may lose the undo option linked to this copy.",
+  "@backupDeleteNotice": {
+    "description": "Full backup and restore: backupDeleteNotice"
+  },
+  "backupDeleteFailed": "Could not finish deleting this copy. Retry to check and finish this deletion. Current workouts are unchanged.",
+  "@backupDeleteFailed": {
+    "description": "Full backup and restore: backupDeleteFailed"
+  },
+  "backupActive": "An ongoing workout needs your attention",
+  "@backupActive": {
+    "description": "Full backup and restore: backupActive"
+  },
+  "backupActiveHelp": "Return to your workout to continue, save or discard it using the existing controls. Then come back and review the backup again.",
+  "@backupActiveHelp": {
+    "description": "Full backup and restore: backupActiveHelp"
+  },
+  "backupOpenWorkout": "Return to workout",
+  "@backupOpenWorkout": {
+    "description": "Full backup and restore: backupOpenWorkout"
+  },
+  "backupReadFailed": "Could not read the data. Retry before continuing.",
+  "@backupReadFailed": {
+    "description": "Full backup and restore: backupReadFailed"
+  },
+  "backupTooLarge": "Full backups support up to 64 MiB. This file exceeds that limit. Nothing was replaced or truncated.",
+  "@backupTooLarge": {
+    "description": "Full backup and restore: backupTooLarge"
+  },
+  "backupUnsupported": "This backup uses a newer format. Update SetTrace before restoring it, or choose another file.",
+  "@backupUnsupported": {
+    "description": "Full backup and restore: backupUnsupported"
+  },
+  "backupInvalid": "The complete backup could not be verified. Choose the original, undamaged file. Your data has not changed.",
+  "@backupInvalid": {
+    "description": "Full backup and restore: backupInvalid"
+  },
+  "backupPlanFile": "This is a plan sharing file and contains no workout history. Use plan import or choose a full backup.",
+  "@backupPlanFile": {
+    "description": "Full backup and restore: backupPlanFile"
+  },
+  "backupGoPlanImport": "Go to plan import",
+  "@backupGoPlanImport": {
+    "description": "Full backup and restore: backupGoPlanImport"
+  },
+  "backupStorageFailed": "The file operation could not be completed. Check available storage and file access, then retry.",
+  "@backupStorageFailed": {
+    "description": "Full backup and restore: backupStorageFailed"
+  },
+  "backupProtectionFailed": "Could not verify a recovery copy. Replacement did not start; your current data is unchanged.",
+  "@backupProtectionFailed": {
+    "description": "Full backup and restore: backupProtectionFailed"
+  },
+  "backupRolledBack": "Restoring failed. We verified that your previous data is intact. Review the backup before trying again.",
+  "@backupRolledBack": {
+    "description": "Full backup and restore: backupRolledBack"
+  },
+  "backupStale": "The data or chosen file changed. Review a fresh comparison before confirming.",
+  "@backupStale": {
+    "description": "Full backup and restore: backupStale"
+  },
+  "backupUnknown": "The result could not be verified. Your files are retained. Retry checking before editing data.",
+  "@backupUnknown": {
+    "description": "Full backup and restore: backupUnknown"
+  },
+  "backupBusy": "Another data operation is in progress. Please wait and retry.",
+  "@backupBusy": {
+    "description": "Full backup and restore: backupBusy"
+  },
+  "backupInterruptedBefore": "The interrupted restore did not commit. Your previous data was verified and kept.",
+  "@backupInterruptedBefore": {
+    "description": "Full backup and restore: backupInterruptedBefore"
+  },
+  "backupInterruptedAfter": "The previous restore was committed. It will not be repeated.",
+  "@backupInterruptedAfter": {
+    "description": "Full backup and restore: backupInterruptedAfter"
+  },
+  "backupPendingExport": "An interrupted export still needs verification.",
+  "@backupPendingExport": {
+    "description": "Full backup and restore: backupPendingExport"
+  },
+  "backupReviewAgain": "Review again",
+  "@backupReviewAgain": {
+    "description": "Full backup and restore: backupReviewAgain"
+  },
+  "backupCopyBeforeRestore": "Kept before restoring",
+  "@backupCopyBeforeRestore": {
+    "description": "Reason for keeping this verified recovery copy; recovered means its original operation is unavailable."
+  },
+  "backupCopyBeforeUndo": "Kept before undoing",
+  "@backupCopyBeforeUndo": {
+    "description": "Reason for keeping this verified recovery copy; recovered means its original operation is unavailable."
+  },
+  "backupCopyRecovered": "Recovered copy",
+  "@backupCopyRecovered": {
+    "description": "Reason for keeping this verified recovery copy; recovered means its original operation is unavailable."
   }
 }

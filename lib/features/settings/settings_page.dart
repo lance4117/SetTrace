@@ -18,6 +18,7 @@ class SettingsPage extends StatefulWidget {
     super.key,
     this.alerts,
     this.themeColors,
+    this.onBackup,
     this.info = const AppInfoService(),
     required this.mode,
     required this.onModeChanged,
@@ -27,6 +28,7 @@ class SettingsPage extends StatefulWidget {
 
   final RestAlertService? alerts;
   final ThemeColorController? themeColors;
+  final VoidCallback? onBackup;
   final AppInfoService info;
   final ThemeMode mode;
   final FutureOr<void> Function(ThemeMode) onModeChanged;
@@ -286,6 +288,29 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
             ),
           if (widget.alerts != null) reminderSettings(widget.alerts!),
+          if (widget.onBackup != null) ...[
+            const SizedBox(height: 24),
+            Text(
+              strings.backupDataSection,
+              style: TextStyle(color: colors.textSecondary),
+            ),
+            const SizedBox(height: 12),
+            AppCard(
+              padding: EdgeInsets.zero,
+              child: ListTile(
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 12,
+                ),
+                title: Text(strings.backupTitle),
+                subtitle: Text(strings.backupSubtitle),
+                trailing: const ExcludeSemantics(
+                  child: Icon(Icons.chevron_right),
+                ),
+                onTap: widget.onBackup,
+              ),
+            ),
+          ],
           AboutSection(info: widget.info),
           const SizedBox(height: 16),
           Text(

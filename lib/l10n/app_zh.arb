@@ -28,7 +28,7 @@
   "@darkTheme": {
     "description": "SetTrace UI: darkTheme. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
   },
-  "localDataNote": "训练数据仅保存在本机。",
+  "localDataNote": "数据保存在本机。请导出完整备份以长期保留已保存训练。",
   "@localDataNote": {
     "description": "SetTrace UI: localDataNote. Workout = a session; exercise = an action; set = one recorded group. Preserve user names verbatim."
   },
@@ -1695,15 +1695,15 @@
   "@noticeLocalTitle": {
     "description": "App information and local data notice: noticeLocalTitle"
   },
-  "noticeLocalBody": "训练计划、训练记录和设置保存在设备上。卸载 App 或清除应用数据会移除当前安装中的本地数据；系统备份和换机恢复由你的 Android 系统设置决定。请自行保存需要保留的计划。",
+  "noticeLocalBody": "计划、训练记录、设置和恢复前副本保存在本机。卸载或清除应用数据会删除当前安装中的这些数据。Android 系统备份与设备迁移取决于系统设置及平台能力。",
   "@noticeLocalBody": {
     "description": "App information and local data notice: noticeLocalBody"
   },
-  "noticeBackupTitle": "计划备份与分享",
+  "noticeBackupTitle": "计划分享与完整备份",
   "@noticeBackupTitle": {
     "description": "App information and local data notice: noticeBackupTitle"
   },
-  "noticeBackupBody": "你可以通过文件或复制文本导入、导出训练计划。备份仅包含计划和动作配置，不包含训练历史或进行中的训练；已导出到下载目录的文件不会随卸载自动删除。",
+  "noticeBackupBody": "计划文件或复制文本仅包含计划与动作配置。设置中的完整备份包含全部计划、已保存训练与可迁移设置，未结束训练需先处理。恢复会整份替换计划与已保存训练，开始前先在应用内保存并核验恢复前副本。应用内副本随卸载删除，已导出到公共 Downloads 的文件会保留。完整备份包含个人训练记录，当前未加密，也不会自动更新。",
   "@noticeBackupBody": {
     "description": "App information and local data notice: noticeBackupBody"
   },
@@ -1914,5 +1914,377 @@
         "type": "int"
       }
     }
+  },
+  "backupDataSection": "数据",
+  "@backupDataSection": {
+    "description": "Full backup and restore: backupDataSection"
+  },
+  "backupTitle": "备份与恢复",
+  "@backupTitle": {
+    "description": "Full backup and restore: backupTitle"
+  },
+  "backupSubtitle": "完整备份、恢复与撤回",
+  "@backupSubtitle": {
+    "description": "Full backup and restore: backupSubtitle"
+  },
+  "backupCreate": "创建完整备份",
+  "@backupCreate": {
+    "description": "Full backup and restore: backupCreate"
+  },
+  "backupRestore": "从文件恢复",
+  "@backupRestore": {
+    "description": "Full backup and restore: backupRestore"
+  },
+  "backupCopies": "恢复前副本",
+  "@backupCopies": {
+    "description": "Full backup and restore: backupCopies"
+  },
+  "backupUndo": "撤回上次恢复",
+  "@backupUndo": {
+    "description": "Full backup and restore: backupUndo"
+  },
+  "backupCurrent": "当前设备",
+  "@backupCurrent": {
+    "description": "Full backup and restore: backupCurrent"
+  },
+  "backupTarget": "恢复后",
+  "@backupTarget": {
+    "description": "Full backup and restore: backupTarget"
+  },
+  "backupCounts": "{plans} 个计划 · {workouts} 条训练记录",
+  "@backupCounts": {
+    "description": "Full backup and restore: backupCounts",
+    "placeholders": {
+      "plans": {
+        "type": "int"
+      },
+      "workouts": {
+        "type": "int"
+      }
+    }
+  },
+  "backupRange": "原训练日期：{start} 至 {end}",
+  "@backupRange": {
+    "description": "Full backup and restore: backupRange",
+    "placeholders": {
+      "start": {
+        "type": "String"
+      },
+      "end": {
+        "type": "String"
+      }
+    }
+  },
+  "backupNoDates": "暂无已保存的训练记录",
+  "@backupNoDates": {
+    "description": "Full backup and restore: backupNoDates"
+  },
+  "backupNever": "尚未导出完整备份",
+  "@backupNever": {
+    "description": "Full backup and restore: backupNever"
+  },
+  "backupLastExport": "上次成功导出：{time}",
+  "@backupLastExport": {
+    "description": "Full backup and restore: backupLastExport",
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "backupChanged": "当前数据在上次导出后有变化。",
+  "@backupChanged": {
+    "description": "Full backup and restore: backupChanged"
+  },
+  "backupUnchanged": "当前内容与上次导出一致。文件可能已在应用外被移动或删除。",
+  "@backupUnchanged": {
+    "description": "Full backup and restore: backupUnchanged"
+  },
+  "backupScope": "包含全部计划、已保存训练与应用设置。未结束训练需先回训练页按原流程处理。",
+  "@backupScope": {
+    "description": "Full backup and restore: backupScope"
+  },
+  "backupExportNotice": "在公共 Downloads 保存新文件。文件含个人训练记录，当前未加密，也不会自动更新。",
+  "@backupExportNotice": {
+    "description": "Full backup and restore: backupExportNotice"
+  },
+  "backupSaveFile": "保存备份文件",
+  "@backupSaveFile": {
+    "description": "Full backup and restore: backupSaveFile"
+  },
+  "backupChooseFile": "选择备份文件",
+  "@backupChooseFile": {
+    "description": "Full backup and restore: backupChooseFile"
+  },
+  "backupSelectHelp": "选择 SetTrace 完整备份。整份校验通过后展示预览，确认前不会替换数据。",
+  "@backupSelectHelp": {
+    "description": "Full backup and restore: backupSelectHelp"
+  },
+  "backupReplaceNotice": "将整份替换当前计划和已保存训练，不进行合并。开始前先保存并核验恢复前副本。",
+  "@backupReplaceNotice": {
+    "description": "Full backup and restore: backupReplaceNotice"
+  },
+  "backupSettings": "同时恢复应用设置",
+  "@backupSettings": {
+    "description": "Full backup and restore: backupSettings"
+  },
+  "backupSettingsHelp": "外观、主题色、语言与提醒偏好。设备权限保持不变。",
+  "@backupSettingsHelp": {
+    "description": "Full backup and restore: backupSettingsHelp"
+  },
+  "backupKeepSettings": "保留当前应用设置",
+  "@backupKeepSettings": {
+    "description": "Full backup and restore: backupKeepSettings"
+  },
+  "backupUndoSettings": "撤回也会恢复原恢复前副本中的设置。",
+  "@backupUndoSettings": {
+    "description": "Full backup and restore: backupUndoSettings"
+  },
+  "backupUndoKeepSettings": "撤回将保留当前全部应用设置。",
+  "@backupUndoKeepSettings": {
+    "description": "Full backup and restore: backupUndoKeepSettings"
+  },
+  "backupDetails": "文件详情",
+  "@backupDetails": {
+    "description": "Full backup and restore: backupDetails"
+  },
+  "backupSourceVersion": "来源应用：{version}",
+  "@backupSourceVersion": {
+    "description": "Full backup and restore: backupSourceVersion",
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "backupSize": "文件大小：{size} KiB",
+  "@backupSize": {
+    "description": "Full backup and restore: backupSize",
+    "placeholders": {
+      "size": {
+        "type": "String"
+      }
+    }
+  },
+  "backupTime": "快照时间：{time}",
+  "@backupTime": {
+    "description": "Full backup and restore: backupTime",
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "backupContinue": "继续",
+  "@backupContinue": {
+    "description": "Full backup and restore: backupContinue"
+  },
+  "backupReplace": "替换并恢复",
+  "@backupReplace": {
+    "description": "Full backup and restore: backupReplace"
+  },
+  "backupUndoConfirm": "保留当前数据并撤回",
+  "@backupUndoConfirm": {
+    "description": "Full backup and restore: backupUndoConfirm"
+  },
+  "backupUndoNotice": "撤回前会创建并核验新副本，保留当前全部数据，包括恢复后新增的训练。",
+  "@backupUndoNotice": {
+    "description": "Full backup and restore: backupUndoNotice"
+  },
+  "backupChecking": "正在核实持久化结果…",
+  "@backupChecking": {
+    "description": "Full backup and restore: backupChecking"
+  },
+  "backupValidating": "正在校验完整文件…",
+  "@backupValidating": {
+    "description": "Full backup and restore: backupValidating"
+  },
+  "backupProtecting": "正在保存并核验当前数据副本…",
+  "@backupProtecting": {
+    "description": "Full backup and restore: backupProtecting"
+  },
+  "backupRestoring": "正在恢复计划与训练记录…",
+  "@backupRestoring": {
+    "description": "Full backup and restore: backupRestoring"
+  },
+  "backupApplyingSettings": "正在恢复应用设置…",
+  "@backupApplyingSettings": {
+    "description": "Full backup and restore: backupApplyingSettings"
+  },
+  "backupExporting": "正在保存并核验备份文件…",
+  "@backupExporting": {
+    "description": "Full backup and restore: backupExporting"
+  },
+  "backupPleaseWait": "请等待结果核实完成。",
+  "@backupPleaseWait": {
+    "description": "Full backup and restore: backupPleaseWait"
+  },
+  "backupSaved": "备份文件已保存",
+  "@backupSaved": {
+    "description": "Full backup and restore: backupSaved"
+  },
+  "backupSavedLocation": "已保存至公共 Downloads",
+  "@backupSavedLocation": {
+    "description": "Full backup and restore: backupSavedLocation"
+  },
+  "backupLedgerPending": "文件已保存，但导出状态未能更新。重试只会修复状态，不会重新生成文件。",
+  "@backupLedgerPending": {
+    "description": "Full backup and restore: backupLedgerPending"
+  },
+  "backupRepairLedger": "修复导出状态",
+  "@backupRepairLedger": {
+    "description": "Full backup and restore: backupRepairLedger"
+  },
+  "backupRestored": "计划与训练记录已恢复",
+  "@backupRestored": {
+    "description": "Full backup and restore: backupRestored"
+  },
+  "backupUndone": "已撤回恢复",
+  "@backupUndone": {
+    "description": "Full backup and restore: backupUndone"
+  },
+  "backupViewHistory": "查看记录",
+  "@backupViewHistory": {
+    "description": "Full backup and restore: backupViewHistory"
+  },
+  "backupDone": "完成",
+  "@backupDone": {
+    "description": "Full backup and restore: backupDone"
+  },
+  "backupSettingsPending": "记录已恢复，部分设置未恢复",
+  "@backupSettingsPending": {
+    "description": "Full backup and restore: backupSettingsPending"
+  },
+  "backupRetrySettings": "重试恢复设置",
+  "@backupRetrySettings": {
+    "description": "Full backup and restore: backupRetrySettings"
+  },
+  "backupSkipSettings": "使用当前设置继续",
+  "@backupSkipSettings": {
+    "description": "Full backup and restore: backupSkipSettings"
+  },
+  "backupRefreshFailed": "恢复成功，页面暂未刷新。重新加载不会再次恢复。",
+  "@backupRefreshFailed": {
+    "description": "Full backup and restore: backupRefreshFailed"
+  },
+  "backupCopiesBoundary": "副本持久保存在应用内，不会自动过期。卸载或清除应用数据会删除这些副本，需长期保存请另行导出。",
+  "@backupCopiesBoundary": {
+    "description": "Full backup and restore: backupCopiesBoundary"
+  },
+  "backupNoCopies": "暂无恢复前副本",
+  "@backupNoCopies": {
+    "description": "Full backup and restore: backupNoCopies"
+  },
+  "backupCopyUnavailable": "此副本缺失或无法读取，目前不能用于恢复。",
+  "@backupCopyUnavailable": {
+    "description": "Full backup and restore: backupCopyUnavailable"
+  },
+  "backupCopyExport": "导出此副本",
+  "@backupCopyExport": {
+    "description": "Full backup and restore: backupCopyExport"
+  },
+  "backupCopyRestore": "恢复此副本",
+  "@backupCopyRestore": {
+    "description": "Full backup and restore: backupCopyRestore"
+  },
+  "backupCopyDelete": "删除此副本",
+  "@backupCopyDelete": {
+    "description": "Full backup and restore: backupCopyDelete"
+  },
+  "backupDeleteNotice": "删除此恢复前副本？当前计划与训练记录不受影响，但可能失去对应的撤回能力。",
+  "@backupDeleteNotice": {
+    "description": "Full backup and restore: backupDeleteNotice"
+  },
+  "backupDeleteFailed": "未能完成副本删除。重试将核实并完成此次删除，当前训练记录未改变。",
+  "@backupDeleteFailed": {
+    "description": "Full backup and restore: backupDeleteFailed"
+  },
+  "backupActive": "请先处理未结束的训练",
+  "@backupActive": {
+    "description": "Full backup and restore: backupActive"
+  },
+  "backupActiveHelp": "请回到原训练，按现有流程继续、保存或放弃。处理后返回，重新检查备份。",
+  "@backupActiveHelp": {
+    "description": "Full backup and restore: backupActiveHelp"
+  },
+  "backupOpenWorkout": "回到训练",
+  "@backupOpenWorkout": {
+    "description": "Full backup and restore: backupOpenWorkout"
+  },
+  "backupReadFailed": "无法读取数据，请重试后再继续。",
+  "@backupReadFailed": {
+    "description": "Full backup and restore: backupReadFailed"
+  },
+  "backupTooLarge": "完整备份最多支持 64 MiB。此文件超过上限，未替换或截断任何数据。",
+  "@backupTooLarge": {
+    "description": "Full backup and restore: backupTooLarge"
+  },
+  "backupUnsupported": "此备份使用更新的格式，请更新 SetTrace 后再恢复，或重新选择文件。",
+  "@backupUnsupported": {
+    "description": "Full backup and restore: backupUnsupported"
+  },
+  "backupInvalid": "完整备份未通过校验，请选择未损坏的原始文件。当前数据没有改变。",
+  "@backupInvalid": {
+    "description": "Full backup and restore: backupInvalid"
+  },
+  "backupPlanFile": "这是计划分享文件，不包含训练历史。请前往计划导入，或重新选择完整备份。",
+  "@backupPlanFile": {
+    "description": "Full backup and restore: backupPlanFile"
+  },
+  "backupGoPlanImport": "前往计划导入",
+  "@backupGoPlanImport": {
+    "description": "Full backup and restore: backupGoPlanImport"
+  },
+  "backupStorageFailed": "文件操作未能完成。请检查剩余空间与文件访问权限后重试。",
+  "@backupStorageFailed": {
+    "description": "Full backup and restore: backupStorageFailed"
+  },
+  "backupProtectionFailed": "未能完成恢复前副本核验，替换尚未开始，当前数据保持不变。",
+  "@backupProtectionFailed": {
+    "description": "Full backup and restore: backupProtectionFailed"
+  },
+  "backupRolledBack": "恢复失败，已核实原数据完整。请重新预览后再试。",
+  "@backupRolledBack": {
+    "description": "Full backup and restore: backupRolledBack"
+  },
+  "backupStale": "当前数据或所选文件已变化，请重新预览对比后确认。",
+  "@backupStale": {
+    "description": "Full backup and restore: backupStale"
+  },
+  "backupUnknown": "暂时无法核实操作结果，文件与副本均保留。请重试检查，核实前暂停数据编辑。",
+  "@backupUnknown": {
+    "description": "Full backup and restore: backupUnknown"
+  },
+  "backupBusy": "另一项数据操作正在进行，请稍后重试。",
+  "@backupBusy": {
+    "description": "Full backup and restore: backupBusy"
+  },
+  "backupInterruptedBefore": "上次恢复未提交，已核实并保留原数据。",
+  "@backupInterruptedBefore": {
+    "description": "Full backup and restore: backupInterruptedBefore"
+  },
+  "backupInterruptedAfter": "上次恢复已提交，不会重复执行。",
+  "@backupInterruptedAfter": {
+    "description": "Full backup and restore: backupInterruptedAfter"
+  },
+  "backupPendingExport": "有中断的导出等待核实。",
+  "@backupPendingExport": {
+    "description": "Full backup and restore: backupPendingExport"
+  },
+  "backupReviewAgain": "重新预览",
+  "@backupReviewAgain": {
+    "description": "Full backup and restore: backupReviewAgain"
+  },
+  "backupCopyBeforeRestore": "恢复前保留",
+  "@backupCopyBeforeRestore": {
+    "description": "Reason for keeping this verified recovery copy; recovered means its original operation is unavailable."
+  },
+  "backupCopyBeforeUndo": "撤回前保留",
+  "@backupCopyBeforeUndo": {
+    "description": "Reason for keeping this verified recovery copy; recovered means its original operation is unavailable."
+  },
+  "backupCopyRecovered": "已找回的副本",
+  "@backupCopyRecovered": {
+    "description": "Reason for keeping this verified recovery copy; recovered means its original operation is unavailable."
   }
 }

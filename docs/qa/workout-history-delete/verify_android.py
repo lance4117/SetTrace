@@ -13,7 +13,7 @@ ROOT = Path(__file__).resolve().parents[3]
 OUT = ROOT / 'docs/qa/workout-history-delete'
 TMP = ROOT / '.dart_tool/history-delete-qa'
 TMP.mkdir(exist_ok=True)
-ADB = r'C:\Users\Lance\AppData\Local\Android\Sdk\platform-tools\adb.exe'
+ADB = r'D:\ProgramData\Android_SDK\platform-tools\adb.exe'
 PKG = 'com.settrace.settrace'
 TABLES = ['plans', 'plan_exercises', 'workout_sessions', 'session_exercises', 'session_sets']
 

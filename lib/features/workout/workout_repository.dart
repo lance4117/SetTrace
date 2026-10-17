@@ -1,3 +1,5 @@
+import '../backup/data_write_coordinator.dart';
+
 import 'workout_failure.dart';
 
 import 'dart:math' as math;
@@ -15,10 +17,13 @@ class HistoryDeleteException implements Exception {
 }
 
 class WorkoutRepository {
-  WorkoutRepository(this.db, {DateTime Function()? clock})
+  WorkoutRepository(this.db, {DateTime Function()? clock, this.coordinator})
     : clock = clock ?? DateTime.now;
 
   final Database db;
+  final DataWriteCoordinator? coordinator;
+  Future<T> _write<T>(Future<T> Function() action) =>
+      coordinator?.write(action) ?? action();
   final DateTime Function() clock;
   void Function()? onChanged;
 
@@ -30,7 +35,7 @@ class WorkoutRepository {
 
   int get _nowMs => clock().toUtc().millisecondsSinceEpoch;
 
-  Future<WorkoutSessionData?> getActive() async {
+  Future<WorkoutSessionData?> getActive() => _write(() async {
     return db.transaction((txn) async {
       final rows = await txn.query(
         'workout_sessions',
@@ -44,7 +49,7 @@ class WorkoutRepository {
       await _repairCursor(txn, id);
       return _readSession(txn, id);
     });
-  }
+  });
 
   Future<WorkoutSessionData?> getSession(int id) =>
       db.transaction((txn) => _readSession(txn, id));
@@ -106,7 +111,7 @@ class WorkoutRepository {
     );
   }
 
-  Future<WorkoutSessionData> start(int planId) async {
+  Future<WorkoutSessionData> start(int planId) => _write(() async {
     final id = await db.transaction((txn) async {
       final active = await txn.query(
         'workout_sessions',
@@ -184,13 +189,13 @@ class WorkoutRepository {
       return sessionId;
     });
     return _committed(id);
-  }
+  });
 
   Future<WorkoutSessionData> completeSet(
     int sessionId, {
     required int expectedExerciseId,
     required int expectedSetNumber,
-  }) async {
+  }) => _write(() async {
     await db.transaction((txn) async {
       final session = await _activeRow(txn, sessionId);
       if (session['rest_end_at'] != null) {
@@ -260,13 +265,13 @@ class WorkoutRepository {
       await RestAlertRepository.refresh(txn, sessionId);
     });
     return _committed(sessionId);
-  }
+  });
 
   Future<WorkoutSessionData> reorder(
     int sessionId,
     List<int> orderedIds, {
     required String expectedToken,
-  }) async {
+  }) => _write(() async {
     final result = await db.transaction((txn) async {
       await _activeRow(txn, sessionId);
       final data = (await _readSession(txn, sessionId))!;
@@ -324,13 +329,13 @@ class WorkoutRepository {
     });
     onChanged?.call();
     return result;
-  }
+  });
 
   Future<WorkoutSessionData> skipRemainingSets(
     int sessionId, {
     required int expectedExerciseId,
     required String expectedToken,
-  }) async {
+  }) => _write(() async {
     await db.transaction((txn) async {
       await _activeRow(txn, sessionId);
       final data = (await _readSession(txn, sessionId))!;
@@ -356,13 +361,13 @@ class WorkoutRepository {
       await _repairCursor(txn, sessionId);
     });
     return _committed(sessionId);
-  }
+  });
 
   Future<WorkoutSessionData> undoLastSkip(
     int sessionId, {
     required int expectedBatchId,
     required String expectedToken,
-  }) async {
+  }) => _write(() async {
     await db.transaction((txn) async {
       await _activeRow(txn, sessionId);
       final data = (await _readSession(txn, sessionId))!;
@@ -407,9 +412,9 @@ class WorkoutRepository {
       );
     });
     return _committed(sessionId);
-  }
+  });
 
-  Future<WorkoutSessionData> undoLastSet(int sessionId) async {
+  Future<WorkoutSessionData> undoLastSet(int sessionId) => _write(() async {
     await db.transaction((txn) async {
       await _activeRow(txn, sessionId);
       final rows = await txn.rawQuery(
@@ -446,35 +451,36 @@ class WorkoutRepository {
       );
     });
     return _committed(sessionId);
-  }
+  });
 
-  Future<WorkoutSessionData> adjustRest(int sessionId, int deltaSeconds) async {
-    if (deltaSeconds % 30 != 0) {
-      throw WorkoutValidationException(WorkoutFailure.invalidConfiguration);
-    }
-    await db.transaction((txn) async {
-      final row = await _activeRow(txn, sessionId);
-      final end = row['rest_end_at'] as int?;
-      if (end == null || end <= _nowMs) {
-        throw WorkoutStateException(WorkoutFailure.noRest);
-      }
-      final updated = end + deltaSeconds * 1000;
-      if (updated <= _nowMs) {
-        await _clearRest(txn, sessionId);
-      } else {
-        await txn.update(
-          'workout_sessions',
-          {'rest_end_at': updated},
-          where: 'id = ?',
-          whereArgs: [sessionId],
-        );
-        await RestAlertRepository.refresh(txn, sessionId);
-      }
-    });
-    return _committed(sessionId);
-  }
+  Future<WorkoutSessionData> adjustRest(int sessionId, int deltaSeconds) =>
+      _write(() async {
+        if (deltaSeconds % 30 != 0) {
+          throw WorkoutValidationException(WorkoutFailure.invalidConfiguration);
+        }
+        await db.transaction((txn) async {
+          final row = await _activeRow(txn, sessionId);
+          final end = row['rest_end_at'] as int?;
+          if (end == null || end <= _nowMs) {
+            throw WorkoutStateException(WorkoutFailure.noRest);
+          }
+          final updated = end + deltaSeconds * 1000;
+          if (updated <= _nowMs) {
+            await _clearRest(txn, sessionId);
+          } else {
+            await txn.update(
+              'workout_sessions',
+              {'rest_end_at': updated},
+              where: 'id = ?',
+              whereArgs: [sessionId],
+            );
+            await RestAlertRepository.refresh(txn, sessionId);
+          }
+        });
+        return _committed(sessionId);
+      });
 
-  Future<WorkoutSessionData> skipRest(int sessionId) async {
+  Future<WorkoutSessionData> skipRest(int sessionId) => _write(() async {
     await db.transaction((txn) async {
       final row = await _activeRow(txn, sessionId);
       if (row['rest_end_at'] == null) {
@@ -483,10 +489,10 @@ class WorkoutRepository {
       await _clearRest(txn, sessionId);
     });
     return _committed(sessionId);
-  }
+  });
 
   Future<void> normalizeRest(int sessionId) =>
-      db.transaction((txn) => _normalizeRest(txn, sessionId));
+      _write(() => db.transaction((txn) => _normalizeRest(txn, sessionId)));
 
   Future<void> _normalizeRest(DatabaseExecutor txn, int sessionId) async {
     final rows = await txn.query(
@@ -508,7 +514,7 @@ class WorkoutRepository {
     required int targetSets,
     required int restBetweenSetsSeconds,
     required int restAfterExerciseSeconds,
-  }) async {
+  }) => _write(() async {
     if (targetSets < 1 ||
         restBetweenSetsSeconds < 0 ||
         restAfterExerciseSeconds < 0 ||
@@ -580,9 +586,9 @@ class WorkoutRepository {
       await _repairCursor(txn, sessionId);
     });
     return _committed(sessionId);
-  }
+  });
 
-  Future<WorkoutSessionData> finish(int sessionId) async {
+  Future<WorkoutSessionData> finish(int sessionId) => _write(() async {
     await db.transaction((txn) async {
       final row = await _activeRow(txn, sessionId);
       final completed = await txn.rawQuery(
@@ -614,9 +620,9 @@ class WorkoutRepository {
       );
     });
     return _committed(sessionId);
-  }
+  });
 
-  Future<void> discard(int sessionId) async {
+  Future<void> discard(int sessionId) => _write(() async {
     await db.transaction((txn) async {
       await _activeRow(txn, sessionId);
       await RestAlertRepository.cancel(txn, sessionId);
@@ -627,9 +633,9 @@ class WorkoutRepository {
       );
     });
     onChanged?.call();
-  }
+  });
 
-  Future<void> deleteHistory(int sessionId) async {
+  Future<void> deleteHistory(int sessionId) => _write(() async {
     await db.transaction((txn) async {
       final rows = await txn.query(
         'workout_sessions',
@@ -652,7 +658,7 @@ class WorkoutRepository {
         throw const HistoryDeleteException(HistoryDeleteFailure.notFound);
       }
     });
-  }
+  });
 
   Future<List<WorkoutSessionData>> listHistory() async {
     final rows = await db.query(

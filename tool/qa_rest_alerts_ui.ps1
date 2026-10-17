@@ -6,7 +6,7 @@ param(
   [switch]$Back
 )
 $ErrorActionPreference = 'Stop'
-$taskAdb = 'C:\Users\Lance\AppData\Local\Android\sdk\platform-tools\adb.exe'
+$taskAdb = 'D:\ProgramData\Android_SDK\platform-tools\adb.exe'
 $taskRoot = Join-Path $PSScriptRoot '../build/qa/rest-alerts'
 [System.IO.Directory]::CreateDirectory($taskRoot) | Out-Null
 function Get-QaUi {

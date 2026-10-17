@@ -14,7 +14,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "docs/qa/focus-a-redesign-evidence/runtime"
 OUT.mkdir(parents=True, exist_ok=True)
-ADB = "C:/Users/Lance/AppData/Local/Android/sdk/platform-tools/adb.exe"
+ADB = "D:/ProgramData/Android_SDK/platform-tools/adb.exe"
 PACKAGE = "com.settrace.settrace"
 
 class Device:

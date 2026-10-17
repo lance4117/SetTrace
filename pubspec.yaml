@@ -38,6 +38,7 @@ dependencies:
   intl: any
   cupertino_icons: ^1.0.8
   characters: ^1.4.1
+  crypto: ^3.0.7
   sqflite: ^2.4.4
   path: ^1.9.1
   shared_preferences: ^2.5.5

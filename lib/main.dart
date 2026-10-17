@@ -12,22 +12,27 @@ import 'features/workout/workout_repository.dart';
 import 'features/rest_alerts/rest_alert_repository.dart';
 import 'features/rest_alerts/rest_alert_service.dart';
 import 'features/rest_alerts/rest_alert_platform.dart';
+import 'features/backup/backup_files_platform.dart';
+import 'features/backup/data_write_coordinator.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final database = await AppDatabase.open();
   final preferences = await SharedPreferences.getInstance();
-  final locale = await initializeAppLocale(preferences);
+  final locale = readAppLocale(preferences);
+  final writes = DataWriteCoordinator();
   await initializeDateFormatting();
   runApp(
     SetTraceApp(
       initialLocale: locale,
+      dataWrites: writes,
+      backupFiles: AndroidBackupFilesPlatform(),
       alerts: RestAlertService(
-        RestAlertRepository(database.db),
+        RestAlertRepository(database.db, coordinator: writes),
         AndroidRestAlertPlatform(),
       ),
-      plans: PlanRepository(database.db),
-      workouts: WorkoutRepository(database.db),
+      plans: PlanRepository(database.db, coordinator: writes),
+      workouts: WorkoutRepository(database.db, coordinator: writes),
       preferences: preferences,
     ),
   );

@@ -93,7 +93,7 @@ void main() {
       for (final value in [null, 'invalid', 0, 1, 2]) {
         SharedPreferences.setMockInitialValues({noticePreferenceKey: ?value});
         final prefs = NoticePreferences(await SharedPreferences.getInstance());
-        expect(prefs.hasSeenCurrent, value is int && value >= 1);
+        expect(prefs.hasSeenCurrent, value is int && value >= currentNoticeVersion);
         await prefs.acknowledge();
         expect(prefs.hasSeenCurrent, isTrue);
       }

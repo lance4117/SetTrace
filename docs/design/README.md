@@ -1,5 +1,7 @@
 # SetTrace 当前设计：A · 专注工具
 
+新增设计：[备份与恢复 UI](backup/README.md)（2026-10-16，实施更新 2026-10-17）。包含可点击原型、中英文浅深主题、整份恢复与撤回流程、异常状态及原型核验；Flutter 代码已实现，人工与故障验收剩余项见本文末尾的独立验收记录；原型核验不改变下述既有功能的实施状态。
+
 | 项目 | 状态 |
 | --- | --- |
 | 设计版本 | `focus-a-2026-10-14` |
@@ -82,3 +84,10 @@ HTML 是浏览器中的静态设计与模拟交互，不执行真实剪贴板、
 2026-10-16 确认前台弹窗与暗色遮罩、后台通知、较明显提示音及可设置间隔的重复提醒。[设计总览](previews/rest-reminders-2026-10-16.png)展示浅深弹窗、提醒设置与间隔选择；文字规则优先，图中数据、导航图标与布局细节仍以既有规范为准。
 
 视觉见[主规范第 11 节](SetTrace_UI_Design_System_and_Flutter_Spec.md#11-休息提醒增强已实现待真机验收)，画面见页面清单 D17–D19，行为见 INT-12，待验收项见 REM-01–06。此增量已实现前台弹窗、后台重复、确认与设置；Widget／原生与模拟器证据见[独立验收](../qa/rest-reminders-acceptance.md)。真人听感、触感及设备矩阵剩余项待验；OpenSpec 主规格已同步并[归档](../../openspec/changes/archive/2026-10-16-enhance-rest-reminders/README.md)，3 项待验保持未完成，旧 HTML 与原图仍是示意。
+
+
+## 完整备份实施进展
+
+`add-full-data-backup-restore` 已完成代码实现，三个主规格已同步并于2026-10-17[归档](../../openspec/changes/archive/2026-10-17-add-full-data-backup-restore/README.md)，43/45项完成，人工与故障验收两项保持未完成；设置入口位于适用提醒之后、关于之前。
+设计仍采用 focus-a 与四主题色。Flutter、原生单元测试和设备验收分别记录在
+[备份实施验收](../qa/backup-restore-acceptance.md)；现有 HTML 证据保留，不能代替真机结果。

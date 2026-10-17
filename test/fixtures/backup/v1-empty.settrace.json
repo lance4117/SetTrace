@@ -1,0 +1,31 @@
+{
+  "format": "settrace.user-backup",
+  "schemaVersion": 1,
+  "backupId": "golden-v1-empty",
+  "snapshotAt": "2026-10-16T00:00:00.000Z",
+  "exportedAt": "2026-10-16T00:00:00.000Z",
+  "sourceAppVersion": "0.2.4+10",
+  "data": {
+    "plans": [],
+    "workouts": [],
+    "settings": {
+      "themeMode": "system",
+      "themeColor": "teal",
+      "languageTag": "zh",
+      "reminder": {
+        "enabled": true,
+        "sound": "three_tone",
+        "vibration": true,
+        "repeat": true,
+        "interval": 10
+      }
+    }
+  },
+  "metadata": {
+    "extensions": {}
+  },
+  "integrity": {
+    "algorithm": "sha256",
+    "digest": "954e9089b74f53e300df407c4d65f0e8f0c3a07c9dc70f2f9ce6ab917162805c"
+  }
+}

@@ -63,6 +63,8 @@ Android 正式发布包不申请联网权限，不主动收集或上传个人信
 
 ## 本地运行
 
+Windows 的固定 D 盘路径、手动安装组件清单和缓存／临时目录设置见 [Windows 开发环境说明](docs/windows-development.md)。先按说明准备环境，再执行下面的命令；项目不会自动迁移旧工具。
+
 准备好 Flutter SDK、Android SDK 和可用的 Android 模拟器或设备后，在项目根目录执行：
 
 ```bash

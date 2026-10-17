@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>SetTrace · 备份与恢复设计</title>
+  <link rel="stylesheet" href="prototype.css">
+  <script src="prototype.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#stage">跳到设计预览</a>
+  <aside class="rail">
+    <a class="wordmark" href="../README.md">SetTrace<span>FOCUS / A</span></a>
+    <div class="rail-caption">备份与恢复 · UI 设计</div>
+    <nav id="screen-nav" aria-label="页面与状态目录"></nav>
+    <div class="rail-foot">设计草案 · 2026.10.16<br><a href="backup-ui-spec.md">阅读交互与验收规范 ↗</a></div>
+  </aside>
+  <main class="book">
+    <header class="book-header">
+      <div><span class="edition">SETTRACE / DATA BACKUP</span><h1>每一场训练，<br>都值得留下。</h1><p>一个完整备份，一次清楚的恢复。<br>沿用 A · 专注工具的语义色、排版与操作层级。</p></div>
+      <div class="design-points"><div><b>01</b><span>文件保存在应用外</span></div><div><b>02</b><span>替换前看清数据</span></div><div><b>03</b><span>恢复后仍能撤回</span></div></div>
+    </header>
+    <section class="controls" aria-label="设计评审控制">
+      <label>语言<select id="language"><option value="zh">中文</option><option value="en">English</option></select></label>
+      <label>外观<select id="theme"><option value="light">浅色</option><option value="dark">深色</option></select></label>
+      <label>主题色<select id="accent"><option value="teal">青色</option><option value="blue">蓝色</option><option value="violet">紫色</option><option value="graphite">石墨</option></select></label>
+      <label>屏幕<select id="device"><option value="390">390 × 844</option><option value="360">360 × 800</option><option value="430">430 × 900</option><option value="landscape">740 × 390</option><option value="tablet">768 × 900</option></select></label>
+      <label>字号<select id="scale"><option value="1">100%</option><option value="1.3">130%</option><option value="1.6">160%</option><option value="2">200%</option></select></label>
+      <button id="reset" class="review-button">重置演示</button>
+      <button id="gallery-toggle" class="review-button">查看流程总览</button>
+    </section>
+    <div class="simulation-label">交互设计原型 · 所有数量与文件均为演示数据，不读取、保存或替换真实数据。系统文件选择器由评审面板模拟。</div>
+    <section id="stage" class="stage" tabindex="-1">
+      <div class="device-column"><div class="screen-heading"><span id="screen-code">B01</span><span id="screen-title">备份与恢复</span><span class="live-tag">可点击</span></div><div id="device-host"></div></div>
+      <aside class="inspector" aria-label="当前画面设计说明"><span class="eyebrow">DESIGN NOTES</span><h2 id="note-title"></h2><p id="note-body"></p><div id="demo-tools"></div><div class="principle"><b>与已有功能的关系</b><p>计划分享继续使用原入口。这里恢复自己的全部计划与训练记录，整份替换，不自动合并。</p></div><a href="backup-ui-spec.md">查看完整状态与文案规范 ↗</a></aside>
+    </section>
+    <section id="gallery" hidden><div class="gallery-heading"><span class="eyebrow">FLOW OVERVIEW</span><h2>从留下一份备份，到放心恢复。</h2><p>点击任一画面的“打开交互”可进入对应流程。应用外观与语言使用上方控制。</p></div><div id="gallery-content"></div></section>
+    <footer class="book-footer">SetTrace / focus-a-2026-10-14 的备份设计增量 · HTML 演示不代表 Flutter、Android 文件操作或数据库恢复已经实现。</footer>
+  </main>
+</body>
+</html>
