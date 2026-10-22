@@ -5,6 +5,15 @@ import 'package:settrace/l10n/generated/app_localizations_en.dart';
 
 class LongStrings extends AppLocalizationsEn {
   @override
+  String historyMonthSummary(String month) =>
+      '$month selected month training activity summary';
+  @override
+  String get summaryCompletedSets =>
+      'Total number of completed training sets in the selected month';
+  @override
+  String get summaryDuration =>
+      'Training time during the selected calendar month';
+  @override
   String get themeColorGraphite =>
       'Graphite with additional translated wording';
   @override

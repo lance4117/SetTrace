@@ -17,6 +17,46 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   setUpAll(() => initializeDateFormatting());
   setUp(() => SharedPreferences.setMockInitialValues({}));
+  test('summary duration parts preserve whole units and total hours', () {
+    final en = AppFormats(lookupAppLocalizations(const Locale('en')));
+    final zh = AppFormats(lookupAppLocalizations(const Locale('zh')));
+    for (final entry in {
+      0: ['0 minutes'],
+      59: ['0 minutes'],
+      3540: ['59 minutes'],
+      3600: ['1 hour', '0 minutes'],
+      7260: ['2 hours', '1 minute'],
+      445500: ['123 hours', '45 minutes'],
+    }.entries) {
+      expect(
+        en.durationParts(entry.key).map((p) => '${p.value} ${p.unit}'),
+        entry.value,
+      );
+      expect(en.duration(entry.key), entry.value.join(' '));
+    }
+    expect(zh.durationParts(11520).map((p) => '${p.value} ${p.unit}'), [
+      '3 小时',
+      '12 分',
+    ]);
+    expect(zh.duration(11520), '3 小时 12 分钟');
+    final strings = en.strings;
+    expect(strings.historyMonthSummary('October 2026'), 'October 2026 summary');
+    expect(
+      strings.summaryDurationSemantics(en.duration(7260)),
+      'Training time, 2 hours 1 minute',
+    );
+    for (final count in [0, 1, 2]) {
+      expect(
+        strings.summarySets(count),
+        '$count ${count == 1 ? 'set' : 'sets'}',
+      );
+      expect(strings.summaryHourUnit(count), count == 1 ? 'hour' : 'hours');
+      expect(
+        strings.summaryMinuteUnit(count),
+        count == 1 ? 'minute' : 'minutes',
+      );
+    }
+  });
   test('primary system language, compatibility, invalid preference and persistence', () async {
     for (final tag in ['zh-CN', 'zh-TW', 'zh-HK', 'zh-Hant']) {
       SharedPreferences.setMockInitialValues({});
@@ -172,6 +212,15 @@ void main() {
       'setCount: placeholder',
     );
     check((p) => p['setCount'] = '组', 'setCount: missing placeholder count');
+    check(
+      (p) => p['summaryHourUnit'] =
+          '{count, plural, one{{unknown} hour} other{hours}}',
+      'summaryHourUnit: unknown placeholder unknown',
+    );
+    check(
+      (p) => p['historyMonthSummary'] = '{wrong}',
+      'historyMonthSummary: unknown placeholder wrong',
+    );
     check((p) => p['@@locale'] = 'en', 'duplicate locale');
     check(
       (p) => p['languageSelfName'] = '{language}',

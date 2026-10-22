@@ -90,8 +90,15 @@ List<String> checkLanguagePacks(Directory directory) {
           fail('$key: missing placeholder $parameter in message');
         }
       }
+      // A plural branch such as one{hour} contains literal text, not an
+      // argument named "hour". Keep nested {arguments} inside branches.
+      // gen-l10n below remains responsible for validating the ICU grammar.
+      final argumentText = value.replaceAllMapped(
+        RegExp(r'(?:^|[\s,}])(?:zero|one|two|few|many|other|=\d+)\s*\{'),
+        (match) => match[0]!.replaceFirst(RegExp(r'\{$'), ' '),
+      );
       final used = RegExp(r'\{\s*([a-zA-Z]\w*)\s*[,}]')
-          .allMatches(value)
+          .allMatches(argumentText)
           .map((m) => m[1]!)
           .where((p) => p != 'other');
       for (final parameter in used) {

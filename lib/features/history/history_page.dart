@@ -8,6 +8,7 @@ import '../../core/widgets/app_feedback.dart';
 import '../workout/workout_models.dart';
 import '../workout/workout_repository.dart';
 import 'history_stats.dart';
+import 'history_summary_card.dart';
 
 class HistoryPage extends StatefulWidget {
   const HistoryPage({
@@ -132,51 +133,44 @@ class _HistoryPageState extends State<HistoryPage> {
     }
     return SafeArea(
       child: ListView(
-        padding: EdgeInsets.all(24),
+        padding: EdgeInsets.symmetric(
+          horizontal: MediaQuery.sizeOf(context).width < 400 ? 16 : 24,
+          vertical: 24,
+        ),
         children: [
           Text(
             context.l10n.historyTitle,
             style: TextStyle(fontSize: 28, fontWeight: FontWeight.w700),
           ),
           SizedBox(height: 20),
-          Row(
-            children: [
-              Expanded(
-                child: _stat(
-                  context,
-                  context.formats.number(stats.weekCount),
-                  context.l10n.thisWeek,
+          IntrinsicHeight(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Expanded(
+                  child: _stat(
+                    context,
+                    context.formats.number(stats.weekCount),
+                    context.l10n.thisWeek,
+                  ),
                 ),
-              ),
-              SizedBox(width: 8),
-              Expanded(
-                child: _stat(
-                  context,
-                  context.formats.number(stats.monthCount),
-                  context.l10n.thisMonth,
+                const SizedBox(width: 8),
+                Expanded(
+                  child: _stat(
+                    context,
+                    context.formats.number(stats.monthCount),
+                    context.l10n.thisMonth,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-          SizedBox(height: 8),
-          Row(
-            children: [
-              Expanded(
-                child: _stat(
-                  context,
-                  context.formats.duration(stats.monthDurationSeconds),
-                  context.l10n.monthDuration,
-                ),
-              ),
-              SizedBox(width: 8),
-              Expanded(
-                child: _stat(
-                  context,
-                  context.formats.number(stats.monthCompletedSets),
-                  context.l10n.monthSets,
-                ),
-              ),
-            ],
+          const SizedBox(height: 12),
+          HistorySummaryCard(
+            key: const ValueKey('history-month-summary'),
+            month: month,
+            durationSeconds: stats.monthDurationSeconds,
+            completedSets: stats.monthCompletedSets,
           ),
           SizedBox(height: 16),
           Text(
@@ -199,6 +193,7 @@ class _HistoryPageState extends State<HistoryPage> {
                 ),
                 icon: Icon(Icons.chevron_left),
                 tooltip: context.l10n.previousMonth,
+                constraints: const BoxConstraints(minWidth: 48, minHeight: 48),
               ),
               Expanded(
                 child: Center(
@@ -214,6 +209,7 @@ class _HistoryPageState extends State<HistoryPage> {
                 ),
                 icon: Icon(Icons.chevron_right),
                 tooltip: context.l10n.nextMonth,
+                constraints: const BoxConstraints(minWidth: 48, minHeight: 48),
               ),
             ],
           ),
@@ -304,7 +300,7 @@ class _HistoryPageState extends State<HistoryPage> {
       children: [
         Text(
           value,
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+          style: TextStyle(fontSize: 30, fontWeight: FontWeight.w700),
         ),
         SizedBox(height: 4),
         Text(

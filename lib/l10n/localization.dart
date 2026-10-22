@@ -30,6 +30,18 @@ class AppFormats {
       DateFormat.yMMMd(strings.localeName).format(value.toLocal());
   String time(DateTime value) =>
       DateFormat.Hm(strings.localeName).format(value.toLocal());
+
+  /// Separate measurement roles for the summary; never split translated text.
+  List<DurationPart> durationParts(int seconds) {
+    final hours = seconds ~/ 3600;
+    final minutes = (seconds % 3600) ~/ 60;
+    return [
+      if (hours > 0)
+        DurationPart(number(hours), strings.summaryHourUnit(hours)),
+      DurationPart(number(minutes), strings.summaryMinuteUnit(minutes)),
+    ];
+  }
+
   String duration(int seconds) {
     final hours = seconds ~/ 3600;
     final minutes = (seconds % 3600) ~/ 60;
@@ -37,6 +49,12 @@ class AppFormats {
         ? strings.minutesDuration(minutes)
         : strings.hoursDuration(hours, minutes);
   }
+}
+
+class DurationPart {
+  const DurationPart(this.value, this.unit);
+  final String value;
+  final String unit;
 }
 
 /// No grouping separators: a single dot or comma means a decimal separator.

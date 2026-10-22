@@ -125,6 +125,7 @@ void main() {
   Future<void> open(WidgetTester tester, {int id = 2}) async {
     final card = find.byKey(ValueKey('history-session-$id'));
     await tester.ensureVisible(card);
+    await tester.pumpAndSettle();
     await tester.tap(card);
     await tester.pumpAndSettle();
   }
@@ -144,6 +145,18 @@ void main() {
   }
 
   void stat(String label, String value) {
+    if (label == '所选月份时长') {
+      final duration = find.byKey(const ValueKey('history-duration-part-0'));
+      expect(
+        (duration.evaluate().single.widget as Text).textSpan!.toPlainText(),
+        value.replaceAll('分钟', '分'),
+      );
+      return;
+    }
+    if (label == '所选月份完成组') {
+      label = '完成组数';
+      value = '$value 组';
+    }
     final card = find.ancestor(
       of: find.text(label),
       matching: find.byType(AppCard),

@@ -1,0 +1,61 @@
+{
+  "browser": "Browser plugin not available; existing Chrome with bundled Playwright",
+  "order": true,
+  "checks": [
+    {
+      "viewport": 736,
+      "scale": 1,
+      "variant": 0,
+      "width": 390,
+      "overflow": [],
+      "hours": "123"
+    },
+    {
+      "viewport": 736,
+      "scale": 1.6,
+      "variant": 0,
+      "width": 390,
+      "overflow": [],
+      "hours": "123"
+    },
+    {
+      "viewport": 360,
+      "scale": 1,
+      "variant": 0,
+      "width": 328,
+      "overflow": [],
+      "hours": "123"
+    },
+    {
+      "viewport": 360,
+      "scale": 1.6,
+      "variant": 0,
+      "width": 328,
+      "overflow": [],
+      "hours": "123"
+    },
+    {
+      "viewport": 320,
+      "scale": 1,
+      "variant": 0,
+      "width": 288,
+      "overflow": [],
+      "hours": "123"
+    },
+    {
+      "viewport": 320,
+      "scale": 1.6,
+      "variant": 0,
+      "width": 288,
+      "overflow": [],
+      "hours": "123"
+    }
+  ],
+  "errors": [],
+  "interaction": {
+    "previous": "2026年9月",
+    "previousSummary": "2026年9月汇总",
+    "emptyVisible": true,
+    "restored": "2026年10月"
+  }
+}

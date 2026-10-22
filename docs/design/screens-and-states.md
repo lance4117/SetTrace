@@ -62,6 +62,8 @@ P02 的计划默认排序与 S02 使用一致的排序表现，但数据范围�
 
 参考：[浅色](previews/history-settings-light-zh.png) / [深色](previews/history-settings-dark-en.png)。代码依据 `history_page.dart`、`history_stats.dart`、`settings_page.dart` 及提醒服务。
 
+H01/H03/H05 的最新目标排版见[记录页统计排版规范](history-summary/README.md)（2026-10-22 设计、2026-10-23 Flutter 已实现；[自动化与 Android 验收](../qa/history-summary-layout-acceptance.md)，真实 TalkBack 待验）：统计在最近训练和月份切换上方，月份下直接展示记录或空状态。旧预览保留作既有设计参考，详情、删除、统计口径及设置页面不因本次排版改变。
+
 | ID / 原型定位 | 画面 | 规则 |
 | --- | --- | --- |
 | [H01](prototype/SetTrace-Focus.html#screen-history) | 月份历史与统计 | 本周／自然月次数、最近训练、所选月时长与实际完成组数；月份可切换；列表进入目标详情 |

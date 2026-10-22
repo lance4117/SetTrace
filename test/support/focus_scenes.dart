@@ -255,6 +255,16 @@ class FocusScene {
           );
         }
         history = await workouts.finish(session!.id);
+        if (base == 'H01') {
+          // A realistic monthly duration exposes the former narrow-grid bug.
+          await database.db.update(
+            'workout_sessions',
+            {'duration_seconds': 11520},
+            where: 'id = ?',
+            whereArgs: [history!.id],
+          );
+          history = await workouts.getSession(history!.id);
+        }
       }
     }
     if (base.startsWith('C') || id == 'D11') {

@@ -2364,5 +2364,58 @@
   "backupCopyRecovered": "Recovered copy",
   "@backupCopyRecovered": {
     "description": "Reason for keeping this verified recovery copy; recovered means its original operation is unavailable."
+  },
+  "historyMonthSummary": "{month} summary",
+  "@historyMonthSummary": {
+    "description": "Heading for the selected month summary.",
+    "placeholders": {
+      "month": {
+        "type": "String"
+      }
+    }
+  },
+  "summaryDuration": "Training time",
+  "@summaryDuration": {
+    "description": "Selected month training duration label."
+  },
+  "summaryCompletedSets": "Completed sets",
+  "@summaryCompletedSets": {
+    "description": "Selected month completed sets label."
+  },
+  "summaryHourUnit": "{count, plural, one{hour} other{hours}}",
+  "@summaryHourUnit": {
+    "description": "Complete display hour unit; quantity determines plural form.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "summaryMinuteUnit": "{count, plural, one{minute} other{minutes}}",
+  "@summaryMinuteUnit": {
+    "description": "Compact display minute unit; accessibility uses the full duration message.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "summarySets": "{count, plural, one{{count} set} other{{count} sets}}",
+  "@summarySets": {
+    "description": "Complete selected month completed set quantity.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "summaryDurationSemantics": "Training time, {duration}",
+  "@summaryDurationSemantics": {
+    "description": "Single accessible duration announcement using the full localized duration.",
+    "placeholders": {
+      "duration": {
+        "type": "String"
+      }
+    }
   }
 }

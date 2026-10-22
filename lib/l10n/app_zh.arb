@@ -2286,5 +2286,58 @@
   "backupCopyRecovered": "已找回的副本",
   "@backupCopyRecovered": {
     "description": "Reason for keeping this verified recovery copy; recovered means its original operation is unavailable."
+  },
+  "historyMonthSummary": "{month}汇总",
+  "@historyMonthSummary": {
+    "description": "Heading for the selected month summary.",
+    "placeholders": {
+      "month": {
+        "type": "String"
+      }
+    }
+  },
+  "summaryDuration": "训练时长",
+  "@summaryDuration": {
+    "description": "Selected month training duration label."
+  },
+  "summaryCompletedSets": "完成组数",
+  "@summaryCompletedSets": {
+    "description": "Selected month completed sets label."
+  },
+  "summaryHourUnit": "{count, plural, other{小时}}",
+  "@summaryHourUnit": {
+    "description": "Complete display hour unit; quantity determines plural form.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "summaryMinuteUnit": "{count, plural, other{分}}",
+  "@summaryMinuteUnit": {
+    "description": "Compact display minute unit; accessibility uses the full duration message.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "summarySets": "{count} 组",
+  "@summarySets": {
+    "description": "Complete selected month completed set quantity.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "summaryDurationSemantics": "训练时长，{duration}",
+  "@summaryDurationSemantics": {
+    "description": "Single accessible duration announcement using the full localized duration.",
+    "placeholders": {
+      "duration": {
+        "type": "String"
+      }
+    }
   }
 }

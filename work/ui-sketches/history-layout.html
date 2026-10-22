@@ -1,0 +1,150 @@
+<div id="settrace-history-sketch" aria-label="训练记录排版草图">
+  <div class="viz-dotted-background" aria-label="记录页确认方案">
+    <section aria-label="统计在上方的通栏月度汇总方案">
+      <div class="st-stage">
+        <article class="st-phone st-full" aria-label="通栏月度汇总记录页">
+          <div class="st-status" aria-hidden="true"><span>10:24</span><span class="st-status-icons"><i data-lucide="signal"></i><i data-lucide="wifi"></i><i data-lucide="battery-medium"></i></span></div>
+          <main class="st-content">
+            <h1>训练记录</h1>
+            <div class="st-counts">
+              <div class="st-count"><div class="st-label">本周训练</div><div class="st-number">3<span class="st-unit">次</span></div></div>
+              <div class="st-count"><div class="st-label">本月训练</div><div class="st-number">6<span class="st-unit">次</span></div></div>
+            </div>
+              <div class="st-month-summary" aria-label="所选月训练汇总">
+                <div class="st-summary-heading" data-summary-title>2026年10月汇总</div>
+                <div class="st-duration-block"><div class="st-label">训练时长</div><div class="st-duration" data-duration aria-label="3小时12分钟"><span class="st-duration-piece"><b data-hours>3</b><span class="st-unit">小时</span></span><span class="st-duration-piece"><b data-minutes>12</b><span class="st-unit">分</span></span></div></div>
+                <div class="st-sets-row"><span class="st-label">完成组数</span><span class="st-set-number"><b data-sets>63</b><span class="st-unit">组</span></span></div>
+              </div>
+            <div class="st-recent"><span class="st-label">最近训练</span><span>动作推 <span class="st-secondary">· 38 分钟</span></span></div>
+            <section class="st-month-section" aria-label="所选月份训练记录">
+              <div class="st-month-picker"><button type="button" class="st-icon-button cursor-interaction" aria-label="上一个月" data-month-step="-1"><i data-lucide="chevron-left" aria-hidden="true"></i></button><h2 data-month-title>2026年10月</h2><button type="button" class="st-icon-button cursor-interaction" aria-label="下一个月" data-month-step="1"><i data-lucide="chevron-right" aria-hidden="true"></i></button></div>
+              <div class="st-history" data-history>
+                <div class="st-day">2026年10月22日</div>
+                <div class="st-session"><div><h3>动作推</h3><div class="st-session-meta"><span>38 分钟</span><span>3 个动作</span><span>12 组</span></div></div><i data-lucide="chevron-right" aria-hidden="true"></i></div>
+                <div class="st-day">2026年10月20日</div>
+                <div class="st-session"><div><h3>动作拉</h3><div class="st-session-meta"><span>35 分钟</span><span>3 个动作</span><span>12 组</span></div></div><i data-lucide="chevron-right" aria-hidden="true"></i></div>
+              </div>
+              <div class="st-empty" data-empty hidden>这个月还没有训练记录</div>
+            </section>
+          </main>
+          <nav class="st-nav" aria-label="应用主导航"><span><i data-lucide="list-tree" aria-hidden="true"></i><span>计划</span></span><span class="st-selected" aria-current="page"><i data-lucide="history" aria-hidden="true"></i><span>记录</span></span><span><i data-lucide="settings" aria-hidden="true"></i><span>设置</span></span></nav>
+          <div class="st-system-bar" aria-hidden="true"><span></span></div>
+        </article>
+      </div>
+    </section>
+  </div>
+</div>
+<style>
+  #settrace-history-sketch { --st-scale: 1; width: 100%; }
+  #settrace-history-sketch [hidden] { display: none !important; }
+  #settrace-history-sketch .st-stage { display: flex; justify-content: center; align-items: flex-start; padding: 24px 12px; box-sizing: border-box; }
+  #settrace-history-sketch .st-phone { --st-bg: light-dark(#f5f7f8, #111518); --st-surface: light-dark(#ffffff, #191e22); --st-text: light-dark(#19262c, #f0f5f6); --st-secondary: light-dark(#586970, #abb9bf); --st-line: light-dark(#dbe3e5, #354047); --st-selected-bg: light-dark(#e8ecef, #30383f); --st-selected-text: light-dark(#303a43, #d6dde3); width: 100%; max-width: 390px; min-height: 864px; display: flex; flex-direction: column; background: var(--st-bg); color: var(--st-text); border: 1px solid var(--st-line); border-radius: 28px; font-family: 'Noto Sans SC', 'Microsoft YaHei', system-ui, sans-serif; font-size: calc(16px * var(--st-scale)); line-height: 1.5; box-sizing: border-box; box-shadow: 0 12px 36px light-dark(#19262c12, #00000030); }
+  #settrace-history-sketch .st-phone * { box-sizing: border-box; }
+  #settrace-history-sketch .st-status { display: flex; justify-content: space-between; align-items: center; padding: 16px 24px 6px; font-size: 13px; font-weight: 600; }
+  #settrace-history-sketch .st-status-icons { display: flex; align-items: center; gap: 5px; }
+  #settrace-history-sketch .st-status-icons svg { width: 15px; height: 15px; }
+  #settrace-history-sketch .st-content { padding: 20px 20px 24px; flex: 1; min-width: 0; }
+  #settrace-history-sketch h1, #settrace-history-sketch h2, #settrace-history-sketch h3, #settrace-history-sketch b { margin: 0; font-family: inherit; color: inherit; letter-spacing: 0; }
+  #settrace-history-sketch h1 { font-size: calc(28px * var(--st-scale)); font-weight: 700; line-height: 1.35; margin-bottom: 20px; }
+  #settrace-history-sketch h2 { font-size: calc(19px * var(--st-scale)); font-weight: 700; line-height: 1.4; text-align: center; overflow-wrap: anywhere; }
+  #settrace-history-sketch h3 { font-size: calc(18px * var(--st-scale)); font-weight: 700; line-height: 1.4; }
+  #settrace-history-sketch b { font-weight: 700; }
+  #settrace-history-sketch .st-label, #settrace-history-sketch .st-secondary { color: var(--st-secondary); }
+  #settrace-history-sketch .st-label { font-size: calc(14px * var(--st-scale)); line-height: 1.5; }
+  #settrace-history-sketch .st-counts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; align-items: stretch; }
+  #settrace-history-sketch .st-count { min-width: 0; padding: 14px 16px; border: 1px solid var(--st-line); border-radius: 16px; background: var(--st-surface); display: flex; flex-direction: column; justify-content: space-between; gap: 6px; }
+  #settrace-history-sketch .st-number { display: flex; flex-wrap: wrap; align-items: baseline; gap: 5px; font-size: calc(30px * var(--st-scale)); font-weight: 700; line-height: 1.25; font-variant-numeric: tabular-nums; }
+  #settrace-history-sketch .st-unit { font-size: calc(14px * var(--st-scale)); color: var(--st-secondary); font-weight: 400; line-height: 1.4; }
+  #settrace-history-sketch .st-recent { display: flex; flex-wrap: wrap; gap: 2px 12px; margin-top: 16px; font-size: calc(14px * var(--st-scale)); }
+  #settrace-history-sketch .st-month-section { margin-top: 24px; }
+  #settrace-history-sketch .st-month-picker { display: grid; grid-template-columns: 48px minmax(0, 1fr) 48px; align-items: center; margin: 0 -6px 12px; }
+  #settrace-history-sketch .st-icon-button { border: 0; background: transparent; color: var(--st-secondary); border-radius: 12px; min-height: 48px; min-width: 48px; display: flex; align-items: center; justify-content: center; padding: 0; }
+  #settrace-history-sketch .st-icon-button svg { width: 24px; height: 24px; }
+  #settrace-history-sketch .st-icon-button:active { background: var(--st-selected-bg); }
+  #settrace-history-sketch .st-icon-button:focus-visible { outline: 2px solid var(--st-selected-text); outline-offset: 2px; }
+  #settrace-history-sketch .st-month-summary { margin-top: 12px; padding: 16px 20px 14px; background: var(--st-surface); border: 1px solid var(--st-line); border-radius: 16px; }
+  #settrace-history-sketch .st-summary-heading { font-size: calc(14px * var(--st-scale)); font-weight: 600; line-height: 1.5; margin-bottom: 12px; }
+  #settrace-history-sketch .st-duration { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; margin-top: 7px; font-size: calc(32px * var(--st-scale)); line-height: 1.25; font-variant-numeric: tabular-nums; }
+  #settrace-history-sketch .st-duration-piece { display: inline-flex; align-items: baseline; gap: 5px; white-space: nowrap; }
+  #settrace-history-sketch .st-sets-row { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px 16px; border-top: 1px solid var(--st-line); margin-top: 16px; padding-top: 12px; }
+  #settrace-history-sketch .st-set-number { display: inline-flex; align-items: baseline; gap: 5px; font-size: calc(20px * var(--st-scale)); line-height: 1.3; font-variant-numeric: tabular-nums; }
+  #settrace-history-sketch .st-history { margin-top: 8px; }
+  #settrace-history-sketch .st-day { color: var(--st-secondary); font-size: calc(14px * var(--st-scale)); margin: 18px 0 8px; }
+  #settrace-history-sketch .st-day:first-child { margin-top: 0; }
+  #settrace-history-sketch .st-session { display: flex; gap: 12px; justify-content: space-between; align-items: center; padding: 16px; background: var(--st-surface); border: 1px solid var(--st-line); border-radius: 16px; min-width: 0; }
+  #settrace-history-sketch .st-session > div { min-width: 0; }
+  #settrace-history-sketch .st-session > svg { width: 20px; height: 20px; flex-shrink: 0; color: var(--st-secondary); }
+  #settrace-history-sketch .st-session-meta { display: flex; flex-wrap: wrap; gap: 2px 0; color: var(--st-secondary); font-size: calc(14px * var(--st-scale)); margin-top: 6px; }
+  #settrace-history-sketch .st-session-meta > span { white-space: nowrap; }
+  #settrace-history-sketch .st-session-meta > span:not(:last-child)::after { content: '·'; margin: 0 7px; }
+  #settrace-history-sketch .st-empty { padding: 40px 0; color: var(--st-secondary); font-size: calc(14px * var(--st-scale)); text-align: center; }
+  #settrace-history-sketch .st-nav { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; padding: 12px 16px 4px; border-top: 1px solid var(--st-line); background: var(--st-surface); }
+  #settrace-history-sketch .st-nav > span { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; min-height: 64px; padding: 8px; border-radius: 16px; color: var(--st-secondary); font-size: calc(14px * var(--st-scale)); }
+  #settrace-history-sketch .st-nav svg { width: 22px; height: 22px; }
+  #settrace-history-sketch .st-nav .st-selected { background: var(--st-selected-bg); color: var(--st-selected-text); font-weight: 600; }
+  #settrace-history-sketch .st-system-bar { display: flex; justify-content: center; padding: 12px 0 10px; background: var(--st-surface); border-radius: 0 0 28px 28px; }
+  #settrace-history-sketch .st-system-bar > span { width: 90px; height: 4px; background: var(--st-secondary); border-radius: 4px; }
+  @media (max-width: 400px) { #settrace-history-sketch .st-stage { padding: 16px 0; } #settrace-history-sketch .st-content { padding-left: 18px; padding-right: 18px; } }
+  @media (prefers-reduced-motion: reduce) { #settrace-history-sketch * { transition: none !important; animation: none !important; } }
+</style>
+<script>
+(() => {
+  const root = document.getElementById('settrace-history-sketch');
+  const phones = Array.from(root.querySelectorAll('.st-phone'));
+  const saved = globalThis.openai?.widgetState?.modelContent;
+  const state = { scale: 1, longDuration: false, appearance: 'auto' };
+  function hydrate(value) {
+    if (!value || typeof value !== 'object') return;
+    if (typeof value.scale === 'number') state.scale = Math.max(1, Math.min(1.6, value.scale));
+    if (typeof value.longDuration === 'boolean') state.longDuration = value.longDuration;
+    if (['auto', 'light', 'dark'].includes(value.appearance)) state.appearance = value.appearance;
+  }
+  hydrate(saved);
+  const dates = new Map(phones.map(phone => [phone, new Date(2026, 9, 1)]));
+  function renderPhone(phone) {
+    const date = dates.get(phone);
+    const populated = date.getFullYear() === 2026 && date.getMonth() === 9;
+    phone.querySelector('[data-month-title]').textContent = `${date.getFullYear()}年${date.getMonth() + 1}月`;
+    phone.querySelector('[data-summary-title]').textContent = `${date.getFullYear()}年${date.getMonth() + 1}月汇总`;
+    phone.querySelector('[data-history]').hidden = !populated;
+    phone.querySelector('[data-empty]').hidden = populated;
+    phone.querySelector('[data-hours]').textContent = populated ? (state.longDuration ? '123' : '3') : '0';
+    phone.querySelector('[data-minutes]').textContent = populated ? (state.longDuration ? '45' : '12') : '0';
+    phone.querySelector('[data-sets]').textContent = populated ? '63' : '0';
+    const duration = phone.querySelector('[data-duration]');
+    duration.setAttribute('aria-label', populated ? (state.longDuration ? '123小时45分钟' : '3小时12分钟') : '0分钟');
+    duration.querySelector('.st-duration-piece').hidden = !populated;
+    duration.querySelectorAll('.st-unit')[1].textContent = populated ? '分' : '分钟';
+  }
+  function render() {
+    root.style.setProperty('--st-scale', state.scale);
+    phones.forEach(phone => {
+      phone.style.colorScheme = state.appearance === 'auto' ? 'inherit' : state.appearance;
+      renderPhone(phone);
+    });
+  }
+  function save() {
+    if (globalThis.openai?.setWidgetState) globalThis.openai.setWidgetState({ modelContent: { ...state }, privateContent: null }).catch(() => {});
+  }
+  phones.forEach(phone => {
+    phone.querySelectorAll('[data-month-step]').forEach(button => {
+      button.addEventListener('click', () => {
+        const date = dates.get(phone);
+        dates.set(phone, new Date(date.getFullYear(), date.getMonth() + Number(button.dataset.monthStep), 1));
+        render();
+      });
+    });
+  });
+  render();
+  window.addEventListener('openai:set_globals', event => {
+    hydrate(event.detail?.globals?.widgetState?.modelContent);
+    render();
+  });
+  if (globalThis.Tweak) {
+    const tweak = new Tweak({ container: root, onChange: () => { render(); save(); } });
+    tweak.addSlider(state, 'scale', { label: '文字大小', min: 1, max: 1.6, step: 0.1, reference: 'text-scale' });
+    tweak.addToggle(state, 'longDuration', { label: '长时长示例（123小时45分）' });
+    tweak.addSelect(state, 'appearance', { label: '外观', options: [{ label: '跟随界面', value: 'auto' }, { label: '浅色', value: 'light' }, { label: '深色', value: 'dark' }] });
+  }
+})();
+</script>

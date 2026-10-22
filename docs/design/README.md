@@ -1,5 +1,7 @@
 # SetTrace 当前设计：A · 专注工具
 
+最新确认设计：[记录页统计排版](history-summary/README.md)（2026-10-22 设计、2026-10-23 实施，**Flutter 已实现，自动化及 Android 模拟器已验证，真实 TalkBack 待验**）。采用“两张次数卡 → 通栏月度汇总 → 最近训练 → 月份切换 → 记录”的顺序，包含文字规范、确认草图与浅深色预览；仅调整记录页呈现，沿用现有统计口径。
+
 新增设计：[备份与恢复 UI](backup/README.md)（2026-10-16，实施更新 2026-10-17）。包含可点击原型、中英文浅深主题、整份恢复与撤回流程、异常状态及原型核验；Flutter 代码已实现，人工与故障验收剩余项见本文末尾的独立验收记录；原型核验不改变下述既有功能的实施状态。
 
 | 项目 | 状态 |
@@ -17,7 +19,7 @@
 
 ## 阅读入口
 
-最新增量：[休息提醒增强](#休息提醒增强已实现待真机验收)（2026-10-16，已实现，待真机验收）。
+最新布局增量为[记录页统计排版](history-summary/README.md)；既有[休息提醒增强](#休息提醒增强已实现待真机验收)（2026-10-16）的实施与待验状态保持各自记录。
 
 代理处理 SetTrace UI 相关工作时，先实际读取下列 Markdown；仅知道路径、浏览图片或运行原型不等于已读取规范。
 
@@ -27,6 +29,7 @@
 4. [验收标准：可检查的设计与实现要求](acceptance-checklist.md)。
 5. 按所涉及能力读取 [现有 OpenSpec 规格](../../openspec/specs/)、当前源代码及对应验收记录。现有能力包括 `training-plans`、`workout-session`、`workout-history`、`app-experience`、`app-localization`。
 6. 打开 [完整设计稿及模拟原型](prototype/SetTrace-Focus.html) 对照画面。原型不依赖网络或外部资源，可直接用浏览器打开。
+7. 涉及 H01/H03/H05 的历史列表与统计排版时，继续读取[记录页统计排版规范](history-summary/README.md)。本增量的文字规范和确认草图指导后续布局；旧历史页原型不代表本增量已经实施。
 
 ## 依据与冲突处理
 
@@ -49,6 +52,7 @@
 - 本次编辑与换序：[浅色中文](previews/session-tools-light-zh.png) / [深色英文](previews/session-tools-dark-en.png)。
 - 导入导出：[浅色中文](previews/transfer-light-zh.png) / [深色英文](previews/transfer-dark-en.png)。
 - 历史与设置：[浅色中文](previews/history-settings-light-zh.png) / [深色英文](previews/history-settings-dark-en.png)。
+- 记录页最新确认排版：[浅色中文](history-summary/previews/history-light-zh.png) / [深色中文](history-summary/previews/history-dark-zh.png)；应用已实现，验证范围见[独立验收](../qa/history-summary-layout-acceptance.md)，规则见[独立规范](history-summary/README.md)。
 - 弹窗：[浅色中文](previews/dialogs-light-zh.png) / [深色英文](previews/dialogs-dark-en.png)。
 - 适配：[浅色中文](previews/adaptation-light-zh.png) / [深色英文](previews/adaptation-dark-en.png)。
 - [SVG 导入包](exports/SetTrace-Focus-SVG.zip)：222 个矢量文件，包含页面与弹窗的四种外观／语言组合、长内容展开稿和补充样本；不是 222 个独立功能页面。`*-full.svg` 是完整滚动内容，不是设备屏幕高度。
