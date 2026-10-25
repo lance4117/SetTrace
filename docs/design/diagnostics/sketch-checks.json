@@ -1,0 +1,103 @@
+{
+  "text_width_overflows": [],
+  "render_scale": 2,
+  "text_color_contrasts": [
+    {
+      "theme": "light",
+      "pair": "text/bg",
+      "ratio": 14.42,
+      "passes_normal_text": true
+    },
+    {
+      "theme": "light",
+      "pair": "text/surface",
+      "ratio": 15.5,
+      "passes_normal_text": true
+    },
+    {
+      "theme": "light",
+      "pair": "secondary/bg",
+      "ratio": 5.33,
+      "passes_normal_text": true
+    },
+    {
+      "theme": "light",
+      "pair": "secondary/surface",
+      "ratio": 5.72,
+      "passes_normal_text": true
+    },
+    {
+      "theme": "light",
+      "pair": "on/accent",
+      "ratio": 4.93,
+      "passes_normal_text": true
+    },
+    {
+      "theme": "light",
+      "pair": "onsoft/soft",
+      "ratio": 5.42,
+      "passes_normal_text": true
+    },
+    {
+      "theme": "light",
+      "pair": "warning/warnbg",
+      "ratio": 5.87,
+      "passes_normal_text": true
+    },
+    {
+      "theme": "light",
+      "pair": "danger/bg",
+      "ratio": 5.48,
+      "passes_normal_text": true
+    },
+    {
+      "theme": "dark",
+      "pair": "text/bg",
+      "ratio": 16.69,
+      "passes_normal_text": true
+    },
+    {
+      "theme": "dark",
+      "pair": "text/surface",
+      "ratio": 15.28,
+      "passes_normal_text": true
+    },
+    {
+      "theme": "dark",
+      "pair": "secondary/bg",
+      "ratio": 9.11,
+      "passes_normal_text": true
+    },
+    {
+      "theme": "dark",
+      "pair": "secondary/surface",
+      "ratio": 8.34,
+      "passes_normal_text": true
+    },
+    {
+      "theme": "dark",
+      "pair": "on/accent",
+      "ratio": 8.77,
+      "passes_normal_text": true
+    },
+    {
+      "theme": "dark",
+      "pair": "onsoft/soft",
+      "ratio": 6.94,
+      "passes_normal_text": true
+    },
+    {
+      "theme": "dark",
+      "pair": "warning/warnbg",
+      "ratio": 7.92,
+      "passes_normal_text": true
+    },
+    {
+      "theme": "dark",
+      "pair": "danger/bg",
+      "ratio": 10.81,
+      "passes_normal_text": true
+    }
+  ],
+  "scope": "Static design sketches only; no runtime, interaction or accessibility test claims."
+}

@@ -60,6 +60,7 @@ class _AppNoticeDialogState extends State<AppNoticeDialog> {
               (l.noticePrivacyTitle, l.noticePrivacyBody),
               (l.noticeLocalTitle, l.noticeLocalBody),
               (l.noticeBackupTitle, l.noticeBackupBody),
+              (l.noticeDiagnosticsTitle, l.noticeDiagnosticsBody),
             ]) ...[
               const SizedBox(height: 20),
               Semantics(

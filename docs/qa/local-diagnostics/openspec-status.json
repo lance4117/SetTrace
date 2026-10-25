@@ -1,0 +1,106 @@
+{
+  "changeName": "add-local-diagnostics",
+  "schemaName": "spec-driven",
+  "planningHome": {
+    "kind": "repo",
+    "root": "D:\\000_MyLibrary\\100_code\\110_Project\\5_SetTrace",
+    "changesDir": "D:\\000_MyLibrary\\100_code\\110_Project\\5_SetTrace\\openspec\\changes",
+    "defaultSchema": "spec-driven"
+  },
+  "changeRoot": "D:\\000_MyLibrary\\100_code\\110_Project\\5_SetTrace\\openspec\\changes\\add-local-diagnostics",
+  "artifactPaths": {
+    "proposal": {
+      "outputPath": "proposal.md",
+      "resolvedOutputPath": "D:\\000_MyLibrary\\100_code\\110_Project\\5_SetTrace\\openspec\\changes\\add-local-diagnostics\\proposal.md",
+      "existingOutputPaths": [
+        "D:\\000_MyLibrary\\100_code\\110_Project\\5_SetTrace\\openspec\\changes\\add-local-diagnostics\\proposal.md"
+      ]
+    },
+    "specs": {
+      "outputPath": "specs/**/*.md",
+      "resolvedOutputPath": "D:\\000_MyLibrary\\100_code\\110_Project\\5_SetTrace\\openspec\\changes\\add-local-diagnostics\\specs\\**\\*.md",
+      "existingOutputPaths": [
+        "D:\\000_MyLibrary\\100_code\\110_Project\\5_SetTrace\\openspec\\changes\\add-local-diagnostics\\specs\\app-diagnostics\\spec.md",
+        "D:\\000_MyLibrary\\100_code\\110_Project\\5_SetTrace\\openspec\\changes\\add-local-diagnostics\\specs\\app-experience\\spec.md",
+        "D:\\000_MyLibrary\\100_code\\110_Project\\5_SetTrace\\openspec\\changes\\add-local-diagnostics\\specs\\data-backup\\spec.md"
+      ]
+    },
+    "design": {
+      "outputPath": "design.md",
+      "resolvedOutputPath": "D:\\000_MyLibrary\\100_code\\110_Project\\5_SetTrace\\openspec\\changes\\add-local-diagnostics\\design.md",
+      "existingOutputPaths": [
+        "D:\\000_MyLibrary\\100_code\\110_Project\\5_SetTrace\\openspec\\changes\\add-local-diagnostics\\design.md"
+      ]
+    },
+    "tasks": {
+      "outputPath": "tasks.md",
+      "resolvedOutputPath": "D:\\000_MyLibrary\\100_code\\110_Project\\5_SetTrace\\openspec\\changes\\add-local-diagnostics\\tasks.md",
+      "existingOutputPaths": [
+        "D:\\000_MyLibrary\\100_code\\110_Project\\5_SetTrace\\openspec\\changes\\add-local-diagnostics\\tasks.md"
+      ]
+    }
+  },
+  "isPlanningComplete": true,
+  "isComplete": true,
+  "applyRequires": [
+    "tasks"
+  ],
+  "nextSteps": [
+    "All planning artifacts are complete. Run openspec instructions apply --change \"add-local-diagnostics\" --json to inspect implementation progress."
+  ],
+  "actionContext": {
+    "mode": "repo-local",
+    "sourceOfTruth": "repo",
+    "planningArtifacts": [
+      "proposal",
+      "specs",
+      "design",
+      "tasks"
+    ],
+    "linkedContext": [],
+    "allowedEditRoots": [
+      "D:\\000_MyLibrary\\100_code\\110_Project\\5_SetTrace"
+    ],
+    "requiresAffectedAreaSelection": false,
+    "constraints": [
+      "Repo-local change artifacts and implementation edits are scoped to this project."
+    ]
+  },
+  "artifacts": [
+    {
+      "id": "proposal",
+      "outputPath": "proposal.md",
+      "status": "done",
+      "requires": []
+    },
+    {
+      "id": "specs",
+      "outputPath": "specs/**/*.md",
+      "status": "done",
+      "requires": [
+        "proposal"
+      ]
+    },
+    {
+      "id": "design",
+      "outputPath": "design.md",
+      "status": "done",
+      "requires": [
+        "proposal"
+      ]
+    },
+    {
+      "id": "tasks",
+      "outputPath": "tasks.md",
+      "status": "done",
+      "requires": [
+        "specs",
+        "design"
+      ]
+    }
+  ],
+  "root": {
+    "path": "D:\\000_MyLibrary\\100_code\\110_Project\\5_SetTrace",
+    "source": "nearest"
+  }
+}

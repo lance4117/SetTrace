@@ -83,6 +83,30 @@ Future<void> flush(WidgetTester t) async {
   }
 }
 
+/// SQLite replies use real asynchronous work while the widget clock is fake.
+/// Pump until this specific operation settles instead of relying on 90 ms of
+/// host scheduling, which is insufficient under the full matrix's load.
+Future<void> settleOperation(WidgetTester t, Future<void> operation) async {
+  var done = false;
+  operation.then<void>(
+    (_) {
+      done = true;
+    },
+    onError: (Object _, StackTrace _) {
+      done = true;
+    },
+  );
+  final elapsed = Stopwatch()..start();
+  while (!done && elapsed.elapsed < const Duration(seconds: 5)) {
+    await t.runAsync(
+      () => Future<void>.delayed(const Duration(milliseconds: 10)),
+    );
+    await t.pump(const Duration(milliseconds: 20));
+  }
+  expect(done, isTrue, reason: 'The actual reminder operation must settle');
+  await operation;
+}
+
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   sqfliteFfiInit();
@@ -93,7 +117,10 @@ void main() {
       for (final value in [null, 'invalid', 0, 1, 2]) {
         SharedPreferences.setMockInitialValues({noticePreferenceKey: ?value});
         final prefs = NoticePreferences(await SharedPreferences.getInstance());
-        expect(prefs.hasSeenCurrent, value is int && value >= currentNoticeVersion);
+        expect(
+          prefs.hasSeenCurrent,
+          value is int && value >= currentNoticeVersion,
+        );
         await prefs.acknowledge();
         expect(prefs.hasSeenCurrent, isTrue);
       }
@@ -456,7 +483,7 @@ void main() {
         final drained = alerts.synchronize();
         // Let the existing fake-async queue advance before awaiting its tail.
         await flush(t);
-        await drained;
+        await settleOperation(t, drained);
         await t.pumpAndSettle();
       },
     );
@@ -505,7 +532,7 @@ void main() {
       await t.pumpWidget(const SizedBox());
       final drained = alerts.synchronize();
       await flush(t);
-      await drained;
+      await settleOperation(t, drained);
       await t.pumpAndSettle();
     });
     testWidgets('notice preserves rest and defers permission explanation', (
@@ -546,7 +573,7 @@ void main() {
       await flush(t);
       final synchronization = alerts.synchronize(offerPermission: true);
       await flush(t);
-      await synchronization;
+      await settleOperation(t, synchronization);
       expect(find.byType(AlertDialog), findsOneWidget);
       expect(find.byType(AppNoticeDialog), findsOneWidget);
       expect(platform.permissionCalls, 0);
@@ -567,7 +594,7 @@ void main() {
       await t.pumpWidget(const SizedBox());
       final drained = alerts.synchronize();
       await flush(t);
-      await drained;
+      await settleOperation(t, drained);
       await t.pumpAndSettle();
     });
   });

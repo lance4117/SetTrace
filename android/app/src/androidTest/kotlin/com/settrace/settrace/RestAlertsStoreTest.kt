@@ -53,6 +53,22 @@ class RestAlertsStoreTest {
             assertTrue(it.moveToFirst()); assertEquals(3, it.getInt(0)); assertTrue(it.isNull(1))
         }
     }
+    @Test fun observedRejectionsComeFromTheSameTransactionAndObserverCannotChangeClaims() {
+        val observations = mutableListOf<RestClaimObservation>()
+        val observe: (RestClaimObservation) -> Unit = { assertFalse(db.inTransaction()); observations.add(it) }
+        assertNull(RestAlertsStore.claim(db, 7, 3, due, observer = observe))
+        assertEquals("old_revision", observations.last().reason)
+        assertNull(RestAlertsStore.claim(db, 7, 4, due, 9, observe))
+        assertEquals("old_round", observations.last().reason)
+        db.execSQL("UPDATE rest_alert_preferences SET enabled=0")
+        assertNull(RestAlertsStore.claim(db, 7, 4, due, observer = observe))
+        assertEquals("user_disabled", observations.last().reason)
+        db.execSQL("UPDATE rest_alert_preferences SET enabled=1")
+        assertNotNull(RestAlertsStore.claim(db, 7, 4, due) { throw IllegalStateException("PRIVATE observer failure") })
+        db.execSQL("UPDATE rest_alerts SET acknowledged_at=123")
+        assertNull(RestAlertsStore.claim(db, 7, 4, due, 1, observe))
+        assertEquals("already_acknowledged", observations.last().reason)
+    }
     @Test fun staleRevisionCancellationAndPreferenceAreRejected() {
         assertNull(RestAlertsStore.claim(db, 7, 3, due))
         assertNull(RestAlertsStore.claim(db, 999, 4, due))

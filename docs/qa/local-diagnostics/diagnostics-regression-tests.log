@@ -1,0 +1,213 @@
+{
+  "project": "D:\\000_MyLibrary\\100_code\\110_Project\\5_SetTrace",
+  "sdk": "D:\\ProgramData\\Android_SDK",
+  "avd": "D:\\ProgramData\\Android_AVD",
+  "androidUser": "D:\\ProgramData\\DevCache\\Android",
+  "gradle": "D:\\ProgramData\\DevCache\\Gradle",
+  "pub": "D:\\ProgramData\\DevCache\\Pub",
+  "temp": "D:\\ProgramData\\DevTemp\\add-local-diagnostics",
+  "flutter": "D:\\DevTools\\flutter",
+  "toolConfig": "D:\\ProgramData\\DevCache\\FlutterConfig",
+  "toolLocalCache": "D:\\ProgramData\\DevCache\\LocalAppData",
+  "jdk": "D:\\Program Files\\Android Studio\\jbr",
+  "avd:Pixel_7_Pro": "D:\\ProgramData\\Android_AVD\\Pixel_7_Pro.avd"
+}
+00:00 +0: loading D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/business_followup_diagnostics_test.dart
+00:00 +0: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_controller_test.dart: load failure remains distinct from an actual empty overview
+00:00 +1: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_controller_test.dart: failed policy write retains re-read effective state
+00:00 +2: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_controller_test.dart: lost control acknowledgement re-queries a successful native commit
+00:00 +3: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_controller_test.dart: late overview cannot overwrite a confirmed later control change
+00:00 +4: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_controller_test.dart: permission cancellation never starts a native export
+00:00 +5: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_controller_test.dart: start and controls cannot re-enter; final publication is polled
+00:00 +6: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_controller_test.dart: unknown publication must inspect existing task before retry
+00:00 +7: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_controller_test.dart: publication winning a cancellation race remains saved
+00:00 +8: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_controller_test.dart: detailed mode cannot revive through total policy off then on
+00:00 +9: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/business_followup_diagnostics_test.dart: backup core commit, partial settings and retry remain separate across epoch change
+00:00 +10: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/business_followup_diagnostics_test.dart: backup core commit, partial settings and retry remain separate across epoch change
+00:00 +11: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/business_followup_diagnostics_test.dart: backup core commit, partial settings and retry remain separate across epoch change
+00:00 +12: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/business_followup_diagnostics_test.dart: backup core commit, partial settings and retry remain separate across epoch change
+00:00 +13: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/business_followup_diagnostics_test.dart: backup core commit, partial settings and retry remain separate across epoch change
+00:00 +14: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/business_followup_diagnostics_test.dart: backup core commit, partial settings and retry remain separate across epoch change
+00:00 +15: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/business_followup_diagnostics_test.dart: backup core commit, partial settings and retry remain separate across epoch change
+00:00 +16: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/business_followup_diagnostics_test.dart: backup core commit, partial settings and retry remain separate across epoch change
+00:00 +17: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: latest settings keeps data rows together even without backup
+00:00 +18: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: latest settings keeps data rows together even without backup
+00:00 +19: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: latest settings keeps data rows together even without backup
+00:00 +20: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: latest settings keeps data rows together even without backup
+00:01 +21: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: latest settings keeps data rows together even without backup
+00:01 +22: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: latest settings keeps data rows together even without backup
+00:01 +23: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: latest settings keeps data rows together even without backup
+00:01 +24: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: latest settings keeps data rows together even without backup
+00:01 +25: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: latest settings keeps data rows together even without backup
+00:01 +26: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: latest settings keeps data rows together even without backup
+00:01 +27: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: latest settings keeps data rows together even without backup
+00:02 +28: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: latest settings keeps data rows together even without backup
+00:02 +29: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: latest settings keeps data rows together even without backup
+00:02 +30: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: latest settings keeps data rows together even without backup
+00:02 +31: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: latest settings keeps data rows together even without backup
+00:02 +32: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: latest settings keeps data rows together even without backup
+00:02 +33: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/startup_diagnostics_test.dart: database failure shell exports and returns without deleting or opening data
+00:02 +34: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/startup_diagnostics_test.dart: database failure shell exports and returns without deleting or opening data
+00:03 +35: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/startup_diagnostics_test.dart: database failure shell exports and returns without deleting or opening data
+00:03 +36: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/startup_diagnostics_test.dart: database failure shell exports and returns without deleting or opening data
+00:04 +37: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/startup_diagnostics_test.dart: database failure shell exports and returns without deleting or opening data
+00:04 +38: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/localization_ui_test.dart: setting order, immediate switch, persistence and failure retry
+00:04 +39: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/localization_ui_test.dart: setting order, immediate switch, persistence and failure retry
+00:04 +40: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/localization_ui_test.dart: setting order, immediate switch, persistence and failure retry
+00:04 +41: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/localization_ui_test.dart: setting order, immediate switch, persistence and failure retry
+00:04 +42: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/localization_ui_test.dart: setting order, immediate switch, persistence and failure retry
+00:04 +43: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/localization_ui_test.dart: setting order, immediate switch, persistence and failure retry
+00:04 +44: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/localization_ui_test.dart: setting order, immediate switch, persistence and failure retry
+00:05 +45: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/localization_ui_test.dart: setting order, immediate switch, persistence and failure retry
+00:05 +46: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/localization_ui_test.dart: setting order, immediate switch, persistence and failure retry
+00:05 +47: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/localization_ui_test.dart: setting order, immediate switch, persistence and failure retry
+00:05 +48: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/localization_ui_test.dart: setting order, immediate switch, persistence and failure retry
+00:05 +49: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/localization_ui_test.dart: setting order, immediate switch, persistence and failure retry
+00:06 +50: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/localization_ui_test.dart: setting order, immediate switch, persistence and failure retry
+00:06 +51: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/localization_ui_test.dart: setting order, immediate switch, persistence and failure retry
+00:06 +52: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/localization_ui_test.dart: setting order, immediate switch, persistence and failure retry
+00:06 +53: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:06 +54: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:06 +55: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:06 +56: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:06 +57: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:07 +58: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:07 +59: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:07 +60: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:07 +61: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:07 +62: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:07 +63: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:07 +64: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:07 +65: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:08 +66: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:08 +67: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:08 +68: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:08 +69: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:08 +70: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:08 +71: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:08 +72: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:09 +73: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:09 +74: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:09 +75: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:09 +76: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:09 +77: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:09 +78: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:09 +79: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:09 +80: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:10 +81: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:10 +82: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: cancel keeps 2/4 and rest, confirmation advances, undo remains discoverable
+00:10 +83: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: all primary pages adapt to themes, languages, sizes and large text
+00:10 +84: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: all primary pages adapt to themes, languages, sizes and large text
+00:10 +85: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: all primary pages adapt to themes, languages, sizes and large text
+00:10 +86: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: all primary pages adapt to themes, languages, sizes and large text
+00:10 +87: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: all primary pages adapt to themes, languages, sizes and large text
+00:10 +88: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: all primary pages adapt to themes, languages, sizes and large text
+00:10 +89: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: all primary pages adapt to themes, languages, sizes and large text
+00:10 +90: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: all primary pages adapt to themes, languages, sizes and large text
+00:10 +91: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: all primary pages adapt to themes, languages, sizes and large text
+00:11 +92: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: all primary pages adapt to themes, languages, sizes and large text
+00:11 +93: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: all primary pages adapt to themes, languages, sizes and large text
+00:11 +94: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: all primary pages adapt to themes, languages, sizes and large text
+00:11 +95: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: all primary pages adapt to themes, languages, sizes and large text
+00:11 +96: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: all primary pages adapt to themes, languages, sizes and large text
+00:11 +97: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: all primary pages adapt to themes, languages, sizes and large text
+00:11 +98: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: all primary pages adapt to themes, languages, sizes and large text
+00:11 +99: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: all primary pages adapt to themes, languages, sizes and large text
+00:11 +100: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: all primary pages adapt to themes, languages, sizes and large text
+00:11 +101: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: all primary pages adapt to themes, languages, sizes and large text
+00:12 +102: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: all primary pages adapt to themes, languages, sizes and large text
+00:12 +103: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: all primary pages adapt to themes, languages, sizes and large text
+00:12 +104: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: stale confirmation cannot skip newly advanced state
+00:12 +105: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: stale confirmation cannot skip newly advanced state
+00:12 +106: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: preview is independent of selection and settings save failure retains draft
+00:12 +107: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: preview is independent of selection and settings save failure retains draft
+00:12 +108: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: preview is independent of selection and settings save failure retains draft
+00:12 +109: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: preview is independent of selection and settings save failure retains draft
+00:12 +110: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: preview is independent of selection and settings save failure retains draft
+00:12 +111: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: preview is independent of selection and settings save failure retains draft
+00:12 +112: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: preview is independent of selection and settings save failure retains draft
+00:12 +113: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: preview is independent of selection and settings save failure retains draft
+00:13 +114: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: preview is independent of selection and settings save failure retains draft
+00:13 +115: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: preview is independent of selection and settings save failure retains draft
+00:13 +116: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: preview is independent of selection and settings save failure retains draft
+00:13 +117: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: preview is independent of selection and settings save failure retains draft
+00:13 +118: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: preview is independent of selection and settings save failure retains draft
+00:13 +119: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: preview is independent of selection and settings save failure retains draft
+00:13 +120: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: preview is independent of selection and settings save failure retains draft
+00:13 +121: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: preview is independent of selection and settings save failure retains draft
+00:13 +122: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: preview is independent of selection and settings save failure retains draft
+00:13 +123: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: preview is independent of selection and settings save failure retains draft
+00:13 +124: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: preview is independent of selection and settings save failure retains draft
+00:13 +125: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: preview is independent of selection and settings save failure retains draft
+00:13 +126: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: preview is independent of selection and settings save failure retains draft
+00:14 +127: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: preview is independent of selection and settings save failure retains draft
+00:14 +128: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: preview is independent of selection and settings save failure retains draft
+00:14 +129: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: preview is independent of selection and settings save failure retains draft
+00:14 +130: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: preview is independent of selection and settings save failure retains draft
+00:14 +131: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: preview is independent of selection and settings save failure retains draft
+00:14 +132: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: preview is independent of selection and settings save failure retains draft
+00:14 +133: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: preview is independent of selection and settings save failure retains draft
+00:14 +134: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: preview is independent of selection and settings save failure retains draft
+00:14 +135: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: preview is independent of selection and settings save failure retains draft
+00:14 +136: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: preview is independent of selection and settings save failure retains draft
+00:14 +137: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: preview is independent of selection and settings save failure retains draft
+00:14 +138: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: preview is independent of selection and settings save failure retains draft
+00:14 +139: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: preview is independent of selection and settings save failure retains draft
+00:15 +140: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: last action finishes at 50 percent and history distinguishes skipped
+00:15 +141: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: last action finishes at 50 percent and history distinguishes skipped
+00:15 +142: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: last action finishes at 50 percent and history distinguishes skipped
+00:15 +143: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: last action finishes at 50 percent and history distinguishes skipped
+00:15 +144: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: last action finishes at 50 percent and history distinguishes skipped
+00:15 +145: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: last action finishes at 50 percent and history distinguishes skipped
+00:15 +146: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: last action finishes at 50 percent and history distinguishes skipped
+00:15 +147: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/localization_ui_test.dart: long text 430.0 dp dark=true at 1.6 scale
+00:15 +148: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/localization_ui_test.dart: long text 430.0 dp dark=true at 1.6 scale
+00:15 +149: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/localization_ui_test.dart: long text 430.0 dp dark=true at 1.6 scale
+00:15 +150: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/localization_ui_test.dart: long text 430.0 dp dark=true at 1.6 scale
+00:15 +151: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/localization_ui_test.dart: long text 430.0 dp dark=true at 1.6 scale
+00:16 +152: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/localization_ui_test.dart: long text 430.0 dp dark=true at 1.6 scale
+00:16 +153: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: automatic dialog waits for editing and notification confirms after page presentation
+00:17 +154: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: automatic dialog waits for editing and notification confirms after page presentation
+00:17 +155: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: automatic dialog waits for editing and notification confirms after page presentation
+00:17 +156: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/theme_color_ui_test.dart: root preview, navigation, rest and modal drafts survive failure/retry
+00:19 +157: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/theme_color_ui_test.dart: root preview, navigation, rest and modal drafts survive failure/retry
+00:20 +158: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: back dismisses only the automatic dialog and page stop remains available
+00:22 +159: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: back dismisses only the automatic dialog and page stop remains available
+00:24 +160: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: back dismisses only the automatic dialog and page stop remains available
+00:24 +161: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: 360 dp scaled dark skip dialog is usable in en
+00:25 +162: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: 360 dp scaled dark skip dialog is usable in en
+00:25 +163: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: 360 dp scaled dark skip dialog is usable in en
+00:25 +164: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 360.0dp short screen 1.6 type en ThemeColorPreset.teal dark=false
+00:25 +165: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: 360 dp scaled dark skip dialog is usable in zh
+00:25 +166: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: 360 dp scaled dark skip dialog is usable in zh
+00:26 +167: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: 360 dp scaled dark skip dialog is usable in zh
+00:26 +168: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 360.0dp short screen 1.6 type zh ThemeColorPreset.blue dark=false
+00:26 +169: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: long translated skip copy is readable at 360 dp and 1.6 scale
+00:26 +170: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: long translated skip copy is readable at 360 dp and 1.6 scale
+00:27 +171: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: long translated skip copy is readable at 360 dp and 1.6 scale
+00:27 +172: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_ui_test.dart: long translated skip copy is readable at 360 dp and 1.6 scale
+00:27 +173: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 360.0dp short screen 1.6 type zh ThemeColorPreset.violet dark=false
+00:27 +174: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 360.0dp short screen 1.6 type en ThemeColorPreset.violet dark=false
+00:28 +175: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 360.0dp short screen 1.6 type zh ThemeColorPreset.violet dark=true
+00:28 +176: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 360.0dp short screen 1.6 type en ThemeColorPreset.violet dark=true
+00:28 +177: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 360.0dp short screen 1.6 type zh ThemeColorPreset.graphite dark=false
+00:29 +178: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 360.0dp short screen 1.6 type en ThemeColorPreset.graphite dark=false
+00:29 +179: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 360.0dp short screen 1.6 type zh ThemeColorPreset.graphite dark=true
+00:29 +180: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 360.0dp short screen 1.6 type en ThemeColorPreset.graphite dark=true
+00:29 +181: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 430.0dp short screen 1.6 type zh ThemeColorPreset.teal dark=false
+00:30 +182: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 430.0dp short screen 1.6 type en ThemeColorPreset.teal dark=false
+00:30 +183: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 430.0dp short screen 1.6 type zh ThemeColorPreset.teal dark=true
+00:30 +184: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 430.0dp short screen 1.6 type en ThemeColorPreset.teal dark=true
+00:31 +185: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 430.0dp short screen 1.6 type zh ThemeColorPreset.blue dark=false
+00:31 +186: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 430.0dp short screen 1.6 type en ThemeColorPreset.blue dark=false
+00:31 +187: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 430.0dp short screen 1.6 type zh ThemeColorPreset.blue dark=true
+00:31 +188: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 430.0dp short screen 1.6 type en ThemeColorPreset.blue dark=true
+00:32 +189: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 430.0dp short screen 1.6 type zh ThemeColorPreset.violet dark=false
+00:32 +190: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 430.0dp short screen 1.6 type en ThemeColorPreset.violet dark=false
+00:32 +191: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 430.0dp short screen 1.6 type zh ThemeColorPreset.violet dark=true
+00:33 +192: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 430.0dp short screen 1.6 type en ThemeColorPreset.violet dark=true
+00:33 +193: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 430.0dp short screen 1.6 type zh ThemeColorPreset.graphite dark=false
+00:33 +194: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 430.0dp short screen 1.6 type en ThemeColorPreset.graphite dark=false
+00:33 +195: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 430.0dp short screen 1.6 type zh ThemeColorPreset.graphite dark=true
+00:34 +196: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 430.0dp short screen 1.6 type en ThemeColorPreset.graphite dark=true
+00:34 +197: All tests passed!

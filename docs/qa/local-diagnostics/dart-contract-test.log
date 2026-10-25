@@ -1,0 +1,23 @@
+{
+  "project": "D:\\000_MyLibrary\\100_code\\110_Project\\5_SetTrace",
+  "sdk": "D:\\ProgramData\\Android_SDK",
+  "avd": "D:\\ProgramData\\Android_AVD",
+  "androidUser": "D:\\ProgramData\\DevCache\\Android",
+  "gradle": "D:\\ProgramData\\DevCache\\Gradle",
+  "pub": "D:\\ProgramData\\DevCache\\Pub",
+  "temp": "D:\\ProgramData\\DevTemp\\add-local-diagnostics",
+  "flutter": "D:\\DevTools\\flutter",
+  "toolConfig": "D:\\ProgramData\\DevCache\\FlutterConfig",
+  "toolLocalCache": "D:\\ProgramData\\DevCache\\LocalAppData",
+  "jdk": "D:\\Program Files\\Android Studio\\jbr",
+  "avd:Pixel_7_Pro": "D:\\ProgramData\\Android_AVD\\Pixel_7_Pro.avd"
+}
+00:00 +0: loading D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostic_contract_test.dart
+00:00 +0: Dart and Kotlin event/enum vocabularies stay aligned
+00:00 +1: fields reject user strings, nonfinite values, and negative counters
+00:00 +2: stack contains only approved relative locations
+00:00 +3: commit and failed followup retain identity and original dataset epoch
+00:00 +4: logging remains nonthrowing and bounded when channel fails
+00:00 +5: closed logging and clear cannot revive queued old generation
+00:00 +6: NoOp supports repository observation without a platform
+00:00 +7: All tests passed!

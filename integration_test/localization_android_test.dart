@@ -24,7 +24,7 @@ void main() {
       await initializeDateFormatting();
       final prefs = await SharedPreferences.getInstance();
       await prefs.clear();
-      await prefs.setInt('app_notice_seen_version', 2);
+      await prefs.setInt('app_notice_seen_version', 3);
       final system = await initializeAppLocale(prefs);
       const expected = String.fromEnvironment(
         'EXPECTED_SYSTEM',

@@ -26,3 +26,9 @@
 当前默认 `openspec` PowerShell 包装器使用的 Node 曾在此沙箱遇到 `EPERM lstat`。本次使用本机已存在的可用 Node 直接运行同一个全局 OpenSpec 入口完成只读验证，未安装依赖、修改 PATH 或系统配置。若其他机器出现同类问题，应使用其可用运行时排查，不复制本机会话绝对路径到项目配置。
 
 真正的 UI／Android 验收清单位于 [acceptance-checklist.md](../acceptance-checklist.md)。后续用户已授权实施，新的 Flutter 结果单列在[实施报告](../../qa/focus-a-redesign-acceptance.md)，不改写本目录的设计资料历史结果。当前文档中的来源提交与既有 QA 图片仅用于核对功能覆盖。
+
+## 诊断与日志设计接入（2026-10-23）
+
+`diagnostics-ui-2026-10-23` 已确认UI并接入设计目录，程序待实现。资料与范围见[诊断设计入口](../diagnostics/README.md)，文档检查见[diagnostics/documentation-checks.json](../diagnostics/documentation-checks.json)。
+
+该报告核对本次资料中的相对链接、设计版本与L/INT/LOGUI编号、PNG/SVG资源和既有已认可画板的保持性；没有重新执行或改写早期documentation-checks.json、浏览器设计报告或已实施能力的验收结论。LOGUI-01–12均是后续运行验收条件，文档检查通过不代表Flutter、Android、权限、真实Download或TalkBack已通过。

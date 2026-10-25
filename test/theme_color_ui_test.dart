@@ -209,7 +209,7 @@ void main() {
     (t) async {
       sqfliteFfiInit();
       SharedPreferences.setMockInitialValues({
-        'app_notice_seen_version': 2,
+        'app_notice_seen_version': 3,
         'app_locale': 'en',
       });
       final prefs = await SharedPreferences.getInstance();

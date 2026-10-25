@@ -1,5 +1,8 @@
 import 'dart:async';
 
+import '../../core/diagnostics/diagnostic_contract.dart';
+import '../../core/diagnostics/diagnostics_client.dart';
+
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -99,7 +102,22 @@ class ThemeColorController extends ChangeNotifier {
       }
       if (saved) {
         _committed = target;
+        DiagnosticsClient.instance.event(
+          DiagnosticName.settingsSave,
+          phase: DiagnosticPhase.committed,
+          outcome: DiagnosticOutcome.committed,
+          fields: {
+            DiagnosticField.mode: DiagnosticValue.values.byName(target.name),
+          },
+        );
       } else {
+        DiagnosticsClient.instance.event(
+          DiagnosticName.settingsSave,
+          phase: DiagnosticPhase.failed,
+          outcome: DiagnosticOutcome.unknown,
+          reason: DiagnosticReason.write_failed,
+          level: DiagnosticSeverity.error,
+        );
         try {
           await store.recover(_committed);
         } catch (_) {

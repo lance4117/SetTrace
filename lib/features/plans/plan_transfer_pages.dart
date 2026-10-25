@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../../core/diagnostics/diagnostic_contract.dart';
+import '../../core/diagnostics/diagnostic_observation.dart';
+import '../../core/diagnostics/diagnostics_client.dart';
+
 import '../../l10n/localization.dart';
 import '../../l10n/error_messages.dart';
 
@@ -72,10 +76,18 @@ class _PlanExportPageState extends State<PlanExportPage> {
       );
       final LocalizedMessage result;
       if (file) {
-        final saved = await widget.platform.saveFile(text);
+        final saved = await diagnosticObserve(
+          DiagnosticsClient.instance,
+          DiagnosticName.transferExport,
+          () => widget.platform.saveFile(text),
+        );
         result = (l) => l.fileSaved(saved.fileName);
       } else {
-        await widget.platform.copyText(text);
+        await diagnosticObserve(
+          DiagnosticsClient.instance,
+          DiagnosticName.transferCopy,
+          () => widget.platform.copyText(text),
+        );
         result = (l) => l.copySuccess(plans.length);
       }
       if (mounted) {
@@ -245,7 +257,14 @@ class _PlanImportPageState extends State<PlanImportPage> {
   }
 
   Future<void> prepare(String text) async {
-    final parsed = PlanTransferCodec().decode(text);
+    final parsed = await diagnosticObserve(
+      DiagnosticsClient.instance,
+      DiagnosticName.transferParse,
+      () async => PlanTransferCodec().decode(text),
+      readOnly: true,
+      recordSuccess: false,
+    );
+    if (!mounted) return;
     previewSuffix = context.l10n.importSuffix;
     final resolved = await widget.plans.previewImport(
       parsed.plans,
@@ -284,6 +303,14 @@ class _PlanImportPageState extends State<PlanImportPage> {
   });
   Future<void> pick() => perform(() async {
     final text = await widget.platform.pickFile();
+    if (text == null) {
+      DiagnosticsClient.instance.event(
+        DiagnosticName.transferParse,
+        phase: DiagnosticPhase.cancelled,
+        outcome: DiagnosticOutcome.cancelled,
+        reason: DiagnosticReason.cancelled,
+      );
+    }
     if (text != null && mounted) await prepare(text);
   });
   Future<void> confirm() => perform(() async {

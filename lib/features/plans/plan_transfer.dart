@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:characters/characters.dart';
 
 import 'plan_models.dart';
+import '../../core/diagnostics/diagnostic_contract.dart';
+import '../../core/diagnostics/diagnostic_observation.dart';
 
 enum PlanTransferFailure {
   fileTooLarge,
@@ -44,7 +46,7 @@ class PlanTransferLocation {
       PlanTransferLocation(plan: plan, exercise: exercise, field: value);
 }
 
-class PlanTransferException implements Exception {
+class PlanTransferException implements Exception, DiagnosticClassifiedFailure {
   const PlanTransferException(
     this.code, {
     this.location = const PlanTransferLocation(),
@@ -54,6 +56,37 @@ class PlanTransferException implements Exception {
   final PlanTransferFailure code;
   final PlanTransferLocation location;
   final int min, max;
+  @override
+  DiagnosticReason get diagnosticReason => switch (code) {
+    PlanTransferFailure.fileTooLarge => DiagnosticReason.size_limit,
+    PlanTransferFailure.unsupportedVersion ||
+    PlanTransferFailure.fileUnsupported => DiagnosticReason.unsupported_version,
+    PlanTransferFailure.permissionDenied => DiagnosticReason.permission_denied,
+    PlanTransferFailure.plansChanged => DiagnosticReason.stale_position,
+    PlanTransferFailure.fileBusy => DiagnosticReason.busy,
+    PlanTransferFailure.fileReadFailed ||
+    PlanTransferFailure.fileEmpty => DiagnosticReason.read_failed,
+    PlanTransferFailure.fileSaveFailed ||
+    PlanTransferFailure.fileIncomplete ||
+    PlanTransferFailure.fileOperationFailed ||
+    PlanTransferFailure.fileNotDownloads => DiagnosticReason.write_failed,
+    PlanTransferFailure.clipboardCopyFailed ||
+    PlanTransferFailure.clipboardReadFailed ||
+    PlanTransferFailure.filePickerFailed => DiagnosticReason.platform,
+    _ => DiagnosticReason.invalid_format,
+  };
+  @override
+  bool get diagnosticRejection => !{
+    PlanTransferFailure.permissionDenied,
+    PlanTransferFailure.fileReadFailed,
+    PlanTransferFailure.fileSaveFailed,
+    PlanTransferFailure.fileIncomplete,
+    PlanTransferFailure.fileOperationFailed,
+    PlanTransferFailure.fileNotDownloads,
+    PlanTransferFailure.clipboardCopyFailed,
+    PlanTransferFailure.clipboardReadFailed,
+    PlanTransferFailure.filePickerFailed,
+  }.contains(code);
   @override
   String toString() => 'PlanTransferException(${code.name})';
 }
@@ -313,7 +346,11 @@ List<TransferPlan> resolveImportNames(
   }).toList();
 }
 
-class ImportNameConflict implements Exception {
+class ImportNameConflict implements Exception, DiagnosticClassifiedFailure {
   ImportNameConflict(this.plans);
   final List<TransferPlan> plans;
+  @override
+  DiagnosticReason get diagnosticReason => DiagnosticReason.name_conflict;
+  @override
+  bool get diagnosticRejection => true;
 }

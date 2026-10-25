@@ -1,3 +1,6 @@
+import '../../core/diagnostics/diagnostic_contract.dart';
+import '../../core/diagnostics/diagnostic_observation.dart';
+import '../../core/diagnostics/diagnostics_client.dart';
 import '../backup/data_write_coordinator.dart';
 
 import 'workout_failure.dart';
@@ -11,48 +14,94 @@ import '../rest_alerts/rest_alert_repository.dart';
 
 enum HistoryDeleteFailure { notFound, notSaved }
 
-class HistoryDeleteException implements Exception {
+class HistoryDeleteException implements Exception, DiagnosticClassifiedFailure {
   const HistoryDeleteException(this.reason);
   final HistoryDeleteFailure reason;
+  @override
+  DiagnosticReason get diagnosticReason =>
+      reason == HistoryDeleteFailure.notFound
+      ? DiagnosticReason.not_found
+      : DiagnosticReason.invalid_session;
+  @override
+  bool get diagnosticRejection => true;
 }
 
 class WorkoutRepository {
-  WorkoutRepository(this.db, {DateTime Function()? clock, this.coordinator})
-    : clock = clock ?? DateTime.now;
+  WorkoutRepository(
+    this.db, {
+    DateTime Function()? clock,
+    this.coordinator,
+    this.diagnostics,
+  }) : clock = clock ?? DateTime.now;
 
   final Database db;
   final DataWriteCoordinator? coordinator;
+  final DiagnosticsClient? diagnostics;
+  DiagnosticsClient get _diagnostics =>
+      diagnostics ?? DiagnosticsClient.instance;
+  Future<T> _transaction<T>(Future<T> Function(Transaction) action) =>
+      diagnosticTransaction(db, action);
+
   Future<T> _write<T>(Future<T> Function() action) =>
       coordinator?.write(action) ?? action();
   final DateTime Function() clock;
   void Function()? onChanged;
+  String? _lastHistoryDeleteOperationId;
+  String? get lastHistoryDeleteOperationId => _lastHistoryDeleteOperationId;
 
   Future<WorkoutSessionData> _committed(int id) async {
+    DiagnosticScope.current?.phase = DiagnosticPhase.readback;
     final data = (await getSession(id))!;
+    DiagnosticScope.current?.phase = DiagnosticPhase.refresh;
     onChanged?.call();
     return data;
   }
 
+  Map<DiagnosticField, Object> _diagnosticState(WorkoutSessionData value) => {
+    DiagnosticField.target_count: value.totalSets,
+    DiagnosticField.completed_count: value.completedSets,
+    DiagnosticField.skipped_count: value.exercises.fold<int>(
+      0,
+      (count, exercise) =>
+          count + exercise.sets.where((set) => set.skipped).length,
+    ),
+    if (value.restEndAt != null)
+      DiagnosticField.due_utc: value.restEndAt!.millisecondsSinceEpoch,
+  };
+
   int get _nowMs => clock().toUtc().millisecondsSinceEpoch;
 
-  Future<WorkoutSessionData?> getActive() => _write(() async {
-    return db.transaction((txn) async {
-      final rows = await txn.query(
-        'workout_sessions',
-        columns: ['id'],
-        where: "status = 'in_progress'",
-        limit: 1,
-      );
-      if (rows.isEmpty) return null;
-      final id = rows.first['id'] as int;
-      await _normalizeRest(txn, id);
-      await _repairCursor(txn, id);
-      return _readSession(txn, id);
-    });
-  });
+  Future<WorkoutSessionData?> getActive() => diagnosticObserve(
+    _diagnostics,
+    DiagnosticName.workoutRecover,
+    () => _write(() async {
+      return _transaction((txn) async {
+        final rows = await txn.query(
+          'workout_sessions',
+          columns: ['id'],
+          where: "status = 'in_progress'",
+          limit: 1,
+        );
+        if (rows.isEmpty) return null;
+        final id = rows.first['id'] as int;
+        await _normalizeRest(txn, id);
+        await _repairCursor(txn, id);
+        return _readSession(txn, id);
+      });
+    }),
+    objects: const <DiagnosticObject, int>{},
+    readOnly: true,
+    recordSuccess: false,
+  );
 
-  Future<WorkoutSessionData?> getSession(int id) =>
-      db.transaction((txn) => _readSession(txn, id));
+  Future<WorkoutSessionData?> getSession(int id) => diagnosticObserve(
+    _diagnostics,
+    DiagnosticName.workoutRecover,
+    () => _transaction((txn) => _readSession(txn, id)),
+    objects: {DiagnosticObject.session: id},
+    readOnly: true,
+    recordSuccess: false,
+  );
 
   Future<WorkoutSessionData?> _readSession(DatabaseExecutor db, int id) async {
     final rows = await db.query(
@@ -111,388 +160,456 @@ class WorkoutRepository {
     );
   }
 
-  Future<WorkoutSessionData> start(int planId) => _write(() async {
-    final id = await db.transaction((txn) async {
-      final active = await txn.query(
-        'workout_sessions',
-        columns: ['id'],
-        where: "status = 'in_progress'",
-        limit: 1,
-      );
-      if (active.isNotEmpty) {
-        throw WorkoutStateException(WorkoutFailure.activeExists);
-      }
-      final plans = await txn.query(
-        'plans',
-        where: 'id = ?',
-        whereArgs: [planId],
-        limit: 1,
-      );
-      if (plans.isEmpty) {
-        throw WorkoutStateException(WorkoutFailure.planNotFound);
-      }
-      final configured = await txn.query(
-        'plan_exercises',
-        where: 'plan_id = ?',
-        whereArgs: [planId],
-        orderBy: 'sort_order ASC',
-      );
-      if (configured.isEmpty) {
-        throw WorkoutStateException(WorkoutFailure.emptyPlan);
-      }
-      final now = clock();
-      final local = now.toLocal();
-      final localDate =
-          '${local.year.toString().padLeft(4, '0')}-'
-          '${local.month.toString().padLeft(2, '0')}-'
-          '${local.day.toString().padLeft(2, '0')}';
-      final sessionId = await txn.insert('workout_sessions', {
-        'source_plan_id': planId,
-        'plan_name_snapshot': plans.first['name'],
-        'started_at': now.toUtc().millisecondsSinceEpoch,
-        'started_local_date': localDate,
-        'status': 'in_progress',
-        'current_exercise_order': 1,
-        'current_set_number': 1,
-      });
-      for (var i = 0; i < configured.length; i++) {
-        final source = configured[i];
-        final exerciseId = await txn.insert('session_exercises', {
-          'session_id': sessionId,
-          'source_exercise_id': source['id'],
-          'name_snapshot': source['name'],
-          'sort_order': i + 1,
-          'target_sets': source['target_sets'],
-          'rest_between_sets_seconds': source['rest_between_sets_seconds'],
-          'rest_after_exercise_seconds': source['rest_after_exercise_seconds'],
-          'default_weight_kg': source['default_weight_kg'],
+  Future<WorkoutSessionData> start(int planId) => diagnosticObserve(
+    _diagnostics,
+    DiagnosticName.workoutStart,
+    () => _write(() async {
+      final id = await _transaction((txn) async {
+        final active = await txn.query(
+          'workout_sessions',
+          columns: ['id'],
+          where: "status = 'in_progress'",
+          limit: 1,
+        );
+        if (active.isNotEmpty) {
+          throw WorkoutStateException(WorkoutFailure.activeExists);
+        }
+        final plans = await txn.query(
+          'plans',
+          where: 'id = ?',
+          whereArgs: [planId],
+          limit: 1,
+        );
+        if (plans.isEmpty) {
+          throw WorkoutStateException(WorkoutFailure.planNotFound);
+        }
+        final configured = await txn.query(
+          'plan_exercises',
+          where: 'plan_id = ?',
+          whereArgs: [planId],
+          orderBy: 'sort_order ASC',
+        );
+        if (configured.isEmpty) {
+          throw WorkoutStateException(WorkoutFailure.emptyPlan);
+        }
+        final now = clock();
+        final local = now.toLocal();
+        final localDate =
+            '${local.year.toString().padLeft(4, '0')}-'
+            '${local.month.toString().padLeft(2, '0')}-'
+            '${local.day.toString().padLeft(2, '0')}';
+        final sessionId = await txn.insert('workout_sessions', {
+          'source_plan_id': planId,
+          'plan_name_snapshot': plans.first['name'],
+          'started_at': now.toUtc().millisecondsSinceEpoch,
+          'started_local_date': localDate,
+          'status': 'in_progress',
+          'current_exercise_order': 1,
+          'current_set_number': 1,
         });
-        if (i == 0) {
-          await txn.update(
-            'workout_sessions',
-            {'current_session_exercise_id': exerciseId},
-            where: 'id = ?',
-            whereArgs: [sessionId],
-          );
-        }
-        for (
-          var number = 1;
-          number <= (source['target_sets'] as int);
-          number++
-        ) {
-          await txn.insert('session_sets', {
-            'session_exercise_id': exerciseId,
-            'set_number': number,
+        for (var i = 0; i < configured.length; i++) {
+          final source = configured[i];
+          final exerciseId = await txn.insert('session_exercises', {
+            'session_id': sessionId,
+            'source_exercise_id': source['id'],
+            'name_snapshot': source['name'],
+            'sort_order': i + 1,
+            'target_sets': source['target_sets'],
+            'rest_between_sets_seconds': source['rest_between_sets_seconds'],
+            'rest_after_exercise_seconds':
+                source['rest_after_exercise_seconds'],
+            'default_weight_kg': source['default_weight_kg'],
           });
+          if (i == 0) {
+            await txn.update(
+              'workout_sessions',
+              {'current_session_exercise_id': exerciseId},
+              where: 'id = ?',
+              whereArgs: [sessionId],
+            );
+          }
+          for (
+            var number = 1;
+            number <= (source['target_sets'] as int);
+            number++
+          ) {
+            await txn.insert('session_sets', {
+              'session_exercise_id': exerciseId,
+              'set_number': number,
+            });
+          }
         }
-      }
-      return sessionId;
-    });
-    return _committed(id);
-  });
+        return sessionId;
+      });
+      return _committed(id);
+    }),
+    objects: {DiagnosticObject.plan: planId},
+    resultObjects: (value) => {DiagnosticObject.session: value.id},
+    resultFields: _diagnosticState,
+  );
 
   Future<WorkoutSessionData> completeSet(
     int sessionId, {
     required int expectedExerciseId,
     required int expectedSetNumber,
-  }) => _write(() async {
-    await db.transaction((txn) async {
-      final session = await _activeRow(txn, sessionId);
-      if (session['rest_end_at'] != null) {
-        throw WorkoutStateException(WorkoutFailure.restActive);
-      }
-      if (session['current_session_exercise_id'] != expectedExerciseId ||
-          session['current_set_number'] != expectedSetNumber) {
-        throw WorkoutStateException(WorkoutFailure.positionChanged);
-      }
-      final exercise = (await txn.query(
-        'session_exercises',
-        where: 'session_id = ? AND id = ?',
-        whereArgs: [sessionId, expectedExerciseId],
-        limit: 1,
-      )).single;
-      final sequence = await txn.rawQuery(
-        '''
+  }) => diagnosticObserve(
+    _diagnostics,
+    DiagnosticName.workoutComplete,
+    () => _write(() async {
+      await _transaction((txn) async {
+        final session = await _activeRow(txn, sessionId);
+        if (session['rest_end_at'] != null) {
+          throw WorkoutStateException(WorkoutFailure.restActive);
+        }
+        if (session['current_session_exercise_id'] != expectedExerciseId ||
+            session['current_set_number'] != expectedSetNumber) {
+          throw WorkoutStateException(WorkoutFailure.positionChanged);
+        }
+        final exercise = (await txn.query(
+          'session_exercises',
+          where: 'session_id = ? AND id = ?',
+          whereArgs: [sessionId, expectedExerciseId],
+          limit: 1,
+        )).single;
+        final sequence = await txn.rawQuery(
+          '''
         SELECT COALESCE(MAX(ss.completed_sequence), 0) AS last_sequence
         FROM session_sets ss JOIN session_exercises se ON se.id = ss.session_exercise_id
         WHERE se.session_id = ?
       ''',
-        [sessionId],
-      );
-      final now = _nowMs;
-      await RestAlertRepository.cancel(txn, sessionId);
-      final changed = await txn.update(
-        'session_sets',
-        {
-          'completed_at': now,
-          'completed_sequence': (sequence.single['last_sequence'] as int) + 1,
-        },
-        where: 'session_exercise_id = ? AND set_number = ? AND completed_at IS NULL AND skipped_at IS NULL',
-        whereArgs: [expectedExerciseId, expectedSetNumber],
-      );
-      if (changed != 1) {
-        throw WorkoutStateException(WorkoutFailure.setAlreadyCompleted);
-      }
-      final pending = await _pendingSets(txn, sessionId);
-      final same = pending
-          .where((row) => row['exercise_id'] == expectedExerciseId)
-          .firstOrNull;
-      final next = same ?? pending.firstOrNull;
-      final restSeconds = same != null
-          ? exercise['rest_between_sets_seconds'] as int
-          : next != null
-          ? exercise['rest_after_exercise_seconds'] as int
-          : 0;
-      await txn.update(
-        'workout_sessions',
-        {
-          'current_session_exercise_id':
-              next?['exercise_id'] ?? expectedExerciseId,
-          'current_exercise_order':
-              next?['sort_order'] ?? exercise['sort_order'],
-          'current_set_number': next?['set_number'] ?? expectedSetNumber,
-          'rest_kind': restSeconds == 0
-              ? null
-              : same != null
-              ? 'between_sets'
-              : 'between_exercises',
-          'rest_started_at': restSeconds == 0 ? null : now,
-          'rest_end_at': restSeconds == 0 ? null : now + restSeconds * 1000,
-        },
-        where: 'id = ?',
-        whereArgs: [sessionId],
-      );
-      await RestAlertRepository.refresh(txn, sessionId);
-    });
-    return _committed(sessionId);
-  });
+          [sessionId],
+        );
+        final now = _nowMs;
+        await RestAlertRepository.cancel(txn, sessionId);
+        final changed = await txn.update(
+          'session_sets',
+          {
+            'completed_at': now,
+            'completed_sequence': (sequence.single['last_sequence'] as int) + 1,
+          },
+          where: 'session_exercise_id = ? AND set_number = ? AND completed_at IS NULL AND skipped_at IS NULL',
+          whereArgs: [expectedExerciseId, expectedSetNumber],
+        );
+        if (changed != 1) {
+          throw WorkoutStateException(WorkoutFailure.setAlreadyCompleted);
+        }
+        final pending = await _pendingSets(txn, sessionId);
+        final same = pending
+            .where((row) => row['exercise_id'] == expectedExerciseId)
+            .firstOrNull;
+        final next = same ?? pending.firstOrNull;
+        final restSeconds = same != null
+            ? exercise['rest_between_sets_seconds'] as int
+            : next != null
+            ? exercise['rest_after_exercise_seconds'] as int
+            : 0;
+        await txn.update(
+          'workout_sessions',
+          {
+            'current_session_exercise_id':
+                next?['exercise_id'] ?? expectedExerciseId,
+            'current_exercise_order':
+                next?['sort_order'] ?? exercise['sort_order'],
+            'current_set_number': next?['set_number'] ?? expectedSetNumber,
+            'rest_kind': restSeconds == 0
+                ? null
+                : same != null
+                ? 'between_sets'
+                : 'between_exercises',
+            'rest_started_at': restSeconds == 0 ? null : now,
+            'rest_end_at': restSeconds == 0 ? null : now + restSeconds * 1000,
+          },
+          where: 'id = ?',
+          whereArgs: [sessionId],
+        );
+        await RestAlertRepository.refresh(txn, sessionId);
+      });
+      return _committed(sessionId);
+    }),
+    objects: {DiagnosticObject.session: sessionId},
+    resultObjects: (value) => {DiagnosticObject.session: value.id},
+    resultFields: _diagnosticState,
+  );
 
   Future<WorkoutSessionData> reorder(
     int sessionId,
     List<int> orderedIds, {
     required String expectedToken,
-  }) => _write(() async {
-    final result = await db.transaction((txn) async {
-      await _activeRow(txn, sessionId);
-      final data = (await _readSession(txn, sessionId))!;
-      if (data.reorderToken != expectedToken) {
-        throw WorkoutStateException(WorkoutFailure.workoutChanged);
-      }
-      final candidates = data.movableExercises;
-      final existing = candidates.map((e) => e.id).toSet();
-      if (!data.canReorder ||
-          orderedIds.length != existing.length ||
-          orderedIds.toSet().length != existing.length ||
-          !orderedIds.toSet().containsAll(existing)) {
-        throw WorkoutValidationException(WorkoutFailure.invalidOrder);
-      }
-      final slots = candidates.map((e) => e.sortOrder).toList();
-      for (var i = 0; i < orderedIds.length; i++) {
-        await txn.update(
+  }) => diagnosticObserve(
+    _diagnostics,
+    DiagnosticName.workoutReorder,
+    () => _write(() async {
+      final result = await _transaction((txn) async {
+        await _activeRow(txn, sessionId);
+        final data = (await _readSession(txn, sessionId))!;
+        if (data.reorderToken != expectedToken) {
+          throw WorkoutStateException(WorkoutFailure.workoutChanged);
+        }
+        final candidates = data.movableExercises;
+        final existing = candidates.map((e) => e.id).toSet();
+        if (!data.canReorder ||
+            orderedIds.length != existing.length ||
+            orderedIds.toSet().length != existing.length ||
+            !orderedIds.toSet().containsAll(existing)) {
+          throw WorkoutValidationException(WorkoutFailure.invalidOrder);
+        }
+        final slots = candidates.map((e) => e.sortOrder).toList();
+        for (var i = 0; i < orderedIds.length; i++) {
+          await txn.update(
+            'session_exercises',
+            {'sort_order': -slots[i]},
+            where: 'id = ? AND session_id = ?',
+            whereArgs: [orderedIds[i], sessionId],
+          );
+        }
+        for (var i = 0; i < orderedIds.length; i++) {
+          await txn.update(
+            'session_exercises',
+            {'sort_order': slots[i]},
+            where: 'id = ? AND session_id = ?',
+            whereArgs: [orderedIds[i], sessionId],
+          );
+        }
+        final currentId = data.currentExercise.movable
+            ? orderedIds.first
+            : data.currentExercise.id;
+        final current = (await txn.query(
           'session_exercises',
-          {'sort_order': -slots[i]},
           where: 'id = ? AND session_id = ?',
-          whereArgs: [orderedIds[i], sessionId],
-        );
-      }
-      for (var i = 0; i < orderedIds.length; i++) {
+          whereArgs: [currentId, sessionId],
+        )).single;
         await txn.update(
-          'session_exercises',
-          {'sort_order': slots[i]},
-          where: 'id = ? AND session_id = ?',
-          whereArgs: [orderedIds[i], sessionId],
+          'workout_sessions',
+          {
+            'current_session_exercise_id': currentId,
+            'current_exercise_order': current['sort_order'],
+            'current_set_number': data.currentExercise.movable
+                ? 1
+                : data.currentSetNumber,
+          },
+          where: 'id = ?',
+          whereArgs: [sessionId],
         );
-      }
-      final currentId = data.currentExercise.movable
-          ? orderedIds.first
-          : data.currentExercise.id;
-      final current = (await txn.query(
-        'session_exercises',
-        where: 'id = ? AND session_id = ?',
-        whereArgs: [currentId, sessionId],
-      )).single;
-      await txn.update(
-        'workout_sessions',
-        {
-          'current_session_exercise_id': currentId,
-          'current_exercise_order': current['sort_order'],
-          'current_set_number': data.currentExercise.movable
-              ? 1
-              : data.currentSetNumber,
-        },
-        where: 'id = ?',
-        whereArgs: [sessionId],
-      );
-      await _normalizeRest(txn, sessionId);
-      await RestAlertRepository.refresh(txn, sessionId);
-      return (await _readSession(txn, sessionId))!;
-    });
-    onChanged?.call();
-    return result;
-  });
+        await _normalizeRest(txn, sessionId);
+        await RestAlertRepository.refresh(txn, sessionId);
+        return (await _readSession(txn, sessionId))!;
+      });
+      DiagnosticScope.current?.phase = DiagnosticPhase.refresh;
+      onChanged?.call();
+      return result;
+    }),
+    objects: {DiagnosticObject.session: sessionId},
+    resultObjects: (value) => {DiagnosticObject.session: value.id},
+    resultFields: _diagnosticState,
+  );
 
   Future<WorkoutSessionData> skipRemainingSets(
     int sessionId, {
     required int expectedExerciseId,
     required String expectedToken,
-  }) => _write(() async {
-    await db.transaction((txn) async {
-      await _activeRow(txn, sessionId);
-      final data = (await _readSession(txn, sessionId))!;
-      if (data.reorderToken != expectedToken ||
-          data.currentExercise.id != expectedExerciseId) {
-        throw WorkoutStateException(WorkoutFailure.workoutChanged);
-      }
-      if (!data.canSkipRemaining) {
-        throw WorkoutStateException(WorkoutFailure.cannotSkip);
-      }
-      final batch = await txn.insert('session_skip_batches', {
-        'session_id': sessionId,
-        'session_exercise_id': expectedExerciseId,
-        'created_at': _nowMs,
+  }) => diagnosticObserve(
+    _diagnostics,
+    DiagnosticName.workoutSkipRemaining,
+    () => _write(() async {
+      await _transaction((txn) async {
+        await _activeRow(txn, sessionId);
+        final data = (await _readSession(txn, sessionId))!;
+        if (data.reorderToken != expectedToken ||
+            data.currentExercise.id != expectedExerciseId) {
+          throw WorkoutStateException(WorkoutFailure.workoutChanged);
+        }
+        if (!data.canSkipRemaining) {
+          throw WorkoutStateException(WorkoutFailure.cannotSkip);
+        }
+        final batch = await txn.insert('session_skip_batches', {
+          'session_id': sessionId,
+          'session_exercise_id': expectedExerciseId,
+          'created_at': _nowMs,
+        });
+        await txn.update(
+          'session_sets',
+          {'skipped_at': _nowMs, 'skip_batch_id': batch},
+          where: 'session_exercise_id = ? AND completed_at IS NULL AND skipped_at IS NULL',
+          whereArgs: [expectedExerciseId],
+        );
+        await _clearRest(txn, sessionId);
+        await _repairCursor(txn, sessionId);
       });
-      await txn.update(
-        'session_sets',
-        {'skipped_at': _nowMs, 'skip_batch_id': batch},
-        where: 'session_exercise_id = ? AND completed_at IS NULL AND skipped_at IS NULL',
-        whereArgs: [expectedExerciseId],
-      );
-      await _clearRest(txn, sessionId);
-      await _repairCursor(txn, sessionId);
-    });
-    return _committed(sessionId);
-  });
+      return _committed(sessionId);
+    }),
+    objects: {DiagnosticObject.session: sessionId},
+    resultObjects: (value) => {DiagnosticObject.session: value.id},
+    resultFields: _diagnosticState,
+  );
 
   Future<WorkoutSessionData> undoLastSkip(
     int sessionId, {
     required int expectedBatchId,
     required String expectedToken,
-  }) => _write(() async {
-    await db.transaction((txn) async {
-      await _activeRow(txn, sessionId);
-      final data = (await _readSession(txn, sessionId))!;
-      if (data.reorderToken != expectedToken ||
-          data.lastSkipBatchId != expectedBatchId) {
-        throw WorkoutStateException(WorkoutFailure.workoutChanged);
-      }
-      final rows = await txn.rawQuery(
-        """
+  }) => diagnosticObserve(
+    _diagnostics,
+    DiagnosticName.workoutRestoreSkipped,
+    () => _write(() async {
+      await _transaction((txn) async {
+        await _activeRow(txn, sessionId);
+        final data = (await _readSession(txn, sessionId))!;
+        if (data.reorderToken != expectedToken ||
+            data.lastSkipBatchId != expectedBatchId) {
+          throw WorkoutStateException(WorkoutFailure.workoutChanged);
+        }
+        final rows = await txn.rawQuery(
+          """
         SELECT ss.set_number, se.id AS exercise_id, se.sort_order
         FROM session_sets ss JOIN session_exercises se ON se.id = ss.session_exercise_id
         WHERE se.session_id = ? AND ss.skip_batch_id = ? AND ss.skipped_at IS NOT NULL
         ORDER BY ss.set_number
       """,
-        [sessionId, expectedBatchId],
-      );
-      if (rows.isEmpty) {
-        throw WorkoutStateException(WorkoutFailure.noSkipToUndo);
-      }
-      await txn.update(
-        'session_sets',
-        {'skipped_at': null, 'skip_batch_id': null},
-        where: 'skip_batch_id = ? AND skipped_at IS NOT NULL',
-        whereArgs: [expectedBatchId],
-      );
-      await txn.update(
-        'session_skip_batches',
-        {'undone_at': _nowMs},
-        where: 'id = ? AND session_id = ?',
-        whereArgs: [expectedBatchId, sessionId],
-      );
-      await _clearRest(txn, sessionId);
-      await txn.update(
-        'workout_sessions',
-        {
-          'current_session_exercise_id': rows.first['exercise_id'],
-          'current_exercise_order': rows.first['sort_order'],
-          'current_set_number': rows.first['set_number'],
-        },
-        where: 'id = ?',
-        whereArgs: [sessionId],
-      );
-    });
-    return _committed(sessionId);
-  });
+          [sessionId, expectedBatchId],
+        );
+        if (rows.isEmpty) {
+          throw WorkoutStateException(WorkoutFailure.noSkipToUndo);
+        }
+        await txn.update(
+          'session_sets',
+          {'skipped_at': null, 'skip_batch_id': null},
+          where: 'skip_batch_id = ? AND skipped_at IS NOT NULL',
+          whereArgs: [expectedBatchId],
+        );
+        await txn.update(
+          'session_skip_batches',
+          {'undone_at': _nowMs},
+          where: 'id = ? AND session_id = ?',
+          whereArgs: [expectedBatchId, sessionId],
+        );
+        await _clearRest(txn, sessionId);
+        await txn.update(
+          'workout_sessions',
+          {
+            'current_session_exercise_id': rows.first['exercise_id'],
+            'current_exercise_order': rows.first['sort_order'],
+            'current_set_number': rows.first['set_number'],
+          },
+          where: 'id = ?',
+          whereArgs: [sessionId],
+        );
+      });
+      return _committed(sessionId);
+    }),
+    objects: {DiagnosticObject.session: sessionId},
+    resultObjects: (value) => {DiagnosticObject.session: value.id},
+    resultFields: _diagnosticState,
+  );
 
-  Future<WorkoutSessionData> undoLastSet(int sessionId) => _write(() async {
-    await db.transaction((txn) async {
-      await _activeRow(txn, sessionId);
-      final rows = await txn.rawQuery(
-        '''
+  Future<WorkoutSessionData> undoLastSet(int sessionId) => diagnosticObserve(
+    _diagnostics,
+    DiagnosticName.workoutUndoComplete,
+    () => _write(() async {
+      await _transaction((txn) async {
+        await _activeRow(txn, sessionId);
+        final rows = await txn.rawQuery(
+          '''
         SELECT ss.id, ss.set_number, se.sort_order, se.id AS exercise_id
         FROM session_sets ss JOIN session_exercises se
           ON se.id = ss.session_exercise_id
         WHERE se.session_id = ? AND ss.completed_at IS NOT NULL
         ORDER BY ss.completed_sequence DESC, ss.completed_at DESC, ss.id DESC LIMIT 1
       ''',
-        [sessionId],
-      );
-      if (rows.isEmpty) throw WorkoutStateException(WorkoutFailure.noSetToUndo);
-      final last = rows.first;
-      await _clearRest(txn, sessionId);
-      await txn.update(
-        'session_sets',
-        {'completed_at': null, 'completed_sequence': null},
-        where: 'id = ?',
-        whereArgs: [last['id']],
-      );
-      await txn.update(
-        'workout_sessions',
-        {
-          'current_exercise_order': last['sort_order'],
-          'current_session_exercise_id': last['exercise_id'],
-          'current_set_number': last['set_number'],
-          'rest_kind': null,
-          'rest_started_at': null,
-          'rest_end_at': null,
-        },
-        where: 'id = ?',
-        whereArgs: [sessionId],
-      );
-    });
-    return _committed(sessionId);
-  });
+          [sessionId],
+        );
+        if (rows.isEmpty) {
+          throw WorkoutStateException(WorkoutFailure.noSetToUndo);
+        }
+        final last = rows.first;
+        await _clearRest(txn, sessionId);
+        await txn.update(
+          'session_sets',
+          {'completed_at': null, 'completed_sequence': null},
+          where: 'id = ?',
+          whereArgs: [last['id']],
+        );
+        await txn.update(
+          'workout_sessions',
+          {
+            'current_exercise_order': last['sort_order'],
+            'current_session_exercise_id': last['exercise_id'],
+            'current_set_number': last['set_number'],
+            'rest_kind': null,
+            'rest_started_at': null,
+            'rest_end_at': null,
+          },
+          where: 'id = ?',
+          whereArgs: [sessionId],
+        );
+      });
+      return _committed(sessionId);
+    }),
+    objects: {DiagnosticObject.session: sessionId},
+    resultObjects: (value) => {DiagnosticObject.session: value.id},
+    resultFields: _diagnosticState,
+  );
 
   Future<WorkoutSessionData> adjustRest(int sessionId, int deltaSeconds) =>
-      _write(() async {
-        if (deltaSeconds % 30 != 0) {
-          throw WorkoutValidationException(WorkoutFailure.invalidConfiguration);
-        }
-        await db.transaction((txn) async {
-          final row = await _activeRow(txn, sessionId);
-          final end = row['rest_end_at'] as int?;
-          if (end == null || end <= _nowMs) {
-            throw WorkoutStateException(WorkoutFailure.noRest);
-          }
-          final updated = end + deltaSeconds * 1000;
-          if (updated <= _nowMs) {
-            await _clearRest(txn, sessionId);
-          } else {
-            await txn.update(
-              'workout_sessions',
-              {'rest_end_at': updated},
-              where: 'id = ?',
-              whereArgs: [sessionId],
+      diagnosticObserve(
+        _diagnostics,
+        DiagnosticName.workoutRestAdjust,
+        () => _write(() async {
+          if (deltaSeconds % 30 != 0) {
+            throw WorkoutValidationException(
+              WorkoutFailure.invalidConfiguration,
             );
-            await RestAlertRepository.refresh(txn, sessionId);
           }
-        });
-        return _committed(sessionId);
+          await _transaction((txn) async {
+            final row = await _activeRow(txn, sessionId);
+            final end = row['rest_end_at'] as int?;
+            if (end == null || end <= _nowMs) {
+              throw WorkoutStateException(WorkoutFailure.noRest);
+            }
+            final updated = end + deltaSeconds * 1000;
+            if (updated <= _nowMs) {
+              await _clearRest(txn, sessionId);
+            } else {
+              await txn.update(
+                'workout_sessions',
+                {'rest_end_at': updated},
+                where: 'id = ?',
+                whereArgs: [sessionId],
+              );
+              await RestAlertRepository.refresh(txn, sessionId);
+            }
+          });
+          return _committed(sessionId);
+        }),
+        objects: {DiagnosticObject.session: sessionId},
+        resultObjects: (value) => {DiagnosticObject.session: value.id},
+        resultFields: _diagnosticState,
+      );
+
+  Future<WorkoutSessionData> skipRest(int sessionId) => diagnosticObserve(
+    _diagnostics,
+    DiagnosticName.workoutRestEnd,
+    () => _write(() async {
+      await _transaction((txn) async {
+        final row = await _activeRow(txn, sessionId);
+        if (row['rest_end_at'] == null) {
+          throw WorkoutStateException(WorkoutFailure.noRest);
+        }
+        await _clearRest(txn, sessionId);
       });
+      return _committed(sessionId);
+    }),
+    objects: {DiagnosticObject.session: sessionId},
+    resultObjects: (value) => {DiagnosticObject.session: value.id},
+    resultFields: _diagnosticState,
+  );
 
-  Future<WorkoutSessionData> skipRest(int sessionId) => _write(() async {
-    await db.transaction((txn) async {
-      final row = await _activeRow(txn, sessionId);
-      if (row['rest_end_at'] == null) {
-        throw WorkoutStateException(WorkoutFailure.noRest);
-      }
-      await _clearRest(txn, sessionId);
-    });
-    return _committed(sessionId);
-  });
-
-  Future<void> normalizeRest(int sessionId) =>
-      _write(() => db.transaction((txn) => _normalizeRest(txn, sessionId)));
+  Future<void> normalizeRest(int sessionId) => diagnosticObserve(
+    _diagnostics,
+    DiagnosticName.workoutRecover,
+    () => _write(() => _transaction((txn) => _normalizeRest(txn, sessionId))),
+    objects: {DiagnosticObject.session: sessionId},
+    readOnly: true,
+    recordSuccess: false,
+  );
 
   Future<void> _normalizeRest(DatabaseExecutor txn, int sessionId) async {
     final rows = await txn.query(
@@ -505,6 +622,13 @@ class WorkoutRepository {
     final end = rows.first['rest_end_at'] as int?;
     if (end != null && end <= _nowMs) {
       await _clearRest(txn, sessionId, natural: true);
+      diagnosticCorrection(
+        _diagnostics,
+        DiagnosticName.workoutRecover,
+        reason: DiagnosticReason.expired,
+        objects: {DiagnosticObject.session: sessionId},
+        fields: {DiagnosticField.due_utc: end},
+      );
     }
   }
 
@@ -514,164 +638,202 @@ class WorkoutRepository {
     required int targetSets,
     required int restBetweenSetsSeconds,
     required int restAfterExerciseSeconds,
-  }) => _write(() async {
-    if (targetSets < 1 ||
-        restBetweenSetsSeconds < 0 ||
-        restAfterExerciseSeconds < 0 ||
-        restBetweenSetsSeconds % 30 != 0 ||
-        restAfterExerciseSeconds % 30 != 0) {
-      throw WorkoutValidationException(WorkoutFailure.invalidConfiguration);
-    }
-    await db.transaction((txn) async {
-      await _activeRow(txn, sessionId);
-      final rows = await txn.query(
-        'session_exercises',
-        where: 'id = ? AND session_id = ?',
-        whereArgs: [exerciseId, sessionId],
-        limit: 1,
-      );
-      if (rows.isEmpty) {
-        throw WorkoutStateException(WorkoutFailure.exerciseNotFound);
+  }) => diagnosticObserve(
+    _diagnostics,
+    DiagnosticName.workoutEdit,
+    () => _write(() async {
+      if (targetSets < 1 ||
+          restBetweenSetsSeconds < 0 ||
+          restAfterExerciseSeconds < 0 ||
+          restBetweenSetsSeconds % 30 != 0 ||
+          restAfterExerciseSeconds % 30 != 0) {
+        throw WorkoutValidationException(WorkoutFailure.invalidConfiguration);
       }
-      final exercise = rows.first;
-      final skipped = await txn.query(
-        'session_sets',
-        columns: ['id'],
-        where: 'session_exercise_id = ? AND skipped_at IS NOT NULL',
-        whereArgs: [exerciseId],
-        limit: 1,
-      );
-      if (skipped.isNotEmpty) {
-        throw WorkoutStateException(WorkoutFailure.skippedExercise);
-      }
-      final countRows = await txn.rawQuery(
-        '''
+      await _transaction((txn) async {
+        await _activeRow(txn, sessionId);
+        final rows = await txn.query(
+          'session_exercises',
+          where: 'id = ? AND session_id = ?',
+          whereArgs: [exerciseId, sessionId],
+          limit: 1,
+        );
+        if (rows.isEmpty) {
+          throw WorkoutStateException(WorkoutFailure.exerciseNotFound);
+        }
+        final exercise = rows.first;
+        final skipped = await txn.query(
+          'session_sets',
+          columns: ['id'],
+          where: 'session_exercise_id = ? AND skipped_at IS NOT NULL',
+          whereArgs: [exerciseId],
+          limit: 1,
+        );
+        if (skipped.isNotEmpty) {
+          throw WorkoutStateException(WorkoutFailure.skippedExercise);
+        }
+        final countRows = await txn.rawQuery(
+          '''
         SELECT COUNT(*) AS count FROM session_sets
         WHERE session_exercise_id = ? AND completed_at IS NOT NULL
       ''',
-        [exerciseId],
-      );
-      final completed = countRows.first['count'] as int;
-      if (completed == exercise['target_sets']) {
-        throw WorkoutStateException(WorkoutFailure.completedExercise);
-      }
-      if (targetSets < completed) {
-        throw WorkoutValidationException(WorkoutFailure.targetBelowCompleted);
-      }
-      final oldTarget = exercise['target_sets'] as int;
-      if (targetSets > oldTarget) {
-        for (var number = oldTarget + 1; number <= targetSets; number++) {
-          await txn.insert('session_sets', {
-            'session_exercise_id': exerciseId,
-            'set_number': number,
-          });
-        }
-      } else if (targetSets < oldTarget) {
-        await txn.delete(
-          'session_sets',
-          where: 'session_exercise_id = ? AND set_number > ? AND completed_at IS NULL',
-          whereArgs: [exerciseId, targetSets],
+          [exerciseId],
         );
-      }
-      await txn.update(
-        'session_exercises',
-        {
-          'target_sets': targetSets,
-          'rest_between_sets_seconds': restBetweenSetsSeconds,
-          'rest_after_exercise_seconds': restAfterExerciseSeconds,
-        },
-        where: 'id = ?',
-        whereArgs: [exerciseId],
-      );
-      await _repairCursor(txn, sessionId);
-    });
-    return _committed(sessionId);
-  });
+        final completed = countRows.first['count'] as int;
+        if (completed == exercise['target_sets']) {
+          throw WorkoutStateException(WorkoutFailure.completedExercise);
+        }
+        if (targetSets < completed) {
+          throw WorkoutValidationException(WorkoutFailure.targetBelowCompleted);
+        }
+        final oldTarget = exercise['target_sets'] as int;
+        if (targetSets > oldTarget) {
+          for (var number = oldTarget + 1; number <= targetSets; number++) {
+            await txn.insert('session_sets', {
+              'session_exercise_id': exerciseId,
+              'set_number': number,
+            });
+          }
+        } else if (targetSets < oldTarget) {
+          await txn.delete(
+            'session_sets',
+            where: 'session_exercise_id = ? AND set_number > ? AND completed_at IS NULL',
+            whereArgs: [exerciseId, targetSets],
+          );
+        }
+        await txn.update(
+          'session_exercises',
+          {
+            'target_sets': targetSets,
+            'rest_between_sets_seconds': restBetweenSetsSeconds,
+            'rest_after_exercise_seconds': restAfterExerciseSeconds,
+          },
+          where: 'id = ?',
+          whereArgs: [exerciseId],
+        );
+        await _repairCursor(txn, sessionId);
+      });
+      return _committed(sessionId);
+    }),
+    objects: {DiagnosticObject.session: sessionId},
+    resultObjects: (value) => {DiagnosticObject.session: value.id},
+    resultFields: _diagnosticState,
+  );
 
-  Future<WorkoutSessionData> finish(int sessionId) => _write(() async {
-    await db.transaction((txn) async {
-      final row = await _activeRow(txn, sessionId);
-      final completed = await txn.rawQuery(
-        '''
+  Future<WorkoutSessionData> finish(int sessionId) => diagnosticObserve(
+    _diagnostics,
+    DiagnosticName.workoutSave,
+    () => _write(() async {
+      await _transaction((txn) async {
+        final row = await _activeRow(txn, sessionId);
+        final completed = await txn.rawQuery(
+          '''
         SELECT COUNT(*) AS count FROM session_sets ss
         JOIN session_exercises se ON se.id = ss.session_exercise_id
         WHERE se.session_id = ? AND ss.completed_at IS NOT NULL
       ''',
-        [sessionId],
-      );
-      if ((completed.first['count'] as int) == 0) {
-        throw WorkoutStateException(WorkoutFailure.emptyWorkout);
-      }
-      final now = _nowMs;
-      final duration = math.max(0, (now - (row['started_at'] as int)) ~/ 1000);
-      await RestAlertRepository.cancel(txn, sessionId);
-      await txn.update(
-        'workout_sessions',
-        {
-          'status': 'completed',
-          'ended_at': now,
-          'duration_seconds': duration,
-          'rest_kind': null,
-          'rest_started_at': null,
-          'rest_end_at': null,
-        },
-        where: 'id = ?',
-        whereArgs: [sessionId],
-      );
-    });
-    return _committed(sessionId);
-  });
+          [sessionId],
+        );
+        if ((completed.first['count'] as int) == 0) {
+          throw WorkoutStateException(WorkoutFailure.emptyWorkout);
+        }
+        final now = _nowMs;
+        final duration = math.max(
+          0,
+          (now - (row['started_at'] as int)) ~/ 1000,
+        );
+        await RestAlertRepository.cancel(txn, sessionId);
+        await txn.update(
+          'workout_sessions',
+          {
+            'status': 'completed',
+            'ended_at': now,
+            'duration_seconds': duration,
+            'rest_kind': null,
+            'rest_started_at': null,
+            'rest_end_at': null,
+          },
+          where: 'id = ?',
+          whereArgs: [sessionId],
+        );
+      });
+      return _committed(sessionId);
+    }),
+    objects: {DiagnosticObject.session: sessionId},
+    resultObjects: (value) => {DiagnosticObject.session: value.id},
+    resultFields: _diagnosticState,
+  );
 
-  Future<void> discard(int sessionId) => _write(() async {
-    await db.transaction((txn) async {
-      await _activeRow(txn, sessionId);
-      await RestAlertRepository.cancel(txn, sessionId);
-      await txn.delete(
-        'workout_sessions',
-        where: 'id = ?',
-        whereArgs: [sessionId],
-      );
-    });
-    onChanged?.call();
-  });
+  Future<void> discard(int sessionId) => diagnosticObserve(
+    _diagnostics,
+    DiagnosticName.workoutDiscard,
+    () => _write(() async {
+      await _transaction((txn) async {
+        await _activeRow(txn, sessionId);
+        await RestAlertRepository.cancel(txn, sessionId);
+        await txn.delete(
+          'workout_sessions',
+          where: 'id = ?',
+          whereArgs: [sessionId],
+        );
+      });
+      DiagnosticScope.current?.phase = DiagnosticPhase.refresh;
+      onChanged?.call();
+    }),
+    objects: {DiagnosticObject.session: sessionId},
+  );
 
-  Future<void> deleteHistory(int sessionId) => _write(() async {
-    await db.transaction((txn) async {
-      final rows = await txn.query(
-        'workout_sessions',
-        columns: ['status'],
-        where: 'id = ?',
-        whereArgs: [sessionId],
-      );
-      if (rows.isEmpty) {
-        throw const HistoryDeleteException(HistoryDeleteFailure.notFound);
-      }
-      if (rows.single['status'] != 'completed') {
-        throw const HistoryDeleteException(HistoryDeleteFailure.notSaved);
-      }
-      final deleted = await txn.delete(
-        'workout_sessions',
-        where: "id = ? AND status = 'completed'",
-        whereArgs: [sessionId],
-      );
-      if (deleted != 1) {
-        throw const HistoryDeleteException(HistoryDeleteFailure.notFound);
-      }
-    });
-  });
+  Future<void> deleteHistory(int sessionId) => diagnosticObserve(
+    _diagnostics,
+    DiagnosticName.historyDelete,
+    () => _write(() async {
+      await _transaction((txn) async {
+        final rows = await txn.query(
+          'workout_sessions',
+          columns: ['status'],
+          where: 'id = ?',
+          whereArgs: [sessionId],
+        );
+        if (rows.isEmpty) {
+          throw const HistoryDeleteException(HistoryDeleteFailure.notFound);
+        }
+        if (rows.single['status'] != 'completed') {
+          throw const HistoryDeleteException(HistoryDeleteFailure.notSaved);
+        }
+        final deleted = await txn.delete(
+          'workout_sessions',
+          where: "id = ? AND status = 'completed'",
+          whereArgs: [sessionId],
+        );
+        if (deleted != 1) {
+          throw const HistoryDeleteException(HistoryDeleteFailure.notFound);
+        }
+      });
+      _lastHistoryDeleteOperationId = DiagnosticScope.current?.operation.id;
+    }),
+    objects: {DiagnosticObject.session: sessionId},
+  );
 
   Future<List<WorkoutSessionData>> listHistory() async {
-    final rows = await db.query(
-      'workout_sessions',
-      columns: ['id'],
-      where: "status = 'completed'",
-      orderBy: 'started_at DESC',
+    return diagnosticObserve(
+      _diagnostics,
+      DiagnosticName.historyRead,
+      () async {
+        final rows = await db.query(
+          'workout_sessions',
+          columns: ['id'],
+          where: "status = 'completed'",
+          orderBy: 'started_at DESC',
+        );
+        final result = <WorkoutSessionData>[];
+        for (final row in rows) {
+          result.add((await getSession(row['id'] as int))!);
+        }
+        return result;
+      },
+      objects: const <DiagnosticObject, int>{},
+      readOnly: true,
+      recordSuccess: false,
     );
-    final result = <WorkoutSessionData>[];
-    for (final row in rows) {
-      result.add((await getSession(row['id'] as int))!);
-    }
-    return result;
   }
 
   Future<Map<String, Object?>> _activeRow(Transaction txn, int id) async {
@@ -734,6 +896,22 @@ class WorkoutRepository {
               .where((e) => e['id'] == row['current_session_exercise_id'])
               .firstOrNull ??
           exercises.last;
+      if (row['current_session_exercise_id'] != last['id'] ||
+          row['current_set_number'] != last['target_sets'] ||
+          row['rest_end_at'] != null) {
+        diagnosticCorrection(
+          _diagnostics,
+          DiagnosticName.workoutRecover,
+          reason: DiagnosticReason.condition_mismatch,
+          objects: {DiagnosticObject.session: id},
+          fields: {
+            if (row['current_set_number'] is int)
+              DiagnosticField.before_count: row['current_set_number'] as int,
+            if (last['target_sets'] is int)
+              DiagnosticField.after_count: last['target_sets'] as int,
+          },
+        );
+      }
       await txn.update(
         'workout_sessions',
         {
@@ -753,6 +931,18 @@ class WorkoutRepository {
     final next = current ?? pending.first;
     if (row['current_session_exercise_id'] != next['exercise_id'] ||
         row['current_set_number'] != next['set_number']) {
+      diagnosticCorrection(
+        _diagnostics,
+        DiagnosticName.workoutRecover,
+        reason: DiagnosticReason.stale_position,
+        objects: {DiagnosticObject.session: id},
+        fields: {
+          if (row['current_set_number'] is int)
+            DiagnosticField.before_count: row['current_set_number'] as int,
+          if (next['set_number'] is int)
+            DiagnosticField.after_count: next['set_number'] as int,
+        },
+      );
       await _clearRest(txn, id);
     }
     await txn.update(

@@ -22,7 +22,7 @@ void main() {
             addTearDown(t.view.resetPhysicalSize);
             addTearDown(t.view.resetDevicePixelRatio);
             SharedPreferences.setMockInitialValues({
-              'app_notice_seen_version': 2,
+              'app_notice_seen_version': 3,
             });
             final f = (await t.runAsync(
               () => FocusScene.create(
@@ -109,7 +109,7 @@ void main() {
             addTearDown(t.view.resetPhysicalSize);
             addTearDown(t.view.resetDevicePixelRatio);
             SharedPreferences.setMockInitialValues({
-              'app_notice_seen_version': 2,
+              'app_notice_seen_version': 3,
             });
             final f = (await t.runAsync(
               () => FocusScene.create(

@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="1138" viewBox="0 0 1040 1138">
+<rect width="100%" height="100%" fill="#E9EEEC"/>
+<text x="40" y="28" font-family="Microsoft YaHei, sans-serif" font-size="14" font-weight="700" dominant-baseline="text-before-edge" fill="#076D5C">SETTRACE  /  设置页修订</text>
+<text x="40" y="60" font-family="Microsoft YaHei, sans-serif" font-size="28" font-weight="700" dominant-baseline="text-before-edge" fill="#19262C">沿用最新设置，只增加一行诊断入口</text>
+<text x="40" y="107" font-family="Microsoft YaHei, sans-serif" font-size="14" font-weight="400" dominant-baseline="text-before-edge" fill="#586970">完整设置保留原顺序；下图为数据与关于分区局部，非固定高度单屏。</text>
+<text x="40" y="159" font-family="Microsoft YaHei, sans-serif" font-size="18" font-weight="700" dominant-baseline="text-before-edge" fill="#19262C">L00  设置 · 入口局部放大</text>
+<rect x="40" y="198" width="390" height="828" rx="20" fill="#F5F7F8" stroke="#AAB8B2" stroke-width="1"/>
+<text x="64" y="222" font-family="Microsoft YaHei, sans-serif" font-size="18" font-weight="400" dominant-baseline="text-before-edge" fill="#586970">数据</text>
+<rect x="64" y="254" width="342" height="192" rx="16" fill="#FFFFFF" stroke="#DBE3E5" stroke-width="1"/>
+<text x="80" y="282" font-family="Microsoft YaHei, sans-serif" font-size="18" font-weight="400" dominant-baseline="text-before-edge" fill="#19262C">备份与恢复</text>
+<text x="80" y="310" font-family="Microsoft YaHei, sans-serif" font-size="18" font-weight="400" dominant-baseline="text-before-edge" fill="#586970">完整备份、恢复与撤回</text>
+<polyline points="377,299 382,304 377,309" fill="none" stroke="#586970" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="80,350 390,350" fill="none" stroke="#DBE3E5" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="80" y="378" font-family="Microsoft YaHei, sans-serif" font-size="18" font-weight="400" dominant-baseline="text-before-edge" fill="#19262C">诊断与日志</text>
+<text x="80" y="406" font-family="Microsoft YaHei, sans-serif" font-size="18" font-weight="400" dominant-baseline="text-before-edge" fill="#586970">导出诊断包，帮助排查问题</text>
+<polyline points="377,395 382,400 377,405" fill="none" stroke="#586970" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="64" y="478" font-family="Microsoft YaHei, sans-serif" font-size="18" font-weight="400" dominant-baseline="text-before-edge" fill="#586970">关于 SetTrace</text>
+<rect x="64" y="510" width="342" height="432" rx="16" fill="#FFFFFF" stroke="#DBE3E5" stroke-width="1"/>
+<g transform="translate(76 524) scale(0.4)" style="color:#153C34"><ns0:path xmlns:ns0="http://www.w3.org/2000/svg" d="M40.9294 29.21474L30.7712 73.21474A5.4 5.4 0 0 1 20.248 70.78526L30.4062 26.78526A5.4 5.4 0 0 1 40.9294 29.21474Z" fill="currentColor" /><ns0:path xmlns:ns0="http://www.w3.org/2000/svg" d="M61.9294 29.21474L51.7712 73.21474A5.4 5.4 0 0 1 41.248 70.78526L51.4062 26.78526A5.4 5.4 0 0 1 61.9294 29.21474Z" fill="currentColor" /><ns0:path xmlns:ns0="http://www.w3.org/2000/svg" d="M82.9294 29.21474L80.07731 41.56847A5.4 5.4 0 0 1 69.55412 39.139L72.4062 26.78526A5.4 5.4 0 0 1 82.9294 29.21474Z" fill="currentColor" /><ns0:path xmlns:ns0="http://www.w3.org/2000/svg" d="M75.62328 60.861L72.7712 73.21474A5.4 5.4 0 0 1 62.248 70.78526L65.10009 58.43153A5.4 5.4 0 0 1 75.62328 60.861Z" fill="currentColor" /></g>
+<text x="137" y="533" font-family="Microsoft YaHei, sans-serif" font-size="26" font-weight="700" dominant-baseline="text-before-edge" fill="#19262C">SetTrace</text>
+<text x="80" y="588" font-family="Microsoft YaHei, sans-serif" font-size="18" font-weight="400" dominant-baseline="text-before-edge" fill="#19262C">轻量、离线的训练记录工具，专注每一</text>
+<text x="80" y="613" font-family="Microsoft YaHei, sans-serif" font-size="18" font-weight="400" dominant-baseline="text-before-edge" fill="#19262C">组。</text>
+<text x="80" y="653" font-family="Microsoft YaHei, sans-serif" font-size="18" font-weight="400" dominant-baseline="text-before-edge" fill="#586970">版本 0.2.4 (10)</text>
+<polyline points="80,696 390,696" fill="none" stroke="#DBE3E5" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="80" y="725" font-family="Microsoft YaHei, sans-serif" font-size="18" font-weight="400" dominant-baseline="text-before-edge" fill="#19262C">项目主页</text>
+<polyline points="387,735 387,742 374,742 374,729 381,729" fill="none" stroke="#586970" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="380,736 390,726 382,726 390,726 390,734" fill="none" stroke="#586970" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="80" y="781" font-family="Microsoft YaHei, sans-serif" font-size="18" font-weight="400" dominant-baseline="text-before-edge" fill="#19262C">问题反馈</text>
+<polyline points="387,791 387,798 374,798 374,785 381,785" fill="none" stroke="#586970" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="380,792 390,782 382,782 390,782 390,790" fill="none" stroke="#586970" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="80" y="837" font-family="Microsoft YaHei, sans-serif" font-size="18" font-weight="400" dominant-baseline="text-before-edge" fill="#19262C">隐私与数据说明</text>
+<polyline points="377,840 382,845 377,850" fill="none" stroke="#586970" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="80" y="893" font-family="Microsoft YaHei, sans-serif" font-size="18" font-weight="400" dominant-baseline="text-before-edge" fill="#19262C">第三方开源许可</text>
+<polyline points="377,896 382,901 377,906" fill="none" stroke="#586970" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="64" y="968" font-family="Microsoft YaHei, sans-serif" font-size="13" font-weight="400" dominant-baseline="text-before-edge" fill="#586970">数据保存在本机。请导出完整备份以长期保留已保存训练。</text>
+<text x="40" y="1048" font-family="Microsoft YaHei, sans-serif" font-size="13" font-weight="400" dominant-baseline="text-before-edge" fill="#586970">局部内容随页面滚动；底部导航仍固定。</text>
+<text x="505" y="208" font-family="Microsoft YaHei, sans-serif" font-size="14" font-weight="700" dominant-baseline="text-before-edge" fill="#076D5C">本次唯一新增</text>
+<text x="505" y="245" font-family="Microsoft YaHei, sans-serif" font-size="26" font-weight="700" dominant-baseline="text-before-edge" fill="#19262C">诊断与日志</text>
+<text x="505" y="290" font-family="Microsoft YaHei, sans-serif" font-size="16" font-weight="400" dominant-baseline="text-before-edge" fill="#586970">导出诊断包，帮助排查问题</text>
+<polyline points="420,388 470,388 470,323 505,323" fill="none" stroke="#087F6B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="505" y="371" font-family="Microsoft YaHei, sans-serif" font-size="18" font-weight="700" dominant-baseline="text-before-edge" fill="#19262C">与备份入口同层级</text>
+<text x="505" y="412" font-family="Microsoft YaHei, sans-serif" font-size="15" font-weight="400" dominant-baseline="text-before-edge" fill="#586970">同一卡片、相同文字样式和右箭头。</text>
+<text x="505" y="443" font-family="Microsoft YaHei, sans-serif" font-size="15" font-weight="400" dominant-baseline="text-before-edge" fill="#586970">点击进入此前认可的诊断与日志主页。</text>
+<text x="505" y="474" font-family="Microsoft YaHei, sans-serif" font-size="15" font-weight="400" dominant-baseline="text-before-edge" fill="#586970">不在设置首页直接放导出或清空按钮。</text>
+<text x="505" y="548" font-family="Microsoft YaHei, sans-serif" font-size="18" font-weight="700" dominant-baseline="text-before-edge" fill="#19262C">保留最新设置的完整内容</text>
+<text x="505" y="594" font-family="Microsoft YaHei, sans-serif" font-size="15" font-weight="400" dominant-baseline="text-before-edge" fill="#586970">外观三选一与四种主题色</text>
+<text x="505" y="634" font-family="Microsoft YaHei, sans-serif" font-size="15" font-weight="400" dominant-baseline="text-before-edge" fill="#586970">English / 中文语言选择</text>
+<text x="505" y="674" font-family="Microsoft YaHei, sans-serif" font-size="15" font-weight="400" dominant-baseline="text-before-edge" fill="#586970">提示音及试听、振动、重复提醒与间隔</text>
+<text x="505" y="714" font-family="Microsoft YaHei, sans-serif" font-size="15" font-weight="400" dominant-baseline="text-before-edge" fill="#586970">备份与恢复入口</text>
+<text x="505" y="754" font-family="Microsoft YaHei, sans-serif" font-size="15" font-weight="400" dominant-baseline="text-before-edge" fill="#586970">正式品牌、版本和关于中的全部链接</text>
+<text x="505" y="794" font-family="Microsoft YaHei, sans-serif" font-size="15" font-weight="400" dominant-baseline="text-before-edge" fill="#586970">计划 / 记录 / 设置底部导航</text>
+<text x="505" y="901" font-family="Microsoft YaHei, sans-serif" font-size="16" font-weight="700" dominant-baseline="text-before-edge" fill="#076D5C">其他诊断页面沿用上一版设计。</text>
+<text x="40" y="1096" font-family="Microsoft YaHei, sans-serif" font-size="12" font-weight="400" dominant-baseline="text-before-edge" fill="#586970">设计草图 · 以本次提供的最新设置截图为依据 · 未修改 APP 功能代码</text>
+</svg>

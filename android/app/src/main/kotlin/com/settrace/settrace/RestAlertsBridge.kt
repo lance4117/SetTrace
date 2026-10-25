@@ -18,6 +18,17 @@ import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 
 internal object RestAlertsRuntime {
+    private fun diagnostic(context: Context, name: String, phase: String, outcome: String = "observed", reason: String = "none",
+                           id: Int? = null, session: Int? = null, epoch: Long? = null, operation: String? = null,
+                           attributes: Map<String, Any?> = emptyMap(), error: Throwable? = null) {
+        try {
+            DiagnosticsRuntime.get(context).record(name, phase, outcome, reason, if (error == null) "info" else "error",
+                objects = buildMap { if (id != null && id > 0) put("rest_alert", id.toLong()); if (session != null && session > 0) put("session", session.toLong()) },
+                attributes = attributes, epoch = epoch, operationId = operation, frames = error?.let { DiagnosticPrivacy.frames(it) }.orEmpty())
+        } catch (_: Exception) { /* logging cannot change reminder delivery */ }
+    }
+    fun failed(context: Context, error: Throwable) = diagnostic(context, "rest.output", "failed", "unknown",
+        if (error is RestStoreUnavailable) error.reason else "platform", error = error)
     const val CHANNEL = "settrace_rest_end_v1"
     const val EXTRA_SESSION = "rest_session_id"
     const val ACTION = "com.settrace.settrace.REST_ENDED"
@@ -77,20 +88,25 @@ internal object RestAlertsRuntime {
         return Build.VERSION.SDK_INT < 26 || (manager.getNotificationChannel(prefs(context).getString("current_channel", CHANNEL)!!)?.importance ?: NotificationManager.IMPORTANCE_NONE) != NotificationManager.IMPORTANCE_NONE
     }
     fun exactAllowed(context: Context): Boolean = Build.VERSION.SDK_INT < 31 || context.getSystemService(AlarmManager::class.java).canScheduleExactAlarms()
-    fun alarmIntent(context: Context, id: Int, revision: Int, flags: Int, sequence: Int = 0): PendingIntent? {
+    fun alarmIntent(context: Context, id: Int, revision: Int, flags: Int, sequence: Int = 0, diagnosticOperation: String? = null): PendingIntent? {
         val intent = Intent(context, RestEndedReceiver::class.java).apply {
             action = ACTION; data = Uri.parse("settrace://rest-alert/$id")
             putExtra("id", id); putExtra("revision", revision); putExtra("sequence", sequence)
+            if (diagnosticOperation != null) putExtra("diagnostic_operation", diagnosticOperation)
         }
         return PendingIntent.getBroadcast(context, id, intent, flags or PendingIntent.FLAG_IMMUTABLE)
     }
-    fun schedule(context: Context, id: Int, revision: Int, due: Long, sequence: Int = 0) {
-        val operation = alarmIntent(context, id, revision, PendingIntent.FLAG_UPDATE_CURRENT, sequence)!!
+    fun schedule(context: Context, id: Int, revision: Int, due: Long, sequence: Int = 0, diagnosticOperation: String? = null, epoch: Long? = null) {
+        val trace = diagnosticOperation?.takeIf { DiagnosticVocabulary.token.matches(it) } ?: java.util.UUID.randomUUID().toString().replace("-", "")
+        val operation = alarmIntent(context, id, revision, PendingIntent.FLAG_UPDATE_CURRENT, sequence, trace)!!
         val alarms = context.getSystemService(AlarmManager::class.java)
-        if (exactAllowed(context)) alarms.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, due, operation)
+        val exact = exactAllowed(context)
+        if (exact) alarms.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, due, operation)
         else alarms.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, due, operation)
         val ids = prefs(context).getStringSet("ids", emptySet())!!.toMutableSet().apply { add(id.toString()) }
         check(prefs(context).edit().putStringSet("ids", ids).commit()) { "preferenceWriteFailed" }
+        diagnostic(context, if (sequence == 0) "rest.schedule" else "rest.next", "schedule", id = id, epoch = epoch, operation = trace,
+            attributes = mapOf("revision" to revision, "round" to sequence, "due_utc" to due, "actual_utc" to System.currentTimeMillis(), "exact_allowed" to exact, "mode" to if (exact) "exact" else "inexact"))
     }
     private fun cancelAlarm(context: Context, id: Int) {
         alarmIntent(context, id, 0, PendingIntent.FLAG_NO_CREATE)?.let {
@@ -104,6 +120,7 @@ internal object RestAlertsRuntime {
             cancelAlarm(context, value.toInt()); notificationManager(context).cancel(value.toInt())
             onMain { if (playingId == value.toInt()) stopPlayback(context) }
             ids.remove(value)
+            diagnostic(context, "rest.cancel", "cancelled", "observed", id = value.toInt())
         }
         check(prefs(context).edit().putStringSet("ids", ids).commit()) { "preferenceWriteFailed" }
     }
@@ -125,6 +142,7 @@ internal object RestAlertsRuntime {
     fun stopOutput(context: Context, id: Int) {
         cancelAlarm(context, id); notificationManager(context).cancel(id)
         onMain { if (playingId == id) stopPlayback(context) }
+        diagnostic(context, "rest.cancel", "cancelled", "observed", id = id)
     }
     fun stopPreview(context: Context) = onMain { if (playingId == -1) stopPlayback(context) }
     private fun play(context: Context, uri: Uri, id: Int) {
@@ -181,17 +199,31 @@ internal object RestAlertsRuntime {
             notify(context,event,channelId,silent = true)
         }
     }
-    fun deliver(context: Context, id: Int, revision: Int, sequence: Int = 0) {
-        val event = RestAlertsStore.withDatabase(context) { RestAlertsStore.claim(it, id, revision, System.currentTimeMillis(), sequence) } ?: return
+    fun deliver(context: Context, id: Int, revision: Int, sequence: Int = 0, diagnosticOperation: String? = null) {
+        val trace = diagnosticOperation?.takeIf { DiagnosticVocabulary.token.matches(it) } ?: java.util.UUID.randomUUID().toString().replace("-", "")
+        val event = RestAlertsStore.withDatabase(context) { RestAlertsStore.claim(it, id, revision, System.currentTimeMillis(), sequence) { observation ->
+            diagnostic(context, "rest.claim", "claim", if (observation.claimed) "committed" else "rejected", observation.reason,
+                id = id, epoch = observation.epoch, operation = trace, attributes = buildMap {
+                    put("revision", revision); put("round", sequence); put("actual_utc", observation.now)
+                    observation.due?.let { put("due_utc", it) }
+                })
+        } } ?: return
         val channelId = ensureChannel(context, event.settings)
         prefs(context).edit().putString("current_channel", channelId).apply()
         onMain {
-            if (!RestAlertsStore.withDatabase(context) { RestAlertsStore.valid(it, event) }) return@onMain
+            if (!RestAlertsStore.withDatabase(context) { RestAlertsStore.valid(it, event) }) {
+                diagnostic(context, "rest.output", "rejected", "rejected", "condition_mismatch", id, event.sessionId, event.diagnosticEpoch, trace)
+                return@onMain
+            }
+            var requestedSound = false
+            var requestedVibration = false
+            var requestedNotification = false
+            val notifications = notificationsAllowed(context)
             if (foreground) {
                 bridge.get()?.delivered(event)
                 if (soundAllowed(context, channelId)) {
                     val uri = if (Build.VERSION.SDK_INT >= 26) notificationManager(context).getNotificationChannel(channelId)?.sound else asset(context, event.settings.sound)
-                    if (uri != null) play(context, uri, event.id)
+                    if (uri != null) { play(context, uri, event.id); requestedSound = true }
                 }
                 val audio = context.getSystemService(AudioManager::class.java)
                 val channel = if (Build.VERSION.SDK_INT >= 26) notificationManager(context).getNotificationChannel(channelId) else null
@@ -199,16 +231,24 @@ internal object RestAlertsRuntime {
                     notificationManager(context).currentInterruptionFilter == NotificationManager.INTERRUPTION_FILTER_ALL &&
                     (Build.VERSION.SDK_INT < 26 || (channel?.shouldVibrate() == true && channel.importance >= NotificationManager.IMPORTANCE_DEFAULT))) {
                     playingId = event.id
+                    requestedVibration = true
                     if (Build.VERSION.SDK_INT >= 26) vibrator(context).vibrate(VibrationEffect.createWaveform(longArrayOf(0, 160, 120, 160), -1), attributes())
                     else @Suppress("DEPRECATION") vibrator(context).vibrate(longArrayOf(0, 160, 120, 160), -1)
                 }
-            } else if (notificationsAllowed(context)) {
+            } else if (notifications) {
                 notify(context, event, channelId, silent = false)
+                requestedNotification = true
             }
+            val channelAllowed = Build.VERSION.SDK_INT < 26 || (notificationManager(context).getNotificationChannel(channelId)?.importance ?: 0) != NotificationManager.IMPORTANCE_NONE
+            diagnostic(context, "rest.output", "output", reason = if (!foreground && !notifications) "permission_denied" else "none",
+                id = id, session = event.sessionId, epoch = event.diagnosticEpoch, operation = trace,
+                attributes = mapOf("revision" to revision, "round" to event.sequence, "actual_utc" to System.currentTimeMillis(), "foreground" to foreground,
+                    "sound" to requestedSound, "vibrate" to requestedVibration, "enabled" to requestedNotification,
+                    "notifications_allowed" to notifications, "channel_allowed" to channelAllowed))
         }
         if (event.nextAt != null && (foreground || notificationsAllowed(context)) &&
             RestAlertsStore.withDatabase(context) { RestAlertsStore.valid(it, event) }) {
-            schedule(context, event.id, event.revision, event.nextAt, event.sequence)
+            schedule(context, event.id, event.revision, event.nextAt, event.sequence, trace, event.diagnosticEpoch)
         }
     }
 }
@@ -219,8 +259,8 @@ class RestEndedReceiver : BroadcastReceiver() {
         val pending = goAsync()
         RestAlertsRuntime.io.execute {
             try { RestAlertsRuntime.deliver(context.applicationContext, intent.getIntExtra("id", -1),
-                intent.getIntExtra("revision", -1), intent.getIntExtra("sequence", -1)) }
-            catch (error: Exception) { android.util.Log.w("SetTraceRest", "reminderDeliveryFailed", error) }
+                intent.getIntExtra("revision", -1), intent.getIntExtra("sequence", -1), intent.getStringExtra("diagnostic_operation")) }
+            catch (error: Exception) { RestAlertsRuntime.failed(context, error) }
             finally { pending.finish() }
         }
     }
@@ -286,9 +326,9 @@ class RestAlertsBridge(private val activity: Activity, messenger: BinaryMessenge
                     "capabilities" -> mapOf("notifications" to RestAlertsRuntime.notificationsAllowed(activity), "exact" to RestAlertsRuntime.exactAllowed(activity))
                     "schedule" -> {
                         val at = call.argument<Number>("next_delivery_at") ?: call.argument<Number>("due_at")!!
-                        RestAlertsRuntime.schedule(activity, call.argument<Number>("id")!!.toInt(), call.argument<Number>("revision")!!.toInt(), at.toLong(), call.argument<Number>("delivery_sequence")?.toInt() ?: 0); null
+                        RestAlertsRuntime.schedule(activity, call.argument<Number>("id")!!.toInt(), call.argument<Number>("revision")!!.toInt(), at.toLong(), call.argument<Number>("delivery_sequence")?.toInt() ?: 0, call.argument<String>("diagnostic_operation"), call.argument<Number>("diagnostic_epoch")?.toLong()); null
                     }
-                    "deliver" -> { RestAlertsRuntime.deliver(activity, call.argument<Number>("id")!!.toInt(), call.argument<Number>("revision")!!.toInt(), call.argument<Number>("sequence")?.toInt() ?: 0); null }
+                    "deliver" -> { RestAlertsRuntime.deliver(activity, call.argument<Number>("id")!!.toInt(), call.argument<Number>("revision")!!.toInt(), call.argument<Number>("sequence")?.toInt() ?: 0, call.argument<String>("diagnostic_operation")); null }
                     "cancelExcept" -> { RestAlertsRuntime.cancelExcept(activity, (call.argument<List<Number>>("ids") ?: emptyList()).map { it.toInt().toString() }.toSet()); null }
                     "refreshNotification" -> { RestAlertsRuntime.refreshNotification(activity,call.argument<Number>("id")!!.toInt(),call.argument<Number>("revision")!!.toInt()); null }
                     "stopOutput" -> { RestAlertsRuntime.stopOutput(activity, call.argument<Number>("id")!!.toInt()); null }
@@ -297,7 +337,7 @@ class RestAlertsBridge(private val activity: Activity, messenger: BinaryMessenge
                     else -> throw IllegalArgumentException("unknownMethod")
                 }
                 RestAlertsRuntime.main.post { result.success(output) }
-            } catch (error: Exception) { RestAlertsRuntime.main.post { result.error("reminderOperationFailed", error.javaClass.simpleName, null) } }
+            } catch (error: Exception) { RestAlertsRuntime.failed(activity, error); RestAlertsRuntime.main.post { result.error("reminderOperationFailed", error.javaClass.simpleName, null) } }
         }
     }
     fun dispose() {

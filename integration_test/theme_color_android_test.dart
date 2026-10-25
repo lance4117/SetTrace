@@ -21,7 +21,7 @@ void main() {
       );
     }
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setInt('app_notice_seen_version', 2);
+    await prefs.setInt('app_notice_seen_version', 3);
     await prefs.setString('theme_mode', 'light');
     await prefs.remove('theme_color');
     final db = await AppDatabase.open();

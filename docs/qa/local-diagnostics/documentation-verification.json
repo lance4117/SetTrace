@@ -1,0 +1,17 @@
+{
+  "date": "2026-10-24",
+  "documents": [
+    "docs/design/diagnostics/README.md",
+    "docs/design/diagnostics/ui-spec.md",
+    "docs/design/diagnostics/implementation-handoff.md",
+    "docs/qa/local-diagnostics-acceptance.md",
+    "docs/qa/local-diagnostics/README.md",
+    "lib/core/diagnostics/README.md",
+    "lib/core/diagnostics/storage-and-control.md",
+    "lib/core/diagnostics/export-format.md",
+    "lib/core/diagnostics/faults-and-operations.md"
+  ],
+  "relative_links_checked": 93,
+  "broken_links": [],
+  "scope": "Implementation documentation links only; not a device acceptance substitute"
+}

@@ -29,7 +29,7 @@ class FailingPreferences extends InMemorySharedPreferencesStore {
   FailingPreferences()
     : super.withData({
         'flutter.app_language': 'zh',
-        'flutter.app_notice_seen_version': 2,
+        'flutter.app_notice_seen_version': 3,
       });
   bool fail = true;
   @override
@@ -81,7 +81,7 @@ void main() {
     );
     SharedPreferences.setMockInitialValues({
       languagePreferenceKey: 'zh',
-      'app_notice_seen_version': 2,
+      'app_notice_seen_version': 3,
     });
     preferences = await SharedPreferences.getInstance();
     dir = await Directory.systemTemp.createTemp('settrace_locale_ui_');

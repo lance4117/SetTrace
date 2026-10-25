@@ -41,7 +41,7 @@ void main() {
       expect(find.byType(AppNoticeDialog), findsOneWidget);
       await t.tap(find.byKey(const ValueKey('notice-confirm')));
       await t.pumpAndSettle();
-      expect(prefs.getInt(noticePreferenceKey), 1);
+      expect(prefs.getInt(noticePreferenceKey), currentNoticeVersion);
       if (after) {
         final document = const PlanTransferCodec().decode(
           utf8.decode(base64Decode(encoded)),

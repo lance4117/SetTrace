@@ -1,5 +1,8 @@
 import 'dart:convert';
 
+import '../../core/diagnostics/diagnostic_contract.dart';
+import '../../core/diagnostics/diagnostic_observation.dart';
+
 const backupMaxBytes = 64 * 1024 * 1024;
 const backupMaxDepth = 32;
 const backupMaxInteger = 9007199254740991;
@@ -24,9 +27,34 @@ enum BackupFailure {
   missingCopy,
 }
 
-class BackupException implements Exception {
+class BackupException implements Exception, DiagnosticClassifiedFailure {
   const BackupException(this.code);
   final BackupFailure code;
+  @override
+  DiagnosticReason get diagnosticReason => switch (code) {
+    BackupFailure.tooLarge => DiagnosticReason.size_limit,
+    BackupFailure.unsupportedVersion => DiagnosticReason.unsupported_version,
+    BackupFailure.activeWorkout => DiagnosticReason.active_session,
+    BackupFailure.busy => DiagnosticReason.busy,
+    BackupFailure.stalePreview => DiagnosticReason.stale_position,
+    BackupFailure.readFailed ||
+    BackupFailure.missingCopy => DiagnosticReason.read_failed,
+    BackupFailure.storage ||
+    BackupFailure.deleteFailed ||
+    BackupFailure.protection => DiagnosticReason.storage_unavailable,
+    BackupFailure.indeterminate => DiagnosticReason.unknown,
+    _ => DiagnosticReason.invalid_format,
+  };
+  @override
+  bool get diagnosticRejection => !{
+    BackupFailure.storage,
+    BackupFailure.readFailed,
+    BackupFailure.deleteFailed,
+    BackupFailure.protection,
+    BackupFailure.rolledBack,
+    BackupFailure.indeterminate,
+    BackupFailure.missingCopy,
+  }.contains(code);
   @override
   String toString() => 'BackupException(${code.name})';
 }

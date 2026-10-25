@@ -1765,7 +1765,7 @@
   "@noticePrivacyTitle": {
     "description": "App information and local data notice: noticePrivacyTitle"
   },
-  "noticePrivacyBody": "No account is required. SetTrace does not collect or upload your personal information or usage data, and the app itself does not initiate network connections. External links, such as the project page, open in your browser and may use the internet.",
+  "noticePrivacyBody": "No account is required. SetTrace does not automatically collect or upload personal information and does not initiate network connections. On-device diagnostics are described below. External links, such as the project page, open in your browser and may use the internet.",
   "@noticePrivacyBody": {
     "description": "App information and local data notice: noticePrivacyBody"
   },
@@ -2417,5 +2417,387 @@
         "type": "String"
       }
     }
+  },
+  "diagTitle": "Diagnostics and logs",
+  "@diagTitle": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagSubtitle": "Export diagnostics to help investigate issues",
+  "@diagSubtitle": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagIntro": "Export a diagnostic file to help investigate an issue.",
+  "@diagIntro": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagLogging": "On-device diagnostic logging",
+  "@diagLogging": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagLocalOnly": "Stored on this device. Never uploaded automatically.",
+  "@diagLocalOnly": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagSavedLogs": "Saved logs",
+  "@diagSavedLogs": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagRecording": "Logging on",
+  "@diagRecording": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagOff": "Logging is off",
+  "@diagOff": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagOffHelp": "New logs are no longer saved. Existing logs still follow the retention rules.",
+  "@diagOffHelp": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagEmpty": "No operation logs yet",
+  "@diagEmpty": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagRangeUnknown": "No verified log range available",
+  "@diagRangeUnknown": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagRetention": "Kept for up to 7 days or 20 MiB, whichever limit is reached first.",
+  "@diagRetention": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagGaps": "Some periods have missing logs. The exported file will explain available evidence.",
+  "@diagGaps": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagReadFailed": "Unable to read logging status",
+  "@diagReadFailed": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagReadFailedHelp": "Logging status is unavailable. You can still try exporting available information.",
+  "@diagReadFailedHelp": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagLimited": "Some logs could not be saved",
+  "@diagLimited": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagLimitedHelp": "Diagnostic logging is limited. This does not mean your workout data failed to save. Available information can still be exported.",
+  "@diagLimitedHelp": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagControlFailed": "Could not save the setting. Try again. The latest verified state is shown below.",
+  "@diagControlFailed": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagControlUnknown": "Unable to confirm whether the setting was saved. Try reading its state again.",
+  "@diagControlUnknown": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagDetailed": "Temporary detailed logging",
+  "@diagDetailed": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagDetailedSubtitle": "Enable when needed; turns off after 30 minutes",
+  "@diagDetailedSubtitle": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagDetailedOff": "Off",
+  "@diagDetailedOff": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagDetailedIntro": "Enable when a developer asks you to reproduce an issue. Repeat the affected steps, then export diagnostics.",
+  "@diagDetailedIntro": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagDetailedRules": "Enabled for up to 30 minutes and turned off after restarting the app. Adds necessary technical detail while still excluding names, weights and input text.",
+  "@diagDetailedRules": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagDetailedNeedsLogging": "First enable on-device diagnostic logging on the previous page.",
+  "@diagDetailedNeedsLogging": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagEnableDetailed": "Enable for 30 minutes",
+  "@diagEnableDetailed": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagDisableDetailed": "Turn off now",
+  "@diagDisableDetailed": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagPrivacy": "Logging and privacy",
+  "@diagPrivacy": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagPrivacyContent": "Logs contain necessary technical state, key operation stages and error evidence. They exclude plan names, exercise names, input text, weights and complete workout records. Regular and detailed modes use the same privacy rules.",
+  "@diagPrivacyContent": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagPrivacyRetention": "On-device logs are retained for up to 7 days and 20 MiB. Manual full backups exclude diagnostics and diagnostic preferences. The diagnostic directory uses Android storage excluded from system backup; vendor transfer behavior can vary.",
+  "@diagPrivacyRetention": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagPrivacySharing": "You choose when to export. The ZIP is not encrypted and is never automatically uploaded or sent. Sanitized information may still reveal usage times and habits; share only with people you trust.",
+  "@diagPrivacySharing": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagPrivacyClear": "Turning logging off stops new records. Clearing removes on-device diagnostics only. Exported files in Downloads are managed by you and remain after retention cleanup, clearing logs or uninstalling the app.",
+  "@diagPrivacyClear": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagClear": "Clear on-device logs",
+  "@diagClear": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagClearTitle": "Clear on-device logs?",
+  "@diagClearTitle": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagClearBody": "Delete existing diagnostic logs on this device permanently. Plans, workouts and backups are unaffected. Exported diagnostic files in Downloads remain. If logging is enabled, new logs will continue to be created.",
+  "@diagClearBody": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagClearConfirm": "Clear logs",
+  "@diagClearConfirm": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagClearFailed": "Some logs could not be cleared. Try again. The range and size shown were read again after the attempt.",
+  "@diagClearFailed": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagClearBusy": "Finish or cancel the export before clearing on-device logs.",
+  "@diagClearBusy": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagCleared": "Old on-device logs were cleared. New logs can still be created while logging is enabled.",
+  "@diagCleared": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagExport": "Export diagnostics",
+  "@diagExport": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagAvailableExport": "Export available diagnostics",
+  "@diagAvailableExport": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagExportHint": "Saves a file without sending it automatically.",
+  "@diagExportHint": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagExportHeading": "Save evidence about the issue",
+  "@diagExportHeading": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagExportIntro": "After exporting, you can send the file to a developer yourself.",
+  "@diagExportIntro": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagThisExport": "This export",
+  "@diagThisExport": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagRange": "Log range",
+  "@diagRange": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagLocation": "Location",
+  "@diagLocation": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagDownloads": "System Downloads / Download",
+  "@diagDownloads": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagIncludes": "What is included",
+  "@diagIncludes": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagEnvironment": "App and system versions, and relevant permission status",
+  "@diagEnvironment": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagOperations": "Available key operation stages, errors and diagnostic information",
+  "@diagOperations": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagEnvironmentOnly": "Contains current app and system diagnostic information only, without operation logs.",
+  "@diagEnvironmentOnly": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagSharingTitle": "Before sharing",
+  "@diagSharingTitle": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagSave": "Save to Downloads",
+  "@diagSave": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagZipHint": "ZIP file · Never uploaded automatically",
+  "@diagZipHint": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagProgress": "Exporting diagnostics",
+  "@diagProgress": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagProgressHelp": "Processing a fixed range. New operations during export may not be included. Your workout and rest alerts continue.",
+  "@diagProgressHelp": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagCollect": "Fix available information range",
+  "@diagCollect": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagPackage": "Package diagnostic information",
+  "@diagPackage": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagVerify": "Save and verify the file",
+  "@diagVerify": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagStepDone": "Completed",
+  "@diagStepDone": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagStepActive": "In progress",
+  "@diagStepActive": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagStepWaiting": "Waiting",
+  "@diagStepWaiting": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagCancelling": "Cancelling and cleaning up…",
+  "@diagCancelling": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagPublishing": "Finishing file publication…",
+  "@diagPublishing": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagCancelExport": "Cancel export",
+  "@diagCancelExport": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagSaved": "Diagnostic file saved",
+  "@diagSaved": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagPartial": "Saved with some information unavailable",
+  "@diagPartial": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagSavedHelp": "The file was saved and verified. It is not sent automatically or updated by later operations.",
+  "@diagSavedHelp": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagFile": "File details",
+  "@diagFile": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagFileName": "File name",
+  "@diagFileName": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagSize": "Size",
+  "@diagSize": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagDone": "Done",
+  "@diagDone": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagFailed": "Could not save diagnostics",
+  "@diagFailed": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagStorageFailed": "Unable to write to Downloads. File delivery has not been confirmed. Try again.",
+  "@diagStorageFailed": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagNoSpace": "Downloads storage is full. Free some space and try again.",
+  "@diagNoSpace": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagPermission": "Permission to write to Downloads was denied. No file was saved. Try granting permission again.",
+  "@diagPermission": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagPermanentPermission": "Downloads write permission is blocked. Allow it in app settings, then try again.",
+  "@diagPermanentPermission": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagSettings": "Open app settings",
+  "@diagSettings": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagUnknown": "Unable to confirm whether the file was saved",
+  "@diagUnknown": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagUnknownHelp": "Check Downloads or inspect the same export again. Inspection does not create a new file.",
+  "@diagUnknownHelp": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagInspect": "Inspect again",
+  "@diagInspect": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagReviewExport": "View existing export result",
+  "@diagReviewExport": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagMissingEnvironment": "Some environment or state information was unavailable. See the report inside the file.",
+  "@diagMissingEnvironment": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagMissingLogs": "Some operation logs were unavailable. See the report inside the file.",
+  "@diagMissingLogs": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagFileMissing": "The previous file is missing or unreadable. Check Downloads.",
+  "@diagFileMissing": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagUnsupported": "The required diagnostic capability is unavailable on this system.",
+  "@diagUnsupported": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagStartupTitle": "Unable to open local data",
+  "@diagStartupTitle": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagStartupHelp": "App initialization did not finish, so workout data status cannot be confirmed. Try opening again or export available diagnostic information to help investigate. Keep your local data.",
+  "@diagStartupHelp": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagStartupRetry": "Try opening again",
+  "@diagStartupRetry": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagLoading": "Reading logging status…",
+  "@diagLoading": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagDetailedUntil": "Enabled; turns off at {time}",
+  "@diagDetailedUntil": {
+    "description": "Confirmed detailed logging deadline, localized date and time",
+    "placeholders": {
+      "time": {
+        "type": "String",
+        "description": "Localized confirmed deadline"
+      }
+    }
+  },
+  "noticeDiagnosticsTitle": "Diagnostics and logs",
+  "noticeDiagnosticsBody": "On-device diagnostics are enabled by default, kept for up to 7 days and 20 MiB, and never uploaded automatically. Names, weights and complete workout content are excluded. In Settings you can disable or clear logs, or manually export an unencrypted ZIP to public Downloads. It may reveal usage times and habits; share only with people you trust. Exported files are managed by you and remain after clearing logs or uninstalling. Full backups exclude diagnostics and their preferences. Android excludes the diagnostic directory from system backup; vendor transfers may differ.",
+  "@noticeDiagnosticsTitle": {
+    "description": "Shared version 3 notice used on first display and About"
+  },
+  "@noticeDiagnosticsBody": {
+    "description": "Shared version 3 notice used on first display and About"
   }
 }

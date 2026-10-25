@@ -9,10 +9,29 @@ import java.io.File
 
 internal data class RestAlertSettings(val sound: String, val vibration: Boolean, val repeat: Boolean, val interval: Int)
 internal data class RestDelivery(val id: Int, val sessionId: Int, val title: String, val body: String,
-    val revision: Int, val sequence: Int, val nextAt: Long?, val settings: RestAlertSettings) {
+    val revision: Int, val sequence: Int, val nextAt: Long?, val settings: RestAlertSettings,
+    val diagnosticEpoch: Long? = null, val diagnosticDue: Long? = null) {
     fun payload() = mapOf("id" to id, "session_id" to sessionId, "revision" to revision,
         "sequence" to sequence, "body" to body)
 }
+internal data class RestClaimFacts(val exists: Boolean = true, val revisionMatches: Boolean = true,
+    val roundMatches: Boolean = true, val acknowledged: Boolean = false, val enabled: Boolean = true,
+    val sessionValid: Boolean = true, val positionMatches: Boolean = true, val expired: Boolean = false)
+internal object RestClaimReason {
+    fun rejected(facts: RestClaimFacts): String = when {
+        !facts.exists -> "not_found"
+        !facts.revisionMatches -> "old_revision"
+        facts.acknowledged -> "already_acknowledged"
+        !facts.enabled -> "user_disabled"
+        !facts.sessionValid -> "invalid_session"
+        !facts.positionMatches -> "condition_mismatch"
+        !facts.roundMatches -> "old_round"
+        facts.expired -> "expired"
+        else -> "condition_mismatch"
+    }
+}
+internal data class RestClaimObservation(val reason: String, val claimed: Boolean, val epoch: Long?, val due: Long?, val now: Long)
+internal class RestStoreUnavailable(val reason: String) : IllegalStateException(reason)
 internal object RestDeliveryPolicy {
     fun withinWindow(now: Long, due: Long) = now >= due && now <= due + 30_000
     fun soundAllowed(normalRinger: Boolean, volume: Int, interruptionsAllowed: Boolean,
@@ -39,7 +58,7 @@ internal object RestAlertsStore {
             try {
                 SQLiteDatabase.openDatabase(path, null, SQLiteDatabase.OPEN_READWRITE).use { db ->
                     check(BackupDatabasePolicy.supported(db.version)) { "unsupportedDatabase" }
-                    check(!backupPending(db)) { "backupPending" }
+                    if (backupPending(db)) throw RestStoreUnavailable("restore_guard")
                     return action(db)
                 }
             } catch (error: SQLiteDatabaseLockedException) {
@@ -82,21 +101,43 @@ internal object RestAlertsStore {
             revision,row.getInt(3),if (row.isNull(4)) null else row.getLong(4),settings(db))
     }
 
-    fun claim(db: SQLiteDatabase, id: Int, revision: Int, now: Long, sequence: Int = 0): RestDelivery? {
+    private fun rejection(db: SQLiteDatabase, id: Int, revision: Int, sequence: Int): String = try {
+        db.rawQuery("""SELECT a.revision,a.delivery_sequence,a.acknowledged_at,p.enabled,s.status,
+            s.current_rest_alert_id=a.id AND s.current_session_exercise_id=a.exercise_id AND s.current_set_number=a.set_number,
+            a.state FROM rest_alerts a LEFT JOIN workout_sessions s ON s.id=a.session_id
+            LEFT JOIN rest_alert_preferences p ON p.id=1 WHERE a.id=?""", arrayOf(id.toString())).use { row ->
+            if (!row.moveToFirst()) "not_found" else RestClaimReason.rejected(RestClaimFacts(
+                revisionMatches = row.getInt(0) == revision, roundMatches = row.getInt(1) == sequence,
+                acknowledged = !row.isNull(2), enabled = !row.isNull(3) && row.getInt(3) == 1,
+                sessionValid = row.getString(4) == "in_progress", positionMatches = !row.isNull(5) && row.getInt(5) == 1,
+                expired = row.getString(6) == "expired"))
+        }
+    } catch (_: Exception) { "unknown" }
+
+    fun claim(db: SQLiteDatabase, id: Int, revision: Int, now: Long, sequence: Int = 0,
+              observer: (RestClaimObservation) -> Unit = {}): RestDelivery? {
+        var reason = "unknown"
+        var due: Long? = null
+        var epoch: Long? = null
+        var claimed = false
+        var successful = false
         db.beginTransaction()
         try {
-            if (backupPending(db)) return null
+            epoch = try { db.rawQuery("SELECT epoch FROM backup_state WHERE id=1", null).use { if (it.moveToFirst()) it.getLong(0) else null } } catch (_: Exception) { null }
+            if (backupPending(db)) { reason = "restore_guard"; return null }
             val settings = settings(db)
             val event = db.rawQuery("""SELECT a.session_id,a.due_at,a.title,a.body,a.state,
                 a.next_delivery_at,a.consumed_at $VALID
                 AND a.state IN ('pending','consumed') AND a.delivery_sequence=?""",
                 arrayOf(id.toString(), revision.toString(), sequence.toString())).use { row ->
-                if (!row.moveToFirst()) return@use null
+                if (!row.moveToFirst()) { reason = rejection(db, id, revision, sequence); return@use null }
                 val first = row.getString(4) == "pending"
-                if (!first && (!settings.repeat || row.isNull(5))) return@use null
+                if (!first && (!settings.repeat || row.isNull(5))) { reason = "condition_mismatch"; return@use null }
                 val at = if (first) row.getLong(1) else row.getLong(5)
-                if (now < at) return@use null
+                due = at
+                if (now < at) { reason = "condition_mismatch"; return@use null }
                 if ((first && !RestDeliveryPolicy.withinWindow(now, at)) || row.getString(2).isBlank()) {
+                    reason = if (first && !RestDeliveryPolicy.withinWindow(now, at)) "expired" else "condition_mismatch"
                     db.execSQL("UPDATE rest_alerts SET state='expired', next_delivery_at=NULL WHERE id=?", arrayOf(id))
                     return@use null
                 }
@@ -109,11 +150,18 @@ internal object RestAlertsStore {
                 val changed = db.update("rest_alerts", values,
                     "id=? AND revision=? AND delivery_sequence=? AND acknowledged_at IS NULL",
                     arrayOf(id.toString(), revision.toString(), sequence.toString()))
-                if (changed != 1) null else RestDelivery(id, row.getInt(0), row.getString(2), row.getString(3),
-                    revision, sequence + 1, next, settings)
+                claimed = changed == 1
+                reason = if (claimed) "none" else "claim_lost"
+                if (!claimed) null else RestDelivery(id, row.getInt(0), row.getString(2), row.getString(3),
+                    revision, sequence + 1, next, settings, epoch, at)
             }
             db.setTransactionSuccessful()
+            successful = true
             return event
-        } finally { db.endTransaction() }
+        } finally {
+            // An endTransaction exception skips the observer: no false commit.
+            db.endTransaction()
+            try { observer(RestClaimObservation(reason, claimed && successful, epoch, due, now)) } catch (_: Exception) {}
+        }
     }
 }

@@ -1,0 +1,36 @@
+{
+  "project": "D:\\000_MyLibrary\\100_code\\110_Project\\5_SetTrace",
+  "sdk": "D:\\ProgramData\\Android_SDK",
+  "avd": "D:\\ProgramData\\Android_AVD",
+  "androidUser": "D:\\ProgramData\\DevCache\\Android",
+  "gradle": "D:\\ProgramData\\DevCache\\Gradle",
+  "pub": "D:\\ProgramData\\DevCache\\Pub",
+  "temp": "D:\\ProgramData\\DevTemp\\add-local-diagnostics",
+  "flutter": "D:\\DevTools\\flutter",
+  "toolConfig": "D:\\ProgramData\\DevCache\\FlutterConfig",
+  "toolLocalCache": "D:\\ProgramData\\DevCache\\LocalAppData",
+  "jdk": "D:\\Program Files\\Android Studio\\jbr",
+  "avd:Pixel_7_Pro": "D:\\ProgramData\\Android_AVD\\Pixel_7_Pro.avd"
+}
+/sdcard/Download/SetTrace-diagnostics-2026-10-24-053107-450-9f75510c403948ca9ad8fb38cadcc32b.zip: 1 file pulled, 0 skipped. 2.3 MB/s (12258 bytes in 0.005s)
+
+Name                                                                            Length
+----                                                                            ------
+SetTrace-diagnostics-2026-10-24-040909-380-34a5cca27da5480fa415bc8037a6211a.zip   7926
+SetTrace-diagnostics-2026-10-24-053107-450-9f75510c403948ca9ad8fb38cadcc32b.zip  12258
+export-result.json                                                                 211
+L00-settings-data-about.png                                                     226873
+L00-settings-reminders.png                                                      231418
+L00-settings-top.png                                                            143124
+L01-dark-en.png                                                                 305124
+L01-home.png                                                                    279761
+L02-preview.png                                                                 305074
+L02-startup-origin.png                                                          310093
+L03-progress.png                                                                305074
+L04-L06-result.png                                                              222844
+L05-detailed-off.png                                                            176094
+L05-detailed-on.png                                                             190080
+L07-startup-failure.png                                                         154035
+L08-privacy.png                                                                 454811
+LD01-confirm.png                                                                257218
+

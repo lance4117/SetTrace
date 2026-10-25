@@ -25,7 +25,7 @@ void main() {
       ]) {
         testWidgets('$preset $brightness $id shared theme', (t) async {
           SharedPreferences.setMockInitialValues({
-            'app_notice_seen_version': 2,
+            'app_notice_seen_version': 3,
           });
           final scene = (await t.runAsync(
             () => FocusScene.create(

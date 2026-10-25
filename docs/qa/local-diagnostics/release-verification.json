@@ -1,0 +1,28 @@
+{
+  "date": "2026-10-24T05:34:33.4161671Z",
+  "version": "0.2.4+10",
+  "abi": "x86_64",
+  "target": "lib/main.dart",
+  "apk": "D:\\000_MyLibrary\\100_code\\110_Project\\5_SetTrace\\build\\app\\outputs\\flutter-apk\\app-release.apk",
+  "bytes": 21566026,
+  "apk_sha256": "e06e1ae5facd766c95ec5c285920caa6bbe8c47cd69d3b3e5c97b85b0758e44d",
+  "r8_mapping": "D:\\000_MyLibrary\\100_code\\110_Project\\5_SetTrace\\build\\local-diagnostics\\release-symbols\\mapping.txt",
+  "r8_mapping_sha256": "6d82e79f5efd66c1c39d11fdbdc3c5b6e23775e2819f39674100cb4c9e00efb1",
+  "r8_enabled": true,
+  "application_class_names_preserved": true,
+  "dart_obfuscated": false,
+  "production_signing": false,
+  "signature": "existing project debug configuration; verification artifact only",
+  "permissions": [
+    "package: com.settrace.settrace",
+    "uses-permission: name='android.permission.WRITE_EXTERNAL_STORAGE' maxSdkVersion='28'",
+    "uses-permission: name='android.permission.POST_NOTIFICATIONS'",
+    "uses-permission: name='android.permission.VIBRATE'",
+    "uses-permission: name='android.permission.SCHEDULE_EXACT_ALARM'",
+    "permission: com.settrace.settrace.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION",
+    "uses-permission: name='com.settrace.settrace.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION'"
+  ],
+  "backup": "Android default enabled; diagnostics exclusively in noBackupFilesDir (platform tested separately)",
+  "telemetry_review": "No new runtime SDK dependencies; inspect release-dependencies.log; no INTERNET permission",
+  "performance": "Low-end physical device p95, release StrictMode and crash symbolication not measured"
+}

@@ -1,0 +1,21 @@
+{
+  "reference": "User-provided latest settings screenshot, codex-clipboard-f5e23dd3-ab08-4a69-ac04-b8a727e18023.png",
+  "text_width_overflows": [],
+  "accepted_phone_pixels_unchanged": {
+    "L01": true,
+    "L02": true
+  },
+  "accepted_other_boards_unchanged": {
+    "02-export-and-dark.png": true,
+    "02-export-and-dark.svg": true,
+    "03-support-states.png": true,
+    "03-support-states.svg": true
+  },
+  "preserved_sha256": {
+    "02-export-and-dark.png": "d76412bca2151b4d85345c123d82a55adf85d6ac0fc6e28699f4c75a1a81f856",
+    "02-export-and-dark.svg": "eb76ffab44416c3c5ce58c232def7426875ae0df865d8712767a2625fc929f32",
+    "03-support-states.png": "a2d01597fdbcdd7302073d3978db94be35782e67d886c8602b7ba8540f4bb171",
+    "03-support-states.svg": "3c27596c4c100d12f8263662b711abd5ce4f6b21433b7a8a4c1060e0d182afbe"
+  },
+  "scope": "Static native UI redraw only; reference raster was read, never modified; no application changes."
+}

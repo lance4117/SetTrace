@@ -1,3 +1,6 @@
+import '../../core/diagnostics/diagnostic_contract.dart';
+import '../../core/diagnostics/diagnostic_observation.dart';
+import '../../core/diagnostics/diagnostics_client.dart';
 import '../backup/data_write_coordinator.dart';
 
 import 'package:sqflite/sqflite.dart';
@@ -7,130 +10,177 @@ import 'plan_failure.dart';
 import 'plan_transfer.dart';
 
 class PlanRepository {
-  const PlanRepository(this.db, {this.coordinator});
+  const PlanRepository(this.db, {this.coordinator, this.diagnostics});
   final Database db;
   final DataWriteCoordinator? coordinator;
+  final DiagnosticsClient? diagnostics;
+  DiagnosticsClient get _diagnostics =>
+      diagnostics ?? DiagnosticsClient.instance;
+  Future<T> _transaction<T>(Future<T> Function(Transaction) action) =>
+      diagnosticTransaction(db, action);
+
   Future<T> _write<T>(Future<T> Function() action) =>
       coordinator?.write(action) ?? action();
   Future<List<TransferPlan>> exportPlans(Set<int> selectedIds) async {
-    if (selectedIds.isEmpty) {
-      throw const PlanTransferException(PlanTransferFailure.selectPlans);
-    }
-    return db.transaction((txn) async {
-      final rows = await txn.query('plans', orderBy: 'sort_order ASC, id ASC');
-      final selected = rows
-          .where((row) => selectedIds.contains(row['id']))
-          .toList();
-      if (selected.length != selectedIds.length) {
-        throw const PlanTransferException(PlanTransferFailure.plansChanged);
-      }
-      final plans = <TransferPlan>[];
-      for (final row in selected) {
-        final exercises = await txn.query(
-          'plan_exercises',
-          where: 'plan_id = ?',
-          whereArgs: [row['id']],
-          orderBy: 'sort_order ASC',
-        );
-        plans.add(
-          TransferPlan.fromPlan(
-            WorkoutPlan(
-              id: row['id'] as int,
-              name: row['name'] as String,
-              exercises: exercises.map(PlanExercise.fromRow).toList(),
-            ),
-          ),
-        );
-      }
-      return plans;
-    });
+    return diagnosticObserve(
+      _diagnostics,
+      DiagnosticName.transferExport,
+      () async {
+        if (selectedIds.isEmpty) {
+          throw const PlanTransferException(PlanTransferFailure.selectPlans);
+        }
+        return _transaction((txn) async {
+          final rows = await txn.query(
+            'plans',
+            orderBy: 'sort_order ASC, id ASC',
+          );
+          final selected = rows
+              .where((row) => selectedIds.contains(row['id']))
+              .toList();
+          if (selected.length != selectedIds.length) {
+            throw const PlanTransferException(PlanTransferFailure.plansChanged);
+          }
+          final plans = <TransferPlan>[];
+          for (final row in selected) {
+            final exercises = await txn.query(
+              'plan_exercises',
+              where: 'plan_id = ?',
+              whereArgs: [row['id']],
+              orderBy: 'sort_order ASC',
+            );
+            plans.add(
+              TransferPlan.fromPlan(
+                WorkoutPlan(
+                  id: row['id'] as int,
+                  name: row['name'] as String,
+                  exercises: exercises.map(PlanExercise.fromRow).toList(),
+                ),
+              ),
+            );
+          }
+          return plans;
+        });
+      },
+      objects: const <DiagnosticObject, int>{},
+      readOnly: true,
+      fields: {DiagnosticField.count: selectedIds.length},
+    );
   }
 
   Future<List<TransferPlan>> previewImport(
     List<TransferPlan> plans, {
     required ImportSuffix suffixFor,
   }) async {
-    final rows = await db.query('plans', columns: ['name']);
-    return resolveImportNames(
-      plans,
-      rows.map((row) => row['name'] as String),
-      suffixFor: suffixFor,
+    return diagnosticObserve(
+      _diagnostics,
+      DiagnosticName.transferParse,
+      () async {
+        final rows = await db.query('plans', columns: ['name']);
+        return resolveImportNames(
+          plans,
+          rows.map((row) => row['name'] as String),
+          suffixFor: suffixFor,
+        );
+      },
+      objects: const <DiagnosticObject, int>{},
+      readOnly: true,
+      recordSuccess: false,
+      fields: {DiagnosticField.count: plans.length},
     );
   }
 
   Future<List<int>> importPlans(
     List<TransferPlan> plans, {
     required ImportSuffix suffixFor,
-  }) => _write(() async {
-    // The source byte limit is checked by decode; validate edited fields here.
-    // Re-encoding with export indentation must not reject a valid compact input.
-    const PlanTransferCodec().validatePlans(plans);
-    return db.transaction((txn) async {
-      final rows = await txn.query('plans', columns: ['name']);
-      final resolved = resolveImportNames(
-        plans,
-        rows.map((row) => row['name'] as String),
-        suffixFor: suffixFor,
-      );
-      if (Iterable<int>.generate(plans.length)
-          .any((i) => resolved[i].name != plans[i].name.trim())) {
-        throw ImportNameConflict(resolved);
-      }
-      final now = DateTime.now().toUtc().millisecondsSinceEpoch;
-      final ids = <int>[];
-      for (final plan in plans) {
-        final id = await txn.insert('plans', {
-          'name': plan.name.trim(),
-          'created_at': now,
-          'updated_at': now,
-        });
-        ids.add(id);
-        for (var i = 0; i < plan.exercises.length; i++) {
-          final e = plan.exercises[i];
-          await txn.insert('plan_exercises', {
-            'plan_id': id,
-            'name': e.name.trim(),
-            'sort_order': i + 1,
-            'target_sets': e.targetSets,
-            'rest_between_sets_seconds': e.restBetweenSetsSeconds,
-            'rest_after_exercise_seconds': e.restAfterExerciseSeconds,
-            'default_weight_kg': e.defaultWeightKg,
-          });
+  }) => diagnosticObserve(
+    _diagnostics,
+    DiagnosticName.transferImport,
+    () => _write(() async {
+      // The source byte limit is checked by decode; validate edited fields here.
+      // Re-encoding with export indentation must not reject a valid compact input.
+      const PlanTransferCodec().validatePlans(plans);
+      return _transaction((txn) async {
+        final rows = await txn.query('plans', columns: ['name']);
+        final resolved = resolveImportNames(
+          plans,
+          rows.map((row) => row['name'] as String),
+          suffixFor: suffixFor,
+        );
+        if (Iterable<int>.generate(plans.length)
+            .any((i) => resolved[i].name != plans[i].name.trim())) {
+          throw ImportNameConflict(resolved);
         }
+        final now = DateTime.now().toUtc().millisecondsSinceEpoch;
+        final ids = <int>[];
+        for (final plan in plans) {
+          final id = await txn.insert('plans', {
+            'name': plan.name.trim(),
+            'created_at': now,
+            'updated_at': now,
+          });
+          ids.add(id);
+          for (var i = 0; i < plan.exercises.length; i++) {
+            final e = plan.exercises[i];
+            await txn.insert('plan_exercises', {
+              'plan_id': id,
+              'name': e.name.trim(),
+              'sort_order': i + 1,
+              'target_sets': e.targetSets,
+              'rest_between_sets_seconds': e.restBetweenSetsSeconds,
+              'rest_after_exercise_seconds': e.restAfterExerciseSeconds,
+              'default_weight_kg': e.defaultWeightKg,
+            });
+          }
+        }
+        return ids;
+      });
+    }),
+    objects: const <DiagnosticObject, int>{},
+    fields: {DiagnosticField.count: plans.length},
+  );
+
+  Future<List<WorkoutPlan>> listPlans() => diagnosticObserve(
+    _diagnostics,
+    DiagnosticName.planRead,
+    () async {
+      final rows = await db.query('plans', orderBy: 'sort_order ASC, id ASC');
+      final result = <WorkoutPlan>[];
+      for (final row in rows) {
+        result.add(
+          WorkoutPlan(
+            id: row['id'] as int,
+            name: row['name'] as String,
+            exercises: await _exercises(row['id'] as int),
+          ),
+        );
       }
-      return ids;
-    });
-  });
+      return result;
+    },
+    readOnly: true,
+    recordSuccess: false,
+  );
 
-  Future<List<WorkoutPlan>> listPlans() async {
-    final rows = await db.query('plans', orderBy: 'sort_order ASC, id ASC');
-    final result = <WorkoutPlan>[];
-    for (final row in rows) {
-      result.add(
-        WorkoutPlan(
-          id: row['id'] as int,
-          name: row['name'] as String,
-          exercises: await _exercises(row['id'] as int),
-        ),
+  Future<WorkoutPlan?> getPlan(int id) => diagnosticObserve(
+    _diagnostics,
+    DiagnosticName.planRead,
+    () async {
+      final rows = await db.query(
+        'plans',
+        where: 'id = ?',
+        whereArgs: [id],
+        limit: 1,
       );
-    }
-    return result;
-  }
-
-  Future<WorkoutPlan?> getPlan(int id) async {
-    final rows = await db.query(
-      'plans',
-      where: 'id = ?',
-      whereArgs: [id],
-      limit: 1,
-    );
-    if (rows.isEmpty) return null;
-    return WorkoutPlan(
-      id: id,
-      name: rows.first['name'] as String,
-      exercises: await _exercises(id),
-    );
-  }
+      if (rows.isEmpty) return null;
+      return WorkoutPlan(
+        id: id,
+        name: rows.first['name'] as String,
+        exercises: await _exercises(id),
+      );
+    },
+    readOnly: true,
+    recordSuccess: false,
+    objects: {DiagnosticObject.plan: id},
+  );
 
   Future<List<PlanExercise>> _exercises(int planId) async {
     final rows = await db.query(
@@ -142,38 +192,54 @@ class PlanRepository {
     return rows.map(PlanExercise.fromRow).toList();
   }
 
-  Future<int> createPlan(String name) => _write(() async {
-    final trimmed = name.trim();
-    if (trimmed.isEmpty) {
-      throw PlanValidationException(PlanFailure.nameRequired);
-    }
-    final now = DateTime.now().toUtc().millisecondsSinceEpoch;
-    return db.insert('plans', {
-      'name': trimmed,
-      'created_at': now,
-      'updated_at': now,
-    });
-  });
-
-  Future<void> renamePlan(int id, String name) => _write(() async {
-    final trimmed = name.trim();
-    if (trimmed.isEmpty) {
-      throw PlanValidationException(PlanFailure.nameRequired);
-    }
-    await db.update(
-      'plans',
-      {
+  Future<int> createPlan(String name) => diagnosticObserve(
+    _diagnostics,
+    DiagnosticName.planCreate,
+    () => _write(() async {
+      final trimmed = name.trim();
+      if (trimmed.isEmpty) {
+        throw PlanValidationException(PlanFailure.nameRequired);
+      }
+      final now = DateTime.now().toUtc().millisecondsSinceEpoch;
+      return db.insert('plans', {
         'name': trimmed,
-        'updated_at': DateTime.now().toUtc().millisecondsSinceEpoch,
-      },
-      where: 'id = ?',
-      whereArgs: [id],
-    );
-  });
+        'created_at': now,
+        'updated_at': now,
+      });
+    }),
+    objects: const <DiagnosticObject, int>{},
+    resultObjects: (value) => {DiagnosticObject.plan: value},
+  );
 
-  Future<void> deletePlan(int id) => _write(() async {
-    await db.delete('plans', where: 'id = ?', whereArgs: [id]);
-  });
+  Future<void> renamePlan(int id, String name) => diagnosticObserve(
+    _diagnostics,
+    DiagnosticName.planEdit,
+    () => _write(() async {
+      final trimmed = name.trim();
+      if (trimmed.isEmpty) {
+        throw PlanValidationException(PlanFailure.nameRequired);
+      }
+      await db.update(
+        'plans',
+        {
+          'name': trimmed,
+          'updated_at': DateTime.now().toUtc().millisecondsSinceEpoch,
+        },
+        where: 'id = ?',
+        whereArgs: [id],
+      );
+    }),
+    objects: {DiagnosticObject.plan: id},
+  );
+
+  Future<void> deletePlan(int id) => diagnosticObserve(
+    _diagnostics,
+    DiagnosticName.planDelete,
+    () => _write(() async {
+      await db.delete('plans', where: 'id = ?', whereArgs: [id]);
+    }),
+    objects: {DiagnosticObject.plan: id},
+  );
 
   Future<int> addExercise({
     required int planId,
@@ -182,31 +248,37 @@ class PlanRepository {
     required int restBetweenSetsSeconds,
     required int restAfterExerciseSeconds,
     double? defaultWeightKg,
-  }) => _write(() async {
-    _validate(
-      name,
-      targetSets,
-      restBetweenSetsSeconds,
-      restAfterExerciseSeconds,
-      defaultWeightKg,
-    );
-    return db.transaction((txn) async {
-      final orderRows = await txn.rawQuery(
-        'SELECT COALESCE(MAX(sort_order), 0) AS last_order FROM plan_exercises WHERE plan_id = ?',
-        [planId],
+  }) => diagnosticObserve(
+    _diagnostics,
+    DiagnosticName.planExerciseCreate,
+    () => _write(() async {
+      _validate(
+        name,
+        targetSets,
+        restBetweenSetsSeconds,
+        restAfterExerciseSeconds,
+        defaultWeightKg,
       );
-      final nextOrder = (orderRows.first['last_order'] as int) + 1;
-      return txn.insert('plan_exercises', {
-        'plan_id': planId,
-        'name': name.trim(),
-        'sort_order': nextOrder,
-        'target_sets': targetSets,
-        'rest_between_sets_seconds': restBetweenSetsSeconds,
-        'rest_after_exercise_seconds': restAfterExerciseSeconds,
-        'default_weight_kg': defaultWeightKg,
+      return _transaction((txn) async {
+        final orderRows = await txn.rawQuery(
+          'SELECT COALESCE(MAX(sort_order), 0) AS last_order FROM plan_exercises WHERE plan_id = ?',
+          [planId],
+        );
+        final nextOrder = (orderRows.first['last_order'] as int) + 1;
+        return txn.insert('plan_exercises', {
+          'plan_id': planId,
+          'name': name.trim(),
+          'sort_order': nextOrder,
+          'target_sets': targetSets,
+          'rest_between_sets_seconds': restBetweenSetsSeconds,
+          'rest_after_exercise_seconds': restAfterExerciseSeconds,
+          'default_weight_kg': defaultWeightKg,
+        });
       });
-    });
-  });
+    }),
+    objects: {DiagnosticObject.plan: planId},
+    resultObjects: (value) => {DiagnosticObject.exercise: value},
+  );
 
   Future<void> updateExercise({
     required int id,
@@ -215,71 +287,86 @@ class PlanRepository {
     required int restBetweenSetsSeconds,
     required int restAfterExerciseSeconds,
     double? defaultWeightKg,
-  }) => _write(() async {
-    _validate(
-      name,
-      targetSets,
-      restBetweenSetsSeconds,
-      restAfterExerciseSeconds,
-      defaultWeightKg,
-    );
-    await db.update(
-      'plan_exercises',
-      {
-        'name': name.trim(),
-        'target_sets': targetSets,
-        'rest_between_sets_seconds': restBetweenSetsSeconds,
-        'rest_after_exercise_seconds': restAfterExerciseSeconds,
-        'default_weight_kg': defaultWeightKg,
-      },
-      where: 'id = ?',
-      whereArgs: [id],
-    );
-  });
-
-  Future<void> deleteExercise(int id, int planId) => _write(() async {
-    await db.transaction((txn) async {
-      await txn.delete(
-        'plan_exercises',
-        where: 'id = ? AND plan_id = ?',
-        whereArgs: [id, planId],
+  }) => diagnosticObserve(
+    _diagnostics,
+    DiagnosticName.planExerciseEdit,
+    () => _write(() async {
+      _validate(
+        name,
+        targetSets,
+        restBetweenSetsSeconds,
+        restAfterExerciseSeconds,
+        defaultWeightKg,
       );
-      await _renumber(txn, planId);
-    });
-  });
-
-  Future<void> reorder(int planId, List<int> orderedIds) => _write(() async {
-    await db.transaction((txn) async {
-      final rows = await txn.query(
+      await db.update(
         'plan_exercises',
-        columns: ['id'],
-        where: 'plan_id = ?',
-        whereArgs: [planId],
+        {
+          'name': name.trim(),
+          'target_sets': targetSets,
+          'rest_between_sets_seconds': restBetweenSetsSeconds,
+          'rest_after_exercise_seconds': restAfterExerciseSeconds,
+          'default_weight_kg': defaultWeightKg,
+        },
+        where: 'id = ?',
+        whereArgs: [id],
       );
-      final existing = rows.map((row) => row['id'] as int).toSet();
-      if (orderedIds.length != existing.length ||
-          orderedIds.toSet().length != existing.length ||
-          !orderedIds.toSet().containsAll(existing)) {
-        throw PlanValidationException(PlanFailure.invalidOrder);
-      }
-      for (var i = 0; i < orderedIds.length; i++) {
-        await txn.update(
+    }),
+    objects: {DiagnosticObject.exercise: id},
+  );
+
+  Future<void> deleteExercise(int id, int planId) => diagnosticObserve(
+    _diagnostics,
+    DiagnosticName.planExerciseDelete,
+    () => _write(() async {
+      await _transaction((txn) async {
+        await txn.delete(
           'plan_exercises',
-          {'sort_order': -(i + 1)},
           where: 'id = ? AND plan_id = ?',
-          whereArgs: [orderedIds[i], planId],
+          whereArgs: [id, planId],
         );
-      }
-      for (var i = 0; i < orderedIds.length; i++) {
-        await txn.update(
+        await _renumber(txn, planId);
+      });
+    }),
+    objects: {DiagnosticObject.exercise: id, DiagnosticObject.plan: planId},
+  );
+
+  Future<void> reorder(int planId, List<int> orderedIds) => diagnosticObserve(
+    _diagnostics,
+    DiagnosticName.planReorder,
+    () => _write(() async {
+      await _transaction((txn) async {
+        final rows = await txn.query(
           'plan_exercises',
-          {'sort_order': i + 1},
-          where: 'id = ? AND plan_id = ?',
-          whereArgs: [orderedIds[i], planId],
+          columns: ['id'],
+          where: 'plan_id = ?',
+          whereArgs: [planId],
         );
-      }
-    });
-  });
+        final existing = rows.map((row) => row['id'] as int).toSet();
+        if (orderedIds.length != existing.length ||
+            orderedIds.toSet().length != existing.length ||
+            !orderedIds.toSet().containsAll(existing)) {
+          throw PlanValidationException(PlanFailure.invalidOrder);
+        }
+        for (var i = 0; i < orderedIds.length; i++) {
+          await txn.update(
+            'plan_exercises',
+            {'sort_order': -(i + 1)},
+            where: 'id = ? AND plan_id = ?',
+            whereArgs: [orderedIds[i], planId],
+          );
+        }
+        for (var i = 0; i < orderedIds.length; i++) {
+          await txn.update(
+            'plan_exercises',
+            {'sort_order': i + 1},
+            where: 'id = ? AND plan_id = ?',
+            whereArgs: [orderedIds[i], planId],
+          );
+        }
+      });
+    }),
+    objects: {DiagnosticObject.plan: planId},
+  );
 
   Future<void> _renumber(Transaction txn, int planId) async {
     final rows = await txn.query(

@@ -521,7 +521,7 @@ void main() {
   testWidgets(
     'root invalidates cached plans and rejects notification arriving during replacement',
     (t) async {
-      SharedPreferences.setMockInitialValues({'app_notice_seen_version': 2});
+      SharedPreferences.setMockInitialValues({'app_notice_seen_version': 3});
       final prefs = await SharedPreferences.getInstance();
       final plans = PlanRepository(db.db, coordinator: service.writes);
       final workouts = WorkoutRepository(db.db, coordinator: service.writes);
@@ -835,7 +835,7 @@ void main() {
   testWidgets(
     'startup presents an unseen committed result before normal navigation without replay',
     (t) async {
-      SharedPreferences.setMockInitialValues({'app_notice_seen_version': 2});
+      SharedPreferences.setMockInitialValues({'app_notice_seen_version': 3});
       final prefs = await SharedPreferences.getInstance();
       await t.runAsync(() async {
         await service.copies.protect('startup-target', fixture);

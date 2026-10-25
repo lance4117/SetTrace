@@ -1,0 +1,77 @@
+{
+  "project": "D:\\000_MyLibrary\\100_code\\110_Project\\5_SetTrace",
+  "sdk": "D:\\ProgramData\\Android_SDK",
+  "avd": "D:\\ProgramData\\Android_AVD",
+  "androidUser": "D:\\ProgramData\\DevCache\\Android",
+  "gradle": "D:\\ProgramData\\DevCache\\Gradle",
+  "pub": "D:\\ProgramData\\DevCache\\Pub",
+  "temp": "D:\\ProgramData\\DevTemp\\add-local-diagnostics",
+  "flutter": "D:\\DevTools\\flutter",
+  "toolConfig": "D:\\ProgramData\\DevCache\\FlutterConfig",
+  "toolLocalCache": "D:\\ProgramData\\DevCache\\LocalAppData",
+  "jdk": "D:\\Program Files\\Android Studio\\jbr",
+  "avd:Pixel_7_Pro": "D:\\ProgramData\\Android_AVD\\Pixel_7_Pro.avd"
+}
+Waiting for another flutter command to release the startup lock...
+00:00 +0: loading D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/about_notice_test.dart
+00:00 +0: notice treats absent, invalid, older and saved versions correctly
+00:00 +1: failed writes do not leave phantom seen state and can retry
+00:00 +2: service reads installed metadata and opens only explicit fixed URLs
+00:00 +3: dialog save failure supports retry and continue without marking read
+00:01 +4: back and manual review do not mark notice read
+00:01 +5: about reads once, retries metadata and external failures, reviews notice
+00:01 +6: licenses show bundled text, empty and failure retry states
+00:01 +7: about and notice matrix Size(360.0, 800.0) en false 1.0
+00:01 +8: about and notice matrix Size(360.0, 800.0) en false 1.3
+00:02 +9: about and notice matrix Size(360.0, 800.0) en false 1.6
+00:02 +10: about and notice matrix Size(360.0, 800.0) en true 1.0
+00:02 +11: about and notice matrix Size(360.0, 800.0) en true 1.3
+00:02 +12: about and notice matrix Size(360.0, 800.0) en true 1.6
+00:02 +13: about and notice matrix Size(360.0, 800.0) zh false 1.0
+00:02 +14: about and notice matrix Size(360.0, 800.0) zh false 1.3
+00:02 +15: about and notice matrix Size(360.0, 800.0) zh false 1.6
+00:02 +16: about and notice matrix Size(360.0, 800.0) zh true 1.0
+00:03 +17: about and notice matrix Size(360.0, 800.0) zh true 1.3
+00:03 +18: about and notice matrix Size(360.0, 800.0) zh true 1.6
+00:03 +19: about and notice matrix Size(430.0, 800.0) en false 1.0
+00:03 +20: about and notice matrix Size(430.0, 800.0) en false 1.3
+00:03 +21: about and notice matrix Size(430.0, 800.0) en false 1.6
+00:03 +22: about and notice matrix Size(430.0, 800.0) en true 1.0
+00:03 +23: about and notice matrix Size(430.0, 800.0) en true 1.3
+00:03 +24: about and notice matrix Size(430.0, 800.0) en true 1.6
+00:03 +25: about and notice matrix Size(430.0, 800.0) zh false 1.0
+00:03 +26: about and notice matrix Size(430.0, 800.0) zh false 1.3
+00:04 +27: about and notice matrix Size(430.0, 800.0) zh false 1.6
+00:04 +28: about and notice matrix Size(430.0, 800.0) zh true 1.0
+00:04 +29: about and notice matrix Size(430.0, 800.0) zh true 1.3
+00:04 +30: about and notice matrix Size(430.0, 800.0) zh true 1.6
+00:04 +31: about and notice matrix Size(740.0, 390.0) en false 1.0
+00:04 +32: about and notice matrix Size(740.0, 390.0) en false 1.3
+00:04 +33: about and notice matrix Size(740.0, 390.0) en false 1.6
+00:04 +34: about and notice matrix Size(740.0, 390.0) en true 1.0
+00:04 +35: about and notice matrix Size(740.0, 390.0) en true 1.3
+00:04 +36: about and notice matrix Size(740.0, 390.0) en true 1.6
+00:05 +37: about and notice matrix Size(740.0, 390.0) zh false 1.0
+00:05 +38: about and notice matrix Size(740.0, 390.0) zh false 1.3
+00:05 +39: about and notice matrix Size(740.0, 390.0) zh false 1.6
+00:05 +40: about and notice matrix Size(740.0, 390.0) zh true 1.0
+00:05 +41: about and notice matrix Size(740.0, 390.0) zh true 1.3
+00:05 +42: about and notice matrix Size(740.0, 390.0) zh true 1.6
+00:05 +43: about and notice matrix Size(768.0, 1024.0) en false 1.0
+00:05 +44: about and notice matrix Size(768.0, 1024.0) en false 1.3
+00:05 +45: about and notice matrix Size(768.0, 1024.0) en false 1.6
+00:05 +46: about and notice matrix Size(768.0, 1024.0) en true 1.0
+00:05 +47: about and notice matrix Size(768.0, 1024.0) en true 1.3
+00:05 +48: about and notice matrix Size(768.0, 1024.0) en true 1.6
+00:05 +49: about and notice matrix Size(768.0, 1024.0) zh false 1.0
+00:05 +50: about and notice matrix Size(768.0, 1024.0) zh false 1.3
+00:06 +51: about and notice matrix Size(768.0, 1024.0) zh false 1.6
+00:06 +52: about and notice matrix Size(768.0, 1024.0) zh true 1.0
+00:06 +53: about and notice matrix Size(768.0, 1024.0) zh true 1.3
+00:06 +54: about and notice matrix Size(768.0, 1024.0) zh true 1.6
+00:06 +55: long notice, keyboard and accessible content remain usable
+00:06 +56: root startup coordination fresh or upgraded user acknowledges once, reopen keeps data
+00:07 +57: root startup coordination notification waits for notice and opens latest valid workout
+00:08 +58: root startup coordination expired notification is checked after dismissal, not opened
+00:09 +59: root startup coordination notice preserves rest and defers permission explanation
+00:10 +60: All tests passed!

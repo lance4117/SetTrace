@@ -1,0 +1,131 @@
+{
+  "project": "D:\\000_MyLibrary\\100_code\\110_Project\\5_SetTrace",
+  "sdk": "D:\\ProgramData\\Android_SDK",
+  "avd": "D:\\ProgramData\\Android_AVD",
+  "androidUser": "D:\\ProgramData\\DevCache\\Android",
+  "gradle": "D:\\ProgramData\\DevCache\\Gradle",
+  "pub": "D:\\ProgramData\\DevCache\\Pub",
+  "temp": "D:\\ProgramData\\DevTemp\\add-local-diagnostics",
+  "flutter": "D:\\DevTools\\flutter",
+  "toolConfig": "D:\\ProgramData\\DevCache\\FlutterConfig",
+  "toolLocalCache": "D:\\ProgramData\\DevCache\\LocalAppData",
+  "jdk": "D:\\Program Files\\Android Studio\\jbr",
+  "avd:Pixel_7_Pro": "D:\\ProgramData\\Android_AVD\\Pixel_7_Pro.avd"
+}
+WARNING: A restricted method in java.lang.System has been called
+WARNING: java.lang.System::load has been called by net.rubygrapefruit.platform.internal.NativeLibraryLoader in an unnamed module (file:/D:/ProgramData/DevCache/Gradle/wrapper/dists/gradle-9.3.1-all/9ot9r568e8zfvvd4mn8rbu1j0/gradle-9.3.1/lib/native-platform-0.22-milestone-29.jar)
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+
+> Task :gradle:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :gradle:compileKotlin UP-TO-DATE
+> Task :gradle:compileJava NO-SOURCE
+> Task :gradle:compileGroovy NO-SOURCE
+> Task :gradle:pluginDescriptors UP-TO-DATE
+> Task :gradle:processResources UP-TO-DATE
+> Task :gradle:classes UP-TO-DATE
+> Task :gradle:jar UP-TO-DATE
+
+> Configure project :app
+WARNING: The option setting 'android.builtInKotlin=false' is deprecated.
+The current default is 'true'.
+It will be removed in version 10.0 of the Android Gradle plugin.
+WARNING: The option setting 'android.newDsl=false' is deprecated.
+The current default is 'true'.
+It will be removed in version 10.0 of the Android Gradle plugin.
+w: [33m[1mDeprecated 'org.jetbrains.kotlin.android' plugin usage[0m[0m
+The 'org.jetbrains.kotlin.android' plugin in project ':app' is no longer required for Kotlin support since AGP 9.0.
+[32m[1mSolution:[0m[0m
+[32m[3mRemove both `android.builtInKotlin=true` and `android.newDsl=false` from `gradle.properties`, then migrate to built-in Kotlin.[0m[0m
+[36mSee [0m[34mhttps://kotl.in/gradle/agp-built-in-kotlin[0m[36m for more details.[0m
+
+
+> Configure project :integration_test
+w: [33m[1mDeprecated 'org.jetbrains.kotlin.android' plugin usage[0m[0m
+The 'org.jetbrains.kotlin.android' plugin in project ':integration_test' is no longer required for Kotlin support since AGP 9.0.
+[32m[1mSolution:[0m[0m
+[32m[3mRemove both `android.builtInKotlin=true` and `android.newDsl=false` from `gradle.properties`, then migrate to built-in Kotlin.[0m[0m
+[36mSee [0m[34mhttps://kotl.in/gradle/agp-built-in-kotlin[0m[36m for more details.[0m
+
+
+> Configure project :package_info_plus
+w: [33m[1mDeprecated 'org.jetbrains.kotlin.android' plugin usage[0m[0m
+The 'org.jetbrains.kotlin.android' plugin in project ':package_info_plus' is no longer required for Kotlin support since AGP 9.0.
+[32m[1mSolution:[0m[0m
+[32m[3mRemove both `android.builtInKotlin=true` and `android.newDsl=false` from `gradle.properties`, then migrate to built-in Kotlin.[0m[0m
+[36mSee [0m[34mhttps://kotl.in/gradle/agp-built-in-kotlin[0m[36m for more details.[0m
+
+
+> Configure project :shared_preferences_android
+w: [33m[1mDeprecated 'org.jetbrains.kotlin.android' plugin usage[0m[0m
+The 'org.jetbrains.kotlin.android' plugin in project ':shared_preferences_android' is no longer required for Kotlin support since AGP 9.0.
+[32m[1mSolution:[0m[0m
+[32m[3mRemove both `android.builtInKotlin=true` and `android.newDsl=false` from `gradle.properties`, then migrate to built-in Kotlin.[0m[0m
+[36mSee [0m[34mhttps://kotl.in/gradle/agp-built-in-kotlin[0m[36m for more details.[0m
+
+
+> Configure project :sqflite_android
+w: [33m[1mDeprecated 'org.jetbrains.kotlin.android' plugin usage[0m[0m
+The 'org.jetbrains.kotlin.android' plugin in project ':sqflite_android' is no longer required for Kotlin support since AGP 9.0.
+[32m[1mSolution:[0m[0m
+[32m[3mRemove both `android.builtInKotlin=true` and `android.newDsl=false` from `gradle.properties`, then migrate to built-in Kotlin.[0m[0m
+[36mSee [0m[34mhttps://kotl.in/gradle/agp-built-in-kotlin[0m[36m for more details.[0m
+
+
+> Configure project :url_launcher_android
+w: [33m[1mDeprecated 'org.jetbrains.kotlin.android' plugin usage[0m[0m
+The 'org.jetbrains.kotlin.android' plugin in project ':url_launcher_android' is no longer required for Kotlin support since AGP 9.0.
+[32m[1mSolution:[0m[0m
+[32m[3mRemove both `android.builtInKotlin=true` and `android.newDsl=false` from `gradle.properties`, then migrate to built-in Kotlin.[0m[0m
+[36mSee [0m[34mhttps://kotl.in/gradle/agp-built-in-kotlin[0m[36m for more details.[0m
+
+
+> Task :app:signingReport
+Variant: debug
+Config: debug
+Store: D:\ProgramData\DevCache\Android\debug.keystore
+Alias: AndroidDebugKey
+MD5: AB:2D:8A:66:9E:A8:77:72:D0:AD:93:90:6E:AB:18:6A
+SHA1: 9F:EB:4A:D1:A4:CF:04:2A:82:F4:C7:14:5A:D7:2A:FD:8D:01:3F:C2
+SHA-256: 0D:C5:59:14:99:C8:1A:A7:BF:B6:4D:E3:5A:3B:BA:44:4D:0F:1A:24:44:90:1C:A3:4D:70:EF:13:16:C2:4D:A7
+Valid until: 2056年10月14日星期六
+----------
+Variant: release
+Config: debug
+Store: D:\ProgramData\DevCache\Android\debug.keystore
+Alias: AndroidDebugKey
+MD5: AB:2D:8A:66:9E:A8:77:72:D0:AD:93:90:6E:AB:18:6A
+SHA1: 9F:EB:4A:D1:A4:CF:04:2A:82:F4:C7:14:5A:D7:2A:FD:8D:01:3F:C2
+SHA-256: 0D:C5:59:14:99:C8:1A:A7:BF:B6:4D:E3:5A:3B:BA:44:4D:0F:1A:24:44:90:1C:A3:4D:70:EF:13:16:C2:4D:A7
+Valid until: 2056年10月14日星期六
+----------
+Variant: profile
+Config: debug
+Store: D:\ProgramData\DevCache\Android\debug.keystore
+Alias: AndroidDebugKey
+MD5: AB:2D:8A:66:9E:A8:77:72:D0:AD:93:90:6E:AB:18:6A
+SHA1: 9F:EB:4A:D1:A4:CF:04:2A:82:F4:C7:14:5A:D7:2A:FD:8D:01:3F:C2
+SHA-256: 0D:C5:59:14:99:C8:1A:A7:BF:B6:4D:E3:5A:3B:BA:44:4D:0F:1A:24:44:90:1C:A3:4D:70:EF:13:16:C2:4D:A7
+Valid until: 2056年10月14日星期六
+----------
+Variant: debugAndroidTest
+Config: debug
+Store: D:\ProgramData\DevCache\Android\debug.keystore
+Alias: AndroidDebugKey
+MD5: AB:2D:8A:66:9E:A8:77:72:D0:AD:93:90:6E:AB:18:6A
+SHA1: 9F:EB:4A:D1:A4:CF:04:2A:82:F4:C7:14:5A:D7:2A:FD:8D:01:3F:C2
+SHA-256: 0D:C5:59:14:99:C8:1A:A7:BF:B6:4D:E3:5A:3B:BA:44:4D:0F:1A:24:44:90:1C:A3:4D:70:EF:13:16:C2:4D:A7
+Valid until: 2056年10月14日星期六
+----------
+
+[Incubating] Problems report is available at: file:///D:/000_MyLibrary/100_code/110_Project/5_SetTrace/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/9.3.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 5s
+5 actionable tasks: 1 executed, 4 up-to-date
+Consider enabling configuration cache to speed up this build: https://docs.gradle.org/9.3.1/userguide/configuration_cache_enabling.html

@@ -7,17 +7,20 @@ import 'backup_json.dart';
 class DataWriteCoordinator {
   DataWriteCoordinator({this._epoch = 0});
   int _epoch;
+  bool _epochKnown = false;
   bool _exclusive = false, _restricted = false;
   int _writers = 0;
   Completer<void>? _drained;
   final Object _zoneKey = Object();
   final List<Future<void> Function()> settlers = [];
   int get epoch => _epoch;
+  int? get diagnosticEpoch => _epochKnown ? _epoch : null;
   bool get blocked => _exclusive || _restricted;
 
   void restrict() => _restricted = true;
   void reconcile(int epoch) {
     _epoch = epoch;
+    _epochKnown = true;
     _restricted = false;
   }
 
@@ -77,6 +80,7 @@ class DataWriteCoordinator {
       throw StateError('Invalid dataset commit');
     }
     _epoch = epoch;
+    _epochKnown = true;
     final lease = Zone.current[_zoneKey];
     if (lease is _WriteLease) lease.epoch = epoch;
   }

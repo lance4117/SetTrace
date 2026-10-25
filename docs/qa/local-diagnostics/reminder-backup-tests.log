@@ -1,0 +1,88 @@
+{
+  "project": "D:\\000_MyLibrary\\100_code\\110_Project\\5_SetTrace",
+  "sdk": "D:\\ProgramData\\Android_SDK",
+  "avd": "D:\\ProgramData\\Android_AVD",
+  "androidUser": "D:\\ProgramData\\DevCache\\Android",
+  "gradle": "D:\\ProgramData\\DevCache\\Gradle",
+  "pub": "D:\\ProgramData\\DevCache\\Pub",
+  "temp": "D:\\ProgramData\\DevTemp\\add-local-diagnostics",
+  "flutter": "D:\\DevTools\\flutter",
+  "toolConfig": "D:\\ProgramData\\DevCache\\FlutterConfig",
+  "toolLocalCache": "D:\\ProgramData\\DevCache\\LocalAppData",
+  "jdk": "D:\\Program Files\\Android Studio\\jbr",
+  "avd:Pixel_7_Pro": "D:\\ProgramData\\Android_AVD\\Pixel_7_Pro.avd"
+}
+00:00 +0: loading D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostic_contract_test.dart
+00:00 +0: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostic_contract_test.dart: Dart and Kotlin event/enum vocabularies stay aligned
+00:00 +1: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostic_contract_test.dart: fields reject user strings, nonfinite values, and negative counters
+00:00 +2: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostic_contract_test.dart: stack contains only approved relative locations
+00:00 +3: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostic_contract_test.dart: commit and failed followup retain identity and original dataset epoch
+00:00 +4: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostic_contract_test.dart: logging remains nonthrowing and bounded when channel fails
+00:00 +5: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostic_contract_test.dart: closed logging and clear cannot revive queued old generation
+00:00 +6: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostic_contract_test.dart: NoOp supports repository observation without a platform
+00:00 +7: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/repository_diagnostics_test.dart: real plan/workout operations preserve commits without user content
+00:00 +8: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/repository_diagnostics_test.dart: commit is retained when onChanged throws after successful transaction
+00:00 +9: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_alert_repeating_test.dart: each round is claimed once, repeats beyond first 30 second window
+00:00 +10: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_alert_repeating_test.dart: each round is claimed once, repeats beyond first 30 second window
+00:00 +11: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_alert_repeating_test.dart: each round is claimed once, repeats beyond first 30 second window
+00:00 +12: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_alert_repeating_test.dart: each round is claimed once, repeats beyond first 30 second window
+00:00 +13: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_alert_repository_test.dart: language refresh updates existing notification identity without a new round
+00:01 +14: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_alert_repository_test.dart: language refresh updates existing notification identity without a new round
+00:01 +15: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_alert_repository_test.dart: language refresh updates existing notification identity without a new round
+00:01 +16: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_alert_repository_test.dart: language refresh updates existing notification identity without a new round
+00:01 +17: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/backup_coordinator_test.dart: restore, add, undo protects additions and can explicitly recover them
+00:01 +18: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/backup_coordinator_test.dart: restore, add, undo protects additions and can explicitly recover them
+00:01 +19: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/backup_coordinator_test.dart: restore, add, undo protects additions and can explicitly recover them
+00:01 +20: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/backup_coordinator_test.dart: restore, add, undo protects additions and can explicitly recover them
+00:01 +21: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/backup_coordinator_test.dart: restore, add, undo protects additions and can explicitly recover them
+00:01 +22: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/backup_coordinator_test.dart: restore, add, undo protects additions and can explicitly recover them
+00:01 +23: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/backup_coordinator_test.dart: restore, add, undo protects additions and can explicitly recover them
+00:01 +24: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_alert_repository_test.dart: normalization and concurrent observers still deliver at most once
+00:01 +25: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_alert_repeating_test.dart: old confirmation cannot affect a new rest
+00:01 +26: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/backup_coordinator_test.dart: settings failures persist, restart permits later records, retry never replaces core
+00:01 +27: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/backup_coordinator_test.dart: settings failures persist, restart permits later records, retry never replaces core
+00:01 +28: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/backup_coordinator_test.dart: settings failures persist, restart permits later records, retry never replaces core
+00:01 +29: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/backup_coordinator_test.dart: settings failures persist, restart permits later records, retry never replaces core
+00:01 +30: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_alert_repository_test.dart: preference save failure preserves original setting and events
+00:01 +31: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/backup_coordinator_test.dart: later manual intent supersedes pending restore and survives retry
+00:01 +32: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_alert_repository_test.dart: off/on keeps deadline; restart and late callbacks never replay elapsed reminders
+00:02 +33: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/backup_coordinator_test.dart: stale preview rejects same-count modification; state remains intact
+00:02 +34: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_alert_repository_test.dart: language and next-exercise ordering update content without shifting due date
+00:02 +35: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_alert_repository_test.dart: language and next-exercise ordering update content without shifting due date
+00:02 +36: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/backup_coordinator_test.dart: current export tracks fixed snapshot; copy export leaves ledger untouched
+00:02 +37: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/backup_coordinator_test.dart: current export tracks fixed snapshot; copy export leaves ledger untouched
+00:02 +38: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_alert_repository_test.dart: skip remaining, undo and finish invalidate the old alert
+00:02 +39: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_alert_repository_test.dart: skip remaining, undo and finish invalidate the old alert
+00:02 +40: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/backup_coordinator_test.dart: active workout with 0 completed sets blocks create/preview/undo but not overview
+00:02 +41: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/backup_coordinator_test.dart: active workout with 0 completed sets blocks create/preview/undo but not overview
+00:02 +42: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/backup_coordinator_test.dart: active workout with 1 completed sets blocks create/preview/undo but not overview
+00:02 +43: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/backup_coordinator_test.dart: active workout with 3 completed sets blocks create/preview/undo but not overview
+00:02 +44: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/backup_coordinator_test.dart: a new active workout after preview invalidates confirmation without creating an operation
+00:02 +45: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/backup_coordinator_test.dart: picker cancellation deletes previous candidate and invalidates its preview
+00:02 +46: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/backup_coordinator_test.dart: published export with failed bookkeeping repairs only the marker, without publishing twice
+00:02 +47: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/backup_coordinator_test.dart: protection interruption at before_write never replaces the current data
+00:03 +48: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/backup_coordinator_test.dart: protection interruption at after_flush never replaces the current data
+00:03 +49: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/backup_coordinator_test.dart: protection interruption at after_rename never replaces the current data
+00:03 +50: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/backup_coordinator_test.dart: protection interruption at after_verify never replaces the current data
+00:03 +51: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/backup_coordinator_test.dart: protection interruption at after_register never replaces the current data
+00:03 +52: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/backup_coordinator_test.dart: each failed setting is isolated and retry never repeats the core transaction: themeMode
+00:03 +53: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/backup_coordinator_test.dart: each failed setting is isolated and retry never repeats the core transaction: themeColor
+00:03 +54: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/backup_coordinator_test.dart: each failed setting is isolated and retry never repeats the core transaction: languageTag
+00:03 +55: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/backup_coordinator_test.dart: each failed setting is isolated and retry never repeats the core transaction: reminder
+00:04 +56: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/backup_coordinator_test.dart: skip pending settings ends old intent and permits a later complete restore
+00:04 +57: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/backup_coordinator_test.dart: copy deleting interruption is reconciled without touching current data or retargeting undo
+00:04 +58: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/backup_coordinator_test.dart: unverifiable core result restricts admission and retains a readable protection copy
+00:04 +59: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/backup_coordinator_test.dart: core replacement failure is verified as rolled back and can never report success
+00:04 +60: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/backup_coordinator_test.dart: preference success before journal failure is reread on startup without applying settings or core twice
+00:04 +61: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/backup_coordinator_test.dart: refresh failure preserves successful result and later refresh does not replace core
+00:04 +62: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/backup_coordinator_test.dart: undo keeps the original settings scope, and an undo protection failure preserves later data
+00:05 +63: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/backup_coordinator_test.dart: startup reconciles preparing without replaying a core transaction
+00:05 +64: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/backup_coordinator_test.dart: startup reconciles protected without replaying a core transaction
+00:05 +65: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/backup_coordinator_test.dart: startup reconciles completed without replaying a core transaction
+00:05 +66: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/backup_coordinator_test.dart: startup reconciles aborted without replaying a core transaction
+00:05 +67: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/backup_coordinator_test.dart: core committed with bookkeeping interruption is completed on startup without overwriting later records
+00:05 +68: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/backup_coordinator_test.dart: lost publish acknowledgement is reconciled before retry and never creates a duplicate file
+00:05 +69: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/backup_coordinator_test.dart: repairing an older successful export cannot replace the latest export marker even with clock changes
+00:05 +70: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/backup_coordinator_test.dart: canceled read discards a late picker result without validating or reviving the candidate
+00:05 +71: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/backup_coordinator_test.dart: undo inherits selected settings and treats its partial setting failure independently of core success
+00:05 +72: All tests passed!

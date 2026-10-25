@@ -1,0 +1,32 @@
+{
+  "date": "2026-10-25",
+  "change": "add-local-diagnostics",
+  "main_specs_synced": [
+    {
+      "capability": "app-diagnostics",
+      "action": "created",
+      "requirements": 12,
+      "sha256": "e6ee2418b3f5b090ac10c1957be5e73ca894df7a508865f04500b65b431a5289",
+      "unrelated_requirements_preserved": true,
+      "original_scenarios_preserved": true
+    },
+    {
+      "capability": "app-experience",
+      "action": "modified",
+      "requirements": 4,
+      "sha256": "c0a737e2fb2fba6e710938ea3c70d9b8522966e54f2112285747d97270d4f3c8",
+      "unrelated_requirements_preserved": true,
+      "original_scenarios_preserved": true
+    },
+    {
+      "capability": "data-backup",
+      "action": "modified",
+      "requirements": 1,
+      "sha256": "47ec802a3fbf6f433f3fcf1b783f03c96c25994d710795a4d9415bcd33a24585",
+      "unrelated_requirements_preserved": true,
+      "original_scenarios_preserved": true
+    }
+  ],
+  "remaining_delta_operations": 0,
+  "incomplete_tasks_preserved": 5
+}

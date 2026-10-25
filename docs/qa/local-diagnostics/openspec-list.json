@@ -1,0 +1,22 @@
+{
+  "changes": [
+    {
+      "name": "add-local-diagnostics",
+      "completedTasks": 15,
+      "totalTasks": 60,
+      "lastModified": "2026-10-24T02:53:31.357Z",
+      "status": "in-progress"
+    },
+    {
+      "name": "fix-workout-timer-recovery",
+      "completedTasks": 0,
+      "totalTasks": 0,
+      "lastModified": "2026-10-03T08:06:26.749Z",
+      "status": "no-tasks"
+    }
+  ],
+  "root": {
+    "path": "D:\\000_MyLibrary\\100_code\\110_Project\\5_SetTrace",
+    "source": "nearest"
+  }
+}

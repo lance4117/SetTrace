@@ -1,0 +1,67 @@
+{
+  "project": "D:\\000_MyLibrary\\100_code\\110_Project\\5_SetTrace",
+  "sdk": "D:\\ProgramData\\Android_SDK",
+  "avd": "D:\\ProgramData\\Android_AVD",
+  "androidUser": "D:\\ProgramData\\DevCache\\Android",
+  "gradle": "D:\\ProgramData\\DevCache\\Gradle",
+  "pub": "D:\\ProgramData\\DevCache\\Pub",
+  "temp": "D:\\ProgramData\\DevTemp\\add-local-diagnostics",
+  "flutter": "D:\\DevTools\\flutter",
+  "toolConfig": "D:\\ProgramData\\DevCache\\FlutterConfig",
+  "toolLocalCache": "D:\\ProgramData\\DevCache\\LocalAppData",
+  "jdk": "D:\\Program Files\\Android Studio\\jbr",
+  "avd:Pixel_7_Pro": "D:\\ProgramData\\Android_AVD\\Pixel_7_Pro.avd"
+}
+00:00 +0: loading D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostic_contract_test.dart
+00:00 +0: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostic_contract_test.dart: Dart and Kotlin event/enum vocabularies stay aligned
+00:00 +1: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostic_contract_test.dart: fields reject user strings, nonfinite values, and negative counters
+00:00 +2: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostic_contract_test.dart: stack contains only approved relative locations
+00:00 +3: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostic_contract_test.dart: commit and failed followup retain identity and original dataset epoch
+00:00 +4: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostic_contract_test.dart: logging remains nonthrowing and bounded when channel fails
+00:00 +5: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostic_contract_test.dart: closed logging and clear cannot revive queued old generation
+00:00 +6: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostic_contract_test.dart: NoOp supports repository observation without a platform
+00:01 +7: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/repository_diagnostics_test.dart: real plan/workout operations preserve commits without user content
+00:01 +8: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/repository_diagnostics_test.dart: commit is retained when onChanged throws after successful transaction
+00:01 +9: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/repository_diagnostics_test.dart: validation rejection and confirmed rollback do not claim a commit
+00:01 +10: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/workout_repository_test.dart: start snapshots plan and permits only one active workout
+00:01 +11: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/workout_repository_test.dart: start snapshots plan and permits only one active workout
+00:01 +12: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/workout_repository_test.dart: start snapshots plan and permits only one active workout
+00:01 +13: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/repository_diagnostics_test.dart: logger transport failure cannot roll back a business write
+00:01 +14: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/workout_repository_test.dart: set transition, rest adjustment, undo and session-only edit
+00:01 +15: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/workout_repository_test.dart: set transition, rest adjustment, undo and session-only edit
+00:01 +16: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/workout_repository_test.dart: expired rest recovers and partial workout enters history
+00:02 +17: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/workout_repository_test.dart: discarding a zero-set workout leaves no history
+00:02 +18: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/workout_repository_test.dart: finish needs explicit call and preserves partial snapshot
+00:02 +19: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/workout_repository_test.dart: both rest types lead to final-set confirmation without duplicate sets
+00:02 +20: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/workout_repository_test.dart: rest can be reduced to zero and completed sets constrain edits
+00:02 +21: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/workout_repository_test.dart: reducing target to completed sets repairs final cursor and rest
+00:02 +22: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/workout_repository_test.dart: delete history cascades and preserves other data complete=false
+00:02 +23: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/workout_repository_test.dart: delete history cascades and preserves other data complete=true
+00:03 +24: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_repository_test.dart: 2/4 persists, cancellation and restart do not lose targets or completion
+00:03 +25: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_repository_test.dart: 2/4 persists, cancellation and restart do not lose targets or completion
+00:03 +26: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_repository_test.dart: 2/4 persists, cancellation and restart do not lose targets or completion
+00:03 +27: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_repository_test.dart: 2/4 persists, cancellation and restart do not lose targets or completion
+00:03 +28: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_repository_test.dart: 2/4 persists, cancellation and restart do not lose targets or completion
+00:03 +29: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_repository_test.dart: 2/4 persists, cancellation and restart do not lose targets or completion
+00:03 +30: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_reordering_repository_test.dart: A C B D preserves adjusted rest, identities, config and restart
+00:03 +31: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_reordering_repository_test.dart: A C B D preserves adjusted rest, identities, config and restart
+00:03 +32: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_reordering_repository_test.dart: A C B D preserves adjusted rest, identities, config and restart
+00:03 +33: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_repository_test.dart: imports fresh identities persist and never touch existing sessions or plans
+00:03 +34: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_repository_test.dart: undo skip preserves later completed sets and follows saved order
+00:03 +35: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_repository_test.dart: undo skip preserves later completed sets and follows saved order
+00:03 +36: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_repository_test.dart: undo skip preserves later completed sets and follows saved order
+00:03 +37: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_reordering_repository_test.dart: partial B stays pinned while future D moves before C during group rest
+00:03 +38: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/session_reordering_repository_test.dart: partial B stays pinned while future D moves before C during group rest
+00:03 +39: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/skipped_sets_repository_test.dart: undo completion retains skips even at zero completed sets
+00:03 +40: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_repository_test.dart: valid compact input is not rejected for the size of a re-encoded export
+00:04 +41: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_repository_test.dart: valid compact input is not rejected for the size of a re-encoded export
+00:04 +42: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_repository_test.dart: valid compact input is not rejected for the size of a re-encoded export
+00:04 +43: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_repository_test.dart: valid compact input is not rejected for the size of a re-encoded export
+00:04 +44: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_repository_test.dart: valid compact input is not rejected for the size of a re-encoded export
+00:04 +45: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_repository_test.dart: valid compact input is not rejected for the size of a re-encoded export
+00:04 +46: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_repository_test.dart: valid compact input is not rejected for the size of a re-encoded export
+00:04 +47: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_repository_test.dart: valid compact input is not rejected for the size of a re-encoded export
+00:04 +48: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_repository_test.dart: valid compact input is not rejected for the size of a re-encoded export
+00:04 +49: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_repository_test.dart: valid compact input is not rejected for the size of a re-encoded export
+00:06 +50: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/plan_transfer_repository_test.dart: English suffix is pinned for preview and transaction conflict review
+00:06 +51: All tests passed!

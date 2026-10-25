@@ -1,0 +1,47 @@
+{
+  "date": "2026-10-25",
+  "timezone": "Asia/Hong_Kong",
+  "change": "add-local-diagnostics",
+  "schema": "spec-driven",
+  "archived_to": "D:\\000_MyLibrary\\100_code\\110_Project\\5_SetTrace\\openspec\\changes\\archive\\2026-10-25-add-local-diagnostics",
+  "specs_synced": true,
+  "completed_tasks": 55,
+  "pending_tasks": 5,
+  "user_confirmed_pending_tasks": true,
+  "all_moved_files_verified": true,
+  "files": [
+    {
+      "relative": ".openspec.yaml",
+      "sha256": "E2EBAEBEE255CCC1E09B64BA38D9B09C360A7392FC110A48CA2525E1EA49FA46"
+    },
+    {
+      "relative": "archive-notes.md",
+      "sha256": "7F6405C653FCC830C2BA50D50E86188BD0D6E5DC6DEB24A508AB408BB147DD0D"
+    },
+    {
+      "relative": "design.md",
+      "sha256": "C9353573345BD72D3DD5F108007A9D6C6D4292E9A558A5096EAE14831B0A4EF3"
+    },
+    {
+      "relative": "proposal.md",
+      "sha256": "3ED0BDBCF4AEA4001EBC49C189B285F7B972BF4B3F9DE860BC95F547A020C24F"
+    },
+    {
+      "relative": "tasks.md",
+      "sha256": "26F27CC5CAD37F659F21BECBB232113FD3DEB19864A0592E612E72D15B29FF0A"
+    },
+    {
+      "relative": "specs\\app-diagnostics\\spec.md",
+      "sha256": "9342ACE4F3E1F558F84EB9F11D6EFA301E3C1FE08F9C5F969CA6792F6E586912"
+    },
+    {
+      "relative": "specs\\app-experience\\spec.md",
+      "sha256": "CCA210C5A9A95728387B401557A54E8E6423A8CEE437ED6A544FBD7F63A96C41"
+    },
+    {
+      "relative": "specs\\data-backup\\spec.md",
+      "sha256": "0B517E64248CEBE680C018D7476A554326DA9B5F395E1CD944BC8584FACB14B9"
+    }
+  ],
+  "git_commit_executed": false
+}

@@ -8,8 +8,10 @@ class MainActivity : FlutterActivity() {
     private var planFiles: PlanFilesBridge? = null
     private var restAlerts: RestAlertsBridge? = null
     private var backupFiles: BackupFilesBridge? = null
+    private var diagnostics: DiagnosticsBridge? = null
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
+        diagnostics = DiagnosticsBridge(this, flutterEngine.dartExecutor.binaryMessenger)
         planFiles = PlanFilesBridge(this, flutterEngine.dartExecutor.binaryMessenger)
         backupFiles = BackupFilesBridge(this, flutterEngine.dartExecutor.binaryMessenger)
         restAlerts = RestAlertsBridge(this, flutterEngine.dartExecutor.binaryMessenger)
@@ -32,12 +34,14 @@ class MainActivity : FlutterActivity() {
         super.onActivityResult(requestCode, resultCode, data)
     }
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        if (diagnostics?.onPermissionResult(requestCode, grantResults) == true) return
         if (backupFiles?.onPermissionResult(requestCode, grantResults) == true) return
         if (restAlerts?.onPermissionResult(requestCode) == true) return
         if (planFiles?.onPermissionResult(requestCode, grantResults) == true) return
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
     override fun onDestroy() {
+        diagnostics?.dispose(); diagnostics = null
         backupFiles?.dispose(); backupFiles = null
         planFiles?.dispose(); planFiles = null
         restAlerts?.dispose(); restAlerts = null

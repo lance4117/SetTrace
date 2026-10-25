@@ -1,5 +1,11 @@
 import 'dart:async';
 
+import '../core/diagnostics/diagnostic_contract.dart';
+import '../core/diagnostics/diagnostic_observation.dart';
+import '../core/diagnostics/diagnostics_client.dart';
+import '../features/diagnostics/diagnostics_pages.dart';
+import '../features/diagnostics/diagnostic_state.dart';
+
 import '../features/backup/backup_coordinator.dart';
 import '../features/backup/backup_files_platform.dart';
 import '../features/backup/backup_pages.dart';
@@ -308,6 +314,17 @@ class _SetTraceAppState extends State<SetTraceApp> with WidgetsBindingObserver {
 
   void openNotificationDetails(RestAlertTap tap) {
     if (!mounted) return;
+    DiagnosticsClient.instance.event(
+      DiagnosticName.navigationNotification,
+      phase: DiagnosticPhase.started,
+      objects: {
+        DiagnosticObject.session: tap.sessionId,
+        if (tap.eventId != null) DiagnosticObject.rest_alert: tap.eventId!,
+      },
+      fields: {
+        if (tap.revision != null) DiagnosticField.revision: tap.revision!,
+      },
+    );
     pendingTap = tap.sessionId;
     pendingTapDetails = tap;
     restDialogKey.currentState?.dismiss();
@@ -422,6 +439,13 @@ class _SetTraceAppState extends State<SetTraceApp> with WidgetsBindingObserver {
         next.toLanguageTag(),
       );
       if (!saved) throw StateError('languagePreferenceWriteFailed');
+      DiagnosticScope.current?.commit(
+        fields: {
+          DiagnosticField.mode: next.languageCode == 'zh'
+              ? DiagnosticValue.zh
+              : DiagnosticValue.en,
+        },
+      );
     } catch (_) {
       // The legacy preferences API updates its cache before a platform write.
       // Restore that cache after a failed write as well as keeping the UI locale.
@@ -431,13 +455,19 @@ class _SetTraceAppState extends State<SetTraceApp> with WidgetsBindingObserver {
       rethrow;
     }
     if (mounted) {
+      DiagnosticScope.current?.phase = DiagnosticPhase.refresh;
       setState(() => locale = next);
       if (!fromBackup) await setupAlerts();
     }
   });
 
   Future<void> _settingsWrite(Future<void> Function() action) =>
-      widget.dataWrites?.write(action) ?? action();
+      diagnosticObserve(
+        DiagnosticsClient.instance,
+        DiagnosticName.settingsSave,
+        () => widget.dataWrites?.write(action) ?? action(),
+        inferCommitOnSuccess: false,
+      );
 
   ThemeMode _readMode() => switch (widget.preferences.getString('theme_mode')) {
     'light' => ThemeMode.light,
@@ -454,6 +484,11 @@ class _SetTraceAppState extends State<SetTraceApp> with WidgetsBindingObserver {
             next.name,
           );
           if (!saved) throw StateError('themePreferenceWriteFailed');
+          DiagnosticScope.current?.commit(
+            fields: {
+              DiagnosticField.mode: DiagnosticValue.values.byName(next.name),
+            },
+          );
         } catch (_) {
           try {
             await widget.preferences.reload();
@@ -672,6 +707,13 @@ class RootTabsState extends State<RootTabs> {
         ),
         SettingsPage(
           onBackup: widget.backups == null ? null : openBackup,
+          onDiagnostics: () => Navigator.of(context).push(
+            MaterialPageRoute<void>(
+              builder: (_) => DiagnosticsPage(
+                stateSource: () => diagnosticState(widget.workouts.db),
+              ),
+            ),
+          ),
           themeColors: widget.themeColors,
           info: widget.info,
           alerts: widget.alerts,

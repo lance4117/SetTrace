@@ -181,7 +181,7 @@ class FocusScene {
       buildSignature: '',
     );
     f.prefs = await SharedPreferences.getInstance();
-    await f.prefs.setInt('app_notice_seen_version', 2);
+    await f.prefs.setInt('app_notice_seen_version', 3);
     await f.seed();
     return f;
   }

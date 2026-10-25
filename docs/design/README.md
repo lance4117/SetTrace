@@ -1,12 +1,15 @@
 # SetTrace 当前设计：A · 专注工具
 
-最新确认设计：[记录页统计排版](history-summary/README.md)（2026-10-22 设计、2026-10-23 实施，**Flutter 已实现，自动化及 Android 模拟器已验证，真实 TalkBack 待验**）。采用“两张次数卡 → 通栏月度汇总 → 最近训练 → 月份切换 → 记录”的顺序，包含文字规范、确认草图与浅深色预览；仅调整记录页呈现，沿用现有统计口径。
+最新确认设计：[诊断与日志 UI](diagnostics/README.md)（`diagnostics-ui-2026-10-23`，**UI 已确认并纳入设计依据，待实现**）。设置以用户提供的最新完整设置界面为基础，仅在数据卡片中增加与备份同级的“诊断与日志”；诊断主页、导出、详细诊断及故障状态沿用已确认草图。后续实现先读[完整交互说明](diagnostics/ui-spec.md)及[实现对接说明](diagnostics/implementation-handoff.md)。本次为设计文档同步，没有实施应用功能或同步 OpenSpec 业务规格。
+
+已实施设计：[记录页统计排版](history-summary/README.md)（2026-10-22 设计、2026-10-23 实施，**Flutter 已实现，自动化及 Android 模拟器已验证，真实 TalkBack 待验**）。采用“两张次数卡 → 通栏月度汇总 → 最近训练 → 月份切换 → 记录”的顺序，包含文字规范、确认草图与浅深色预览；仅调整记录页呈现，沿用现有统计口径。
 
 新增设计：[备份与恢复 UI](backup/README.md)（2026-10-16，实施更新 2026-10-17）。包含可点击原型、中英文浅深主题、整份恢复与撤回流程、异常状态及原型核验；Flutter 代码已实现，人工与故障验收剩余项见本文末尾的独立验收记录；原型核验不改变下述既有功能的实施状态。
 
 | 项目 | 状态 |
 | --- | --- |
 | 设计版本 | `focus-a-2026-10-14` |
+| 最新 UI 增量 | `diagnostics-ui-2026-10-23`；界面已确认，程序待实现 |
 | 当前方向 | A · 专注工具；替代旧版视觉与布局方案 |
 | 功能基线 | 应用 `0.1.3+5`，提交 `da18d62` |
 | 本次交付 | A 方案 Flutter 实施、分阶段回归与 Android 验收证据 |
@@ -19,17 +22,18 @@
 
 ## 阅读入口
 
-最新布局增量为[记录页统计排版](history-summary/README.md)；既有[休息提醒增强](#休息提醒增强已实现待真机验收)（2026-10-16）的实施与待验状态保持各自记录。
+最新确认 UI 增量为[诊断与日志](diagnostics/README.md)；[记录页统计排版](history-summary/README.md)及既有[休息提醒增强](#休息提醒增强已实现待真机验收)的实施与待验状态保持各自记录。
 
 代理处理 SetTrace UI 相关工作时，先实际读取下列 Markdown；仅知道路径、浏览图片或运行原型不等于已读取规范。
 
 1. [主规范：视觉、组件与 Flutter 映射](SetTrace_UI_Design_System_and_Flutter_Spec.md)。
-2. [页面与状态：29 个页面、14 类弹窗及功能覆盖](screens-and-states.md)。
+2. [页面与状态：基线画面、后续增量及功能覆盖](screens-and-states.md)。
 3. [交互规范：可见条件、状态转换、返回与错误处理](interaction-spec.md)。
 4. [验收标准：可检查的设计与实现要求](acceptance-checklist.md)。
 5. 按所涉及能力读取 [现有 OpenSpec 规格](../../openspec/specs/)、当前源代码及对应验收记录。现有能力包括 `training-plans`、`workout-session`、`workout-history`、`app-experience`、`app-localization`。
 6. 打开 [完整设计稿及模拟原型](prototype/SetTrace-Focus.html) 对照画面。原型不依赖网络或外部资源，可直接用浏览器打开。
 7. 涉及 H01/H03/H05 的历史列表与统计排版时，继续读取[记录页统计排版规范](history-summary/README.md)。本增量的文字规范和确认草图指导后续布局；旧历史页原型不代表本增量已经实施。
+8. 涉及设置数据入口或诊断日志时，读取[诊断 UI 规范](diagnostics/ui-spec.md)和[实现对接说明](diagnostics/implementation-handoff.md)，对照[最新设置完整长图](diagnostics/00-settings-latest-full.png)及对应 L/LD/LE 状态。旧设置预览、简化片段或旧 HTML 不能替代此增量的最新设置布局；交互见 INT-13，验收见 LOGUI-01–12。
 
 ## 依据与冲突处理
 
@@ -52,6 +56,7 @@
 - 本次编辑与换序：[浅色中文](previews/session-tools-light-zh.png) / [深色英文](previews/session-tools-dark-en.png)。
 - 导入导出：[浅色中文](previews/transfer-light-zh.png) / [深色英文](previews/transfer-dark-en.png)。
 - 历史与设置：[浅色中文](previews/history-settings-light-zh.png) / [深色英文](previews/history-settings-dark-en.png)。
+- 设置与诊断最新设计：[完整设置长图](diagnostics/00-settings-latest-full.png)、[数据入口放大](diagnostics/00-settings-latest-focus.png)、[主要流程](diagnostics/01-main-flow.png)、[导出与深色](diagnostics/02-export-and-dark.png)、[辅助及故障](diagnostics/03-support-states.png)。设置新增入口以这些图和诊断文字规范为准；其余既有设置能力不删减，图内数值均为示例。
 - 记录页最新确认排版：[浅色中文](history-summary/previews/history-light-zh.png) / [深色中文](history-summary/previews/history-dark-zh.png)；应用已实现，验证范围见[独立验收](../qa/history-summary-layout-acceptance.md)，规则见[独立规范](history-summary/README.md)。
 - 弹窗：[浅色中文](previews/dialogs-light-zh.png) / [深色英文](previews/dialogs-dark-en.png)。
 - 适配：[浅色中文](previews/adaptation-light-zh.png) / [深色英文](previews/adaptation-dark-en.png)。
@@ -95,3 +100,11 @@ HTML 是浏览器中的静态设计与模拟交互，不执行真实剪贴板、
 `add-full-data-backup-restore` 已完成代码实现，三个主规格已同步并于2026-10-17[归档](../../openspec/changes/archive/2026-10-17-add-full-data-backup-restore/README.md)，43/45项完成，人工与故障验收两项保持未完成；设置入口位于适用提醒之后、关于之前。
 设计仍采用 focus-a 与四主题色。Flutter、原生单元测试和设备验收分别记录在
 [备份实施验收](../qa/backup-restore-acceptance.md)；现有 HTML 证据保留，不能代替真机结果。
+
+## 诊断与日志设计增量（2026-10-23，已确认，待实现）
+
+版本 `diagnostics-ui-2026-10-23`。确认范围包括按最新设置截图修订的 L00 和此前保留的 L01–L08、LD01、LE01/LE02 及其分支；完整页面目录、设计默认值、隐私表达、失败恢复和实现状态见[诊断设计入口](diagnostics/README.md)。
+
+设置保留外观→主题色→语言→适用提醒→数据→关于，数据卡片内依次为“备份与恢复”和“诊断与日志”，仅增加第二行及分隔线。界面沿用现行四主题色、Material 线框图标、两语、字号与安全区规则；诊断导出允许训练进行中使用，和完整备份的活动会话限制分别处理。
+
+主规范 §14、页面增量、INT-13、LOGUI-01–12 与[实现对接说明](diagnostics/implementation-handoff.md)共同指导后续程序设计。图像是静态草图，应用尚未实现；文档核查见[设计验证入口](verification/README.md)，不将文档接入记为 Flutter／Android 功能通过。

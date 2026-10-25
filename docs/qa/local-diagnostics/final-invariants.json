@@ -1,0 +1,11 @@
+{
+  "tasks_complete": 55,
+  "tasks_pending": 5,
+  "native_tests": 54.0,
+  "native_failures": 0.0,
+  "native_errors": 0.0,
+  "native_skipped": 0.0,
+  "database_version_line": "version: 6,",
+  "backup_version_line": "'schemaVersion': 1,",
+  "notice_version_line": "const currentNoticeVersion = 3;"
+}

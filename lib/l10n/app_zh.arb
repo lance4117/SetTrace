@@ -1687,7 +1687,7 @@
   "@noticePrivacyTitle": {
     "description": "App information and local data notice: noticePrivacyTitle"
   },
-  "noticePrivacyBody": "无需注册账号，不收集或上传你的个人信息与使用数据，App 本身不主动联网。打开项目主页等外部链接时，将由浏览器访问网络。",
+  "noticePrivacyBody": "无需账号。SetTrace不自动收集或上传你的个人信息，不自动联网；本机诊断记录的范围见下文。项目主页等外部链接会在浏览器打开，可能使用网络。",
   "@noticePrivacyBody": {
     "description": "App information and local data notice: noticePrivacyBody"
   },
@@ -2339,5 +2339,387 @@
         "type": "String"
       }
     }
+  },
+  "diagTitle": "诊断与日志",
+  "@diagTitle": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagSubtitle": "导出诊断包，帮助排查问题",
+  "@diagSubtitle": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagIntro": "遇到问题时，导出诊断包帮助排查。",
+  "@diagIntro": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagLogging": "本机诊断记录",
+  "@diagLogging": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagLocalOnly": "仅保存在此设备，不自动上传。",
+  "@diagLocalOnly": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagSavedLogs": "已保存的日志",
+  "@diagSavedLogs": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagRecording": "记录中",
+  "@diagRecording": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagOff": "记录已关闭",
+  "@diagOff": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagOffHelp": "停止保存新日志，已有日志仍按保存规则清理。",
+  "@diagOffHelp": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagEmpty": "尚无操作日志",
+  "@diagEmpty": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagRangeUnknown": "暂无可核实的日志范围",
+  "@diagRangeUnknown": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagRetention": "最多保留7天或20 MiB，先到先清理。",
+  "@diagRetention": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagGaps": "部分时段缺少日志，导出包会说明。",
+  "@diagGaps": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagReadFailed": "无法读取日志状态",
+  "@diagReadFailed": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagReadFailedHelp": "暂时无法读取日志状态，仍可尝试导出已有信息。",
+  "@diagReadFailedHelp": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagLimited": "部分日志未能保存",
+  "@diagLimited": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagLimitedHelp": "诊断记录受限，不代表训练数据保存失败。仍可导出可用信息。",
+  "@diagLimitedHelp": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagControlFailed": "未能保存设置，请重试。下方显示最近核实的有效状态。",
+  "@diagControlFailed": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagControlUnknown": "暂时无法核实设置是否保存，请重试读取状态。",
+  "@diagControlUnknown": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagDetailed": "临时详细诊断",
+  "@diagDetailed": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagDetailedSubtitle": "按需开启，30分钟后自动关闭",
+  "@diagDetailedSubtitle": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagDetailedOff": "关闭",
+  "@diagDetailedOff": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagDetailedIntro": "在开发者协助排查时开启，重复一次出现问题的操作，再导出诊断包。",
+  "@diagDetailedIntro": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagDetailedRules": "最多开启30分钟；重启应用后关闭。仅增加必要的技术细节，名称、重量和输入正文仍不会记录。",
+  "@diagDetailedRules": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagDetailedNeedsLogging": "请先在上一页开启本机诊断记录。",
+  "@diagDetailedNeedsLogging": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagEnableDetailed": "开启30分钟",
+  "@diagEnableDetailed": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagDisableDetailed": "立即关闭",
+  "@diagDisableDetailed": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagPrivacy": "记录与隐私说明",
+  "@diagPrivacy": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagPrivacyContent": "日志记录必要技术状态、关键操作阶段和错误线索，不包含计划名、动作名、输入正文、重量或完整训练记录。常规与详细模式使用相同隐私规则。",
+  "@diagPrivacyContent": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagPrivacyRetention": "本机日志最多保留7天且不超过20 MiB。应用手动完整备份不包含诊断记录与诊断偏好；诊断目录位于Android不参与系统备份的位置，但无法保证所有厂商迁移行为。",
+  "@diagPrivacyRetention": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagPrivacySharing": "导出须由你主动操作，ZIP不加密，不会自动上传或发送。即使已脱敏，仍可能体现使用时间和习惯，请仅分享给信任的人。",
+  "@diagPrivacySharing": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagPrivacyClear": "关闭记录只停止新日志；清空只删除本机诊断内容。Download中已导出的文件由你自行管理，不随日志过期、清空或卸载而删除。",
+  "@diagPrivacyClear": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagClear": "清空本机日志",
+  "@diagClear": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagClearTitle": "清空本机日志？",
+  "@diagClearTitle": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagClearBody": "删除当前设备中已有的诊断日志，无法恢复。训练计划、记录和备份不受影响。下载目录中已导出的诊断包会保留。若记录仍开启，之后会继续生成新日志。",
+  "@diagClearBody": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagClearConfirm": "清空日志",
+  "@diagClearConfirm": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagClearFailed": "部分日志未能清空，请重试。显示的范围和大小来自重新读取的结果。",
+  "@diagClearFailed": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagClearBusy": "请先完成或取消导出，再清空本机日志。",
+  "@diagClearBusy": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagCleared": "本机旧日志已清空；记录开启时会继续生成新日志。",
+  "@diagCleared": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagExport": "导出诊断包",
+  "@diagExport": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagAvailableExport": "导出已有诊断信息",
+  "@diagAvailableExport": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagExportHint": "仅保存文件，不会自动发送。",
+  "@diagExportHint": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagExportHeading": "把问题线索保存下来",
+  "@diagExportHeading": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagExportIntro": "导出后，可自行将文件发给开发者。",
+  "@diagExportIntro": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagThisExport": "本次导出",
+  "@diagThisExport": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagRange": "日志范围",
+  "@diagRange": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagLocation": "保存位置",
+  "@diagLocation": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagDownloads": "系统下载目录 / Download",
+  "@diagDownloads": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagIncludes": "包含哪些信息",
+  "@diagIncludes": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagEnvironment": "应用与系统版本、相关权限状态",
+  "@diagEnvironment": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagOperations": "可用的关键操作经过、错误与诊断信息",
+  "@diagOperations": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagEnvironmentOnly": "仅包含当前应用与系统诊断信息，不含操作日志。",
+  "@diagEnvironmentOnly": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagSharingTitle": "分享前请了解",
+  "@diagSharingTitle": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagSave": "保存到下载目录",
+  "@diagSave": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagZipHint": "ZIP文件 · 不会自动上传",
+  "@diagZipHint": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagProgress": "正在导出诊断包",
+  "@diagProgress": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagProgressHelp": "正在处理固定范围，生成期间的新操作不一定包含在本次文件中。训练与休息提醒将继续。",
+  "@diagProgressHelp": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagCollect": "固定可用信息范围",
+  "@diagCollect": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagPackage": "打包诊断信息",
+  "@diagPackage": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagVerify": "保存并核验文件",
+  "@diagVerify": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagStepDone": "已完成",
+  "@diagStepDone": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagStepActive": "处理中",
+  "@diagStepActive": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagStepWaiting": "等待",
+  "@diagStepWaiting": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagCancelling": "正在取消并清理…",
+  "@diagCancelling": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagPublishing": "正在完成文件保存…",
+  "@diagPublishing": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagCancelExport": "取消导出",
+  "@diagCancelExport": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagSaved": "诊断包已保存",
+  "@diagSaved": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagPartial": "已保存，部分信息不可用",
+  "@diagPartial": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagSavedHelp": "文件已保存并核验。不会自动发送，也不会随之后的操作自动更新。",
+  "@diagSavedHelp": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagFile": "文件信息",
+  "@diagFile": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagFileName": "文件名",
+  "@diagFileName": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagSize": "大小",
+  "@diagSize": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagDone": "完成",
+  "@diagDone": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagFailed": "未能保存诊断包",
+  "@diagFailed": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagStorageFailed": "暂时无法写入下载目录，文件尚未确认保存。请重试。",
+  "@diagStorageFailed": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagNoSpace": "下载目录所在存储空间不足，请腾出空间后重试。",
+  "@diagNoSpace": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagPermission": "未获得下载目录写入权限，文件尚未保存。请重新授权。",
+  "@diagPermission": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagPermanentPermission": "下载目录写入权限已被拒绝，请在应用设置中允许后重试。",
+  "@diagPermanentPermission": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagSettings": "打开应用设置",
+  "@diagSettings": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagUnknown": "暂时无法确认文件是否保存完成",
+  "@diagUnknown": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagUnknownHelp": "请先检查下载目录，或重新核查同一个导出结果。核查不会创建新文件。",
+  "@diagUnknownHelp": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagInspect": "重新核查",
+  "@diagInspect": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagReviewExport": "查看已有导出结果",
+  "@diagReviewExport": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagMissingEnvironment": "部分环境或状态信息不可用，详见包内说明。",
+  "@diagMissingEnvironment": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagMissingLogs": "部分操作日志不可用，详见包内说明。",
+  "@diagMissingLogs": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagFileMissing": "先前文件已不存在或无法读取，请检查下载目录。",
+  "@diagFileMissing": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagUnsupported": "此系统暂不支持所需诊断能力。",
+  "@diagUnsupported": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagStartupTitle": "暂时无法打开本机数据",
+  "@diagStartupTitle": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagStartupHelp": "应用初始化未完成，暂时无法核实训练数据状态。可以重试打开，或导出已有诊断信息帮助排查。请保留本机数据。",
+  "@diagStartupHelp": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagStartupRetry": "重试打开",
+  "@diagStartupRetry": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagLoading": "正在读取日志状态…",
+  "@diagLoading": {
+    "description": "Local diagnostics UI (diagnostics-ui-2026-10-23)"
+  },
+  "diagDetailedUntil": "已开启，{time}自动关闭",
+  "@diagDetailedUntil": {
+    "description": "Confirmed detailed logging deadline, localized date and time",
+    "placeholders": {
+      "time": {
+        "type": "String",
+        "description": "Localized confirmed deadline"
+      }
+    }
+  },
+  "noticeDiagnosticsTitle": "诊断与日志",
+  "noticeDiagnosticsBody": "本机诊断记录默认开启，最多保留7天且不超过20 MiB，不自动上传；名称、重量与完整训练内容不会记录。可在设置中关闭或清空，并主动导出不加密的ZIP到公共Download目录。文件可能体现使用时间和习惯，请仅分享给信任的人。已导出文件由你管理，清空日志或卸载不会删除。诊断内容与偏好不进入完整备份，诊断目录按Android机制排除系统备份，厂商迁移可能不同。",
+  "@noticeDiagnosticsTitle": {
+    "description": "Shared version 3 notice used on first display and About"
+  },
+  "@noticeDiagnosticsBody": {
+    "description": "Shared version 3 notice used on first display and About"
   }
 }

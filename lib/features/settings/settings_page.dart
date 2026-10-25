@@ -12,6 +12,7 @@ import '../rest_alerts/rest_alert_service.dart';
 import '../rest_alerts/rest_reminder_controls.dart';
 import '../about/about_section.dart';
 import '../about/app_info_service.dart';
+import '../diagnostics/diagnostics_pages.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({
@@ -19,6 +20,7 @@ class SettingsPage extends StatefulWidget {
     this.alerts,
     this.themeColors,
     this.onBackup,
+    this.onDiagnostics,
     this.info = const AppInfoService(),
     required this.mode,
     required this.onModeChanged,
@@ -29,6 +31,7 @@ class SettingsPage extends StatefulWidget {
   final RestAlertService? alerts;
   final ThemeColorController? themeColors;
   final VoidCallback? onBackup;
+  final FutureOr<void> Function()? onDiagnostics;
   final AppInfoService info;
   final ThemeMode mode;
   final FutureOr<void> Function(ThemeMode) onModeChanged;
@@ -40,6 +43,24 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
+  final diagnosticsFocus = FocusNode();
+  Future<void> openDiagnostics() async {
+    if (widget.onDiagnostics != null) {
+      await widget.onDiagnostics!.call();
+    } else {
+      await Navigator.of(
+        context,
+      ).push(MaterialPageRoute<void>(builder: (_) => const DiagnosticsPage()));
+    }
+    if (mounted) diagnosticsFocus.requestFocus();
+  }
+
+  @override
+  void dispose() {
+    diagnosticsFocus.dispose();
+    super.dispose();
+  }
+
   bool savingLanguage = false;
   bool savingTheme = false, themeError = false;
   bool languageError = false;
@@ -288,7 +309,7 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
             ),
           if (widget.alerts != null) reminderSettings(widget.alerts!),
-          if (widget.onBackup != null) ...[
+          ...[
             const SizedBox(height: 24),
             Text(
               strings.backupDataSection,
@@ -297,17 +318,41 @@ class _SettingsPageState extends State<SettingsPage> {
             const SizedBox(height: 12),
             AppCard(
               padding: EdgeInsets.zero,
-              child: ListTile(
-                contentPadding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 12,
-                ),
-                title: Text(strings.backupTitle),
-                subtitle: Text(strings.backupSubtitle),
-                trailing: const ExcludeSemantics(
-                  child: Icon(Icons.chevron_right),
-                ),
-                onTap: widget.onBackup,
+              child: Column(
+                children: [
+                  ListTile(
+                    contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 12,
+                    ),
+                    title: Text(strings.backupTitle),
+                    subtitle: Text(strings.backupSubtitle),
+                    trailing: const ExcludeSemantics(
+                      child: Icon(Icons.chevron_right),
+                    ),
+                    onTap: widget.onBackup,
+                  ),
+                  Divider(
+                    height: 1,
+                    indent: 16,
+                    endIndent: 16,
+                    color: colors.border,
+                  ),
+                  ListTile(
+                    key: const ValueKey('settings-diagnostics'),
+                    focusNode: diagnosticsFocus,
+                    contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 12,
+                    ),
+                    title: Text(strings.diagTitle),
+                    subtitle: Text(strings.diagSubtitle),
+                    trailing: const ExcludeSemantics(
+                      child: Icon(Icons.chevron_right),
+                    ),
+                    onTap: openDiagnostics,
+                  ),
+                ],
               ),
             ),
           ],

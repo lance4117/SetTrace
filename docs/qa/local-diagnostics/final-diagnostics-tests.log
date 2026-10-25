@@ -1,0 +1,52 @@
+{
+  "project": "D:\\000_MyLibrary\\100_code\\110_Project\\5_SetTrace",
+  "sdk": "D:\\ProgramData\\Android_SDK",
+  "avd": "D:\\ProgramData\\Android_AVD",
+  "androidUser": "D:\\ProgramData\\DevCache\\Android",
+  "gradle": "D:\\ProgramData\\DevCache\\Gradle",
+  "pub": "D:\\ProgramData\\DevCache\\Pub",
+  "temp": "D:\\ProgramData\\DevTemp\\add-local-diagnostics",
+  "flutter": "D:\\DevTools\\flutter",
+  "toolConfig": "D:\\ProgramData\\DevCache\\FlutterConfig",
+  "toolLocalCache": "D:\\ProgramData\\DevCache\\LocalAppData",
+  "jdk": "D:\\Program Files\\Android Studio\\jbr",
+  "avd:Pixel_7_Pro": "D:\\ProgramData\\Android_AVD\\Pixel_7_Pro.avd"
+}
+00:00 +0: loading D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/business_followup_diagnostics_test.dart
+00:00 +0: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/business_followup_diagnostics_test.dart: business restore and export keep diagnostics disabled and identity local
+00:00 +1: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/business_followup_diagnostics_test.dart: business restore and export keep diagnostics disabled and identity local
+00:00 +2: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/business_followup_diagnostics_test.dart: business restore and export keep diagnostics disabled and identity local
+00:00 +3: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/business_followup_diagnostics_test.dart: business restore and export keep diagnostics disabled and identity local
+00:00 +4: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/business_followup_diagnostics_test.dart: business restore and export keep diagnostics disabled and identity local
+00:00 +5: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/business_followup_diagnostics_test.dart: business restore and export keep diagnostics disabled and identity local
+00:00 +6: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/business_followup_diagnostics_test.dart: business restore and export keep diagnostics disabled and identity local
+00:00 +7: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/business_followup_diagnostics_test.dart: business restore and export keep diagnostics disabled and identity local
+00:00 +8: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/business_followup_diagnostics_test.dart: business restore and export keep diagnostics disabled and identity local
+00:00 +9: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/business_followup_diagnostics_test.dart: business restore and export keep diagnostics disabled and identity local
+00:00 +10: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/business_followup_diagnostics_test.dart: business restore and export keep diagnostics disabled and identity local
+00:00 +11: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: latest settings keeps data rows together even without backup
+00:00 +12: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: latest settings keeps data rows together even without backup
+00:00 +13: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: latest settings keeps data rows together even without backup
+00:00 +14: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: latest settings keeps data rows together even without backup
+00:00 +15: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: latest settings keeps data rows together even without backup
+00:00 +16: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: latest settings keeps data rows together even without backup
+00:00 +17: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: latest settings keeps data rows together even without backup
+00:00 +18: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: latest settings keeps data rows together even without backup
+00:00 +19: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: latest settings keeps data rows together even without backup
+00:01 +20: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: latest settings keeps data rows together even without backup
+00:01 +21: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: latest settings keeps data rows together even without backup
+00:01 +22: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: latest settings keeps data rows together even without backup
+00:01 +23: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: latest settings keeps data rows together even without backup
+00:01 +24: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: latest settings keeps data rows together even without backup
+00:01 +25: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: latest settings keeps data rows together even without backup
+00:01 +26: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: latest settings keeps data rows together even without backup
+00:01 +27: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: latest settings keeps data rows together even without backup
+00:01 +28: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/startup_diagnostics_test.dart: database failure shell exports and returns without deleting or opening data
+00:01 +29: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/startup_diagnostics_test.dart: database failure shell exports and returns without deleting or opening data
+00:01 +30: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/startup_diagnostics_test.dart: database failure shell exports and returns without deleting or opening data
+00:01 +31: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/startup_diagnostics_test.dart: database failure shell exports and returns without deleting or opening data
+00:02 +32: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/startup_diagnostics_test.dart: database failure shell exports and returns without deleting or opening data
+00:02 +33: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/startup_diagnostics_test.dart: database failure shell exports and returns without deleting or opening data
+00:02 +34: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: all primary pages adapt to themes, languages, sizes and large text
+00:02 +35: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: all primary pages adapt to themes, languages, sizes and large text
+00:05 +36: All tests passed!

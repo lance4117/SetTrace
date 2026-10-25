@@ -1,5 +1,8 @@
 import 'package:flutter/services.dart';
 
+import '../../core/diagnostics/diagnostic_observation.dart';
+import '../../core/diagnostics/diagnostics_client.dart';
+
 import 'rest_alert_repository.dart';
 import 'rest_alert_options.dart';
 
@@ -59,6 +62,11 @@ abstract class RestAlertPlatform {
 }
 
 class AndroidRestAlertPlatform extends RestAlertPlatform {
+  Map<String, Object?> get _diagnosticContext => {
+    if (DiagnosticScope.current case final scope?)
+      'diagnostic_operation': scope.operation.id,
+    'diagnostic_epoch': ?DiagnosticsClient.instance.datasetEpoch,
+  };
   final MethodChannel channel = const MethodChannel('settrace/rest_alerts');
   AndroidRestAlertPlatform() {
     channel.setMethodCallHandler((call) async {
@@ -96,12 +104,15 @@ class AndroidRestAlertPlatform extends RestAlertPlatform {
       );
   @override
   Future<void> schedule(RestAlertEvent event) =>
-      channel.invokeMethod('schedule', event.row);
+      channel.invokeMethod('schedule', {...event.row, ..._diagnosticContext});
   @override
-  Future<void> deliver(RestAlertEvent event) => channel.invokeMethod(
-    'deliver',
-    {'id': event.id, 'revision': event.revision, 'sequence': event.sequence},
-  );
+  Future<void> deliver(RestAlertEvent event) =>
+      channel.invokeMethod('deliver', {
+        'id': event.id,
+        'revision': event.revision,
+        'sequence': event.sequence,
+        ..._diagnosticContext,
+      });
   @override
   Future<void> cancelExcept(Set<int> validIds) =>
       channel.invokeMethod('cancelExcept', {'ids': validIds.toList()});

@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+import '../../core/diagnostics/diagnostic_contract.dart';
+import '../../core/diagnostics/diagnostic_observation.dart';
+import '../../core/diagnostics/diagnostics_client.dart';
+
 import '../../l10n/localization.dart';
 
 import '../../app/theme/app_theme.dart';
@@ -44,10 +48,16 @@ class _HistoryPageState extends State<HistoryPage> {
     if (widget.revision != oldWidget.revision) refresh();
   }
 
-  Future<void> refresh() async {
+  Future<void> refresh({String? diagnosticParent}) async {
     final generation = ++refreshGeneration;
     try {
-      final data = await widget.workouts.listHistory();
+      final data = await diagnosticObserve(
+        widget.workouts.diagnostics ?? DiagnosticsClient.instance,
+        DiagnosticName.historyRefresh,
+        () => widget.workouts.listHistory(),
+        readOnly: true,
+        parentOperation: diagnosticParent,
+      );
       if (!mounted || generation != refreshGeneration) return;
       setState(() {
         sessions = data
@@ -89,7 +99,9 @@ class _HistoryPageState extends State<HistoryPage> {
           : (l) => l.historyMissing;
     });
     showAppSnackBar(context, removalNotice!);
-    await refresh();
+    await refresh(
+      diagnosticParent: widget.workouts.lastHistoryDeleteOperationId,
+    );
   }
 
   @override

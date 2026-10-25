@@ -1,0 +1,113 @@
+{
+  "checked_at_local_date": "2026-10-24",
+  "timezone": "Asia/Hong_Kong",
+  "design_version": "diagnostics-ui-2026-10-23",
+  "scope": "Design documentation integration only; relative-link checks validate local file existence, not all heading anchors. No Flutter or Android runtime verification.",
+  "documents": [
+    "docs/design/README.md",
+    "docs/design/SetTrace_UI_Design_System_and_Flutter_Spec.md",
+    "docs/design/screens-and-states.md",
+    "docs/design/interaction-spec.md",
+    "docs/design/acceptance-checklist.md",
+    "docs/design/verification/README.md",
+    "docs/design/diagnostics/README.md",
+    "docs/design/diagnostics/ui-spec.md",
+    "docs/design/diagnostics/implementation-handoff.md"
+  ],
+  "relative_file_links_checked": 212,
+  "broken_relative_file_links": [],
+  "missing_screen_ids": [],
+  "interaction_INT_13_present": true,
+  "acceptance_ids": [
+    "LOGUI-01",
+    "LOGUI-02",
+    "LOGUI-03",
+    "LOGUI-04",
+    "LOGUI-05",
+    "LOGUI-06",
+    "LOGUI-07",
+    "LOGUI-08",
+    "LOGUI-09",
+    "LOGUI-10",
+    "LOGUI-11",
+    "LOGUI-12"
+  ],
+  "acceptance_ids_match": true,
+  "accepted_other_boards_unchanged": {
+    "02-export-and-dark.png": true,
+    "02-export-and-dark.svg": true,
+    "03-support-states.png": true,
+    "03-support-states.svg": true
+  },
+  "resources": [
+    {
+      "path": "docs/design/diagnostics/00-settings-latest-full.png",
+      "bytes": 255742,
+      "sha256": "7c8359b22f0c9146e37b9ccd5fe28f22279c123f0654de2bd7ae68d288fd594c"
+    },
+    {
+      "path": "docs/design/diagnostics/00-settings-latest-full.svg",
+      "bytes": 16530,
+      "sha256": "abcc70d14f60b3c5c5d72394f6bdc983b399db3e80a9fc9f802794065a54434c"
+    },
+    {
+      "path": "docs/design/diagnostics/00-settings-latest-focus.png",
+      "bytes": 328120,
+      "sha256": "8fae8b44f0a1dc40109b1e2389a2a9b30945e6e2774b052b6a3df9bf0ac28355"
+    },
+    {
+      "path": "docs/design/diagnostics/00-settings-latest-focus.svg",
+      "bytes": 9790,
+      "sha256": "92069614da32e962dae656e463b84d0a5cb4c02509c15c848cd9bd9586a3248f"
+    },
+    {
+      "path": "docs/design/diagnostics/01-main-flow.png",
+      "bytes": 464988,
+      "sha256": "23483fde9fcb28a82209650ab9ba0db4cd33cb8b3e202df4025a2f9397879e25"
+    },
+    {
+      "path": "docs/design/diagnostics/01-main-flow.svg",
+      "bytes": 22582,
+      "sha256": "84114fdff53e1e0ce45645fc5b70e529382cf188004538dd3d2bfa5317612fcb"
+    },
+    {
+      "path": "docs/design/diagnostics/02-export-and-dark.png",
+      "bytes": 392508,
+      "sha256": "d76412bca2151b4d85345c123d82a55adf85d6ac0fc6e28699f4c75a1a81f856"
+    },
+    {
+      "path": "docs/design/diagnostics/02-export-and-dark.svg",
+      "bytes": 18713,
+      "sha256": "eb76ffab44416c3c5ce58c232def7426875ae0df865d8712767a2625fc929f32"
+    },
+    {
+      "path": "docs/design/diagnostics/03-support-states.png",
+      "bytes": 419965,
+      "sha256": "a2d01597fdbcdd7302073d3978db94be35782e67d886c8602b7ba8540f4bb171"
+    },
+    {
+      "path": "docs/design/diagnostics/03-support-states.svg",
+      "bytes": 15741,
+      "sha256": "3c27596c4c100d12f8263662b711abd5ce4f6b21433b7a8a4c1060e0d182afbe"
+    }
+  ],
+  "tracked_paths_changed": [
+    "docs/design/README.md",
+    "docs/design/SetTrace_UI_Design_System_and_Flutter_Spec.md",
+    "docs/design/acceptance-checklist.md",
+    "docs/design/interaction-spec.md",
+    "docs/design/screens-and-states.md",
+    "docs/design/verification/README.md"
+  ],
+  "git_status": [
+    " M docs/design/README.md",
+    " M docs/design/SetTrace_UI_Design_System_and_Flutter_Spec.md",
+    " M docs/design/acceptance-checklist.md",
+    " M docs/design/interaction-spec.md",
+    " M docs/design/screens-and-states.md",
+    " M docs/design/verification/README.md",
+    "?? docs/design/diagnostics/"
+  ],
+  "application_runtime_tests": "not run; design documentation only",
+  "passed": true
+}

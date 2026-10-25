@@ -1,0 +1,25 @@
+{
+  "project": "D:\\000_MyLibrary\\100_code\\110_Project\\5_SetTrace",
+  "sdk": "D:\\ProgramData\\Android_SDK",
+  "avd": "D:\\ProgramData\\Android_AVD",
+  "androidUser": "D:\\ProgramData\\DevCache\\Android",
+  "gradle": "D:\\ProgramData\\DevCache\\Gradle",
+  "pub": "D:\\ProgramData\\DevCache\\Pub",
+  "temp": "D:\\ProgramData\\DevTemp\\add-local-diagnostics",
+  "flutter": "D:\\DevTools\\flutter",
+  "toolConfig": "D:\\ProgramData\\DevCache\\FlutterConfig",
+  "toolLocalCache": "D:\\ProgramData\\DevCache\\LocalAppData",
+  "jdk": "D:\\Program Files\\Android Studio\\jbr",
+  "avd:Pixel_7_Pro": "D:\\ProgramData\\Android_AVD\\Pixel_7_Pro.avd"
+}
+00:00 +0: loading D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/startup_diagnostics_test.dart
+00:00 +0: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/startup_diagnostics_test.dart: global Flutter and async error hooks preserve prior handlers and sanitize
+00:00 +1: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: latest settings keeps data rows together even without backup
+00:01 +2: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/startup_diagnostics_test.dart: database failure shell exports and returns without deleting or opening data
+00:01 +3: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: no logs and read failure are distinct; disabled detail does not enable logging
+00:01 +4: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: no logs and read failure are distinct; disabled detail does not enable logging
+00:01 +5: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: preview creates no file; only save starts; result keeps full selectable filename
+00:01 +6: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: unknown export offers inspection and no duplicate save action
+00:01 +7: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: clear defaults to cancel; cancel never calls native deletion
+00:02 +8: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: all primary pages adapt to themes, languages, sizes and large text
+00:06 +9: All tests passed!

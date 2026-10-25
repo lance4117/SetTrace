@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1360" height="1138" viewBox="0 0 1360 1138">
+<rect width="100%" height="100%" fill="#E9EEEC"/>
+<text x="40" y="28" font-family="Microsoft YaHei, sans-serif" font-size="14" font-weight="700" dominant-baseline="text-before-edge" fill="#076D5C">SETTRACE  /  诊断与日志</text>
+<text x="40" y="56" font-family="Microsoft YaHei, sans-serif" font-size="30" font-weight="700" dominant-baseline="text-before-edge" fill="#19262C">需要排查时深入，出现故障时仍有出口</text>
+<text x="40" y="99" font-family="Microsoft YaHei, sans-serif" font-size="14" font-weight="400" dominant-baseline="text-before-edge" fill="#586970">03 / 按需记录、部分导出与启动故障</text>
+<text x="40" y="1108" font-family="Microsoft YaHei, sans-serif" font-size="12" font-weight="400" dominant-baseline="text-before-edge" fill="#586970">界面草图 · 数值与结果均为设计示例 · 未接入真实日志或文件操作</text>
+<text x="40" y="128" font-family="Microsoft YaHei, sans-serif" font-size="12" font-weight="700" dominant-baseline="text-before-edge" fill="#076D5C">L05</text>
+<text x="84" y="124" font-family="Microsoft YaHei, sans-serif" font-size="19" font-weight="700" dominant-baseline="text-before-edge" fill="#19262C">临时详细诊断</text>
+<text x="40" y="1044" font-family="Microsoft YaHei, sans-serif" font-size="14" font-weight="400" dominant-baseline="text-before-edge" fill="#586970">独立说明页，开启前清楚交代期限与用途。</text>
+<text x="40" y="1068" font-family="Microsoft YaHei, sans-serif" font-size="14" font-weight="400" dominant-baseline="text-before-edge" fill="#586970">开启后显示结束时刻和“立即关闭”。</text>
+<rect x="40" y="176" width="390" height="844" rx="28" fill="#F5F7F8" stroke="#AAB8B2" stroke-width="1"/>
+<text x="64" y="191" font-family="Microsoft YaHei, sans-serif" font-size="12" font-weight="700" dominant-baseline="text-before-edge" fill="#19262C">9:41</text>
+<polyline points="360,204 360,198 364,198 364,204 368,204 368,194 372,194 372,204" fill="none" stroke="#586970" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="383" y="195" width="22" height="11" rx="3" fill="#F5F7F8" stroke="#586970" stroke-width="1"/>
+<rect x="386" y="198" width="15" height="5" rx="1" fill="#586970" stroke="none" stroke-width="1"/>
+<polyline points="408,199 408,202" fill="none" stroke="#586970" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="185" y="1003" width="100" height="4" rx="2" fill="#19262C" stroke="none" stroke-width="1"/>
+<polyline points="75,236 65,246 75,256" fill="none" stroke="#19262C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="65,246 86,246" fill="none" stroke="#19262C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="104" y="233" font-family="Microsoft YaHei, sans-serif" font-size="18" font-weight="700" dominant-baseline="text-before-edge" fill="#19262C">诊断与日志</text>
+<text x="64" y="295" font-family="Microsoft YaHei, sans-serif" font-size="24" font-weight="700" dominant-baseline="text-before-edge" fill="#19262C">临时详细诊断</text>
+<text x="64" y="340" font-family="Microsoft YaHei, sans-serif" font-size="16" font-weight="400" dominant-baseline="text-before-edge" fill="#19262C">复现问题时，临时记录更多技术细节。</text>
+<rect x="64" y="392" width="342" height="96" rx="16" fill="#FFFFFF" stroke="none" stroke-width="1"/>
+<text x="80" y="411" font-family="Microsoft YaHei, sans-serif" font-size="14" font-weight="400" dominant-baseline="text-before-edge" fill="#586970">当前状态</text>
+<text x="80" y="445" font-family="Microsoft YaHei, sans-serif" font-size="18" font-weight="700" dominant-baseline="text-before-edge" fill="#19262C">未开启</text>
+<rect x="64" y="515" width="342" height="153" rx="16" fill="#E2F2ED" stroke="none" stroke-width="1"/>
+<text x="80" y="535" font-family="Microsoft YaHei, sans-serif" font-size="16" font-weight="700" dominant-baseline="text-before-edge" fill="#076D5C">开启后</text>
+<text x="80" y="574" font-family="Microsoft YaHei, sans-serif" font-size="14" font-weight="400" dominant-baseline="text-before-edge" fill="#076D5C">30分钟后自动关闭，重启也会关闭。</text>
+<text x="80" y="605" font-family="Microsoft YaHei, sans-serif" font-size="14" font-weight="400" dominant-baseline="text-before-edge" fill="#076D5C">不会自动上传，也不会记录输入内容。</text>
+<text x="80" y="636" font-family="Microsoft YaHei, sans-serif" font-size="14" font-weight="400" dominant-baseline="text-before-edge" fill="#076D5C">记录量会增加，仍受保存上限限制。</text>
+<text x="64" y="702" font-family="Microsoft YaHei, sans-serif" font-size="16" font-weight="700" dominant-baseline="text-before-edge" fill="#19262C">建议的排查步骤</text>
+<text x="64" y="745" font-family="Microsoft YaHei, sans-serif" font-size="16" font-weight="400" dominant-baseline="text-before-edge" fill="#19262C">1. 开启详细诊断</text>
+<text x="64" y="785" font-family="Microsoft YaHei, sans-serif" font-size="16" font-weight="400" dominant-baseline="text-before-edge" fill="#19262C">2. 返回训练，重新操作一次</text>
+<text x="64" y="825" font-family="Microsoft YaHei, sans-serif" font-size="16" font-weight="400" dominant-baseline="text-before-edge" fill="#19262C">3. 回到这里，导出诊断包</text>
+<rect x="41" y="889" width="388" height="107" rx="0" fill="#F5F7F8" stroke="none" stroke-width="1"/>
+<polyline points="64,889 406,889" fill="none" stroke="#DBE3E5" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="64" y="905" width="342" height="56" rx="14" fill="#087F6B" stroke="none" stroke-width="1"/>
+<text x="193.0" y="922" font-family="Microsoft YaHei, sans-serif" font-size="16" font-weight="700" dominant-baseline="text-before-edge" fill="#FFFFFF">开启30分钟</text>
+<text x="64" y="973" font-family="Microsoft YaHei, sans-serif" font-size="12" font-weight="400" dominant-baseline="text-before-edge" fill="#586970">只在排查问题时使用。</text>
+<text x="485" y="128" font-family="Microsoft YaHei, sans-serif" font-size="12" font-weight="700" dominant-baseline="text-before-edge" fill="#076D5C">L06</text>
+<text x="529" y="124" font-family="Microsoft YaHei, sans-serif" font-size="19" font-weight="700" dominant-baseline="text-before-edge" fill="#19262C">部分信息不可用</text>
+<text x="485" y="1044" font-family="Microsoft YaHei, sans-serif" font-size="14" font-weight="400" dominant-baseline="text-before-edge" fill="#586970">黄色说明诊断信息有缺失，文件已保存。</text>
+<text x="485" y="1068" font-family="Microsoft YaHei, sans-serif" font-size="14" font-weight="400" dominant-baseline="text-before-edge" fill="#586970">不与“保存失败”混为一种状态。</text>
+<rect x="485" y="176" width="390" height="844" rx="28" fill="#F5F7F8" stroke="#AAB8B2" stroke-width="1"/>
+<text x="509" y="191" font-family="Microsoft YaHei, sans-serif" font-size="12" font-weight="700" dominant-baseline="text-before-edge" fill="#19262C">9:41</text>
+<polyline points="805,204 805,198 809,198 809,204 813,204 813,194 817,194 817,204" fill="none" stroke="#586970" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="828" y="195" width="22" height="11" rx="3" fill="#F5F7F8" stroke="#586970" stroke-width="1"/>
+<rect x="831" y="198" width="15" height="5" rx="1" fill="#586970" stroke="none" stroke-width="1"/>
+<polyline points="853,199 853,202" fill="none" stroke="#586970" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="630" y="1003" width="100" height="4" rx="2" fill="#19262C" stroke="none" stroke-width="1"/>
+<polyline points="520,236 510,246 520,256" fill="none" stroke="#19262C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="510,246 531,246" fill="none" stroke="#19262C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="549" y="233" font-family="Microsoft YaHei, sans-serif" font-size="18" font-weight="700" dominant-baseline="text-before-edge" fill="#19262C">导出诊断包</text>
+<rect x="509" y="309" width="342" height="126" rx="16" fill="#FFF1D8" stroke="none" stroke-width="1"/>
+<text x="525" y="329" font-family="Microsoft YaHei, sans-serif" font-size="22" font-weight="700" dominant-baseline="text-before-edge" fill="#855208">已保存，部分信息不可用</text>
+<text x="525" y="373" font-family="Microsoft YaHei, sans-serif" font-size="14" font-weight="400" dominant-baseline="text-before-edge" fill="#855208">已导出可读取的日志。</text>
+<text x="525" y="402" font-family="Microsoft YaHei, sans-serif" font-size="14" font-weight="400" dominant-baseline="text-before-edge" fill="#855208">部分历史日志损坏，未包含在文件中。</text>
+<rect x="509" y="461" width="342" height="176" rx="16" fill="#FFFFFF" stroke="none" stroke-width="1"/>
+<text x="525" y="481" font-family="Microsoft YaHei, sans-serif" font-size="14" font-weight="400" dominant-baseline="text-before-edge" fill="#586970">已保存的文件</text>
+<text x="525" y="516" font-family="Microsoft YaHei, sans-serif" font-size="16" font-weight="700" dominant-baseline="text-before-edge" fill="#19262C">SetTrace-diagnostics-</text>
+<text x="525" y="545" font-family="Microsoft YaHei, sans-serif" font-size="16" font-weight="700" dominant-baseline="text-before-edge" fill="#19262C">20261023-153000-CD34.zip</text>
+<text x="525" y="593" font-family="Microsoft YaHei, sans-serif" font-size="14" font-weight="400" dominant-baseline="text-before-edge" fill="#586970">Download · 980 KiB</text>
+<text x="509" y="672" font-family="Microsoft YaHei, sans-serif" font-size="16" font-weight="400" dominant-baseline="text-before-edge" fill="#19262C">缺失范围已在包内说明。</text>
+<text x="509" y="712" font-family="Microsoft YaHei, sans-serif" font-size="14" font-weight="400" dominant-baseline="text-before-edge" fill="#586970">你仍可分享现有文件，帮助分析问题。</text>
+<text x="509" y="752" font-family="Microsoft YaHei, sans-serif" font-size="14" font-weight="400" dominant-baseline="text-before-edge" fill="#586970">若需要更完整的线索，可重新复现问题</text>
+<text x="509" y="779" font-family="Microsoft YaHei, sans-serif" font-size="14" font-weight="400" dominant-baseline="text-before-edge" fill="#586970">后再导出。</text>
+<rect x="486" y="889" width="388" height="107" rx="0" fill="#F5F7F8" stroke="none" stroke-width="1"/>
+<polyline points="509,889 851,889" fill="none" stroke="#DBE3E5" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="509" y="905" width="342" height="56" rx="14" fill="#087F6B" stroke="none" stroke-width="1"/>
+<text x="664.0" y="922" font-family="Microsoft YaHei, sans-serif" font-size="16" font-weight="700" dominant-baseline="text-before-edge" fill="#FFFFFF">完成</text>
+<text x="509" y="973" font-family="Microsoft YaHei, sans-serif" font-size="12" font-weight="400" dominant-baseline="text-before-edge" fill="#586970">已导出的文件由你自行保管。</text>
+<text x="930" y="128" font-family="Microsoft YaHei, sans-serif" font-size="12" font-weight="700" dominant-baseline="text-before-edge" fill="#076D5C">L07</text>
+<text x="974" y="124" font-family="Microsoft YaHei, sans-serif" font-size="19" font-weight="700" dominant-baseline="text-before-edge" fill="#19262C">启动失败的诊断入口</text>
+<text x="930" y="1044" font-family="Microsoft YaHei, sans-serif" font-size="14" font-weight="400" dominant-baseline="text-before-edge" fill="#586970">不依赖训练数据库，仍可导出已有信息。</text>
+<text x="930" y="1068" font-family="Microsoft YaHei, sans-serif" font-size="14" font-weight="400" dominant-baseline="text-before-edge" fill="#586970">不猜测数据是否完好，不引导清除数据。</text>
+<rect x="930" y="176" width="390" height="844" rx="28" fill="#F5F7F8" stroke="#AAB8B2" stroke-width="1"/>
+<text x="954" y="191" font-family="Microsoft YaHei, sans-serif" font-size="12" font-weight="700" dominant-baseline="text-before-edge" fill="#19262C">9:41</text>
+<polyline points="1250,204 1250,198 1254,198 1254,204 1258,204 1258,194 1262,194 1262,204" fill="none" stroke="#586970" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="1273" y="195" width="22" height="11" rx="3" fill="#F5F7F8" stroke="#586970" stroke-width="1"/>
+<rect x="1276" y="198" width="15" height="5" rx="1" fill="#586970" stroke="none" stroke-width="1"/>
+<polyline points="1298,199 1298,202" fill="none" stroke="#586970" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="1075" y="1003" width="100" height="4" rx="2" fill="#19262C" stroke="none" stroke-width="1"/>
+<text x="954" y="237" font-family="Microsoft YaHei, sans-serif" font-size="24" font-weight="700" dominant-baseline="text-before-edge" fill="#19262C">SetTrace</text>
+<rect x="954" y="326" width="56" height="56" rx="28" fill="#FFF0EE" stroke="none" stroke-width="1"/>
+<polyline points="982,341 982,359" fill="none" stroke="#B13C35" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="980" y="364" width="4" height="4" rx="2" fill="#B13C35" stroke="none" stroke-width="1"/>
+<text x="954" y="414" font-family="Microsoft YaHei, sans-serif" font-size="24" font-weight="700" dominant-baseline="text-before-edge" fill="#19262C">暂时无法打开本机数据</text>
+<text x="954" y="464" font-family="Microsoft YaHei, sans-serif" font-size="16" font-weight="400" dominant-baseline="text-before-edge" fill="#19262C">读取训练数据时发生问题。</text>
+<text x="954" y="497" font-family="Microsoft YaHei, sans-serif" font-size="16" font-weight="400" dominant-baseline="text-before-edge" fill="#19262C">可以先重试，或导出已有诊断信息。</text>
+<rect x="954" y="557" width="342" height="117" rx="16" fill="#FFFFFF" stroke="none" stroke-width="1"/>
+<text x="970" y="577" font-family="Microsoft YaHei, sans-serif" font-size="16" font-weight="700" dominant-baseline="text-before-edge" fill="#19262C">帮助排查</text>
+<text x="970" y="614" font-family="Microsoft YaHei, sans-serif" font-size="14" font-weight="400" dominant-baseline="text-before-edge" fill="#586970">已有日志可帮助分析本次启动问题。</text>
+<text x="970" y="642" font-family="Microsoft YaHei, sans-serif" font-size="14" font-weight="400" dominant-baseline="text-before-edge" fill="#586970">实际数据状态尚未核实。</text>
+<rect x="954" y="779" width="342" height="56" rx="14" fill="#FFFFFF" stroke="#71858C" stroke-width="1"/>
+<text x="1061.0" y="796" font-family="Microsoft YaHei, sans-serif" font-size="16" font-weight="700" dominant-baseline="text-before-edge" fill="#19262C">导出已有诊断信息</text>
+<rect x="931" y="889" width="388" height="107" rx="0" fill="#F5F7F8" stroke="none" stroke-width="1"/>
+<polyline points="954,889 1296,889" fill="none" stroke="#DBE3E5" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="954" y="905" width="342" height="56" rx="14" fill="#087F6B" stroke="none" stroke-width="1"/>
+<text x="1093.0" y="922" font-family="Microsoft YaHei, sans-serif" font-size="16" font-weight="700" dominant-baseline="text-before-edge" fill="#FFFFFF">重试打开</text>
+<text x="954" y="973" font-family="Microsoft YaHei, sans-serif" font-size="12" font-weight="400" dominant-baseline="text-before-edge" fill="#586970">请勿清除应用数据，以免丢失本机记录。</text>
+</svg>
