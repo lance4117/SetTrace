@@ -1,0 +1,4 @@
+unknown-version rejected: Unknown event schema
+private-sound rejected: Privacy sentinel or raw source leakage: events/000.jsonl
+raw-identity rejected: Raw or invalid business ID
+bad-hash rejected: Content hash/size mismatch: events/000.jsonl

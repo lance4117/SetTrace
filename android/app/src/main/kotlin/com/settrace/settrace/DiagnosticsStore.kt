@@ -84,7 +84,7 @@ data class DiagnosticSegment(
     val file: File, val incident: Boolean, val generation: String,
     val retentionUtc: Long, val boot: String, val monotonic: Long,
     var count: Long = 0, var first: Long? = null, var last: Long? = null,
-    var readable: Boolean = true,
+    var readable: Boolean = true, val version: Long = 1,
 )
 
 data class DiagnosticSnapshot(val id: String, val cutoff: Long, val expires: Long, val files: List<DiagnosticSegment>, val missing: List<String>)
@@ -139,7 +139,11 @@ class DiagnosticStore(
                 require(loaded.getProperty("enabled") in setOf("true", "false"))
                 require(DiagnosticVocabulary.token.matches(loaded.getProperty("generation", "")))
                 require(Regex("[a-f0-9]{64}").matches(loaded.getProperty("key", "")))
-                require(loaded.stringPropertyNames().all { it in setOf("version", "enabled", "enabled_since", "exit_seen", "generation", "key", "clearing", "last_wall", "last_boot", "last_mono") || it.substringBefore('.') in setOf("loss", "loss_first", "loss_last", "loss_boot", "loss_mono", "loss_first_mono") && it.substringAfter('.') in DiagnosticVocabulary.reasons })
+                require(loaded.stringPropertyNames().all { it in setOf("version", "enabled", "enabled_since", "exit_seen", "generation", "key", "clearing", "last_wall", "last_boot", "last_mono", "build_order") || it.startsWith("build.") && DiagnosticVocabulary.token.matches(it.removePrefix("build.")) || it.substringBefore('.') in setOf("loss", "loss_first", "loss_last", "loss_boot", "loss_mono", "loss_first_mono") && it.substringAfter('.') in DiagnosticVocabulary.reasons })
+                val buildKeys = loaded.stringPropertyNames().filter { it.startsWith("build.") }
+                require(buildKeys.size <= 32)
+                require(buildKeys.all { Regex("[a-zA-Z0-9._+()-]{1,64}\\|[0-9]{1,20}").matches(loaded.getProperty(it)) })
+                require(loaded.getProperty("build_order", "").length <= 1056)
                 control = loaded
                 for (reason in DiagnosticVocabulary.reasons) {
                     val count = loaded.getProperty("loss.$reason")?.toLongOrNull() ?: continue
@@ -183,6 +187,25 @@ class DiagnosticStore(
     }
 
     fun metadataBytes(): Long = root.listFiles()?.filter { it.isFile }?.sumOf { it.length() } ?: throw DiagnosticFailure("read_failed")
+
+    @Synchronized fun registerBuild(process: String, version: String?, build: String?) {
+        if (!enabled || !DiagnosticVocabulary.token.matches(process)) return
+        val safe = Regex("[a-zA-Z0-9._+()-]{1,64}")
+        if (version == null || build == null || !safe.matches(version) || !Regex("[0-9]{1,20}").matches(build)) return
+        val key = "build.$process"
+        if (control.containsKey(key)) return // An observer cannot reassign an older process.
+        val next = Properties().also { it.putAll(control) }
+        val order = next.getProperty("build_order", "").split(',').filter { DiagnosticVocabulary.token.matches(it) }.toMutableList()
+        while (order.size >= 32) next.remove("build.${order.removeAt(0)}")
+        next.setProperty(key, "$version|$build"); order.add(process)
+        next.setProperty("build_order", order.joinToString(","))
+        try { saveControl(next); control = next } catch (_: Exception) { loss("write_failed") }
+    }
+    @Synchronized fun processBuilds(): Map<String, Any?> = control.stringPropertyNames().filter { it.startsWith("build.") }
+        .sorted().associate { key ->
+            val parts = control.getProperty(key).split('|')
+            key.removePrefix("build.") to mapOf("version" to parts[0], "build" to parts[1])
+        }
 
     @Synchronized fun loss(reason: String, amount: Long = 1) {
         if (reason !in DiagnosticVocabulary.reasons) return
@@ -245,11 +268,11 @@ class DiagnosticStore(
             if (record.incidentBytes != null) {
                 val id = record.event["incident_id"] as String
                 if (id !in incidentIds) {
-                    if (writeLine(true, record.incidentBytes, (record.event["time_utc"] as Number).toLong())) incidentIds.add(id)
+                    if (writeLine(true, record.incidentBytes, (record.event["time_utc"] as Number).toLong(), (record.event["schema_version"] as Number).toLong())) incidentIds.add(id)
                     while (incidentIds.size > 256) incidentIds.remove(incidentIds.first())
                 }
             }
-            writeLine(false, record.eventBytes, (record.event["time_utc"] as Number).toLong())
+            writeLine(false, record.eventBytes, (record.event["time_utc"] as Number).toLong(), (record.event["schema_version"] as Number).toLong())
         } catch (_: Exception) { loss("write_failed") }
     }
 
@@ -259,7 +282,7 @@ class DiagnosticStore(
         summary["aggregation_count"] = value.count
         summary["aggregation_first_mono"] = value.first
         summary["aggregation_last_mono"] = value.last
-        try { writeLine(false, DiagnosticJson.bytes(summary), (summary["time_utc"] as Number).toLong()) }
+        try { writeLine(false, DiagnosticJson.bytes(summary), (summary["time_utc"] as Number).toLong(), (summary["schema_version"] as Number).toLong()) }
         catch (_: Exception) { loss("write_failed") }
         value.count = 0
     }
@@ -284,22 +307,22 @@ class DiagnosticStore(
         }
     }
 
-    private fun writeLine(incident: Boolean, bytes: ByteArray, time: Long): Boolean {
+    private fun writeLine(incident: Boolean, bytes: ByteArray, time: Long, version: Long): Boolean {
         beforeDataWrite?.invoke()
         val maximumSegment = if (incident) limits.incidentSegment else limits.eventSegment
         if (bytes.size + 512 > maximumSegment || (!incident && bytes.size > 8 * 1024)) { loss("size_limit"); return false }
         val line = bytes + byteArrayOf(10)
         var current = active[incident]
-        if (current == null || current.file.length() + line.size > maximumSegment || expired(current)) {
+        if (current == null || current.version != version || current.file.length() + line.size > maximumSegment || expired(current)) {
             active.remove(incident)
             val directory = if (incident) incidentDirectory else eventDirectory
             val file = File(directory, "$generation-${clock.wallMillis().coerceAtLeast(0)}-${nextFile++}.jsonl")
-            val header = mapOf("kind" to "segment", "schema_version" to 1, "generation" to generation, "retention_utc" to clock.wallMillis(), "boot" to clock.boot, "monotonic_ms" to clock.monotonicMillis())
+            val header = mapOf("kind" to "segment", "schema_version" to version, "generation" to generation, "retention_utc" to clock.wallMillis(), "boot" to clock.boot, "monotonic_ms" to clock.monotonicMillis())
             val headerBytes = DiagnosticJson.bytes(header) + byteArrayOf(10)
             if (!makeRoom(incident, headerBytes.size + line.size)) { loss("queue_overflow"); return false }
             if (!file.createNewFile()) throw DiagnosticFailure("write_failed")
             FileOutputStream(file).use { it.write(headerBytes) }
-            current = DiagnosticSegment(file, incident, generation, clock.wallMillis(), clock.boot, clock.monotonicMillis())
+            current = DiagnosticSegment(file, incident, generation, clock.wallMillis(), clock.boot, clock.monotonicMillis(), version = version)
             segments.add(current); active[incident] = current
         } else if (!makeRoom(incident, line.size)) { loss("queue_overflow"); return false }
         FileOutputStream(current.file, true).use { it.write(line) }
@@ -362,9 +385,9 @@ class DiagnosticStore(
                         if (firstLine.length > 1024) throw DiagnosticFailure("corrupt_tail")
                         val header = decode(firstLine)
                         val retention = DiagnosticVocabulary.number(header["retention_utc"]) ?: throw DiagnosticFailure("corrupt_tail")
-                        val segment = DiagnosticSegment(file, incident, file.name.substringBefore('-'), retention, header["boot"] as? String ?: "unknown", DiagnosticVocabulary.number(header["monotonic_ms"]) ?: 0)
+                        val segment = DiagnosticSegment(file, incident, file.name.substringBefore('-'), retention, header["boot"] as? String ?: "unknown", DiagnosticVocabulary.number(header["monotonic_ms"]) ?: 0, version = DiagnosticVocabulary.number(header["schema_version"]) ?: 0)
                         segments.add(segment)
-                        if (header["schema_version"] != 1 && header["schema_version"] != 1L) { segment.readable = false; loss("unsupported_version"); return@use }
+                        if (segment.version !in 1L..2L) { segment.readable = false; loss("unsupported_version"); return@use }
                         var goodEnd = reader.filePointer
                         while (reader.filePointer < reader.length()) {
                             val line = reader.readLine()
@@ -373,7 +396,7 @@ class DiagnosticStore(
                             try {
                                 if (line == null || line.length > (if (incident) 48 * 1024 else 8 * 1024) || !complete) throw DiagnosticFailure("corrupt_tail")
                                 val item = decode(line)
-                                if (!DiagnosticStoredValidator.valid(item, incident)) throw DiagnosticFailure("sanitization_rejected")
+                                if (DiagnosticVocabulary.number(item["schema_version"]) != segment.version || !DiagnosticStoredValidator.valid(item, incident)) throw DiagnosticFailure("sanitization_rejected")
                                 if (!incident) {
                                     val time = (item["time_utc"] as Number).toLong()
                                     segment.count++; segment.first = minOf(segment.first ?: time, time); segment.last = maxOf(segment.last ?: time, time)
@@ -450,7 +473,8 @@ class DiagnosticStore(
 /** Persisted files are revalidated, never exported as trusted opaque bytes. */
 object DiagnosticStoredValidator {
     fun valid(item: Map<*, *>, incident: Boolean): Boolean {
-        if (DiagnosticVocabulary.number(item["schema_version"]) != 1L) return false
+        val version = DiagnosticVocabulary.number(item["schema_version"]) ?: return false
+        if (version !in 1L..2L) return false
         if (DiagnosticVocabulary.number(item["time_utc"]) == null) return false
         if (incident) {
             if (item.keys.any { it !in setOf("schema_version", "incident_id", "time_utc", "reason_code", "frames") }) return false
@@ -460,7 +484,7 @@ object DiagnosticStoredValidator {
             return frames.size <= 96 && frames.all { it is String && DiagnosticPrivacy.validFrame(it) } && frames.sumOf { (it as String).length } <= 32 * 1024
         }
         val keys = setOf("schema_version", "event_name", "module", "origin", "phase", "outcome", "severity", "reason_code", "operation_id", "parent_operation_id", "correlation_id", "process_instance", "sequence", "monotonic_us", "clock_domain", "time_utc", "observed_time_utc", "timezone_offset_minutes", "dataset_epoch", "generation", "attributes", "objects", "incident_id", "aggregation_count", "aggregation_first_mono", "aggregation_last_mono")
-        if (item.keys.any { it !in keys } || item["event_name"] !in DiagnosticVocabulary.events || item["phase"] !in DiagnosticVocabulary.phases || item["outcome"] !in DiagnosticVocabulary.outcomes || item["severity"] !in DiagnosticVocabulary.levels || item["reason_code"] !in DiagnosticVocabulary.reasons) return false
+        if (item.keys.any { it !in keys } || !DiagnosticVocabulary.eventAllowed(item["event_name"], version) || item["phase"] !in DiagnosticVocabulary.phases || item["outcome"] !in DiagnosticVocabulary.outcomes || item["severity"] !in DiagnosticVocabulary.levels || item["reason_code"] !in DiagnosticVocabulary.reasons) return false
         val name = item["event_name"] as String
         if (item["module"] != name.substringBefore('.') || item["origin"] !in setOf("dart", "android")) return false
         for (key in listOf("operation_id", "correlation_id", "process_instance", "generation")) if (!DiagnosticVocabulary.token.matches(item[key] as? String ?: "")) return false
@@ -474,7 +498,7 @@ object DiagnosticStoredValidator {
         val timezone = item["timezone_offset_minutes"] as? Number ?: return false
         if (timezone.toInt() !in -1080..1080) return false
         val attributes = item["attributes"] as? Map<*, *> ?: return false
-        if (attributes.size > 24 || attributes.any { (key, value) -> when (key) { in DiagnosticVocabulary.counts -> DiagnosticVocabulary.number(value) == null; in DiagnosticVocabulary.flags -> value !is Boolean; "mode" -> value !in DiagnosticVocabulary.values; else -> true } }) return false
+        if (attributes.size > 24 || attributes.any { (key, value) -> !DiagnosticVocabulary.attributeAllowed(key, value, version) }) return false
         val objects = item["objects"] as? Map<*, *> ?: return false
         return objects.size <= 6 && objects.all { (key, value) -> key in DiagnosticVocabulary.objectTypes && value is String && Regex("[a-f0-9]{64}").matches(value) }
     }

@@ -1,6 +1,7 @@
 import 'package:flutter/services.dart';
 
 import '../../core/diagnostics/diagnostic_observation.dart';
+import '../../core/diagnostics/diagnostic_contract.dart';
 import '../../core/diagnostics/diagnostics_client.dart';
 
 import 'rest_alert_repository.dart';
@@ -55,6 +56,8 @@ abstract class RestAlertPlatform {
 
   Future<void> configureOutput(RestAlertOptions options, String locale) async {}
   Future<void> preview(String sound, String locale) async {}
+  Future<Map<String, dynamic>> soundStatus() async => {'condition': 'unknown'};
+  Future<void> previewSystem() => preview('system', 'en');
   Future<void> stopPreview() async {}
   Future<void> stopOutput(int id) async {}
   Future<void> refreshNotification(RestAlertEvent event) async {}
@@ -64,8 +67,15 @@ abstract class RestAlertPlatform {
 class AndroidRestAlertPlatform extends RestAlertPlatform {
   Map<String, Object?> get _diagnosticContext => {
     if (DiagnosticScope.current case final scope?)
-      'diagnostic_operation': scope.operation.id,
-    'diagnostic_epoch': ?DiagnosticsClient.instance.datasetEpoch,
+      'diagnostic_operation': scope.visibleOperation,
+    'diagnostic_epoch': ?(DiagnosticScope.current != null
+        ? DiagnosticScope.current!.operation.epoch
+        : DiagnosticsClient.instance.datasetEpoch),
+    'diagnostic_trigger':
+        DiagnosticScope.current?.operation.name ==
+            DiagnosticName.restAcknowledge
+        ? 'acknowledge'
+        : diagnosticTrigger.name,
   };
   final MethodChannel channel = const MethodChannel('settrace/rest_alerts');
   AndroidRestAlertPlatform() {
@@ -114,8 +124,10 @@ class AndroidRestAlertPlatform extends RestAlertPlatform {
         ..._diagnosticContext,
       });
   @override
-  Future<void> cancelExcept(Set<int> validIds) =>
-      channel.invokeMethod('cancelExcept', {'ids': validIds.toList()});
+  Future<void> cancelExcept(Set<int> validIds) => channel.invokeMethod(
+    'cancelExcept',
+    {'ids': validIds.toList(), ..._diagnosticContext},
+  );
   @override
   Future<void> requestNotifications() =>
       channel.invokeMethod('requestNotifications');
@@ -147,10 +159,22 @@ class AndroidRestAlertPlatform extends RestAlertPlatform {
         'revision': event.revision,
       });
   @override
+  Future<Map<String, dynamic>> soundStatus() async =>
+      (await channel.invokeMapMethod<String, dynamic>('soundStatus'))!;
+  @override
+  Future<void> previewSystem() async {
+    final result = await channel.invokeMapMethod<String, dynamic>('preview');
+    final state = result?['state'];
+    if (state != 'completed' && state != 'stopped') {
+      throw PlatformException(code: state as String? ?? 'previewFailed');
+    }
+  }
+
+  @override
   Future<void> stopPreview() => channel.invokeMethod('stopPreview');
   @override
   Future<void> stopOutput(int id) =>
-      channel.invokeMethod('stopOutput', {'id': id});
+      channel.invokeMethod('stopOutput', {'id': id, ..._diagnosticContext});
   @override
   void dispose() {
     channel.setMethodCallHandler(null);

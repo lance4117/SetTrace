@@ -108,3 +108,11 @@ HTML 是浏览器中的静态设计与模拟交互，不执行真实剪贴板、
 设置保留外观→主题色→语言→适用提醒→数据→关于，数据卡片内依次为“备份与恢复”和“诊断与日志”，仅增加第二行及分隔线。界面沿用现行四主题色、Material 线框图标、两语、字号与安全区规则；诊断导出允许训练进行中使用，和完整备份的活动会话限制分别处理。
 
 主规范 §14、页面增量、INT-13、LOGUI-01–12 与[实现对接说明](diagnostics/implementation-handoff.md)共同指导后续程序设计。图像是静态草图，应用尚未实现；文档核查见[设计验证入口](verification/README.md)，不将文档接入记为 Flutter／Android 功能通过。
+
+## 系统声音增量（2026-10-27，已归档，平台／真机待验）
+
+`rest-system-sound-2026-10-27` 仅替代 D19 和 C01/C02/C04 声音行：系统音状态、独立试听／停止和系统通知设置。
+沿用 focus-a、四主题色与 INT-12／REM-04/06；D17、D18、C03 及诊断数据入口保留。
+代码和自动化证据见 [本次验收](../qa/rest-system-sound/acceptance.md)，真人听感、TalkBack 和未实测设备单列待验。
+
+该增量已于 2026-10-28 同步 app-experience／app-diagnostics 主规格并[归档](../../openspec/changes/archive/2026-10-28-fix-rest-sound-and-diagnostics/README.md)，任务保持 26/30；迁移工况、跨版本及小米真机验收仍待完成，未执行 Git 提交或发布。

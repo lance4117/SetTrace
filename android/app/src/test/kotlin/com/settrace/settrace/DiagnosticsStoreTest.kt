@@ -28,9 +28,9 @@ class DiagnosticsStoreTest {
             return values
         }
         fun store(beforeControl: (() -> Unit)? = null, beforeWrite: (() -> Unit)? = null, beforeDelete: (() -> Unit)? = null, customLimits: DiagnosticLimits = limits) = DiagnosticStore(root, clock, ::decode, customLimits, beforeControl, beforeWrite, beforeDelete)
-        fun record(store: DiagnosticStore, failed: Boolean = false, frames: Boolean = false): DiagnosticRecord {
+        fun record(store: DiagnosticStore, failed: Boolean = false, frames: Boolean = false, version: Int = 1): DiagnosticRecord {
             val input = mapOf<String, Any?>(
-                "schema_version" to 1, "event_name" to "workout.complete", "phase" to if (failed) "failed" else "committed", "outcome" to if (failed) "unknown" else "committed", "severity" to if (failed) "error" else "info",
+                "schema_version" to version, "event_name" to "workout.complete", "phase" to if (failed) "failed" else "committed", "outcome" to if (failed) "unknown" else "committed", "severity" to if (failed) "error" else "info",
                 "reason_code" to if (failed) "io" else "none", "operation_id" to "b".repeat(32), "process_instance" to "c".repeat(32), "sequence" to ++sequence,
                 "monotonic_us" to clock.mono * 1000, "clock_domain" to "dart", "time_utc" to clock.wall, "timezone_offset_minutes" to 480,
                 "dataset_epoch" to 1, "generation" to store.generation, "attributes" to mapOf("completed_count" to 1), "objects" to mapOf("session" to 42),
@@ -44,6 +44,35 @@ class DiagnosticsStoreTest {
         fun dispose() { root.deleteRecursively() }
     }
 
+    @Test fun mixedVersionsNeverAppendToSameSegmentAndOldEvidenceIsUnchanged() {
+        val fixture = Fixture()
+        try {
+            val store = fixture.store()
+            store.append(fixture.record(store)); store.flush()
+            val old = File(fixture.root,"events").listFiles()!!.single()
+            val oldBytes = old.readBytes()
+            store.append(fixture.record(store,version = 2)); store.flush()
+            assertArrayEquals(oldBytes,old.readBytes())
+            assertEquals(2L,fixture.store().overview().eventCount)
+            assertEquals(setOf(1L,2L),store.beginSnapshot().files.map { it.version }.toSet())
+        } finally { fixture.dispose() }
+    }
+    @Test fun processBuildsAreBoundedNeverReassignedAndClearDropsOldMapping() {
+        val fixture = Fixture()
+        try {
+            val store = fixture.store()
+            val first = "a".repeat(32); val second = "b".repeat(32)
+            store.registerBuild(first,"0.3.0","11"); store.registerBuild(second,"0.3.1","12")
+            store.registerBuild(first,"0.3.1","12")
+            assertEquals("11",(fixture.store().processBuilds()[first] as Map<*,*>)["build"])
+            store.registerBuild("c".repeat(32),"D:/private/source","12")
+            assertFalse(store.processBuilds().containsKey("c".repeat(32)))
+            repeat(100) { store.registerBuild(it.toString(16).padStart(32,'0'),"0.3.1","12") }
+            assertEquals(32,store.processBuilds().size)
+            assertTrue(store.metadataBytes() <= fixture.limits.metadata)
+            store.clear(); assertTrue(store.processBuilds().isEmpty())
+        } finally { fixture.dispose() }
+    }
     @Test fun testTemporaryFilesStayOnDDrive() {
         assertTrue("Tests must inherit task-specific D: TEMP/TMP", System.getProperty("java.io.tmpdir").startsWith("D:", ignoreCase = true))
     }

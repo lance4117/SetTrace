@@ -2799,5 +2799,45 @@
   },
   "@noticeDiagnosticsBody": {
     "description": "Shared version 3 notice used on first display and About"
+  },
+  "restSystemSound": "Uses system notification sound",
+  "restSoundCustom": "Sound is set in system settings",
+  "restSoundReading": "Checking sound settings…",
+  "restSoundRestricted": "Sound is limited by system settings. Check silent mode, volume, Do Not Disturb and this notification channel.",
+  "restSoundUnknown": "Sound status is unavailable. Check system notification settings.",
+  "restSoundReadFailed": "Could not read sound settings. Retry or open system settings.",
+  "restSoundPreview": "Preview sound",
+  "restSoundStopPreview": "Stop preview",
+  "restSoundSettings": "System notification settings",
+  "restSoundSettingsFailed": "Could not open system settings. Please retry.",
+  "@restSystemSound": {
+    "description": "Rest reminder system notification sound settings: restSystemSound. Shown in the sound status or independent preview/settings action."
+  },
+  "@restSoundCustom": {
+    "description": "Rest reminder system notification sound settings: restSoundCustom. Shown in the sound status or independent preview/settings action."
+  },
+  "@restSoundReading": {
+    "description": "Rest reminder system notification sound settings: restSoundReading. Shown in the sound status or independent preview/settings action."
+  },
+  "@restSoundRestricted": {
+    "description": "Rest reminder system notification sound settings: restSoundRestricted. Shown in the sound status or independent preview/settings action."
+  },
+  "@restSoundUnknown": {
+    "description": "Rest reminder system notification sound settings: restSoundUnknown. Shown in the sound status or independent preview/settings action."
+  },
+  "@restSoundReadFailed": {
+    "description": "Rest reminder system notification sound settings: restSoundReadFailed. Shown in the sound status or independent preview/settings action."
+  },
+  "@restSoundPreview": {
+    "description": "Rest reminder system notification sound settings: restSoundPreview. Shown in the sound status or independent preview/settings action."
+  },
+  "@restSoundStopPreview": {
+    "description": "Rest reminder system notification sound settings: restSoundStopPreview. Shown in the sound status or independent preview/settings action."
+  },
+  "@restSoundSettings": {
+    "description": "Rest reminder system notification sound settings: restSoundSettings. Shown in the sound status or independent preview/settings action."
+  },
+  "@restSoundSettingsFailed": {
+    "description": "Rest reminder system notification sound settings: restSoundSettingsFailed. Shown in the sound status or independent preview/settings action."
   }
 }

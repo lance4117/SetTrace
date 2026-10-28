@@ -97,7 +97,7 @@ class _SetTraceAppState extends State<SetTraceApp> with WidgetsBindingObserver {
       await initializeAppLocale(widget.preferences);
       if (!mounted) return;
       setState(() => backupReady = true);
-      startAlerts();
+      await startAlerts();
       schedulePresentation();
     } catch (_) {
       widget.dataWrites?.restrict();
@@ -267,14 +267,18 @@ class _SetTraceAppState extends State<SetTraceApp> with WidgetsBindingObserver {
     }
   }
 
-  void startAlerts() {
+  Future<void> startAlerts() async {
+    var wiringReady = true;
     final alerts = widget.alerts;
     if (alerts != null) {
       alerts.onTap = openNotification;
       alerts.onTapDetails = openNotificationDetails;
       alerts.addListener(alertsChanged);
-      widget.workouts.onChanged = () => syncAlerts(offerPermission: true);
-      setupAlerts(expireElapsed: true);
+      widget.workouts.onChanged = () => syncAlerts(
+        offerPermission: true,
+        trigger: DiagnosticValue.training_change,
+      );
+      wiringReady = await setupAlerts(expireElapsed: true);
       alertTicker = Timer.periodic(const Duration(seconds: 1), (_) {
         if (WidgetsBinding.instance.lifecycleState ==
             AppLifecycleState.resumed) {
@@ -282,25 +286,37 @@ class _SetTraceAppState extends State<SetTraceApp> with WidgetsBindingObserver {
         }
       });
     }
+    if (wiringReady && alerts?.failed != true && backupReady) {
+      DiagnosticsClient.instance.event(
+        DiagnosticName.startupReady,
+        phase: DiagnosticPhase.completed,
+        fields: {DiagnosticField.trigger: DiagnosticValue.startup},
+      );
+    }
   }
 
-  void syncAlerts({bool offerPermission = false}) {
+  void syncAlerts({
+    bool offerPermission = false,
+    DiagnosticValue trigger = DiagnosticValue.foreground_poll,
+  }) {
     if (!backupReady || widget.dataWrites?.blocked == true) return;
     widget.alerts
-        ?.synchronize(offerPermission: offerPermission)
+        ?.synchronize(offerPermission: offerPermission, trigger: trigger)
         .catchError((Object _) {});
   }
 
-  Future<void> setupAlerts({bool expireElapsed = false}) async {
+  Future<bool> setupAlerts({bool expireElapsed = false}) async {
     final alerts = widget.alerts;
-    if (alerts == null) return;
+    if (alerts == null) return true;
     try {
       final strings = await AppLocalizations.delegate.load(locale);
       await alerts.configure(strings, expireElapsed: expireElapsed);
       final tap = await alerts.takeInitialTapDetails();
       if (tap != null && mounted) openNotificationDetails(tap);
+      return true;
     } catch (_) {
       alertsChanged();
+      return false;
     }
   }
 
@@ -405,13 +421,31 @@ class _SetTraceAppState extends State<SetTraceApp> with WidgetsBindingObserver {
     }
   }
 
+  AppLifecycleState? _lastLifecycle;
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (_lastLifecycle != state) {
+      DiagnosticsClient.instance.event(
+        DiagnosticName.appLifecycle,
+        phase: DiagnosticPhase.completed,
+        fields: {
+          DiagnosticField.before_state: _lastLifecycle == null
+              ? DiagnosticValue.unknown
+              : DiagnosticValue.values.byName(_lastLifecycle!.name),
+          DiagnosticField.after_state: DiagnosticValue.values.byName(
+            state.name,
+          ),
+        },
+      );
+      _lastLifecycle = state;
+    }
     if (state == AppLifecycleState.resumed &&
         backupReady &&
         widget.dataWrites?.blocked != true) {
       schedulePresentation();
-      widget.alerts?.synchronize(expireElapsed: true).catchError((Object _) {});
+      widget.alerts
+          ?.synchronize(expireElapsed: true, trigger: DiagnosticValue.resume)
+          .catchError((Object _) {});
     }
   }
 

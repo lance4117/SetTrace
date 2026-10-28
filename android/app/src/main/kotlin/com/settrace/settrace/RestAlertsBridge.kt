@@ -7,6 +7,7 @@ import android.content.pm.PackageManager
 import android.media.AudioAttributes
 import android.media.AudioManager
 import android.media.MediaPlayer
+import android.media.RingtoneManager
 import android.net.Uri
 import android.os.*
 import android.provider.Settings
@@ -24,11 +25,29 @@ internal object RestAlertsRuntime {
         try {
             DiagnosticsRuntime.get(context).record(name, phase, outcome, reason, if (error == null) "info" else "error",
                 objects = buildMap { if (id != null && id > 0) put("rest_alert", id.toLong()); if (session != null && session > 0) put("session", session.toLong()) },
-                attributes = attributes, epoch = epoch, operationId = operation, frames = error?.let { DiagnosticPrivacy.frames(it) }.orEmpty())
+                attributes = attributes + if (id != null) mapOf("identity_unknown" to (epoch == null)) else emptyMap(), epoch = epoch, operationId = operation, frames = error?.let { DiagnosticPrivacy.frames(it) }.orEmpty())
         } catch (_: Exception) { /* logging cannot change reminder delivery */ }
     }
     fun failed(context: Context, error: Throwable) = diagnostic(context, "rest.output", "failed", "unknown",
         if (error is RestStoreUnavailable) error.reason else "platform", error = error)
+    private fun cancelled(context: Context, id: Int, operation: String? = null, trigger: String = "platform_cleanup") {
+        val parts = prefs(context).getString("identity_$id", null)?.split(':')
+        val epoch = parts?.getOrNull(0)?.toLongOrNull()
+        diagnostic(context, "rest.cancel", "cancelled", id = id, epoch = epoch, operation = operation,
+            attributes = buildMap {
+                put("trigger", trigger); put("identity_unknown", epoch == null)
+                parts?.getOrNull(1)?.toLongOrNull()?.let { put("revision", it) }
+                parts?.getOrNull(2)?.toLongOrNull()?.let { put("round", it) }
+            })
+        prefs(context).edit().remove("identity_$id").apply()
+    }
+    fun callback(context: Context, intent: Intent) {
+        val id = intent.getIntExtra("id", -1)
+        diagnostic(context, "rest.callback", "started", id = id,
+            epoch = if (intent.hasExtra("diagnostic_epoch")) intent.getLongExtra("diagnostic_epoch", -1).takeIf { it >= 0 } else null,
+            operation = intent.getStringExtra("diagnostic_operation"), attributes = mapOf("trigger" to "alarm",
+                "revision" to intent.getIntExtra("revision", 0).coerceAtLeast(0), "round" to intent.getIntExtra("sequence", 0).coerceAtLeast(0)))
+    }
     const val CHANNEL = "settrace_rest_end_v1"
     const val EXTRA_SESSION = "rest_session_id"
     const val ACTION = "com.settrace.settrace.REST_ENDED"
@@ -36,91 +55,123 @@ internal object RestAlertsRuntime {
     val main = Handler(Looper.getMainLooper())
     @Volatile var foreground = false
     var bridge = WeakReference<RestAlertsBridge>(null)
-    private var player: MediaPlayer? = null
+    private var soundUri: Uri? = null
+    private val sound = RestSingleSound(create = {
+        soundUri?.let { uri ->
+            val audio = MediaPlayer()
+            try {
+                audio.setAudioAttributes(attributes())
+                audio.setDataSource(soundContext!!, uri)
+                object : RestSoundHandle {
+                    override fun prepare(ready: () -> Unit, completed: () -> Unit, failed: () -> Unit) {
+                        audio.setOnPreparedListener { ready() }; audio.setOnCompletionListener { completed() }
+                        audio.setOnErrorListener { _, _, _ -> failed(); true }; audio.prepareAsync()
+                    }
+                    override fun start() = audio.start()
+                    override fun release() = audio.release()
+                }
+            } catch (error: Exception) { audio.release(); throw error }
+        }
+    }, timeout = { delay, action -> main.postDelayed({ action() }, delay) })
+    private var soundContext: Context? = null
     private var playingId: Int? = null
     private fun prefs(context: Context) = context.getSharedPreferences("rest_alerts_native", Context.MODE_PRIVATE)
     fun notificationManager(context: Context) = context.getSystemService(NotificationManager::class.java)
     fun attributes(): AudioAttributes = AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_NOTIFICATION)
         .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION).build()
-    private fun locale(context: Context) = if (prefs(context).getString("locale", "en")!!.startsWith("zh")) "zh" else "en"
-    private fun asset(context: Context, sound: String, language: String = locale(context)): Uri {
-        val name = when (sound) { "double_beep" -> "rest_double_beep"; "voice" -> "rest_voice_$language"; else -> "rest_three_tone" }
-        return Uri.parse("android.resource://${context.packageName}/raw/$name")
-    }
-    private fun channelId(context: Context, settings: RestAlertSettings) =
-        "settrace_rest_v2_${settings.sound}_${if (settings.sound == "voice") locale(context) else "tone"}_${if (settings.vibration) 1 else 0}"
+    private fun channelId(settings: RestAlertSettings) = "settrace_rest_system_v1_${if (settings.vibration) 1 else 0}"
     fun createChannel(context: Context, name: String, description: String) {
         prefs(context).edit().putString("channel_name", name).putString("channel_description", description).apply()
         val settings = RestAlertsStore.withDatabase(context) { RestAlertsStore.settings(it) }
-        val id = ensureChannel(context, settings)
-        prefs(context).edit().putString("current_channel", id).apply()
+        ensureChannel(context, settings)
     }
+    private fun channelPolicy(channel: NotificationChannel): RestChannelPolicy = RestChannelPolicy(
+        channel.importance, channel.sound == null,
+        (channel.id.endsWith("_1") || Regex("_1(?:_|$)").containsMatchIn(channel.id)) && !channel.shouldVibrate())
+    // Only this serial executor migrates. Never store a user URI in preferences or diagnostics.
     private fun ensureChannel(context: Context, settings: RestAlertSettings): String {
-        var id = channelId(context, settings)
-        if (Build.VERSION.SDK_INT >= 26) {
-            val manager = notificationManager(context)
-            val previous = manager.getNotificationChannel(prefs(context).getString("current_channel", CHANNEL)!!)
-            // Returning to an existing sound must also preserve the current system restriction.
-            if (previous?.importance == NotificationManager.IMPORTANCE_NONE) id += "_blocked"
-            else if (previous != null && previous.sound == null) id += "_muted"
-            else if (previous != null && previous.importance < NotificationManager.IMPORTANCE_DEFAULT) id += "_quiet"
-            val systemVibrationDisabled = previous != null && previous.id.startsWith("settrace_rest_v2_") &&
-                Regex("_1(?:_|$)").containsMatchIn(previous.id) && !previous.shouldVibrate()
-            if (systemVibrationDisabled && settings.vibration) id += "_no_vibration"
-            val channel = manager.getNotificationChannel(id) ?: NotificationChannel(id,
-                prefs(context).getString("channel_name", "")!!,
-                minOf(previous?.importance ?: NotificationManager.IMPORTANCE_DEFAULT, NotificationManager.IMPORTANCE_DEFAULT)).apply {
-                // Preserve prior system mute/block choices when creating a different sound channel.
-                setSound(if (previous != null && previous.sound == null) null else asset(context, settings.sound), attributes())
-                vibrationPattern = longArrayOf(0, 160, 120, 160)
-                enableVibration(settings.vibration && !systemVibrationDisabled)
-            }
-            channel.name = prefs(context).getString("channel_name", "")!!
-            channel.description = prefs(context).getString("channel_description", "")!!
-            manager.createNotificationChannel(channel)
+        val id = channelId(settings)
+        if (Build.VERSION.SDK_INT < 26) return id
+        val manager = notificationManager(context)
+        val saved = prefs(context).getString("current_channel", null)
+        val restrictionSource = prefs(context).getString("restriction_source", null)
+        val previous = (restrictionSource ?: saved)?.let { manager.getNotificationChannel(it) }
+        val legacy = if (previous != null) listOf(previous) else manager.notificationChannels.filter {
+            it.id == CHANNEL || it.id.startsWith("settrace_rest_v2_") || it.id.startsWith("settrace_rest_system_v1_") }
+        var policy = RestChannelPolicy(muted = previous == null && (restrictionSource != null || legacy.size > 1))
+        for (channel in legacy) policy = policy.inherit(channelPolicy(channel))
+        val source = previous ?: legacy.singleOrNull()
+        val desiredSound = if (policy.muted) null else source?.sound?.takeUnless {
+            it.scheme == "android.resource" && it.authority == context.packageName
+        } ?: Settings.System.DEFAULT_NOTIFICATION_URI
+        val target = manager.getNotificationChannel(id) ?: NotificationChannel(id,
+            prefs(context).getString("channel_name", "Rest reminders")!!, policy.importance).apply {
+            setSound(desiredSound, attributes()); vibrationPattern = longArrayOf(0,160,120,160)
+            enableVibration(settings.vibration && !policy.userNoVibration)
         }
+        target.name = prefs(context).getString("channel_name", "Rest reminders")!!
+        target.description = prefs(context).getString("channel_description", "")!!
+        manager.createNotificationChannel(target)
+        val actual = manager.getNotificationChannel(id) ?: throw IllegalStateException("channelMissing")
+        val explicitRelease = restrictionSource == "unknown" && RestChannelPolicy.explicitUnknownRelease(
+            Build.VERSION.SDK_INT, actual.sound != null, Build.VERSION.SDK_INT >= 30 && actual.hasUserSetSound(),
+            prefs(context).getBoolean("unknown_target_muted_seen", false))
+        val restricted = !explicitRelease && (!policy.permits(channelPolicy(actual).copy(userNoVibration = !actual.shouldVibrate())) ||
+            (desiredSound != null && desiredSound != Settings.System.DEFAULT_NOTIFICATION_URI && actual.sound != null && actual.sound != desiredSound))
+        // The app-off variant cannot itself prove a user's vibration ban.
+        // Keep its actual source while off, so toggling back cannot bypass it.
+        val vibrationSource = if (policy.userNoVibration && !settings.vibration)
+            previous?.id ?: legacy.firstOrNull { channelPolicy(it).userNoVibration }?.id else null
+        val nextSource = if (restricted) previous?.id ?: restrictionSource ?: "unknown" else vibrationSource
+        // Re-evaluated from the current platform on every use, so explicit user unmute works.
+        check(prefs(context).edit().putBoolean("channel_restricted", restricted)
+            .putInt("sound_migration", 1).putString("current_channel", id)
+            .putString("restriction_source", nextSource)
+            .putBoolean("unknown_target_muted_seen", nextSource == "unknown" &&
+                (actual.sound == null || prefs(context).getBoolean("unknown_target_muted_seen",false))).commit())
         return id
     }
     fun notificationsAllowed(context: Context): Boolean {
         if (Build.VERSION.SDK_INT >= 33 && context.checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) return false
         val manager = notificationManager(context)
         if (!manager.areNotificationsEnabled()) return false
-        return Build.VERSION.SDK_INT < 26 || (manager.getNotificationChannel(prefs(context).getString("current_channel", CHANNEL)!!)?.importance ?: NotificationManager.IMPORTANCE_NONE) != NotificationManager.IMPORTANCE_NONE
+        return !prefs(context).getBoolean("channel_restricted", false) && (Build.VERSION.SDK_INT < 26 || (manager.getNotificationChannel(prefs(context).getString("current_channel", CHANNEL)!!)?.importance ?: NotificationManager.IMPORTANCE_NONE) != NotificationManager.IMPORTANCE_NONE)
     }
     fun exactAllowed(context: Context): Boolean = Build.VERSION.SDK_INT < 31 || context.getSystemService(AlarmManager::class.java).canScheduleExactAlarms()
-    fun alarmIntent(context: Context, id: Int, revision: Int, flags: Int, sequence: Int = 0, diagnosticOperation: String? = null): PendingIntent? {
+    fun alarmIntent(context: Context, id: Int, revision: Int, flags: Int, sequence: Int = 0, diagnosticOperation: String? = null, epoch: Long? = null): PendingIntent? {
         val intent = Intent(context, RestEndedReceiver::class.java).apply {
             action = ACTION; data = Uri.parse("settrace://rest-alert/$id")
             putExtra("id", id); putExtra("revision", revision); putExtra("sequence", sequence)
             if (diagnosticOperation != null) putExtra("diagnostic_operation", diagnosticOperation)
+            epoch?.let { putExtra("diagnostic_epoch", it) }
         }
         return PendingIntent.getBroadcast(context, id, intent, flags or PendingIntent.FLAG_IMMUTABLE)
     }
-    fun schedule(context: Context, id: Int, revision: Int, due: Long, sequence: Int = 0, diagnosticOperation: String? = null, epoch: Long? = null) {
+    fun schedule(context: Context, id: Int, revision: Int, due: Long, sequence: Int = 0, diagnosticOperation: String? = null, epoch: Long? = null, trigger: String = "unknown") {
         val trace = diagnosticOperation?.takeIf { DiagnosticVocabulary.token.matches(it) } ?: java.util.UUID.randomUUID().toString().replace("-", "")
-        val operation = alarmIntent(context, id, revision, PendingIntent.FLAG_UPDATE_CURRENT, sequence, trace)!!
+        val operation = alarmIntent(context, id, revision, PendingIntent.FLAG_UPDATE_CURRENT, sequence, trace, epoch)!!
         val alarms = context.getSystemService(AlarmManager::class.java)
         val exact = exactAllowed(context)
         if (exact) alarms.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, due, operation)
         else alarms.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, due, operation)
         val ids = prefs(context).getStringSet("ids", emptySet())!!.toMutableSet().apply { add(id.toString()) }
-        check(prefs(context).edit().putStringSet("ids", ids).commit()) { "preferenceWriteFailed" }
+        check(prefs(context).edit().putStringSet("ids", ids).putString("identity_$id", "${epoch ?: "unknown"}:$revision:$sequence").commit()) { "preferenceWriteFailed" }
         diagnostic(context, if (sequence == 0) "rest.schedule" else "rest.next", "schedule", id = id, epoch = epoch, operation = trace,
-            attributes = mapOf("revision" to revision, "round" to sequence, "due_utc" to due, "actual_utc" to System.currentTimeMillis(), "exact_allowed" to exact, "mode" to if (exact) "exact" else "inexact"))
+            attributes = mapOf("trigger" to trigger, "revision" to revision, "round" to sequence, "due_utc" to due, "actual_utc" to System.currentTimeMillis(), "exact_allowed" to exact, "mode" to if (exact) "exact" else "inexact"))
     }
     private fun cancelAlarm(context: Context, id: Int) {
         alarmIntent(context, id, 0, PendingIntent.FLAG_NO_CREATE)?.let {
             context.getSystemService(AlarmManager::class.java).cancel(it); it.cancel()
         }
     }
-    fun cancelExcept(context: Context, valid: Set<String>) {
+    fun cancelExcept(context: Context, valid: Set<String>, operation: String? = null, trigger: String = "platform_cleanup") {
         val ids = prefs(context).getStringSet("ids", emptySet())!!.toMutableSet()
         ids.addAll(notificationManager(context).activeNotifications.map { it.id.toString() })
         for (value in ids.toList()) if (value !in valid) {
             cancelAlarm(context, value.toInt()); notificationManager(context).cancel(value.toInt())
             onMain { if (playingId == value.toInt()) stopPlayback(context) }
             ids.remove(value)
-            diagnostic(context, "rest.cancel", "cancelled", "observed", id = value.toInt())
+            cancelled(context, value.toInt(), operation, trigger)
         }
         check(prefs(context).edit().putStringSet("ids", ids).commit()) { "preferenceWriteFailed" }
     }
@@ -135,41 +186,59 @@ internal object RestAlertsRuntime {
     @Suppress("DEPRECATION")
     private fun vibrator(context: Context) = context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
     private fun stopPlayback(context: Context) {
-        player?.let { try { it.release() } catch (_: Exception) {} }
-        player = null; playingId = null
-        vibrator(context).cancel()
+        sound.stop(); playingId = null; vibrator(context).cancel()
     }
-    fun stopOutput(context: Context, id: Int) {
+    fun stopOutput(context: Context, id: Int, operation: String? = null, trigger: String = "platform_cleanup") {
         cancelAlarm(context, id); notificationManager(context).cancel(id)
         onMain { if (playingId == id) stopPlayback(context) }
-        diagnostic(context, "rest.cancel", "cancelled", "observed", id = id)
+        cancelled(context, id, operation, trigger)
     }
-    fun stopPreview(context: Context) = onMain { if (playingId == -1) stopPlayback(context) }
-    private fun play(context: Context, uri: Uri, id: Int) {
-        stopPlayback(context)
-        val audio = MediaPlayer.create(context, uri, null, attributes(), 0) ?: return
-        player = audio; playingId = id
-        audio.setOnCompletionListener { if (player === it) { player = null; playingId = null }; it.release() }
-        audio.setOnErrorListener { p, _, _ -> if (player === p) { player = null; playingId = null }; p.release(); true }
-        audio.start()
-    }
-    private fun soundAllowed(context: Context, id: String): Boolean {
+    fun stopPreview(context: Context) = onMain { sound.stop(previewOnly = true); if (playingId == -1) playingId = null }
+    private fun readings(context: Context, id: String): RestSoundReadings = try {
         val audio = context.getSystemService(AudioManager::class.java)
         val manager = notificationManager(context)
         val channel = if (Build.VERSION.SDK_INT >= 26) manager.getNotificationChannel(id) else null
-        return RestDeliveryPolicy.soundAllowed(audio.ringerMode == AudioManager.RINGER_MODE_NORMAL,
-            audio.getStreamVolume(AudioManager.STREAM_NOTIFICATION),
-            manager.currentInterruptionFilter == NotificationManager.INTERRUPTION_FILTER_ALL,
-            Build.VERSION.SDK_INT < 26 || channel?.sound != null,
-            if (Build.VERSION.SDK_INT < 26) NotificationManager.IMPORTANCE_DEFAULT else channel?.importance ?: 0)
+        val uri = effectiveUri(context,id)
+        val hasSound = uri != null && (uri != Settings.System.DEFAULT_NOTIFICATION_URI ||
+            RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_NOTIFICATION) != null)
+        RestSoundReadings(audio.ringerMode, audio.getStreamVolume(AudioManager.STREAM_NOTIFICATION), manager.currentInterruptionFilter,
+            hasSound,
+            if (!manager.areNotificationsEnabled() || prefs(context).getBoolean("channel_restricted", false)) 0 else if (Build.VERSION.SDK_INT < 26) 3 else channel?.importance)
+    } catch (_: Exception) { RestSoundReadings(null,null,null,null,null) }
+    private fun effectiveUri(context: Context, id: String): Uri? = if (Build.VERSION.SDK_INT >= 26)
+        notificationManager(context).getNotificationChannel(id)?.sound else Settings.System.DEFAULT_NOTIFICATION_URI
+    fun soundStatus(context: Context): Map<String, Any?> {
+        val settings = RestAlertsStore.withDatabase(context) { RestAlertsStore.settings(it) }
+        val id = ensureChannel(context, settings)
+        val facts = readings(context, id)
+        return mapOf("condition" to facts.condition, "custom" to (effectiveUri(context,id)?.let { it != Settings.System.DEFAULT_NOTIFICATION_URI } ?: false))
     }
-    fun preview(context: Context, sound: String, language: String) {
-        require(sound in setOf("three_tone", "double_beep", "voice"))
-        val current = prefs(context).getString("current_channel", CHANNEL)!!
+    private fun play(context: Context, channelId: String, id: Int, epoch: Long?, trace: String?, revision: Int?, round: Int?,
+                     preview: Boolean = false, terminal: (String) -> Unit = {}, trigger: String = "unknown"): Boolean {
+        val facts = readings(context, channelId)
+        val fields = facts.fields() + buildMap<String, Any?> {
+            put("trigger", if (preview) "preview" else trigger)
+            revision?.let { put("revision", it) }; round?.let { put("round", it) }
+        }
+        fun observe(state: String, condition: String) {
+            diagnostic(context, "rest.audio", "output", reason = if (state == "failed") "platform" else "none",
+                id = id.takeIf { it > 0 }, epoch = epoch, operation = trace,
+                attributes = fields + mapOf("audio_state" to state, "sound_condition" to condition),
+                error = if (state == "failed") IllegalStateException() else null)
+        }
+        if (facts.condition != "allowed") { observe("suppressed", facts.condition); terminal(facts.condition); return false }
+        if (!preview) stopPlayback(context)
+        soundUri = effectiveUri(context, channelId); soundContext = context.applicationContext
+        val started = sound.play(preview, ::observe, terminal)
+        if (started) playingId = id
+        return started
+    }
+    fun preview(context: Context, terminal: (String) -> Unit) {
+        val settings = RestAlertsStore.withDatabase(context) { RestAlertsStore.settings(it) }
+        val id = ensureChannel(context, settings)
         onMain {
-            if (playingId == null || playingId == -1) {
-                if (soundAllowed(context, current)) play(context, asset(context, sound, if (language.startsWith("zh")) "zh" else "en"), -1)
-            }
+            if (playingId != null && playingId != -1) terminal("busy")
+            else play(context, id, -1, null, java.util.UUID.randomUUID().toString().replace("-", ""), null, null, true, terminal)
         }
     }
     private fun notify(context: Context, event: RestDelivery, channelId: String, silent: Boolean) {
@@ -184,10 +253,18 @@ internal object RestAlertsRuntime {
             .setContentTitle(event.title).setContentText(event.body).setStyle(Notification.BigTextStyle().bigText(event.body))
             .setContentIntent(click).setAutoCancel(true).setOnlyAlertOnce(silent).setCategory(Notification.CATEGORY_REMINDER)
         if (Build.VERSION.SDK_INT < 26) {
-            builder.setSound(asset(context, event.settings.sound), attributes())
+            builder.setSound(Settings.System.DEFAULT_NOTIFICATION_URI, attributes())
             if (event.settings.vibration) builder.setVibrate(longArrayOf(0, 160, 120, 160))
         }
-        notificationManager(context).notify(event.id, builder.build())
+        val notification = builder.build()
+        if (prefs(context).getBoolean("channel_restricted", false)) {
+            notification.sound = null; notification.vibrate = null
+            if (Build.VERSION.SDK_INT >= 26) {
+                // An immutable target cannot inherit stricter policy: do not bypass it.
+                return
+            }
+        }
+        notificationManager(context).notify(event.id, notification)
     }
     fun refreshNotification(context: Context, id: Int, revision: Int) {
         val event = RestAlertsStore.withDatabase(context) { RestAlertsStore.projection(it,id,revision) } ?: return
@@ -199,15 +276,19 @@ internal object RestAlertsRuntime {
             notify(context,event,channelId,silent = true)
         }
     }
-    fun deliver(context: Context, id: Int, revision: Int, sequence: Int = 0, diagnosticOperation: String? = null) {
+    fun deliver(context: Context, id: Int, revision: Int, sequence: Int = 0, diagnosticOperation: String? = null, trigger: String = "unknown") {
         val trace = diagnosticOperation?.takeIf { DiagnosticVocabulary.token.matches(it) } ?: java.util.UUID.randomUUID().toString().replace("-", "")
         val event = RestAlertsStore.withDatabase(context) { RestAlertsStore.claim(it, id, revision, System.currentTimeMillis(), sequence) { observation ->
             diagnostic(context, "rest.claim", "claim", if (observation.claimed) "committed" else "rejected", observation.reason,
                 id = id, epoch = observation.epoch, operation = trace, attributes = buildMap {
                     put("revision", revision); put("round", sequence); put("actual_utc", observation.now)
                     observation.due?.let { put("due_utc", it) }
+                    put("identity_unknown", observation.epoch == null)
                 })
+            if (observation.transition) diagnostic(context,"rest.transition","committed","committed",observation.reason,
+                id = id, epoch = observation.epoch, operation = trace, attributes = mapOf("before_state" to "pending", "after_state" to "expired", "trigger" to trigger, "revision" to revision, "round" to sequence))
         } } ?: return
+        prefs(context).edit().putString("identity_$id", "${event.diagnosticEpoch ?: "unknown"}:$revision:$sequence").apply()
         val channelId = ensureChannel(context, event.settings)
         prefs(context).edit().putString("current_channel", channelId).apply()
         onMain {
@@ -221,13 +302,11 @@ internal object RestAlertsRuntime {
             val notifications = notificationsAllowed(context)
             if (foreground) {
                 bridge.get()?.delivered(event)
-                if (soundAllowed(context, channelId)) {
-                    val uri = if (Build.VERSION.SDK_INT >= 26) notificationManager(context).getNotificationChannel(channelId)?.sound else asset(context, event.settings.sound)
-                    if (uri != null) { play(context, uri, event.id); requestedSound = true }
-                }
+                requestedSound = readings(context, channelId).condition == "allowed"
+                play(context, channelId, event.id, event.diagnosticEpoch, trace, revision, sequence, trigger = trigger)
                 val audio = context.getSystemService(AudioManager::class.java)
                 val channel = if (Build.VERSION.SDK_INT >= 26) notificationManager(context).getNotificationChannel(channelId) else null
-                if (event.settings.vibration && audio.ringerMode != AudioManager.RINGER_MODE_SILENT &&
+                if (!prefs(context).getBoolean("channel_restricted", false) && event.settings.vibration && audio.ringerMode != AudioManager.RINGER_MODE_SILENT &&
                     notificationManager(context).currentInterruptionFilter == NotificationManager.INTERRUPTION_FILTER_ALL &&
                     (Build.VERSION.SDK_INT < 26 || (channel?.shouldVibrate() == true && channel.importance >= NotificationManager.IMPORTANCE_DEFAULT))) {
                     playingId = event.id
@@ -235,20 +314,22 @@ internal object RestAlertsRuntime {
                     if (Build.VERSION.SDK_INT >= 26) vibrator(context).vibrate(VibrationEffect.createWaveform(longArrayOf(0, 160, 120, 160), -1), attributes())
                     else @Suppress("DEPRECATION") vibrator(context).vibrate(longArrayOf(0, 160, 120, 160), -1)
                 }
-            } else if (notifications) {
+            } else if (notifications && !prefs(context).getBoolean("channel_restricted", false)) {
                 notify(context, event, channelId, silent = false)
                 requestedNotification = true
+                requestedSound = readings(context, channelId).condition == "allowed"
+                requestedVibration = event.settings.vibration && (Build.VERSION.SDK_INT < 26 || notificationManager(context).getNotificationChannel(channelId)?.shouldVibrate() == true)
             }
             val channelAllowed = Build.VERSION.SDK_INT < 26 || (notificationManager(context).getNotificationChannel(channelId)?.importance ?: 0) != NotificationManager.IMPORTANCE_NONE
             diagnostic(context, "rest.output", "output", reason = if (!foreground && !notifications) "permission_denied" else "none",
                 id = id, session = event.sessionId, epoch = event.diagnosticEpoch, operation = trace,
-                attributes = mapOf("revision" to revision, "round" to event.sequence, "actual_utc" to System.currentTimeMillis(), "foreground" to foreground,
-                    "sound" to requestedSound, "vibrate" to requestedVibration, "enabled" to requestedNotification,
+                attributes = mapOf("revision" to revision, "round" to sequence, "next_round" to event.sequence, "actual_utc" to System.currentTimeMillis(), "foreground" to foreground,
+                    "sound_requested" to requestedSound, "vibration_requested" to requestedVibration, "notification_requested" to requestedNotification, "trigger" to trigger,
                     "notifications_allowed" to notifications, "channel_allowed" to channelAllowed))
         }
         if (event.nextAt != null && (foreground || notificationsAllowed(context)) &&
             RestAlertsStore.withDatabase(context) { RestAlertsStore.valid(it, event) }) {
-            schedule(context, event.id, event.revision, event.nextAt, event.sequence, trace, event.diagnosticEpoch)
+            schedule(context, event.id, event.revision, event.nextAt, event.sequence, trace, event.diagnosticEpoch, trigger)
         }
     }
 }
@@ -258,8 +339,10 @@ class RestEndedReceiver : BroadcastReceiver() {
         if (intent.action != RestAlertsRuntime.ACTION || !intent.hasExtra("sequence")) return
         val pending = goAsync()
         RestAlertsRuntime.io.execute {
-            try { RestAlertsRuntime.deliver(context.applicationContext, intent.getIntExtra("id", -1),
-                intent.getIntExtra("revision", -1), intent.getIntExtra("sequence", -1), intent.getStringExtra("diagnostic_operation")) }
+            try {
+                RestAlertsRuntime.callback(context, intent)
+                RestAlertsRuntime.deliver(context.applicationContext, intent.getIntExtra("id", -1),
+                intent.getIntExtra("revision", -1), intent.getIntExtra("sequence", -1), intent.getStringExtra("diagnostic_operation"), "alarm") }
             catch (error: Exception) { RestAlertsRuntime.failed(context, error) }
             finally { pending.finish() }
         }
@@ -301,10 +384,22 @@ class RestAlertsBridge(private val activity: Activity, messenger: BinaryMessenge
                 val exact = call.argument<Boolean>("exact") == true
                 val intent = if (exact && Build.VERSION.SDK_INT >= 31) Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM, Uri.parse("package:${activity.packageName}"))
                     else if (Build.VERSION.SDK_INT >= 26) Intent(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS).putExtra(Settings.EXTRA_APP_PACKAGE, activity.packageName)
-                        .putExtra(Settings.EXTRA_CHANNEL_ID, prefs.getString("current_channel", RestAlertsRuntime.CHANNEL))
+                        .putExtra(Settings.EXTRA_CHANNEL_ID, prefs.getString("restriction_source", null)?.takeUnless { it == "unknown" } ?: prefs.getString("current_channel", RestAlertsRuntime.CHANNEL))
                     else Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS).putExtra(Settings.EXTRA_APP_PACKAGE, activity.packageName)
                 activity.startActivity(intent); result.success(null)
-            } catch (_: Exception) { result.error("settingsUnavailable", null, null) }
+            } catch (_: Exception) {
+                try {
+                    activity.startActivity(Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS).putExtra(Settings.EXTRA_APP_PACKAGE, activity.packageName))
+                    result.success(null)
+                } catch (_: Exception) { result.error("settingsUnavailable", null, null) }
+            }
+            return
+        }
+        if (call.method == "preview") {
+            RestAlertsRuntime.io.execute {
+                try { RestAlertsRuntime.preview(activity) { state -> RestAlertsRuntime.main.post { result.success(mapOf("state" to state)) } } }
+                catch (_: Exception) { RestAlertsRuntime.main.post { result.error("previewFailed", null, null) } }
+            }
             return
         }
         RestAlertsRuntime.io.execute {
@@ -326,13 +421,13 @@ class RestAlertsBridge(private val activity: Activity, messenger: BinaryMessenge
                     "capabilities" -> mapOf("notifications" to RestAlertsRuntime.notificationsAllowed(activity), "exact" to RestAlertsRuntime.exactAllowed(activity))
                     "schedule" -> {
                         val at = call.argument<Number>("next_delivery_at") ?: call.argument<Number>("due_at")!!
-                        RestAlertsRuntime.schedule(activity, call.argument<Number>("id")!!.toInt(), call.argument<Number>("revision")!!.toInt(), at.toLong(), call.argument<Number>("delivery_sequence")?.toInt() ?: 0, call.argument<String>("diagnostic_operation"), call.argument<Number>("diagnostic_epoch")?.toLong()); null
+                        RestAlertsRuntime.schedule(activity, call.argument<Number>("id")!!.toInt(), call.argument<Number>("revision")!!.toInt(), at.toLong(), call.argument<Number>("delivery_sequence")?.toInt() ?: 0, call.argument<String>("diagnostic_operation"), call.argument<Number>("diagnostic_epoch")?.toLong(), call.argument<String>("diagnostic_trigger") ?: "unknown"); null
                     }
-                    "deliver" -> { RestAlertsRuntime.deliver(activity, call.argument<Number>("id")!!.toInt(), call.argument<Number>("revision")!!.toInt(), call.argument<Number>("sequence")?.toInt() ?: 0, call.argument<String>("diagnostic_operation")); null }
-                    "cancelExcept" -> { RestAlertsRuntime.cancelExcept(activity, (call.argument<List<Number>>("ids") ?: emptyList()).map { it.toInt().toString() }.toSet()); null }
+                    "deliver" -> { RestAlertsRuntime.deliver(activity, call.argument<Number>("id")!!.toInt(), call.argument<Number>("revision")!!.toInt(), call.argument<Number>("sequence")?.toInt() ?: 0, call.argument<String>("diagnostic_operation"), call.argument<String>("diagnostic_trigger") ?: "unknown"); null }
+                    "cancelExcept" -> { RestAlertsRuntime.cancelExcept(activity, (call.argument<List<Number>>("ids") ?: emptyList()).map { it.toInt().toString() }.toSet(), call.argument<String>("diagnostic_operation"), call.argument<String>("diagnostic_trigger") ?: "platform_cleanup"); null }
                     "refreshNotification" -> { RestAlertsRuntime.refreshNotification(activity,call.argument<Number>("id")!!.toInt(),call.argument<Number>("revision")!!.toInt()); null }
-                    "stopOutput" -> { RestAlertsRuntime.stopOutput(activity, call.argument<Number>("id")!!.toInt()); null }
-                    "preview" -> { RestAlertsRuntime.preview(activity, call.argument<String>("sound")!!, call.argument<String>("locale") ?: "en"); null }
+                    "stopOutput" -> { RestAlertsRuntime.stopOutput(activity, call.argument<Number>("id")!!.toInt(), call.argument<String>("diagnostic_operation"), call.argument<String>("diagnostic_trigger") ?: "platform_cleanup"); null }
+                    "soundStatus" -> RestAlertsRuntime.soundStatus(activity)
                     "stopPreview" -> { RestAlertsRuntime.stopPreview(activity); null }
                     else -> throw IllegalArgumentException("unknownMethod")
                 }

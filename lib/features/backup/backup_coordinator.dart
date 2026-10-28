@@ -701,7 +701,12 @@ class BackupCoordinator extends ChangeNotifier {
             if (!['completed', 'aborted'].contains(op['phase'])) {
               try {
                 await reconcileExport(id);
-              } catch (_) {
+              } catch (error, stack) {
+                DiagnosticScope.current?.followupFailure(
+                  error,
+                  stack,
+                  at: DiagnosticPhase.inspecting,
+                );
                 /* pending verification remains visible */
               }
             }
@@ -745,7 +750,7 @@ class BackupCoordinator extends ChangeNotifier {
       }
     }, reconciliation: true),
     inferCommitOnSuccess: false,
-    recordSuccess: false,
+    recordSuccess: true,
   );
 
   @override

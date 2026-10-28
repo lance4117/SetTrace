@@ -1,0 +1,147 @@
+{
+  "items": [
+    {
+      "id": "app-diagnostics",
+      "type": "spec",
+      "valid": true,
+      "issues": [
+        {
+          "level": "INFO",
+          "path": "requirements[3]",
+          "message": "Requirement text is very long (>500 characters). Consider breaking it down."
+        },
+        {
+          "level": "INFO",
+          "path": "requirements[8]",
+          "message": "Requirement text is very long (>500 characters). Consider breaking it down."
+        }
+      ],
+      "durationMs": 22
+    },
+    {
+      "id": "app-experience",
+      "type": "spec",
+      "valid": true,
+      "issues": [
+        {
+          "level": "INFO",
+          "path": "requirements[1]",
+          "message": "Requirement text is very long (>500 characters). Consider breaking it down."
+        },
+        {
+          "level": "INFO",
+          "path": "requirements[7]",
+          "message": "Requirement text is very long (>500 characters). Consider breaking it down."
+        },
+        {
+          "level": "INFO",
+          "path": "requirements[15]",
+          "message": "Requirement text is very long (>500 characters). Consider breaking it down."
+        },
+        {
+          "level": "INFO",
+          "path": "requirements[19]",
+          "message": "Requirement text is very long (>500 characters). Consider breaking it down."
+        },
+        {
+          "level": "INFO",
+          "path": "requirements[24]",
+          "message": "Requirement text is very long (>500 characters). Consider breaking it down."
+        },
+        {
+          "level": "INFO",
+          "path": "requirements[25]",
+          "message": "Requirement text is very long (>500 characters). Consider breaking it down."
+        },
+        {
+          "level": "INFO",
+          "path": "requirements[26]",
+          "message": "Requirement text is very long (>500 characters). Consider breaking it down."
+        }
+      ],
+      "durationMs": 13
+    },
+    {
+      "id": "app-localization",
+      "type": "spec",
+      "valid": true,
+      "issues": [
+        {
+          "level": "INFO",
+          "path": "requirements[15]",
+          "message": "Requirement text is very long (>500 characters). Consider breaking it down."
+        }
+      ],
+      "durationMs": 9
+    },
+    {
+      "id": "data-backup",
+      "type": "spec",
+      "valid": true,
+      "issues": [],
+      "durationMs": 7
+    },
+    {
+      "id": "training-plans",
+      "type": "spec",
+      "valid": true,
+      "issues": [],
+      "durationMs": 5
+    },
+    {
+      "id": "workout-history",
+      "type": "spec",
+      "valid": true,
+      "issues": [
+        {
+          "level": "INFO",
+          "path": "requirements[5]",
+          "message": "Requirement text is very long (>500 characters). Consider breaking it down."
+        },
+        {
+          "level": "INFO",
+          "path": "requirements[7]",
+          "message": "Requirement text is very long (>500 characters). Consider breaking it down."
+        }
+      ],
+      "durationMs": 3
+    },
+    {
+      "id": "workout-session",
+      "type": "spec",
+      "valid": true,
+      "issues": [
+        {
+          "level": "INFO",
+          "path": "requirements[1]",
+          "message": "Requirement text is very long (>500 characters). Consider breaking it down."
+        },
+        {
+          "level": "INFO",
+          "path": "requirements[6]",
+          "message": "Requirement text is very long (>500 characters). Consider breaking it down."
+        }
+      ],
+      "durationMs": 2
+    }
+  ],
+  "summary": {
+    "totals": {
+      "items": 7,
+      "passed": 7,
+      "failed": 0
+    },
+    "byType": {
+      "spec": {
+        "items": 7,
+        "passed": 7,
+        "failed": 0
+      }
+    }
+  },
+  "version": "1.0",
+  "root": {
+    "path": "D:\\000_MyLibrary\\100_code\\110_Project\\5_SetTrace",
+    "source": "nearest"
+  }
+}

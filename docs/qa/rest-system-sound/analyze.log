@@ -1,0 +1,16 @@
+{
+  "project": "D:\\000_MyLibrary\\100_code\\110_Project\\5_SetTrace",
+  "sdk": "D:\\ProgramData\\Android_SDK",
+  "avd": "D:\\ProgramData\\Android_AVD",
+  "androidUser": "D:\\ProgramData\\DevCache\\Android",
+  "gradle": "D:\\ProgramData\\DevCache\\Gradle",
+  "pub": "D:\\ProgramData\\DevCache\\Pub",
+  "temp": "D:\\ProgramData\\DevTemp\\fix-rest-sound-and-diagnostics",
+  "flutter": "D:\\DevTools\\flutter",
+  "toolConfig": "D:\\ProgramData\\DevCache\\FlutterConfig",
+  "toolLocalCache": "D:\\ProgramData\\DevCache\\LocalAppData",
+  "jdk": "D:\\Program Files\\Android Studio\\jbr",
+  "avd:Pixel_7_Pro": "D:\\ProgramData\\Android_AVD\\Pixel_7_Pro.avd"
+}
+Analyzing 5_SetTrace...                                         
+No issues found! (ran in 15.1s)

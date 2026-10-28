@@ -1,0 +1,31 @@
+{
+  "created_utc": "2026-10-27T16:16:32.8424981Z",
+  "version": "0.3.1+12",
+  "apk": "D:\\000_MyLibrary\\100_code\\110_Project\\5_SetTrace\\build\\rest-system-sound\\SetTrace-0.3.1+12.apk",
+  "bytes": 57066109,
+  "sha256": "0c0e1b9ef27371706d8ba957c958e479b8e8401e2b0f3ebf3e8aa6f9d49efaf4",
+  "original_apk_sha256": "507ac0c0be64606b8a8fcf08083d4d2c3f95f36252be49774e0bec80ebb5f932",
+  "source_commit": "8a7ae94f86e029885aa2afe48c0f8fff5e8047d3",
+  "source_dirty": true,
+  "mapping": "D:\\000_MyLibrary\\100_code\\110_Project\\5_SetTrace\\build\\rest-system-sound\\release-symbols\\mapping.txt",
+  "mapping_sha256": "dcd9c552e1e7ddf1b79c79e5160da5ecff68201b4c786e0580eeeed6efac3d8f",
+  "production_signing": false,
+  "signature": "Existing development signing identity; no data reset required for matching installations",
+  "dart_obfuscated": false,
+  "permissions": [
+    "package: com.settrace.settrace",
+    "uses-permission: name='android.permission.WRITE_EXTERNAL_STORAGE' maxSdkVersion='28'",
+    "uses-permission: name='android.permission.POST_NOTIFICATIONS'",
+    "uses-permission: name='android.permission.VIBRATE'",
+    "uses-permission: name='android.permission.SCHEDULE_EXACT_ALARM'",
+    "permission: com.settrace.settrace.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION",
+    "uses-permission: name='com.settrace.settrace.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION'"
+  ],
+  "raw_sound_dependency": false,
+  "new_service": false,
+  "device_hearing_verified": false,
+  "source_archive": "D:\\000_MyLibrary\\100_code\\110_Project\\5_SetTrace\\build\\rest-system-sound\\source-evidence.zip",
+  "source_archive_sha256": "6423c04de4cbc67de5ae480b635f5035dff9953c4574276d070e6a43e0adee0e",
+  "source_files": "D:\\000_MyLibrary\\100_code\\110_Project\\5_SetTrace\\build\\rest-system-sound\\source-files.json",
+  "source_files_sha256": "752f2b02d98a962faa4d04d991a11c973cc8737f3b0c375ddac4ad757fdbceb5"
+}

@@ -56,6 +56,23 @@ class DiagnosticsExportTest {
     private fun environment(time: Long): Map<String, Any?> = mapOf("application" to mapOf("package" to "com.settrace.settrace", "version" to "0.2.4", "build" to "10", "supported_database_schema" to 6), "android_api" to 36, "captured_utc" to time, "exit_information" to "supported")
     private fun state(time: Long): Map<String, Any?> = mapOf("available" to true, "captured_utc" to time, "active" to false)
 
+    @Test fun mixedPackagePreservesEventVersionsAndMissingHistoricalBuildIsUnknown() {
+        val fixture = DiagnosticsStoreTest.Fixture()
+        try {
+            val store = fixture.store()
+            store.append(fixture.record(store)); store.append(fixture.record(store,version = 2))
+            val built = DiagnosticPackageBuilder(store).build(store.beginSnapshot(),environment(fixture.clock.wall),state(fixture.clock.wall)) { false }
+            assertEquals(2,built.manifest["format_version"])
+            assertEquals(2L,built.manifest["event_count"])
+            assertEquals(2L,built.manifest["events_with_unknown_build"])
+            val mapping = built.manifest["process_builds"] as Map<*,*>
+            assertTrue(mapping.containsKey("c".repeat(32))); assertNull(mapping["c".repeat(32)])
+            ZipFile(built.file).use { zip ->
+                val eventText = zip.entries().asSequence().filter { it.name.startsWith("events/") }.joinToString("") { zip.getInputStream(it).bufferedReader().readText() }
+                assertTrue(eventText.contains("\"schema_version\":1")); assertTrue(eventText.contains("\"schema_version\":2"))
+            }
+        } finally { fixture.dispose() }
+    }
     @Test fun packageContainsValidatedResourcesManifestAndReadableEvidence() {
         val fixture = DiagnosticsStoreTest.Fixture()
         try {
@@ -63,7 +80,7 @@ class DiagnosticsExportTest {
             store.append(fixture.record(store, frames = true))
             val snapshot = store.beginSnapshot()
             val built = DiagnosticPackageBuilder(store).build(snapshot, environment(fixture.clock.wall), state(fixture.clock.wall)) { false }
-            assertEquals(1, built.manifest["format_version"])
+            assertEquals(2, built.manifest["format_version"])
             assertEquals("settrace.diagnostics", built.manifest["format"])
             assertEquals(1L, built.manifest["event_count"])
             assertFalse(built.manifest["coverage_continuous"] as Boolean)

@@ -1,0 +1,22 @@
+{
+  "project": "D:\\000_MyLibrary\\100_code\\110_Project\\5_SetTrace",
+  "sdk": "D:\\ProgramData\\Android_SDK",
+  "avd": "D:\\ProgramData\\Android_AVD",
+  "androidUser": "D:\\ProgramData\\DevCache\\Android",
+  "gradle": "D:\\ProgramData\\DevCache\\Gradle",
+  "pub": "D:\\ProgramData\\DevCache\\Pub",
+  "temp": "D:\\ProgramData\\DevTemp\\fix-rest-sound-and-diagnostics",
+  "flutter": "D:\\DevTools\\flutter",
+  "toolConfig": "D:\\ProgramData\\DevCache\\FlutterConfig",
+  "toolLocalCache": "D:\\ProgramData\\DevCache\\LocalAppData",
+  "jdk": "D:\\Program Files\\Android Studio\\jbr",
+  "avd:Pixel_7_Pro": "D:\\ProgramData\\Android_AVD\\Pixel_7_Pro.avd"
+}
+00:00 +0: loading D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/business_followup_diagnostics_test.dart
+00:00 +0: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/rest_platform_context_test.dart: schedule, delivery and acknowledgement cleanup retain captured epoch and operation
+00:00 +1: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/business_followup_diagnostics_test.dart: startup reconciliation without work has an observed terminal, not a commit
+00:00 +2: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/transitions_v2_test.dart: expiry observations are bounded, post-commit and absent on rollback or unchanged polling
+00:00 +3: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/transitions_v2_test.dart: expiry observations are bounded, post-commit and absent on rollback or unchanged polling
+00:00 +4: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/business_followup_diagnostics_test.dart: backup core commit, partial settings and retry remain separate across epoch change
+00:00 +5: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/business_followup_diagnostics_test.dart: workout commit and async scheduling failure retain the parent causal chain
+00:00 +6: All tests passed!

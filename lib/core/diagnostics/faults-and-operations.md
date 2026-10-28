@@ -23,3 +23,13 @@ notifications_allowed、channel_allowed、exact_allowed只说明读取时能力�
 每次准备分发构建时留存同一次构建的APK、`build/app/outputs/mapping/release/mapping.txt`及配置、锁文件／源版本。R8映射只在开发侧保存，不进入诊断包。使用对应mapping执行Retrace；不可用其他构建的映射还原。启用Dart混淆时必须增加受控split-debug-info留存与构建标识，再验证符号还原，不能只打开混淆开关。
 
 当前release仍使用项目既有debug签名配置，验证构建不代表已签署可公开发行的安装包。APK权限／映射检查见实施验收；尚未执行的受控release崩溃及符号还原、指定低配设备入队p95与厂商迁移保持待验。
+
+## 版本 2 排查示例
+
+- schedule 有 due、epoch、round，但截止附近没有 callback：只证实已安排且包内未见接收，不证明 HyperOS 杀进程。
+- callback → claim committed → rest.audio failed/create_failed：领取已完成，播放器创建失败；不重新领取，也不改变训练提交。
+- resume → rest.transition pending/expired：恢复时原逻辑将未首次输出的过期事件作废，不将恢复时刻当成原截止。
+- cancel identity_unknown：安排／领取身份不可证，HMAC 位于未知进程作用域，不能与另一 epoch 的相同数字 ID 强行连接。
+
+本次真实漏提醒已由用户更正为后台场景。旧前台日志 enabled=false 可能只是没有请求系统通知，不能解释为偏好关闭。
+本次只修复声音路径与诊断能力，不引入服务、唤醒锁或 HyperOS 后台配置引导，不承诺后台必达。

@@ -1,0 +1,110 @@
+{
+  "project": "D:\\000_MyLibrary\\100_code\\110_Project\\5_SetTrace",
+  "sdk": "D:\\ProgramData\\Android_SDK",
+  "avd": "D:\\ProgramData\\Android_AVD",
+  "androidUser": "D:\\ProgramData\\DevCache\\Android",
+  "gradle": "D:\\ProgramData\\DevCache\\Gradle",
+  "pub": "D:\\ProgramData\\DevCache\\Pub",
+  "temp": "D:\\ProgramData\\DevTemp\\fix-rest-sound-and-diagnostics",
+  "flutter": "D:\\DevTools\\flutter",
+  "toolConfig": "D:\\ProgramData\\DevCache\\FlutterConfig",
+  "toolLocalCache": "D:\\ProgramData\\DevCache\\LocalAppData",
+  "jdk": "D:\\Program Files\\Android Studio\\jbr",
+  "avd:Pixel_7_Pro": "D:\\ProgramData\\Android_AVD\\Pixel_7_Pro.avd"
+}
+00:00 +0: loading D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/business_followup_diagnostics_test.dart
+00:00 +0: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/causality_v2_test.dart: silent scopes are skipped and queued contexts keep their own ancestors
+00:00 +1: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/business_followup_diagnostics_test.dart: business restore and export keep diagnostics disabled and identity local
+00:00 +2: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/business_followup_diagnostics_test.dart: business restore and export keep diagnostics disabled and identity local
+00:00 +3: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/business_followup_diagnostics_test.dart: business restore and export keep diagnostics disabled and identity local
+00:00 +4: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/business_followup_diagnostics_test.dart: business restore and export keep diagnostics disabled and identity local
+00:00 +5: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/business_followup_diagnostics_test.dart: business restore and export keep diagnostics disabled and identity local
+00:00 +6: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/business_followup_diagnostics_test.dart: business restore and export keep diagnostics disabled and identity local
+00:00 +7: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/business_followup_diagnostics_test.dart: business restore and export keep diagnostics disabled and identity local
+00:00 +8: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/business_followup_diagnostics_test.dart: business restore and export keep diagnostics disabled and identity local
+00:00 +9: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/business_followup_diagnostics_test.dart: business restore and export keep diagnostics disabled and identity local
+00:00 +10: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/business_followup_diagnostics_test.dart: business restore and export keep diagnostics disabled and identity local
+00:00 +11: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/business_followup_diagnostics_test.dart: backup core commit, partial settings and retry remain separate across epoch change
+00:00 +12: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/business_followup_diagnostics_test.dart: workout commit and async scheduling failure retain the parent causal chain
+00:00 +13: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostic_contract_test.dart: version two fields use per-field closed vocabularies
+00:00 +14: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: latest settings keeps data rows together even without backup
+00:00 +15: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: latest settings keeps data rows together even without backup
+00:00 +16: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: latest settings keeps data rows together even without backup
+00:00 +17: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: latest settings keeps data rows together even without backup
+00:00 +18: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: latest settings keeps data rows together even without backup
+00:00 +19: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: latest settings keeps data rows together even without backup
+00:00 +20: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: latest settings keeps data rows together even without backup
+00:00 +21: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: latest settings keeps data rows together even without backup
+00:01 +22: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: latest settings keeps data rows together even without backup
+00:01 +23: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: latest settings keeps data rows together even without backup
+00:01 +24: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: latest settings keeps data rows together even without backup
+00:01 +25: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: latest settings keeps data rows together even without backup
+00:01 +26: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: latest settings keeps data rows together even without backup
+00:01 +27: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: latest settings keeps data rows together even without backup
+00:01 +28: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: latest settings keeps data rows together even without backup
+00:01 +29: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: latest settings keeps data rows together even without backup
+00:01 +30: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: latest settings keeps data rows together even without backup
+00:01 +31: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: latest settings keeps data rows together even without backup
+00:02 +32: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: latest settings keeps data rows together even without backup
+00:02 +33: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: latest settings keeps data rows together even without backup
+00:02 +34: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: latest settings keeps data rows together even without backup
+00:02 +35: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: latest settings keeps data rows together even without backup
+00:02 +36: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/startup_diagnostics_test.dart: database failure shell exports and returns without deleting or opening data
+00:02 +37: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/startup_diagnostics_test.dart: database failure shell exports and returns without deleting or opening data
+00:02 +38: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/startup_diagnostics_test.dart: database failure shell exports and returns without deleting or opening data
+00:02 +39: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/startup_diagnostics_test.dart: database failure shell exports and returns without deleting or opening data
+00:02 +40: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/startup_diagnostics_test.dart: database failure shell exports and returns without deleting or opening data
+00:02 +41: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/startup_diagnostics_test.dart: database failure shell exports and returns without deleting or opening data
+00:02 +42: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/startup_diagnostics_test.dart: database failure shell exports and returns without deleting or opening data
+00:02 +43: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/startup_diagnostics_test.dart: database failure shell exports and returns without deleting or opening data
+00:02 +44: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/startup_diagnostics_test.dart: database failure shell exports and returns without deleting or opening data
+00:02 +45: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/startup_diagnostics_test.dart: database failure shell exports and returns without deleting or opening data
+00:03 +46: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/startup_diagnostics_test.dart: database failure shell exports and returns without deleting or opening data
+00:03 +47: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog survives repeat and barrier, back only dismisses
+00:03 +48: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog survives repeat and barrier, back only dismisses
+00:03 +49: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog survives repeat and barrier, back only dismisses
+00:03 +50: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog survives repeat and barrier, back only dismisses
+00:03 +51: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: all primary pages adapt to themes, languages, sizes and large text
+00:05 +52: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: all primary pages adapt to themes, languages, sizes and large text
+00:06 +53: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: interval draft cancels, saves, and repeat toggle hides interval
+00:09 +54: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: system preview does not save legacy sound and failures stay local
+00:09 +55: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: preview is cancellable, non-overlapping and disposed on leaving
+00:09 +56: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: sound status read failure retries and restricted status remains accessible
+00:09 +57: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: system sound controls fit four themes, both languages, large text and landscape/tablet
+00:13 +58: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: complete startup ready waits for reminder wiring
+00:14 +59: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: automatic dialog waits for editing and notification confirms after page presentation
+00:16 +60: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: back dismisses only the automatic dialog and page stop remains available
+00:21 +61: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: keyboard confirms once with reduced motion and keeps training progress
+00:21 +62: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 360.0dp short screen 1.6 type zh ThemeColorPreset.teal dark=false
+00:22 +63: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 360.0dp short screen 1.6 type en ThemeColorPreset.teal dark=false
+00:22 +64: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 360.0dp short screen 1.6 type zh ThemeColorPreset.teal dark=true
+00:22 +65: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 360.0dp short screen 1.6 type en ThemeColorPreset.teal dark=true
+00:22 +66: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 360.0dp short screen 1.6 type zh ThemeColorPreset.blue dark=false
+00:23 +67: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 360.0dp short screen 1.6 type en ThemeColorPreset.blue dark=false
+00:23 +68: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 360.0dp short screen 1.6 type zh ThemeColorPreset.blue dark=true
+00:23 +69: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 360.0dp short screen 1.6 type en ThemeColorPreset.blue dark=true
+00:23 +70: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 360.0dp short screen 1.6 type zh ThemeColorPreset.violet dark=false
+00:24 +71: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 360.0dp short screen 1.6 type en ThemeColorPreset.violet dark=false
+00:24 +72: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 360.0dp short screen 1.6 type zh ThemeColorPreset.violet dark=true
+00:24 +73: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 360.0dp short screen 1.6 type en ThemeColorPreset.violet dark=true
+00:25 +74: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 360.0dp short screen 1.6 type zh ThemeColorPreset.graphite dark=false
+00:25 +75: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 360.0dp short screen 1.6 type en ThemeColorPreset.graphite dark=false
+00:25 +76: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 360.0dp short screen 1.6 type zh ThemeColorPreset.graphite dark=true
+00:25 +77: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 360.0dp short screen 1.6 type en ThemeColorPreset.graphite dark=true
+00:25 +78: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 430.0dp short screen 1.6 type zh ThemeColorPreset.teal dark=false
+00:26 +79: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 430.0dp short screen 1.6 type en ThemeColorPreset.teal dark=false
+00:26 +80: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 430.0dp short screen 1.6 type zh ThemeColorPreset.teal dark=true
+00:26 +81: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 430.0dp short screen 1.6 type en ThemeColorPreset.teal dark=true
+00:26 +82: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 430.0dp short screen 1.6 type zh ThemeColorPreset.blue dark=false
+00:27 +83: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 430.0dp short screen 1.6 type en ThemeColorPreset.blue dark=false
+00:27 +84: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 430.0dp short screen 1.6 type zh ThemeColorPreset.blue dark=true
+00:27 +85: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 430.0dp short screen 1.6 type en ThemeColorPreset.blue dark=true
+00:27 +86: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 430.0dp short screen 1.6 type zh ThemeColorPreset.violet dark=false
+00:28 +87: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 430.0dp short screen 1.6 type en ThemeColorPreset.violet dark=false
+00:28 +88: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 430.0dp short screen 1.6 type zh ThemeColorPreset.violet dark=true
+00:28 +89: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 430.0dp short screen 1.6 type en ThemeColorPreset.violet dark=true
+00:28 +90: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 430.0dp short screen 1.6 type zh ThemeColorPreset.graphite dark=false
+00:29 +91: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 430.0dp short screen 1.6 type en ThemeColorPreset.graphite dark=false
+00:29 +92: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 430.0dp short screen 1.6 type zh ThemeColorPreset.graphite dark=true
+00:29 +93: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 430.0dp short screen 1.6 type en ThemeColorPreset.graphite dark=true
+00:29 +94: All tests passed!

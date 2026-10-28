@@ -26,3 +26,6 @@ __pycache__/
 build/
 lib/l10n/generated/
 **/flutter/ephemeral/
+
+# Project-local Kotlin build cache
+android/.kotlin/

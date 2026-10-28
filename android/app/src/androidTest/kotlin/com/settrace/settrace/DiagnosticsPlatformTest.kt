@@ -102,6 +102,8 @@ class DiagnosticsPlatformTest {
             }
             val manifest = JSONObject(String(entries["manifest.json"]!!))
             assertEquals("settrace.diagnostics", manifest.getString("format"))
+            assertEquals(2,manifest.getInt("format_version"))
+            assertTrue(manifest.has("process_builds"))
             val listed = manifest.getJSONArray("entries")
             for (index in 0 until listed.length()) {
                 val entry = listed.getJSONObject(index)

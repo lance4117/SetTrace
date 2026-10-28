@@ -1,0 +1,16 @@
+[
+  {
+    "capability": "app-diagnostics",
+    "modified_requirements": 5,
+    "new_scenarios": 14,
+    "unrelated_requirements_unchanged": 7,
+    "verification": "all delta blocks applied; all preexisting scenario names retained"
+  },
+  {
+    "capability": "app-experience",
+    "modified_requirements": 1,
+    "new_scenarios": 6,
+    "unrelated_requirements_unchanged": 26,
+    "verification": "all delta blocks applied; all preexisting scenario names retained"
+  }
+]

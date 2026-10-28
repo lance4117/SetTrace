@@ -17,7 +17,10 @@ class RestAlertService extends ChangeNotifier {
     platform.onTapDetails = (tap) => onTapDetails?.call(tap);
     platform.onDelivered = (body) {
       onDelivered?.call(body);
-      unawaited(synchronize().catchError((Object _) {}));
+      unawaited(
+        synchronize(trigger: DiagnosticValue.delivered_callback)
+            .catchError((Object _) {}),
+      );
     };
   }
   final DiagnosticsClient? diagnostics;
@@ -50,7 +53,7 @@ class RestAlertService extends ChangeNotifier {
         options = value;
         notifyListeners();
         try {
-          await synchronize();
+          await synchronize(trigger: DiagnosticValue.settings_change);
         } catch (error, stack) {
           DiagnosticScope.current?.followupFailure(
             error,
@@ -74,7 +77,7 @@ class RestAlertService extends ChangeNotifier {
           (e) => e.id == event.id && e.sessionId == event.sessionId,
         );
         if (matching.isEmpty) {
-          await synchronize();
+          await synchronize(trigger: DiagnosticValue.acknowledge);
           return;
         }
         if (!await repository.acknowledge(
@@ -87,7 +90,7 @@ class RestAlertService extends ChangeNotifier {
           if (!remaining.any(
             (e) => e.id == event.id && e.sessionId == event.sessionId,
           )) {
-            await synchronize();
+            await synchronize(trigger: DiagnosticValue.acknowledge);
             return;
           }
           throw StateError('reminderChanged');
@@ -99,7 +102,7 @@ class RestAlertService extends ChangeNotifier {
         // Confirmation is durable even if platform projection cleanup fails.
         try {
           await platform.stopOutput(event.id);
-          await synchronize();
+          await synchronize(trigger: DiagnosticValue.acknowledge);
         } catch (error, stack) {
           DiagnosticScope.current?.followupFailure(
             error,
@@ -133,15 +136,25 @@ class RestAlertService extends ChangeNotifier {
     bool expireElapsed = false,
   }) {
     _strings = strings;
-    return synchronize(expireElapsed: expireElapsed);
+    return synchronize(
+      expireElapsed: expireElapsed,
+      trigger: expireElapsed
+          ? DiagnosticValue.startup
+          : DiagnosticValue.settings_change,
+    );
   }
 
   Future<void> synchronize({
     bool expireElapsed = false,
     bool offerPermission = false,
+    DiagnosticValue trigger = DiagnosticValue.training_change,
   }) {
+    final context = DiagnosticContext.capture(
+      trigger,
+      epoch: _diagnostics.datasetEpoch,
+    );
     final next = _tail.then(
-      (_) => _synchronize(expireElapsed, offerPermission),
+      (_) => context.run(() => _synchronize(expireElapsed, offerPermission)),
     );
     // Expose the original failure to callers, while keeping the serial queue usable.
     _tail = next.catchError((Object _) {});
@@ -174,8 +187,9 @@ class RestAlertService extends ChangeNotifier {
             _diagnostics.event(
               DiagnosticName.restSynchronize,
               phase: DiagnosticPhase.completed,
-              parent: DiagnosticScope.current?.operation.id,
+              parent: DiagnosticScope.current?.visibleOperation,
               fields: {
+                DiagnosticField.trigger: diagnosticTrigger,
                 DiagnosticField.exact_allowed: capability!.exact,
                 DiagnosticField.notifications_allowed:
                     capability!.notifications,
@@ -270,6 +284,7 @@ class RestAlertService extends ChangeNotifier {
       DiagnosticObject.session: event.sessionId,
     },
     fields: {
+      DiagnosticField.trigger: diagnosticTrigger,
       DiagnosticField.revision: event.revision,
       DiagnosticField.round: event.sequence,
       DiagnosticField.due_utc: ?event.deliveryAt,
@@ -296,7 +311,7 @@ class RestAlertService extends ChangeNotifier {
           permissionNeeded = true;
         }
         notifyListeners();
-        await synchronize();
+        await synchronize(trigger: DiagnosticValue.settings_change);
         if (value &&
             !permissionRequested &&
             capability?.notifications != true) {
@@ -319,7 +334,7 @@ class RestAlertService extends ChangeNotifier {
         permissionRequested = true;
         permissionNeeded = false;
         if (request) await platform.requestNotifications();
-        await synchronize();
+        await synchronize(trigger: DiagnosticValue.settings_change);
       },
       inferCommitOnSuccess: false,
     );

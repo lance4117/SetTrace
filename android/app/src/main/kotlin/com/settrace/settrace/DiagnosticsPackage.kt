@@ -42,7 +42,10 @@ class DiagnosticPackageBuilder(private val store: DiagnosticStore) {
         }
         val output = File(store.stagingDirectory, "${snapshot.id}.zip")
         val entries = mutableListOf<Map<String, Any?>>()
-        val summary = ArrayDeque<String>()
+        val summary = DiagnosticSummary()
+        val processBuilds = store.processBuilds()
+        val includedBuilds = linkedMapOf<String, Any?>()
+        var unknownBuilds = 0L
         val referencedIncidents = linkedSetOf<String>()
         val includedIncidents = linkedSetOf<String>()
         var firstTime: Long? = null
@@ -85,13 +88,13 @@ class DiagnosticPackageBuilder(private val store: DiagnosticStore) {
                                     val headerText = source.readLine() ?: throw DiagnosticFailure("corrupt_tail")
                                     if (headerText.length > 1024) throw DiagnosticFailure("corrupt_tail")
                                     val header = store.decode(headerText)
-                                    if (DiagnosticVocabulary.number(header["schema_version"]) != 1L || header["generation"] != segment.generation) throw DiagnosticFailure("unsupported_version")
+                                    if (DiagnosticVocabulary.number(header["schema_version"]) !in 1L..2L || header["generation"] != segment.generation) throw DiagnosticFailure("unsupported_version")
                                     while (true) {
                                         check()
                                         val line = source.readLine() ?: break
                                         if (line.length > (if (segment.incident) 48 * 1024 else 8 * 1024)) throw DiagnosticFailure("size_limit")
                                         val item = store.decode(line)
-                                        if (!DiagnosticStoredValidator.valid(item, segment.incident)) throw DiagnosticFailure("sanitization_rejected")
+                                        if (item["schema_version"] != header["schema_version"] || !DiagnosticStoredValidator.valid(item, segment.incident)) throw DiagnosticFailure("sanitization_rejected")
                                         // Re-encode validated values; never copy unvalidated bytes.
                                         target.write(DiagnosticJson.bytes(item)); target.write(10)
                                         if (segment.incident) includedIncidents.add(item["incident_id"] as String)
@@ -100,10 +103,14 @@ class DiagnosticPackageBuilder(private val store: DiagnosticStore) {
                                             val time = (item["time_utc"] as Number).toLong()
                                             firstTime = minOf(firstTime ?: time, time); lastTime = maxOf(lastTime ?: time, time)
                                             (item["incident_id"] as? String)?.let { if (referencedIncidents.size < 4096) referencedIncidents.add(it) else missing.add("truncated") }
-                                            if (item["outcome"] == "committed" || item["severity"] in setOf("warn", "error", "fatal") || item["outcome"] == "unknown") {
-                                                summary.addLast("$time ${item["event_name"]} phase=${item["phase"]} outcome=${item["outcome"]} reason=${item["reason_code"]} operation=${item["operation_id"]}")
-                                                while (summary.size > 64) summary.removeFirst()
+                                            summary.offer(item)
+                                            val identity = item["process_instance"] as String
+                                            if (identity !in includedBuilds) {
+                                                if (includedBuilds.size < 32) includedBuilds[identity] = processBuilds[identity]
+                                                else missing.add("truncated")
                                             }
+                                            if (processBuilds[identity] == null) unknownBuilds++
+
                                         }
                                     }
                                 }
@@ -122,13 +129,15 @@ class DiagnosticPackageBuilder(private val store: DiagnosticStore) {
                         append("Evidence only: committed describes a confirmed business commit; later follow-up failures do not undo it. Missing terminal events are unknown. Requests do not prove a user saw/heard an alert.\n")
                         append("Snapshots have their own capture times. No inferred root cause is asserted. This file is not a backup and is not encrypted.\n")
                         append("Unavailable/limited: ${missing.joinToString(",").ifEmpty { "none known" }}\n")
-                        for (line in summary) append(line).append('\n')
+                        append(summary.render())
                     }
+                    check(summaryText.toByteArray(Charsets.UTF_8).size <= 32 * 1024)
                     entry("summary.txt") { it.write(summaryText.toByteArray(Charsets.UTF_8)) }
                     manifest = mapOf(
-                        "format" to "settrace.diagnostics", "format_version" to 1,
+                        "format" to "settrace.diagnostics", "format_version" to 2,
                         "report_id" to snapshot.id, "created_utc" to store.clock.wallMillis(), "cutoff_utc" to snapshot.cutoff,
                         "application" to cleanEnvironment["application"], "first_event_utc" to firstTime, "last_event_utc" to lastTime,
+                        "process_builds" to includedBuilds.toMap(), "events_with_unknown_build" to unknownBuilds,
                         "event_count" to eventCount, "coverage_continuous" to false,
                         "retention_hours" to 168, "log_limit_bytes" to store.limits.events + store.limits.incidents,
                         "known_missing" to missing.toList(), "loss_counts" to store.lossCounts(), "loss_observed_ranges" to store.lossIntervals(), "entries" to entries.toList(),
@@ -165,7 +174,7 @@ class DiagnosticPackageBuilder(private val store: DiagnosticStore) {
         if (application.keys.any { it !in setOf("package", "version", "build", "supported_database_schema", "obfuscated") }) return null
         if (application["package"] != "com.settrace.settrace") return null
         val safeText = Regex("[a-zA-Z0-9 ._+()/-]{1,96}")
-        for (key in listOf("version", "build")) { val text = application[key]; if (text != null && (text !is String || !safeText.matches(text))) return null }
+        for (key in listOf("version", "build")) { val text = application[key]; if (text != null && (text !is String || !Regex(if (key == "build") "[0-9]{1,20}" else "[a-zA-Z0-9._+()-]{1,64}").matches(text))) return null }
         if (application["supported_database_schema"] != null && DiagnosticVocabulary.number(application["supported_database_schema"]) == null) return null
         if (application["obfuscated"] != null && application["obfuscated"] !is Boolean) return null
         for (key in listOf("android_version", "device_model")) { val text = value[key]; if (text != null && (text !is String || !safeText.matches(text))) return null }

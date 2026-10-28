@@ -1,0 +1,66 @@
+{
+  "verified": true,
+  "package": "D:\\000_MyLibrary\\100_code\\110_Project\\5_SetTrace\\docs\\qa\\rest-system-sound\\fixtures\\mixed-v2.zip",
+  "bytes": 12395,
+  "sha256": "8804c60148ec43d4e646761cf4825bfc9d06e58f5ad0d03499206634daf654fa",
+  "expanded_bytes": 81868,
+  "entries": [
+    "environment.json",
+    "events/000.jsonl",
+    "events/001.jsonl",
+    "events/002.jsonl",
+    "events/003.jsonl",
+    "events/004.jsonl",
+    "events/006.jsonl",
+    "incidents/005.jsonl",
+    "manifest.json",
+    "state.json",
+    "summary.txt"
+  ],
+  "event_count": 97,
+  "event_names": [
+    "backup.recovery",
+    "diagnostics.export",
+    "diagnostics.policy",
+    "history.refresh",
+    "plan.create",
+    "plan.exercise_create",
+    "rest.audio",
+    "rest.cancel",
+    "rest.schedule",
+    "rest.synchronize",
+    "settings.save",
+    "startup.begin",
+    "startup.database",
+    "startup.exit",
+    "workout.complete",
+    "workout.start"
+  ],
+  "known_missing": [
+    "queue_overflow"
+  ],
+  "loss_counts": {
+    "queue_overflow": 13
+  },
+  "state": {
+    "target_count": 3,
+    "skipped_count": 0,
+    "captured_utc": 1792819867379,
+    "available": true,
+    "dataset_epoch": 0,
+    "active": true,
+    "due_utc": 1792820452085,
+    "completed_count": 1
+  },
+  "active_rest_unchanged": null,
+  "completed_count": null,
+  "checks": [
+    "resource sizes and SHA-256",
+    "bounded safe archive paths",
+    "event field whitelist and HMAC identities",
+    "test privacy sentinels",
+    "no key/control/journal/database entries",
+    "result/manifest missing reasons agree"
+  ],
+  "privacy_scope": "Test sentinels and schema checks; not a proof about arbitrary future producers"
+}

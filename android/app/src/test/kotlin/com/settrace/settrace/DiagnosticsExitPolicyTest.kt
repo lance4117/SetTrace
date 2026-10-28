@@ -6,6 +6,10 @@ import org.junit.Assert.*
 import org.junit.Test
 
 class DiagnosticsExitPolicyTest {
+    @Test fun normalExitsAreInfoButCrashAnrResourceAndUnknownRemainDistinct() {
+        for (reason in listOf("user_requested","user_stopped","self_exit")) assertEquals("info",DiagnosticExitPolicy.severity(reason))
+        for (reason in listOf("crash","native_crash","anr","low_memory","unknown")) assertEquals("warn",DiagnosticExitPolicy.severity(reason))
+    }
     @Test fun unsupportedDisabledEmptyAndFailedReadsHaveDistinctCapabilities() {
         val forbidden = { throw AssertionError("platform must not be called") }
         assertEquals("unsupported", DiagnosticExitPolicy.read(28, true, forbidden).capability)

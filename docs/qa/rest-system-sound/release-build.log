@@ -1,0 +1,53 @@
+{
+  "project": "D:\\000_MyLibrary\\100_code\\110_Project\\5_SetTrace",
+  "sdk": "D:\\ProgramData\\Android_SDK",
+  "avd": "D:\\ProgramData\\Android_AVD",
+  "androidUser": "D:\\ProgramData\\DevCache\\Android",
+  "gradle": "D:\\ProgramData\\DevCache\\Gradle",
+  "pub": "D:\\ProgramData\\DevCache\\Pub",
+  "temp": "D:\\ProgramData\\DevTemp\\fix-rest-sound-and-diagnostics",
+  "flutter": "D:\\DevTools\\flutter",
+  "toolConfig": "D:\\ProgramData\\DevCache\\FlutterConfig",
+  "toolLocalCache": "D:\\ProgramData\\DevCache\\LocalAppData",
+  "jdk": "D:\\Program Files\\Android Studio\\jbr",
+  "avd:Pixel_7_Pro": "D:\\ProgramData\\Android_AVD\\Pixel_7_Pro.avd"
+}
+Resolving dependencies...
+Downloading packages...
+  _fe_analyzer_shared 96.0.0 (110.0.0 available)
+  analyzer 10.2.0 (14.6.0 available)
+  code_assets 1.2.1 (2.1.0 available)
+  cupertino_icons 1.0.9 (2.0.0 available)
+  hooks 2.0.2 (2.2.0 available)
+  material_color_utilities 0.13.0 (0.13.1 available)
+  meta 1.18.3 (1.19.0 available)
+  native_toolchain_c 0.19.2 (0.19.5 available)
+  package_config 2.2.0 (3.0.0 available)
+  record_use 0.6.0 (1.1.1 available)
+  shared_preferences 2.5.5 (2.5.6 available)
+  shared_preferences_android 2.4.28 (2.5.4 available)
+  shared_preferences_foundation 2.5.7 (2.6.0 available)
+  sqflite 2.4.4 (2.4.5 available)
+  sqflite_android 2.4.4 (2.4.5 available)
+  sqflite_common 2.5.13 (2.5.14 available)
+  sqflite_common_ffi 2.4.3 (2.4.5 available)
+  sqflite_darwin 2.4.4 (2.4.4+1 available)
+  sqflite_platform_interface 2.4.2 (2.4.3 available)
+  sqlite3 3.5.2 (3.8.0 available)
+  synchronized 3.4.2 (3.5.0 available)
+  test_api 0.7.12 (0.7.15 available)
+  vector_math 2.4.0 (2.4.3 available)
+  vm_service 15.3.0 (15.4.0 available)
+  web 1.1.1 (1.1.2 available)
+Got dependencies!
+25 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+Running Gradle task 'assembleRelease'...                        
+WARNING: A restricted method in java.lang.System has been called
+WARNING: java.lang.System::load has been called by net.rubygrapefruit.platform.internal.NativeLibraryLoader in an unnamed module (file:/D:/ProgramData/DevCache/Gradle/wrapper/dists/gradle-9.3.1-all/9ot9r568e8zfvvd4mn8rbu1j0/gradle-9.3.1/lib/native-platform-0.22-milestone-29.jar)
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+
+Font asset "MaterialIcons-Regular.otf" was tree-shaken, reducing it from 1645184 to 3860 bytes (99.8% reduction). Tree-shaking can be disabled by providing the --no-tree-shake-icons flag when building your app.
+Running Gradle task 'assembleRelease'...                           54.5s
+√ Built build\app\outputs\flutter-apk\app-release.apk (54.4MB)

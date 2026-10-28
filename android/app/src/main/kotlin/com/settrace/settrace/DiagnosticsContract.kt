@@ -30,6 +30,23 @@ class DiagnosticFailure(val code: String) : java.io.IOException(code)
 
 /** Platform-independent contract. No Android or third-party JSON dependency. */
 object DiagnosticVocabulary {
+    val newEvents = setOf("app.lifecycle", "rest.callback", "rest.transition", "rest.audio")
+    val enumFields = mapOf(
+        "trigger" to setOf("startup", "resume", "foreground_poll", "alarm", "delivered_callback", "training_change", "acknowledge", "settings_change", "platform_cleanup", "preview", "unknown"),
+        "audio_state" to setOf("requested", "started", "completed", "stopped", "failed", "suppressed", "unknown"),
+        "sound_condition" to setOf("allowed", "silent", "zero_volume", "dnd", "channel_silent", "channel_quiet", "unknown", "create_failed", "playback_failed", "busy", "bounded_stop"),
+        "before_state" to setOf("pending", "consumed", "expired", "cancelled", "resumed", "inactive", "hidden", "paused", "detached", "unknown"),
+        "after_state" to setOf("pending", "consumed", "expired", "cancelled", "resumed", "inactive", "hidden", "paused", "detached", "unknown"))
+    val newCounts = setOf("next_round", "truncated_count", "ringer_mode", "notification_volume", "interruption_filter", "channel_importance")
+    val newFlags = setOf("notification_requested", "sound_requested", "vibration_requested", "identity_unknown", "channel_has_sound", "readings_available", "subject_build_unknown")
+    fun eventAllowed(name: Any?, version: Long) = name in events || version == 2L && name in newEvents
+    fun attributeAllowed(key: Any?, value: Any?, version: Long): Boolean = when {
+        key in counts || version == 2L && key in newCounts -> number(value) != null
+        key in flags || version == 2L && key in newFlags -> value is Boolean
+        key == "mode" -> value in values
+        version == 2L && key is String && key in enumFields -> value in enumFields.getValue(key)
+        else -> false
+    }
     val events = setOf(
         "startup.begin", "startup.database", "startup.ready", "startup.recovery", "startup.exit",
         "plan.create", "plan.read", "plan.edit", "plan.delete", "plan.reorder", "plan.exercise_create", "plan.exercise_edit", "plan.exercise_delete",
@@ -99,7 +116,7 @@ data class DiagnosticRecord(
     // Budget UTF16 strings, maps/lists and the encoded copies conservatively.
     val cost: Int get() = (eventBytes.size + (incidentBytes?.size ?: 0)) * 4 + 1024
     val critical: Boolean get() = event["outcome"] == "committed" || event["phase"] in setOf("committed", "core_committed") || event["severity"] == "fatal"
-    val aggregationKey: String get() = DiagnosticJson.sha256(DiagnosticJson.bytes(listOf(event["event_name"], event["phase"], event["reason_code"], event["objects"], event["attributes"], event["incident_id"])))
+    val aggregationKey: String get() = DiagnosticJson.sha256(DiagnosticJson.bytes(listOf(event["schema_version"], event["event_name"], event["phase"], event["reason_code"], event["objects"], event["attributes"], event["incident_id"])))
 }
 
 class DiagnosticPrivacy(private val key: ByteArray, private val namespace: String) {
@@ -121,9 +138,10 @@ class DiagnosticPrivacy(private val key: ByteArray, private val namespace: Strin
 
     fun sanitize(input: Map<*, *>, generation: String, observedUtc: Long): DiagnosticRecord? {
         if (input.keys.any { it !in DiagnosticVocabulary.envelopeKeys } || input.size > 20) return null
-        if (DiagnosticVocabulary.number(input["schema_version"]) != 1L || input["generation"] != generation) return null
+        val version = DiagnosticVocabulary.number(input["schema_version"]) ?: return null
+        if (version !in 1L..2L || input["generation"] != generation) return null
         val name = input["event_name"] as? String ?: return null
-        if (name !in DiagnosticVocabulary.events) return null
+        if (!DiagnosticVocabulary.eventAllowed(name, version)) return null
         val backup = input["durable_backup_operation"]
         if (backup != null && (!name.startsWith("backup.") || backup !is String || !DiagnosticVocabulary.token.matches(backup))) return null
         for ((field, values) in mapOf("phase" to DiagnosticVocabulary.phases, "outcome" to DiagnosticVocabulary.outcomes, "severity" to DiagnosticVocabulary.levels, "reason_code" to DiagnosticVocabulary.reasons)) if (input[field] !in values) return null
@@ -135,7 +153,9 @@ class DiagnosticPrivacy(private val key: ByteArray, private val namespace: Strin
         val sequence = DiagnosticVocabulary.number(input["sequence"]) ?: return null
         val monotonic = if (clock == "unknown" && input["monotonic_us"] == null) null else DiagnosticVocabulary.number(input["monotonic_us"]) ?: return null
         val time = DiagnosticVocabulary.number(input["time_utc"]) ?: return null
-        val timezone = (input["timezone_offset_minutes"] as? Number)?.toInt() ?: return null
+        val rawTimezone = input["timezone_offset_minutes"]
+        if (rawTimezone !is Int && rawTimezone !is Long) return null
+        val timezone = (rawTimezone as Number).toInt()
         if (timezone !in -1080..1080) return null
         val epoch = input["dataset_epoch"]?.let { DiagnosticVocabulary.number(it) ?: return null }
         val attributes = input["attributes"] as? Map<*, *> ?: return null
@@ -143,12 +163,8 @@ class DiagnosticPrivacy(private val key: ByteArray, private val namespace: Strin
         val cleanAttributes = linkedMapOf<String, Any>()
         for ((rawField, value) in attributes) {
             val field = rawField as? String ?: return null
-            cleanAttributes[field] = when {
-                field in DiagnosticVocabulary.counts -> DiagnosticVocabulary.number(value) ?: return null
-                field in DiagnosticVocabulary.flags && value is Boolean -> value
-                field == "mode" && value in DiagnosticVocabulary.values -> value as String
-                else -> return null
-            }
+            if (!DiagnosticVocabulary.attributeAllowed(field, value, version)) return null
+            cleanAttributes[field] = value ?: return null
         }
         val rawObjects = input["objects"] as? Map<*, *> ?: return null
         if (rawObjects.size > 6) return null
@@ -168,7 +184,7 @@ class DiagnosticPrivacy(private val key: ByteArray, private val namespace: Strin
         if (frames.sumOf { it.toByteArray(Charsets.UTF_8).size } > 32 * 1024) return null
         val incidentId = if (frames.isEmpty()) null else DiagnosticJson.sha256(DiagnosticJson.bytes(listOf(input["reason_code"], frames)))
         val event = linkedMapOf<String, Any?>(
-            "schema_version" to 1, "event_name" to name, "module" to name.substringBefore('.'), "origin" to if (clock == "unknown") "android" else clock,
+            "schema_version" to version, "event_name" to name, "module" to name.substringBefore('.'), "origin" to if (clock == "unknown") "android" else clock,
             "phase" to input["phase"], "outcome" to input["outcome"], "severity" to input["severity"], "reason_code" to input["reason_code"],
             "operation_id" to input["operation_id"], "parent_operation_id" to parent, "correlation_id" to if (backup is String) backupCorrelation(backup) else input["operation_id"],
             "process_instance" to process, "sequence" to sequence, "monotonic_us" to monotonic, "clock_domain" to if (clock == "unknown") "unknown" else "$clock:$process",
@@ -177,7 +193,7 @@ class DiagnosticPrivacy(private val key: ByteArray, private val namespace: Strin
         )
         val eventBytes = DiagnosticJson.bytes(event)
         if (eventBytes.size > 8 * 1024) return null
-        val incidentBytes = incidentId?.let { DiagnosticJson.bytes(mapOf("schema_version" to 1, "incident_id" to it, "time_utc" to time, "reason_code" to input["reason_code"], "frames" to frames)) }
+        val incidentBytes = incidentId?.let { DiagnosticJson.bytes(mapOf("schema_version" to version, "incident_id" to it, "time_utc" to time, "reason_code" to input["reason_code"], "frames" to frames)) }
         return DiagnosticRecord(event, frames, eventBytes, incidentBytes)
     }
 

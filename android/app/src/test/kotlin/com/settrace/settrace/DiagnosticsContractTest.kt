@@ -4,6 +4,19 @@ import org.junit.Assert.*
 import org.junit.Test
 
 class DiagnosticsContractTest {
+    @Test fun versionTwoIsExplicitAndLegacyCannotUseNewSemantics() {
+        val raw = envelope().apply { put("schema_version", 2); put("event_name", "rest.audio")
+            put("attributes", mapOf("audio_state" to "failed", "trigger" to "preview", "sound_condition" to "create_failed", "round" to 0, "next_round" to 1)) }
+        val record = privacy.sanitize(raw, generation, 2000)!!
+        assertTrue(DiagnosticStoredValidator.valid(record.event, false))
+        raw["schema_version"] = 1; assertNull(privacy.sanitize(raw, generation, 2000))
+        raw["schema_version"] = 3; assertNull(privacy.sanitize(raw, generation, 2000))
+        raw["schema_version"] = 2
+        for (privateValue in listOf("content://user/sound", "My song", "private exception")) {
+            raw["attributes"] = mapOf("sound_condition" to privateValue)
+            assertNull(privacy.sanitize(raw, generation, 2000))
+        }
+    }
     @Test fun durableBackupCorrelationSurvivesEpochChangeWithoutExportingLedgerId() {
         val first = envelope().apply { put("event_name", "backup.restore"); put("durable_backup_operation", "e".repeat(32)); put("dataset_epoch", 0L) }
         val second = first.toMutableMap().apply { put("event_name", "backup.settings"); put("dataset_epoch", 1L); put("process_instance", "d".repeat(32)) }

@@ -126,10 +126,6 @@ class _SetTraceBootstrapState extends State<SetTraceBootstrap> {
         plans: PlanRepository(db, coordinator: widget.writes),
         workouts: WorkoutRepository(db, coordinator: widget.writes),
       );
-      widget.diagnostics.event(
-        DiagnosticName.startupReady,
-        phase: DiagnosticPhase.completed,
-      );
       setState(() {
         busy = false;
       });

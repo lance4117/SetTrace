@@ -1,0 +1,74 @@
+[
+  {
+    "name": "com.settrace.settrace.BackupDatabasePolicyTest",
+    "tests": 2,
+    "failures": 0,
+    "errors": 0
+  },
+  {
+    "name": "com.settrace.settrace.BackupFilesStorageTest",
+    "tests": 4,
+    "failures": 0,
+    "errors": 0
+  },
+  {
+    "name": "com.settrace.settrace.BackupOutputCommitTest",
+    "tests": 4,
+    "failures": 0,
+    "errors": 0
+  },
+  {
+    "name": "com.settrace.settrace.DiagnosticsContractTest",
+    "tests": 8,
+    "failures": 0,
+    "errors": 0
+  },
+  {
+    "name": "com.settrace.settrace.DiagnosticsExitPolicyTest",
+    "tests": 5,
+    "failures": 0,
+    "errors": 0
+  },
+  {
+    "name": "com.settrace.settrace.DiagnosticsExportTest",
+    "tests": 13,
+    "failures": 0,
+    "errors": 0
+  },
+  {
+    "name": "com.settrace.settrace.DiagnosticsStoreTest",
+    "tests": 17,
+    "failures": 0,
+    "errors": 0
+  },
+  {
+    "name": "com.settrace.settrace.DiagnosticsSummaryTest",
+    "tests": 3,
+    "failures": 0,
+    "errors": 0
+  },
+  {
+    "name": "com.settrace.settrace.FilePickerGateTest",
+    "tests": 1,
+    "failures": 0,
+    "errors": 0
+  },
+  {
+    "name": "com.settrace.settrace.PlanFilesStorageTest",
+    "tests": 2,
+    "failures": 0,
+    "errors": 0
+  },
+  {
+    "name": "com.settrace.settrace.RestDeliveryPolicyTest",
+    "tests": 3,
+    "failures": 0,
+    "errors": 0
+  },
+  {
+    "name": "com.settrace.settrace.RestSoundTest",
+    "tests": 6,
+    "failures": 0,
+    "errors": 0
+  }
+]

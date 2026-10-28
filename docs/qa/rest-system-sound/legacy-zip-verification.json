@@ -1,0 +1,62 @@
+{
+  "verified": true,
+  "package": "C:\\Users\\Lance\\Downloads\\SetTrace-diagnostics-2026-10-27-221502-082-9aae9.zip",
+  "bytes": 20332,
+  "sha256": "05fd376a088b52877a3e6b178f7aa36521549d22a4a72817bfa20571c761da29",
+  "expanded_bytes": 234430,
+  "entries": [
+    "environment.json",
+    "events/000.jsonl",
+    "events/001.jsonl",
+    "events/002.jsonl",
+    "events/003.jsonl",
+    "manifest.json",
+    "state.json",
+    "summary.txt"
+  ],
+  "event_count": 287,
+  "event_names": [
+    "backup.recovery",
+    "history.refresh",
+    "rest.acknowledge",
+    "rest.cancel",
+    "rest.claim",
+    "rest.next",
+    "rest.output",
+    "rest.schedule",
+    "rest.synchronize",
+    "startup.begin",
+    "startup.database",
+    "startup.exit",
+    "startup.ready",
+    "workout.complete",
+    "workout.recover",
+    "workout.rest_adjust",
+    "workout.rest_end",
+    "workout.save",
+    "workout.start",
+    "workout.undo_complete"
+  ],
+  "known_missing": [],
+  "loss_counts": {},
+  "state": {
+    "target_count": 0,
+    "skipped_count": 0,
+    "captured_utc": 1793110502076,
+    "available": true,
+    "dataset_epoch": 0,
+    "active": false,
+    "completed_count": 0
+  },
+  "active_rest_unchanged": null,
+  "completed_count": null,
+  "checks": [
+    "resource sizes and SHA-256",
+    "bounded safe archive paths",
+    "event field whitelist and HMAC identities",
+    "test privacy sentinels",
+    "no key/control/journal/database entries",
+    "result/manifest missing reasons agree"
+  ],
+  "privacy_scope": "Test sentinels and schema checks; not a proof about arbitrary future producers"
+}

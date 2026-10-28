@@ -1,5 +1,9 @@
 import 'dart:io';
 
+import 'package:settrace/features/rest_alerts/rest_alert_repository.dart';
+import 'package:settrace/features/rest_alerts/rest_alert_options.dart';
+import 'package:settrace/features/backup/backup_codec.dart';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:settrace/app/theme/theme_color_controller.dart';
 import 'package:settrace/app/theme/theme_color_preset.dart';
@@ -60,6 +64,33 @@ void main() {
     colors.dispose();
     await app.close();
     await dir.delete(recursive: true);
+  });
+  test('all three legacy sound values survive preferences, snapshot and backup round trip', () async {
+    for (final sound in RestAlertOptions.sounds) {
+      final before = (await prefs.readConfirmed()).toJson();
+      final reminder = Map<String, Object?>.from(before['reminder'] as Map)
+        ..['sound'] = sound;
+      await prefs.apply('reminder', reminder);
+      final repository = RestAlertRepository(app.db);
+      final options = RestAlertOptions.fromMap(await repository.preferences());
+      await repository.setOptions(
+        options.copyWith(vibration: !options.vibration, interval: 30),
+      );
+      expect((await repository.preferences())['sound_id'], sound);
+      final data = await service.snapshot();
+      final codec = BackupCodec();
+      final document = codec.encode(
+        BackupDocument(
+          backupId: 'compat',
+          snapshotAt: DateTime.utc(2026),
+          exportedAt: DateTime.utc(2026),
+          sourceAppVersion: '0.3.1+12',
+          data: data,
+        ),
+      );
+      expect(codec.decode(document).data.settings.reminder['sound'], sound);
+      expect(await app.db.getVersion(), 6);
+    }
   });
   test('snapshot drains coalesced confirmed saves while rejecting late preview selections', () async {
     colors.select(ThemeColorPreset.blue);

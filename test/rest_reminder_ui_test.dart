@@ -1,5 +1,9 @@
 import 'dart:async';
 
+import 'package:settrace/core/diagnostics/diagnostics_client.dart';
+
+import 'support/diagnostics_fakes.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:settrace/app/app.dart';
@@ -30,6 +34,40 @@ import 'rest_alert_repository_test.dart' show FakeAlertsPlatform;
 class PreviewPlatform extends FakeAlertsPlatform {
   PreviewPlatform(super.repo);
   final previews = <String>[];
+  String condition = 'allowed';
+  bool failRead = false, failPreview = false;
+  Completer<void>? pendingPreview;
+  int stops = 0, settings = 0;
+  Completer<void>? initializeGate;
+  @override
+  Future<void> initialize(String path, String name, String description) async {
+    await initializeGate?.future;
+  }
+
+  @override
+  Future<Map<String, dynamic>> soundStatus() async {
+    if (failRead) throw StateError('read');
+    return {'condition': condition, 'custom': false};
+  }
+
+  @override
+  Future<void> previewSystem() async {
+    previews.add('system');
+    if (failPreview) throw StateError('preview');
+    await pendingPreview?.future;
+  }
+
+  @override
+  Future<void> stopPreview() async {
+    stops++;
+    if (pendingPreview?.isCompleted == false) pendingPreview!.complete();
+  }
+
+  @override
+  Future<void> openSettings({required bool exact}) async {
+    settings++;
+  }
+
   @override
   Future<void> preview(String sound, String locale) async {
     previews.add('$sound:$locale');
@@ -237,6 +275,16 @@ void main() {
       await t.tap(find.text('Reminder interval'));
       await t.pumpAndSettle();
       await t.tap(find.text('30 seconds'));
+      await t.runAsync(
+        () => db.db.execute(
+          "CREATE TRIGGER fail_pref BEFORE UPDATE ON rest_alert_preferences BEGIN SELECT RAISE(ABORT,'fail'); END",
+        ),
+      );
+      await t.tap(find.text('Save'));
+      await flush(t);
+      expect(alerts.options.interval, 10);
+      expect(find.text('Save'), findsOneWidget);
+      await t.runAsync(() => db.db.execute('DROP TRIGGER fail_pref'));
       await t.tap(find.text('Save'));
       await flush(t);
       expect(alerts.options.interval, 30);
@@ -252,34 +300,128 @@ void main() {
     },
   );
   testWidgets(
-    'preview is independent of selection and settings save failure retains draft',
+    'system preview does not save legacy sound and failures stay local',
     (t) async {
       await t.pumpWidget(
         wrap(
           SingleChildScrollView(child: RestReminderControls(alerts: alerts)),
         ),
       );
-      await t.tap(find.text('Reminder sound'));
       await t.pumpAndSettle();
-      await t.tap(find.byTooltip('Preview Double beep'));
-      await flush(t);
-      expect(platform.previews, ['double_beep:en']);
+      expect(find.text('Uses system notification sound'), findsOneWidget);
+      await t.tap(find.text('Preview sound'));
+      await t.pumpAndSettle();
+      expect(platform.previews, ['system']);
       expect(alerts.options.sound, 'three_tone');
-      await t.tap(find.text('Double beep'));
-      await t.runAsync(
-        () => db.db.execute(
-          "CREATE TRIGGER fail_pref BEFORE UPDATE ON rest_alert_preferences BEGIN SELECT RAISE(ABORT,'fail'); END",
+      platform.failPreview = true;
+      await t.tap(find.text('Preview sound'));
+      await t.pumpAndSettle();
+      expect(
+        find.text(AppLocalizationsEn().restReminderPreviewFailed),
+        findsOneWidget,
+      );
+      await t.tap(find.text('System notification settings'));
+      await t.pumpAndSettle();
+      expect(platform.settings, 1);
+      expect(alerts.options.sound, 'three_tone');
+      await t.pumpWidget(const SizedBox());
+    },
+  );
+  testWidgets(
+    'preview is cancellable, non-overlapping and disposed on leaving',
+    (t) async {
+      platform.pendingPreview = Completer<void>();
+      await t.pumpWidget(
+        wrap(
+          SingleChildScrollView(child: RestReminderControls(alerts: alerts)),
         ),
       );
-      await t.tap(find.text('Save'));
-      await flush(t);
-      expect(alerts.options.sound, 'three_tone');
-      expect(find.text('Save'), findsOneWidget);
-      await t.runAsync(() => db.db.execute('DROP TRIGGER fail_pref'));
-      await t.tap(find.text('Save'));
-      await flush(t);
-      expect(alerts.options.sound, 'double_beep');
+      await t.pumpAndSettle();
+      await t.tap(find.text('Preview sound'));
+      await t.pump();
+      expect(find.text('Stop preview'), findsOneWidget);
+      await t.tap(find.text('Stop preview'));
+      await t.pumpAndSettle();
+      expect(platform.previews, hasLength(1));
+      expect(platform.stops, 1);
       await t.pumpWidget(const SizedBox());
+      expect(platform.stops, 2);
+    },
+  );
+  testWidgets(
+    'sound status read failure retries and restricted status remains accessible',
+    (t) async {
+      platform.failRead = true;
+      await t.pumpWidget(
+        wrap(
+          SingleChildScrollView(child: RestReminderControls(alerts: alerts)),
+        ),
+      );
+      await t.pumpAndSettle();
+      expect(
+        find.text(
+          'Could not read sound settings. Retry or open system settings.',
+        ),
+        findsOneWidget,
+      );
+      platform.failRead = false;
+      platform.condition = 'dnd';
+      await t.tap(find.text('Retry'));
+      await t.pumpAndSettle();
+      expect(find.textContaining('Sound is limited'), findsOneWidget);
+      await t.pumpWidget(const SizedBox());
+    },
+  );
+  testWidgets(
+    'system sound controls fit four themes, both languages, large text and landscape/tablet',
+    (t) async {
+      addTearDown(() => t.view.resetPhysicalSize());
+      addTearDown(() => t.view.resetDevicePixelRatio());
+      t.view.devicePixelRatio = 1;
+      platform.condition = 'dnd';
+      for (final width in [360.0, 430.0, 640.0, 768.0]) {
+        t.view.physicalSize = Size(width, width == 640 ? 360 : 640);
+        for (final preset in ThemeColorPreset.values) {
+          for (final dark in [false, true]) {
+            for (final language in ['en', 'zh']) {
+              for (final scale in [1.0, 1.6]) {
+                await t.pumpWidget(
+                  wrap(
+                    SingleChildScrollView(
+                      child: Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: RestReminderControls(alerts: alerts),
+                      ),
+                    ),
+                    dark: dark,
+                    language: language,
+                    scale: scale,
+                    preset: preset,
+                  ),
+                );
+                await t.pumpAndSettle();
+                final label = language == 'en' ? 'Preview sound' : '试听';
+                final button = find
+                    .ancestor(
+                      of: find.text(label),
+                      matching: find.byWidgetPredicate((w) => w is TextButton),
+                    )
+                    .first;
+                await t.ensureVisible(button);
+                await t.pump();
+                expect(t.getSize(button).height, greaterThanOrEqualTo(48));
+                expect(t.getSize(button).width, greaterThanOrEqualTo(48));
+                expect(
+                  t.takeException(),
+                  isNull,
+                  reason: '$width $preset $dark $language $scale',
+                );
+                await t.pumpWidget(const SizedBox());
+              }
+            }
+          }
+        }
+      }
     },
   );
   Future<void> pumpApp(WidgetTester t) async {
@@ -304,6 +446,33 @@ void main() {
     await pending;
   }
 
+  testWidgets('complete startup ready waits for reminder wiring', (t) async {
+    final previous = DiagnosticsClient.instance;
+    final transport = FakeDiagnosticsTransport();
+    final client = DiagnosticsClient(transport: transport);
+    DiagnosticsClient.instance = client;
+    platform.initializeGate = Completer<void>();
+    try {
+      await pumpApp(t);
+      await client.flush();
+      expect(
+        transport.events.where((e) => e['event_name'] == 'startup.ready'),
+        isEmpty,
+      );
+      platform.initializeGate!.complete();
+      await flush(t);
+      await client.flush();
+      final ready = transport.events.where(
+        (e) => e['event_name'] == 'startup.ready',
+      );
+      expect(ready, hasLength(1));
+      expect(ready.single['schema_version'], 2);
+      await closeApp(t);
+    } finally {
+      DiagnosticsClient.instance = previous;
+      client.dispose();
+    }
+  });
   testWidgets(
     'automatic dialog waits for editing and notification confirms after page presentation',
     (t) async {

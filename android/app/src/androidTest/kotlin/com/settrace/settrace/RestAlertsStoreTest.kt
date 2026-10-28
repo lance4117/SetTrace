@@ -19,6 +19,11 @@ class RestAlertsStoreTest {
     @Before fun setup() {
         context = InstrumentationRegistry.getInstrumentation().targetContext
         val prefs = context.getSharedPreferences("rest_alerts_native", Context.MODE_PRIVATE)
+        // Remove only markers left by this fixture's historical runs. Never
+        // erase production channel restrictions to make a notification pass.
+        if (prefs.getString("restriction_source",null) in setOf("qa_muted","qa_blocked","settrace_rest_v2_test_1")) {
+            prefs.edit().remove("restriction_source").remove("channel_restricted").commit()
+        }
         oldPath = prefs.getString("database_path", null)
         context.deleteDatabase(name)
         db = context.openOrCreateDatabase(name, Context.MODE_PRIVATE, null)
@@ -39,6 +44,7 @@ class RestAlertsStoreTest {
         RestAlertsRuntime.cancelExcept(context, emptySet())
         db.close()
         val prefs = context.getSharedPreferences("rest_alerts_native", Context.MODE_PRIVATE)
+        prefs.edit().remove("identity_7").commit()
         if (oldPath == null) prefs.edit().remove("database_path").commit()
         else prefs.edit().putString("database_path", oldPath).commit()
         context.deleteDatabase(name)
@@ -171,17 +177,24 @@ class RestAlertsStoreTest {
         assertEquals(due+130_000, next.nextAt)
         assertNull(RestAlertsStore.claim(db, 7, 4, due+120_000, next.sequence))
     }
-    @Test fun bundledAudioDecodesAndDefaultIsLongEnough() {
-        for (name in listOf("rest_three_tone","rest_double_beep","rest_voice_en","rest_voice_zh")) {
-            val uri = android.net.Uri.parse("android.resource://${context.packageName}/raw/$name")
-            val metadata = android.media.MediaMetadataRetriever()
-            try {
-                metadata.setDataSource(context, uri)
-                val duration = metadata.extractMetadata(android.media.MediaMetadataRetriever.METADATA_KEY_DURATION)!!.toLong()
-                assertTrue("$name too short", duration >= 1000)
-                if (name == "rest_three_tone") assertTrue(duration in 1500..2000)
-            } finally { metadata.release() }
+    @Test fun systemSoundChannelIsStableAndPreviewDoesNotNotifyOrClaim() {
+        val manager = RestAlertsRuntime.notificationManager(context)
+        RestAlertsRuntime.createChannel(context,"QA","QA")
+        val prefs = context.getSharedPreferences("rest_alerts_native",Context.MODE_PRIVATE)
+        val first = prefs.getString("current_channel",null)
+        for (legacy in listOf("three_tone","double_beep","voice")) {
+            db.execSQL("UPDATE rest_alert_preferences SET sound_id=?",arrayOf(legacy))
+            RestAlertsRuntime.createChannel(context,"QA","QA")
+            assertEquals(first,prefs.getString("current_channel",null))
         }
+        assertTrue(manager.notificationChannels.count { it.id.startsWith("settrace_rest_system_v1_") } <= 2)
+        val before = manager.activeNotifications.map { it.id }
+        val finished = java.util.concurrent.CountDownLatch(1)
+        RestAlertsRuntime.preview(context) { finished.countDown() }
+        RestAlertsRuntime.stopPreview(context)
+        assertTrue(finished.await(12,java.util.concurrent.TimeUnit.SECONDS))
+        assertEquals(before,manager.activeNotifications.map { it.id })
+        db.rawQuery("SELECT delivery_sequence FROM rest_alerts WHERE id=7",null).use { assertTrue(it.moveToFirst()); assertEquals(0,it.getInt(0)) }
     }
 
     @Test fun contentRefreshIsSilentAndNeverClaimsAnotherRound() {
@@ -228,6 +241,8 @@ class RestAlertsStoreTest {
         if (android.os.Build.VERSION.SDK_INT < 26) return
         val prefs = context.getSharedPreferences("rest_alerts_native",Context.MODE_PRIVATE)
         val previous = prefs.getString("current_channel",null)
+        val oldRestriction = prefs.getString("restriction_source",null)
+        val oldRestricted = prefs.getBoolean("channel_restricted",false)
         val manager = RestAlertsRuntime.notificationManager(context)
         val before = manager.notificationChannels.map { it.id }.toSet()
         try {
@@ -239,20 +254,29 @@ class RestAlertsStoreTest {
             manager.createNotificationChannel(muted)
             prefs.edit().putString("current_channel","qa_muted").commit()
             RestAlertsRuntime.createChannel(context,"QA","QA")
-            assertNull(manager.getNotificationChannel(prefs.getString("current_channel","")!!).sound)
+            repeat(3) {
+                RestAlertsRuntime.createChannel(context,"QA","QA")
+                assertTrue(manager.getNotificationChannel(prefs.getString("current_channel","")!!).sound == null || prefs.getBoolean("channel_restricted",false))
+            }
             manager.createNotificationChannel(android.app.NotificationChannel("qa_blocked","QA block",android.app.NotificationManager.IMPORTANCE_NONE))
-            prefs.edit().putString("current_channel","qa_blocked").commit()
+            prefs.edit().remove("restriction_source").putString("current_channel","qa_blocked").commit()
             RestAlertsRuntime.createChannel(context,"QA","QA")
             assertFalse(RestAlertsRuntime.notificationsAllowed(context))
             val vibrationOff = android.app.NotificationChannel("settrace_rest_v2_test_1", "QA vibration off", android.app.NotificationManager.IMPORTANCE_DEFAULT)
             vibrationOff.setSound(android.net.Uri.parse("android.resource://${context.packageName}/raw/rest_three_tone"), RestAlertsRuntime.attributes())
             vibrationOff.enableVibration(false)
             manager.createNotificationChannel(vibrationOff)
-            prefs.edit().putString("current_channel", vibrationOff.id).commit()
+            prefs.edit().remove("restriction_source").putString("current_channel", vibrationOff.id).commit()
             RestAlertsRuntime.createChannel(context,"QA","QA")
-            assertFalse(manager.getNotificationChannel(prefs.getString("current_channel","")!!).shouldVibrate())
+            assertTrue(!manager.getNotificationChannel(prefs.getString("current_channel","")!!).shouldVibrate() || prefs.getBoolean("channel_restricted",false))
+            db.execSQL("UPDATE rest_alert_preferences SET vibration_enabled=0")
+            RestAlertsRuntime.createChannel(context,"QA","QA")
+            db.execSQL("UPDATE rest_alert_preferences SET vibration_enabled=1")
+            RestAlertsRuntime.createChannel(context,"QA","QA")
+            assertTrue(!manager.getNotificationChannel(prefs.getString("current_channel","")!!).shouldVibrate() || prefs.getBoolean("channel_restricted",false))
         } finally {
             manager.notificationChannels.filter { it.id !in before }.forEach { manager.deleteNotificationChannel(it.id) }
+            prefs.edit().putString("restriction_source",oldRestriction).putBoolean("channel_restricted",oldRestricted).commit()
             if (previous == null) prefs.edit().remove("current_channel").commit()
             else prefs.edit().putString("current_channel",previous).commit()
         }

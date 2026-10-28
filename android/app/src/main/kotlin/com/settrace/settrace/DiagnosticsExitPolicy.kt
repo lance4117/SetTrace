@@ -9,6 +9,7 @@ data class DiagnosticExitEvidence(val marker: String, val time: Long, val reason
 data class DiagnosticExitCollection(val capability: String, val traceStatus: String, val exits: List<DiagnosticExitEvidence>)
 
 object DiagnosticExitPolicy {
+    fun severity(reason: String) = if (reason in setOf("user_requested", "user_stopped", "self_exit")) "info" else "warn"
     // Stable ApplicationExitInfo reason values; usable in JVM tests without an
     // Android runtime. Future platform reasons remain explicitly unknown.
     fun reason(value: Int): String = when (value) {

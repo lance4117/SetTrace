@@ -1,0 +1,49 @@
+{
+  "change": "fix-rest-sound-and-diagnostics",
+  "schema": "spec-driven",
+  "archived_on": "2026-10-28",
+  "archive": "D:\\000_MyLibrary\\100_code\\110_Project\\5_SetTrace\\openspec\\changes\\archive\\2026-10-28-fix-rest-sound-and-diagnostics",
+  "specs_synced": true,
+  "modified_requirements": 6,
+  "new_scenarios": 20,
+  "completed_tasks": 26,
+  "total_tasks": 30,
+  "pending_tasks": [
+    "2.3",
+    "2.5",
+    "6.3",
+    "6.4"
+  ],
+  "user_authorized_archive_with_pending": true,
+  "files_verified": [
+    {
+      "path": ".openspec.yaml",
+      "sha256": "89901217d56bdfb49c20b541962dc5db50e8161beb30e5c2cae1d189e5d53eb5"
+    },
+    {
+      "path": "design.md",
+      "sha256": "884945f0c5e4115db01985acacd209c3049a29ebd84ae535891aef5cb58ee277"
+    },
+    {
+      "path": "proposal.md",
+      "sha256": "c6cbfb14a4df22a5fb8226dcf9d2bcbd5f27393eb41f93ef6165511e82f8d85a"
+    },
+    {
+      "path": "README.md",
+      "sha256": "c016a4ccf2567adb44abf2daa35ad510aaead132f827d045ec5e67e6c5920394"
+    },
+    {
+      "path": "tasks.md",
+      "sha256": "f93bdcb72e04b6496b9b7fab594affd9eb3b7ae0b7d0ecf11cf802a0871402e4"
+    },
+    {
+      "path": "specs\\app-diagnostics\\spec.md",
+      "sha256": "9e2f9287f93cf63322681baf1d97eaa7feb3430fbee3cf9d3781207b6d06b74d"
+    },
+    {
+      "path": "specs\\app-experience\\spec.md",
+      "sha256": "6f5a4a38b68c5f31e40f886cdce535f528dafe8ee870125d78c1efb64bde44b8"
+    }
+  ],
+  "git_commit_executed": false
+}

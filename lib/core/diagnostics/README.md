@@ -95,3 +95,17 @@
 接口对控制失败如实返回有限原因码，对日志失败非抛错；生产启动显式安装真实client，测试／其他平台默认NoOp。除原生脱敏与重验外，Dart也执行严格枚举、数值和帧清理；拒绝后只计数，不降级存原文。
 
 实现与验证：`test/diagnostics/`、原生DiagnosticsContract／Store／Export／ExitPolicy测试、API36 DiagnosticsPlatformTest及Android实际UI导出。资源和控制详见[存储控制](storage-and-control.md)，包结构见[导出格式](export-format.md)，构建和捕获限制见[故障运维](faults-and-operations.md)。旧API、真实系统迁移、TalkBack与指定低配性能按实施验收保持待验。
+
+## 2026-10-27：事件版本 2
+
+新生产者写 `schema_version=2`，读取器按 1／2 各自白名单验证；旧段和旧事件不重写。
+新增 app.lifecycle、rest.callback、rest.transition、rest.audio。trigger 为闭合集合，当前被领取轮次为 round，领取后递增值为 next_round。
+notification_requested／sound_requested／vibration_requested 只说明输出请求；audio_state 的 started／completed 是播放器回调，仍不证明用户听见。
+策略抑制 INFO，创建／准备／播放故障 ERROR。声音条件只保留有限枚举／整数／布尔，不保存声音名称、URI 或异常消息。
+旧事件 sound／vibrate 是旧请求标记，enabled 曾表示是否请求系统通知，旧 output.round 是递增后轮次；不得套用版本 2 语义。
+静默作用域连接最近公开祖先；同步入队前捕获来源及祖先，无变化轮询不产生事件。
+取消优先使用安排／领取时的 epoch 快照，丢失则 identity_unknown，不用当前数据集强行串联。
+restore 过期和训练取消观察只在事务成功后发出，最多 16 个对象及一条截断计数；回滚不产生成功转换。
+backup.recovery 核查有 completed／failed／unknown 终态，无任务不是 committed；startup.ready 在备份核查和提醒接线完成后产生。
+正常可核实的 user_requested／user_stopped／self_exit 为 INFO，其他退出保留原分类。
+构建归属见 process_builds；历史缺失不回填，历史退出对象的构建始终未知。

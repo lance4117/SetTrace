@@ -6,6 +6,10 @@ import 'dart:math';
 /// Closed vocabulary: user strings, SQL arguments and exception messages are
 /// never accepted as diagnostic attributes.
 enum DiagnosticName {
+  appLifecycle('app.lifecycle'),
+  restCallback('rest.callback'),
+  restTransition('rest.transition'),
+  restAudio('rest.audio'),
   startupBegin('startup.begin'),
   startupDatabase('startup.database'),
   startupReady('startup.ready'),
@@ -176,6 +180,24 @@ enum DiagnosticObject {
 }
 
 enum DiagnosticField {
+  trigger,
+  next_round,
+  notification_requested,
+  sound_requested,
+  vibration_requested,
+  identity_unknown,
+  truncated_count,
+  audio_state,
+  sound_condition,
+  before_state,
+  after_state,
+  ringer_mode,
+  notification_volume,
+  interruption_filter,
+  channel_has_sound,
+  channel_importance,
+  readings_available,
+  subject_build_unknown,
   count,
   before_count,
   after_count,
@@ -202,6 +224,41 @@ enum DiagnosticField {
 }
 
 enum DiagnosticValue {
+  startup,
+  resume,
+  foreground_poll,
+  alarm,
+  delivered_callback,
+  training_change,
+  acknowledge,
+  settings_change,
+  platform_cleanup,
+  preview,
+  requested,
+  started,
+  completed,
+  stopped,
+  failed,
+  suppressed,
+  allowed,
+  silent,
+  zero_volume,
+  dnd,
+  channel_silent,
+  channel_quiet,
+  create_failed,
+  playback_failed,
+  busy,
+  bounded_stop,
+  pending,
+  consumed,
+  expired,
+  cancelled,
+  resumed,
+  inactive,
+  hidden,
+  paused,
+  detached,
   exact,
   inexact,
   foreground,
@@ -232,8 +289,11 @@ Map<String, Object> diagnosticFields(Map<DiagnosticField, Object> fields) {
   final result = <String, Object>{};
   for (final entry in fields.entries) {
     final value = entry.value;
-    if (entry.key == DiagnosticField.mode) {
-      if (value is DiagnosticValue) result[entry.key.name] = value.name;
+    if (diagnosticEnumFields.containsKey(entry.key)) {
+      if (value is DiagnosticValue &&
+          diagnosticEnumFields[entry.key]!.contains(value.name)) {
+        result[entry.key.name] = value.name;
+      }
     } else if (const {
       DiagnosticField.enabled,
       DiagnosticField.repeat,
@@ -243,6 +303,13 @@ Map<String, Object> diagnosticFields(Map<DiagnosticField, Object> fields) {
       DiagnosticField.channel_allowed,
       DiagnosticField.exact_allowed,
       DiagnosticField.foreground,
+      DiagnosticField.notification_requested,
+      DiagnosticField.sound_requested,
+      DiagnosticField.vibration_requested,
+      DiagnosticField.identity_unknown,
+      DiagnosticField.channel_has_sound,
+      DiagnosticField.readings_available,
+      DiagnosticField.subject_build_unknown,
     }.contains(entry.key)) {
       if (value is bool) result[entry.key.name] = value;
     } else if (value is int && value >= 0 && value <= 0x1fffffffffffff) {
@@ -251,6 +318,86 @@ Map<String, Object> diagnosticFields(Map<DiagnosticField, Object> fields) {
   }
   return result;
 }
+
+const diagnosticEnumFields = <DiagnosticField, Set<String>>{
+  DiagnosticField.mode: {
+    'exact',
+    'inexact',
+    'foreground',
+    'background',
+    'disabled',
+    'unsupported',
+    'unknown',
+    'system',
+    'light',
+    'dark',
+    'teal',
+    'blue',
+    'violet',
+    'graphite',
+    'en',
+    'zh',
+  },
+  DiagnosticField.trigger: {
+    'startup',
+    'resume',
+    'foreground_poll',
+    'alarm',
+    'delivered_callback',
+    'training_change',
+    'acknowledge',
+    'settings_change',
+    'platform_cleanup',
+    'preview',
+    'unknown',
+  },
+  DiagnosticField.audio_state: {
+    'requested',
+    'started',
+    'completed',
+    'stopped',
+    'failed',
+    'suppressed',
+    'unknown',
+  },
+  DiagnosticField.sound_condition: {
+    'allowed',
+    'silent',
+    'zero_volume',
+    'dnd',
+    'channel_silent',
+    'channel_quiet',
+    'unknown',
+    'create_failed',
+    'playback_failed',
+    'busy',
+    'bounded_stop',
+  },
+  DiagnosticField.before_state: {
+    'pending',
+    'consumed',
+    'expired',
+    'cancelled',
+    'resumed',
+    'inactive',
+    'hidden',
+    'paused',
+    'detached',
+    'unknown',
+  },
+  DiagnosticField.after_state: {
+    'pending',
+    'consumed',
+    'expired',
+    'cancelled',
+    'resumed',
+    'inactive',
+    'hidden',
+    'paused',
+    'detached',
+    'unknown',
+  },
+};
 
 /// Frame locations only. No exception text or arbitrary absolute source paths.
 List<String> diagnosticFrames(StackTrace? stack) {
@@ -309,7 +456,7 @@ class DiagnosticEvent {
   final List<String> frames;
 
   Map<String, Object?> toWire() => {
-    'schema_version': 1,
+    'schema_version': 2,
     'event_name': name.wire,
     'phase': phase.name,
     'outcome': outcome.name,
@@ -329,7 +476,10 @@ class DiagnosticEvent {
     'timezone_offset_minutes': time.timeZoneOffset.inMinutes,
     'dataset_epoch': epoch,
     'generation': generation,
-    'attributes': diagnosticFields(fields),
+    'attributes': {
+      ...diagnosticFields(fields),
+      if (objects.isNotEmpty && epoch == null) 'identity_unknown': true,
+    },
     'objects': {
       for (final item in objects.entries)
         if (item.value is int && (item.value as int) >= 0 ||

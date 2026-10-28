@@ -145,13 +145,15 @@ class DiagnosticsClient {
     String? parent,
     String? backupOperation,
     bool begin = true,
+    int? epoch,
+    bool fixedEpoch = false,
   }) {
     final operation = DiagnosticOperation._(
       this,
       name,
       diagnosticId(),
       objects,
-      _readEpoch(),
+      fixedEpoch ? epoch : _readEpoch(),
       parent,
       backupOperation,
     );
@@ -246,7 +248,9 @@ class DiagnosticsClient {
           })
           .timeout(const Duration(seconds: 2));
     } catch (_) {
-      if (_overview?.generation == admittedGeneration) _dropped += records.length;
+      if (_overview?.generation == admittedGeneration) {
+        _dropped += records.length;
+      }
     } finally {
       _sending = false;
       _inFlight = null;
@@ -261,7 +265,9 @@ class DiagnosticsClient {
   }
 
   DiagnosticsOverview _accept(DiagnosticsOverview value) {
-    if (_overview != null && _overview!.generation != value.generation) _dropped = 0;
+    if (_overview != null && _overview!.generation != value.generation) {
+      _dropped = 0;
+    }
     if (_overview != null && _overview!.generation != value.generation ||
         !value.enabled) {
       _discard();

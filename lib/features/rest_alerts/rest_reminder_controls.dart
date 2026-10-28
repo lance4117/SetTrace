@@ -21,7 +21,65 @@ class RestReminderControls extends StatefulWidget {
   State<RestReminderControls> createState() => _RestReminderControlsState();
 }
 
-class _RestReminderControlsState extends State<RestReminderControls> {
+class _RestReminderControlsState extends State<RestReminderControls>
+    with WidgetsBindingObserver {
+  String? condition;
+  bool customSound = false,
+      reading = true,
+      readFailed = false,
+      previewing = false,
+      settingsFailed = false;
+  final settingsFocus = FocusNode();
+  int _read = 0;
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    unawaited(readSound());
+  }
+
+  Future<void> readSound() async {
+    final request = ++_read;
+    if (mounted) {
+      setState(() {
+        reading = true;
+        readFailed = false;
+      });
+    }
+    try {
+      final status = await widget.alerts.platform.soundStatus();
+      if (mounted && request == _read) {
+        setState(() {
+          condition = status['condition'] as String? ?? 'unknown';
+          customSound = status['custom'] == true;
+        });
+      }
+    } catch (_) {
+      if (mounted && request == _read) setState(() => readFailed = true);
+    } finally {
+      if (mounted && request == _read) setState(() => reading = false);
+    }
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      unawaited(readSound());
+    } else {
+      unawaited(widget.alerts.platform.stopPreview().catchError((Object _) {}));
+    }
+  }
+
+  Future<void> systemSettings() async {
+    setState(() => settingsFailed = false);
+    try {
+      await widget.alerts.platform.openSettings(exact: false);
+      if (mounted) settingsFocus.requestFocus();
+    } catch (_) {
+      if (mounted) setState(() => settingsFailed = true);
+    }
+  }
+
   bool saving = false, failed = false, previewFailed = false;
   RestAlertOptions? failedValue;
   Future<void> save(RestAlertOptions value) async {
@@ -45,23 +103,32 @@ class _RestReminderControlsState extends State<RestReminderControls> {
     }
   }
 
-  Future<void> preview(String sound) async {
+  Future<void> preview() async {
+    if (previewing) {
+      await widget.alerts.platform.stopPreview().catchError((Object _) {});
+      return;
+    }
+    setState(() {
+      previewing = true;
+      previewFailed = false;
+    });
     try {
-      await widget.alerts.platform.preview(sound, widget.alerts.localeName);
-      if (mounted) setState(() => previewFailed = false);
+      await widget.alerts.platform.previewSystem();
     } catch (_) {
       if (mounted) setState(() => previewFailed = true);
+    } finally {
+      if (mounted) setState(() => previewing = false);
     }
   }
 
-  Future<void> choose(bool sound) async {
+  Future<void> choose() async {
     await showModalBottomSheet<void>(
       context: context,
       isScrollControlled: true,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
       ),
-      builder: (_) => _ReminderChoiceSheet(alerts: widget.alerts, sound: sound),
+      builder: (_) => _ReminderChoiceSheet(alerts: widget.alerts),
     );
     await widget.alerts.platform.stopPreview().catchError((Object _) {});
   }
@@ -69,6 +136,8 @@ class _RestReminderControlsState extends State<RestReminderControls> {
   @override
   void dispose() {
     unawaited(widget.alerts.platform.stopPreview().catchError((Object _) {}));
+    WidgetsBinding.instance.removeObserver(this);
+    settingsFocus.dispose();
     super.dispose();
   }
 
@@ -79,26 +148,85 @@ class _RestReminderControlsState extends State<RestReminderControls> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         const Divider(),
-        ListTile(
-          contentPadding: EdgeInsets.zero,
-          title: Text(l.restReminderSound),
-          subtitle: Text(reminderSoundName(l, options.sound)),
-          onTap: saving ? null : () => choose(true),
-          trailing: Row(
-            mainAxisSize: MainAxisSize.min,
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 12),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              IconButton(
-                tooltip: l.restReminderPreviewSound(
-                  reminderSoundName(l, options.sound),
-                ),
-                onPressed: saving ? null : () => preview(options.sound),
-                icon: const Icon(Icons.play_circle_outline),
+              Text(
+                l.restReminderSound,
+                style: Theme.of(context).textTheme.titleMedium,
               ),
-              const SizedBox(width: 8),
-              const ExcludeSemantics(child: Icon(Icons.chevron_right)),
+              const SizedBox(height: 8),
+              Semantics(
+                liveRegion: true,
+                child: Text(
+                  reading
+                      ? l.restSoundReading
+                      : readFailed
+                      ? l.restSoundReadFailed
+                      : condition == 'allowed'
+                      ? (customSound ? l.restSoundCustom : l.restSystemSound)
+                      : condition == 'unknown'
+                      ? l.restSoundUnknown
+                      : l.restSoundRestricted,
+                ),
+              ),
+              const SizedBox(height: 8),
+              Wrap(
+                spacing: 8,
+                runSpacing: 8,
+                children: [
+                  TextButton.icon(
+                    style: TextButton.styleFrom(
+                      minimumSize: const Size(48, 48),
+                    ),
+                    onPressed:
+                        saving ||
+                            reading ||
+                            readFailed ||
+                            !widget.alerts.enabled
+                        ? null
+                        : preview,
+                    icon: Icon(
+                      previewing
+                          ? Icons.stop_circle_outlined
+                          : Icons.play_circle_outline,
+                    ),
+                    label: Text(
+                      previewing ? l.restSoundStopPreview : l.restSoundPreview,
+                    ),
+                  ),
+                  TextButton.icon(
+                    focusNode: settingsFocus,
+                    style: TextButton.styleFrom(
+                      minimumSize: const Size(48, 48),
+                    ),
+                    onPressed: saving ? null : systemSettings,
+                    icon: const Icon(Icons.settings_outlined),
+                    label: Text(l.restSoundSettings),
+                  ),
+                  if (readFailed)
+                    TextButton(
+                      style: TextButton.styleFrom(
+                        minimumSize: const Size(48, 48),
+                      ),
+                      onPressed: readSound,
+                      child: Text(l.retry),
+                    ),
+                ],
+              ),
             ],
           ),
         ),
+        if (settingsFailed)
+          Semantics(
+            liveRegion: true,
+            child: Text(
+              l.restSoundSettingsFailed,
+              style: TextStyle(color: context.appColors.danger),
+            ),
+          ),
         if (previewFailed)
           Semantics(
             liveRegion: true,
@@ -131,7 +259,7 @@ class _RestReminderControlsState extends State<RestReminderControls> {
             title: Text(l.restReminderInterval),
             subtitle: Text(l.restReminderEvery(options.interval)),
             trailing: const ExcludeSemantics(child: Icon(Icons.chevron_right)),
-            onTap: saving ? null : () => choose(false),
+            onTap: saving ? null : choose,
           ),
         ],
         if (saving) const LinearProgressIndicator(),
@@ -154,17 +282,14 @@ class _RestReminderControlsState extends State<RestReminderControls> {
 }
 
 class _ReminderChoiceSheet extends StatefulWidget {
-  const _ReminderChoiceSheet({required this.alerts, required this.sound});
+  const _ReminderChoiceSheet({required this.alerts});
   final RestAlertService alerts;
-  final bool sound;
   @override
   State<_ReminderChoiceSheet> createState() => _ReminderChoiceSheetState();
 }
 
 class _ReminderChoiceSheetState extends State<_ReminderChoiceSheet> {
-  late String selected = widget.sound
-      ? widget.alerts.options.sound
-      : widget.alerts.options.interval.toString();
+  late String selected = widget.alerts.options.interval.toString();
   bool saving = false, failed = false, previewFailed = false;
   Future<void> save() async {
     if (saving) return;
@@ -174,9 +299,7 @@ class _ReminderChoiceSheetState extends State<_ReminderChoiceSheet> {
     });
     try {
       await widget.alerts.setOptions(
-        widget.sound
-            ? widget.alerts.options.copyWith(sound: selected)
-            : widget.alerts.options.copyWith(interval: int.parse(selected)),
+        widget.alerts.options.copyWith(interval: int.parse(selected)),
       );
       if (mounted) Navigator.of(context).pop();
     } catch (_) {
@@ -189,15 +312,6 @@ class _ReminderChoiceSheetState extends State<_ReminderChoiceSheet> {
     }
   }
 
-  Future<void> preview(String sound) async {
-    try {
-      await widget.alerts.platform.preview(sound, widget.alerts.localeName);
-      if (mounted) setState(() => previewFailed = false);
-    } catch (_) {
-      if (mounted) setState(() => previewFailed = true);
-    }
-  }
-
   @override
   void dispose() {
     unawaited(widget.alerts.platform.stopPreview().catchError((Object _) {}));
@@ -207,9 +321,9 @@ class _ReminderChoiceSheetState extends State<_ReminderChoiceSheet> {
   @override
   Widget build(BuildContext context) {
     final l = context.l10n;
-    final choices = widget.sound
-        ? RestAlertOptions.sounds
-        : RestAlertOptions.intervals.map((e) => e.toString()).toList();
+    final choices = RestAlertOptions.intervals
+        .map((e) => e.toString())
+        .toList();
     return PopScope(
       canPop: !saving,
       child: SafeArea(
@@ -226,14 +340,14 @@ class _ReminderChoiceSheetState extends State<_ReminderChoiceSheet> {
                 Semantics(
                   header: true,
                   child: Text(
-                    widget.sound ? l.restReminderSound : l.restReminderInterval,
+                    l.restReminderInterval,
                     style: const TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.w700,
                     ),
                   ),
                 ),
-                if (!widget.sound) ...[
+                ...[
                   const SizedBox(height: 8),
                   Text(l.restReminderIntervalHelp),
                 ],
@@ -253,23 +367,8 @@ class _ReminderChoiceSheetState extends State<_ReminderChoiceSheet> {
                               value: value,
                               enabled: !saving,
                               title: Text(
-                                widget.sound
-                                    ? reminderSoundName(l, value)
-                                    : l.restReminderSeconds(int.parse(value)),
+                                l.restReminderSeconds(int.parse(value)),
                               ),
-                              secondary: widget.sound
-                                  ? IconButton(
-                                      tooltip: l.restReminderPreviewSound(
-                                        reminderSoundName(l, value),
-                                      ),
-                                      onPressed: saving
-                                          ? null
-                                          : () => preview(value),
-                                      icon: const Icon(
-                                        Icons.play_circle_outline,
-                                      ),
-                                    )
-                                  : null,
                             ),
                         ],
                       ),

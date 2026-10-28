@@ -35,6 +35,22 @@ class _Transport implements DiagnosticsTransport {
 }
 
 void main() {
+  test('version two fields use per-field closed vocabularies', () {
+    expect(
+      diagnosticFields({
+        DiagnosticField.trigger: DiagnosticValue.alarm,
+        DiagnosticField.audio_state: DiagnosticValue.started,
+        DiagnosticField.sound_condition: 'content://private',
+        DiagnosticField.after_state: DiagnosticValue.blue,
+        DiagnosticField.notification_requested: true,
+      }),
+      {
+        'trigger': 'alarm',
+        'audio_state': 'started',
+        'notification_requested': true,
+      },
+    );
+  });
   test('Dart and Kotlin event/enum vocabularies stay aligned', () {
     final native = File(
       'android/app/src/main/kotlin/com/settrace/settrace/DiagnosticsContract.kt',

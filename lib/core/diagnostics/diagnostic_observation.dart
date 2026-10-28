@@ -14,11 +14,43 @@ abstract interface class DiagnosticClassifiedFailure {
 
 final Object _scopeKey = Object();
 final Object _transactionKey = Object();
+final Object _triggerKey = Object();
+final Object _epochKey = Object();
+final Object _fixedEpochKey = Object();
+DiagnosticValue get diagnosticTrigger =>
+    Zone.current[_triggerKey] as DiagnosticValue? ?? DiagnosticValue.unknown;
+
+/// Capture before serial queuing. Re-enter only the captured immutable context.
+class DiagnosticContext {
+  DiagnosticContext.capture(this.trigger, {int? epoch})
+    : scope = DiagnosticScope.current,
+      epoch = DiagnosticScope.current?.operation.epoch ?? epoch;
+  final DiagnosticScope? scope;
+  final int? epoch;
+  final DiagnosticValue trigger;
+  Future<T> run<T>(Future<T> Function() action) => runZoned(
+    action,
+    zoneValues: {
+      _scopeKey: scope,
+      _triggerKey: trigger,
+      _epochKey: epoch,
+      _fixedEpochKey: true,
+    },
+  );
+}
 
 class DiagnosticScope {
-  DiagnosticScope(this.operation, {required this.writeIntent});
+  DiagnosticScope(
+    this.operation, {
+    required this.writeIntent,
+    this.visible = true,
+    this.ancestor,
+  });
   final DiagnosticOperation operation;
   final bool writeIntent;
+  final bool visible;
+  final String? ancestor;
+  String? get visibleOperation => visible ? operation.id : ancestor;
   bool committed = false;
   bool rollbackConfirmed = false;
   bool followupFailed = false;
@@ -92,14 +124,21 @@ Future<T> diagnosticObserve<T>(
       name,
       objects: objects,
       fields: fields,
-      parent: parentOperation ?? parent?.operation.id,
+      parent: parentOperation ?? parent?.visibleOperation,
       backupOperation: backupOperation ?? parent?.operation.backupOperation,
       begin: !readOnly || recordSuccess,
+      epoch: Zone.current[_epochKey] as int?,
+      fixedEpoch: Zone.current[_fixedEpochKey] == true,
     );
   } catch (_) {
     return action();
   }
-  final scope = DiagnosticScope(operation, writeIntent: !readOnly);
+  final scope = DiagnosticScope(
+    operation,
+    writeIntent: !readOnly,
+    visible: !readOnly || recordSuccess || detailedRead,
+    ancestor: parentOperation ?? parent?.visibleOperation,
+  );
   return runZoned(() async {
     try {
       final result = await action();
@@ -184,7 +223,7 @@ void diagnosticCorrection(
   Map<DiagnosticField, Object> fields = const {},
 }) {
   final pending = Zone.current[_transactionKey] as List<_Correction>?;
-  if (pending != null && pending.length < 16) {
+  if (pending != null && pending.length < 32) {
     pending.add(_Correction(client, name, reason, objects, fields));
   }
 }
@@ -217,7 +256,7 @@ Future<T> diagnosticTransaction<T>(
         reason: correction.reason,
         objects: correction.objects,
         fields: correction.fields,
-        parent: scope?.operation.id,
+        parent: scope?.visibleOperation,
       );
     }
     return result;

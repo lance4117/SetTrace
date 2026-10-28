@@ -1,3 +1,6 @@
+import '../../core/diagnostics/diagnostic_contract.dart';
+import '../../core/diagnostics/diagnostic_observation.dart';
+import '../../core/diagnostics/diagnostics_client.dart';
 import '../backup/data_write_coordinator.dart';
 
 import 'package:sqflite/sqflite.dart';
@@ -35,11 +38,24 @@ class RestAlertRepository {
   int get nowMs => clock().toUtc().millisecondsSinceEpoch;
 
   static Future<void> cancel(DatabaseExecutor txn, int sessionId) async {
-    await txn.rawUpdate(
+    final facts = await txn.query(
+      'rest_alerts',
+      columns: ['id', 'revision', 'delivery_sequence', 'state'],
+      where: "session_id = ? AND state IN ('pending', 'consumed')",
+      whereArgs: [sessionId],
+      limit: 16,
+    );
+    final changed = await txn.rawUpdate(
       """UPDATE rest_alerts
       SET state = 'cancelled', revision = revision + 1
       WHERE session_id = ? AND state IN ('pending', 'consumed')""",
       [sessionId],
+    );
+    _transitions(
+      facts,
+      changed,
+      DiagnosticValue.cancelled,
+      DiagnosticReason.cancelled,
     );
     await txn.update(
       'workout_sessions',
@@ -193,13 +209,27 @@ class RestAlertRepository {
 
   Future<void> setEnabled(bool enabled) => _write(() async {
     await beforePreferencesWrite?.call();
-    await db.transaction((txn) async {
+    await diagnosticTransaction(db, (txn) async {
       await txn.update('rest_alert_preferences', {
         'enabled': enabled ? 1 : 0,
       }, where: 'id = 1');
       if (!enabled) {
-        await txn.rawUpdate("""UPDATE rest_alerts SET state = 'cancelled',
-          revision = revision + 1 WHERE state IN ('pending', 'consumed')""");
+        final facts = await txn.query(
+          'rest_alerts',
+          columns: ['id', 'revision', 'delivery_sequence', 'state'],
+          where: "state IN ('pending', 'consumed')",
+          limit: 16,
+        );
+        final changed = await txn.rawUpdate(
+          """UPDATE rest_alerts SET state = 'cancelled',
+          revision = revision + 1 WHERE state IN ('pending', 'consumed')""",
+        );
+        _transitions(
+          facts,
+          changed,
+          DiagnosticValue.cancelled,
+          DiagnosticReason.user_disabled,
+        );
       } else {
         final rows = await txn.query(
           'workout_sessions',
@@ -214,12 +244,25 @@ class RestAlertRepository {
   });
 
   Future<void> restore({required bool expireElapsed}) => _write(() async {
-    await db.transaction((txn) async {
+    await diagnosticTransaction(db, (txn) async {
       if (expireElapsed) {
-        await txn.rawUpdate(
+        final facts = await txn.query(
+          'rest_alerts',
+          columns: ['id', 'revision', 'delivery_sequence', 'state'],
+          where: "state = 'pending' AND due_at <= ?",
+          whereArgs: [nowMs],
+          limit: 16,
+        );
+        final changed = await txn.rawUpdate(
           """UPDATE rest_alerts SET state = 'expired',
           revision = revision + 1 WHERE state = 'pending' AND due_at <= ?""",
           [nowMs],
+        );
+        _transitions(
+          facts,
+          changed,
+          DiagnosticValue.expired,
+          DiagnosticReason.expired,
         );
         final options = RestAlertOptions.fromMap(
           (await txn.query('rest_alert_preferences')).single,
@@ -242,6 +285,46 @@ class RestAlertRepository {
       }
     });
   });
+
+  static void _transitions(
+    List<Map<String, Object?>> facts,
+    int changed,
+    DiagnosticValue after,
+    DiagnosticReason reason,
+  ) {
+    final client =
+        DiagnosticScope.current?.operation.client ?? DiagnosticsClient.instance;
+    for (final row in facts) {
+      diagnosticCorrection(
+        client,
+        DiagnosticName.restTransition,
+        reason: reason,
+        objects: {DiagnosticObject.rest_alert: row['id'] as int},
+        fields: {
+          DiagnosticField.before_state: row['state'] == 'pending'
+              ? DiagnosticValue.pending
+              : DiagnosticValue.consumed,
+          DiagnosticField.after_state: after,
+          DiagnosticField.trigger: diagnosticTrigger,
+          DiagnosticField.revision: (row['revision'] as int) + 1,
+          DiagnosticField.round: row['delivery_sequence'] as int? ?? 0,
+        },
+      );
+    }
+    if (changed > facts.length) {
+      diagnosticCorrection(
+        client,
+        DiagnosticName.restTransition,
+        reason: reason,
+        fields: {
+          DiagnosticField.after_state: after,
+          DiagnosticField.trigger: diagnosticTrigger,
+          DiagnosticField.count: changed,
+          DiagnosticField.truncated_count: changed - facts.length,
+        },
+      );
+    }
+  }
 
   Future<List<RestAlertEvent>> pending() => _write(() async {
     final rows = await db.rawQuery("""

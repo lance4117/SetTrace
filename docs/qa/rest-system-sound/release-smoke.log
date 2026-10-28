@@ -1,0 +1,57 @@
+{
+  "project": "D:\\000_MyLibrary\\100_code\\110_Project\\5_SetTrace",
+  "sdk": "D:\\ProgramData\\Android_SDK",
+  "avd": "D:\\ProgramData\\Android_AVD",
+  "androidUser": "D:\\ProgramData\\DevCache\\Android",
+  "gradle": "D:\\ProgramData\\DevCache\\Gradle",
+  "pub": "D:\\ProgramData\\DevCache\\Pub",
+  "temp": "D:\\ProgramData\\DevTemp\\fix-rest-sound-and-diagnostics",
+  "flutter": "D:\\DevTools\\flutter",
+  "toolConfig": "D:\\ProgramData\\DevCache\\FlutterConfig",
+  "toolLocalCache": "D:\\ProgramData\\DevCache\\LocalAppData",
+  "jdk": "D:\\Program Files\\Android Studio\\jbr",
+  "avd:Pixel_7_Pro": "D:\\ProgramData\\Android_AVD\\Pixel_7_Pro.avd"
+}
+Performing Incremental Install
+Performing Streamed Install
+Success
+{
+  "project": "D:\\000_MyLibrary\\100_code\\110_Project\\5_SetTrace",
+  "sdk": "D:\\ProgramData\\Android_SDK",
+  "avd": "D:\\ProgramData\\Android_AVD",
+  "androidUser": "D:\\ProgramData\\DevCache\\Android",
+  "gradle": "D:\\ProgramData\\DevCache\\Gradle",
+  "pub": "D:\\ProgramData\\DevCache\\Pub",
+  "temp": "D:\\ProgramData\\DevTemp\\fix-rest-sound-and-diagnostics",
+  "flutter": "D:\\DevTools\\flutter",
+  "toolConfig": "D:\\ProgramData\\DevCache\\FlutterConfig",
+  "toolLocalCache": "D:\\ProgramData\\DevCache\\LocalAppData",
+  "jdk": "D:\\Program Files\\Android Studio\\jbr",
+  "avd:Pixel_7_Pro": "D:\\ProgramData\\Android_AVD\\Pixel_7_Pro.avd"
+}
+Starting: Intent { cmp=com.settrace.settrace/.MainActivity }
+Status: ok
+LaunchState: COLD
+Activity: com.settrace.settrace/.MainActivity
+TotalTime: 2858
+WaitTime: 2889
+Complete
+
+    versionCode=12 minSdk=24 targetSdk=36
+    versionName=0.3.1
+
+{
+  "project": "D:\\000_MyLibrary\\100_code\\110_Project\\5_SetTrace",
+  "sdk": "D:\\ProgramData\\Android_SDK",
+  "avd": "D:\\ProgramData\\Android_AVD",
+  "androidUser": "D:\\ProgramData\\DevCache\\Android",
+  "gradle": "D:\\ProgramData\\DevCache\\Gradle",
+  "pub": "D:\\ProgramData\\DevCache\\Pub",
+  "temp": "D:\\ProgramData\\DevTemp\\fix-rest-sound-and-diagnostics",
+  "flutter": "D:\\DevTools\\flutter",
+  "toolConfig": "D:\\ProgramData\\DevCache\\FlutterConfig",
+  "toolLocalCache": "D:\\ProgramData\\DevCache\\LocalAppData",
+  "jdk": "D:\\Program Files\\Android Studio\\jbr",
+  "avd:Pixel_7_Pro": "D:\\ProgramData\\Android_AVD\\Pixel_7_Pro.avd"
+}
+10439

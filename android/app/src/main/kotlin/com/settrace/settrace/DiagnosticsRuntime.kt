@@ -78,6 +78,7 @@ class DiagnosticEngine(private val context: Context, private val testingDirector
                 val root = testingDirectory ?: File(context.noBackupFilesDir, "diagnostics")
                 val value = DiagnosticStore(root, clock, ::decodeObject)
                 store = value
+                registerBuild(value, process)
                 // Private staging is disposable after process loss; only the
                 // bounded journal is needed to inspect the existing public file.
                 for (file in value.stagingDirectory.listFiles().orEmpty()) if (file.isFile && !file.delete() && file.exists()) value.loss("write_failed")
@@ -94,6 +95,14 @@ class DiagnosticEngine(private val context: Context, private val testingDirector
                 scheduleDrain()
             } catch (_: Exception) { /* query reports unavailable, business starts independently */ }
         }
+    }
+
+    @Suppress("DEPRECATION")
+    private fun registerBuild(value: DiagnosticStore, identity: String) {
+        try {
+            val info = context.packageManager.getPackageInfo(context.packageName, 0)
+            value.registerBuild(identity, info.versionName, if (Build.VERSION.SDK_INT >= 28) info.longVersionCode.toString() else info.versionCode.toString())
+        } catch (_: Exception) { value.loss("not_available") }
     }
 
     fun record(name: String, phase: String, outcome: String = "observed", reason: String = "none", severity: String = "info",
@@ -120,9 +129,10 @@ class DiagnosticEngine(private val context: Context, private val testingDirector
     private fun nativeEnvelope(name: String, phase: String, outcome: String, reason: String, severity: String,
                                objects: Map<String, Long>, attributes: Map<String, Any?>, epoch: Long?, operation: String?, frames: List<String>, time: Long?, unknownClock: Boolean): DiagnosticRecord? {
         val value = store ?: return null
+        registerBuild(value, process)
         if (!value.enabled) return null
         return value.privacy.sanitize(mapOf(
-            "schema_version" to 1, "event_name" to name, "phase" to phase, "outcome" to outcome, "severity" to severity,
+            "schema_version" to 2, "event_name" to name, "phase" to phase, "outcome" to outcome, "severity" to severity,
             "reason_code" to reason, "operation_id" to (operation ?: UUID.randomUUID().toString().replace("-", "")), "process_instance" to process,
             "sequence" to sequence.incrementAndGet(), "monotonic_us" to if (unknownClock) null else SystemClock.elapsedRealtimeNanos() / 1000,
             "clock_domain" to if (unknownClock) "unknown" else "android", "time_utc" to (time ?: System.currentTimeMillis()),
@@ -152,6 +162,7 @@ class DiagnosticEngine(private val context: Context, private val testingDirector
                 val output = when (method) {
                     "recordBatch" -> {
                         recordDartLoss(arguments, value)
+                        (arguments["process_instance"] as? String)?.let { registerBuild(value, it) }
                         if (value.enabled) for (text in records.orEmpty()) {
                             try {
                                 val raw = decodeObject(text as String).toMutableMap()
@@ -262,7 +273,7 @@ class DiagnosticEngine(private val context: Context, private val testingDirector
             val collection = task.get(250, TimeUnit.MILLISECONDS)
             exitCapability = collection.capability; exitTrace = collection.traceStatus
             for (exit in collection.exits) if (value.consumeExit(exit.marker, exit.time)) {
-                nativeEnvelope("startup.exit", "completed", "observed", exit.reason, "warn", emptyMap(), emptyMap(), null, null, exit.frames, exit.time, true)?.let { buffer.offer(it) }
+                nativeEnvelope("startup.exit", "completed", "observed", exit.reason, DiagnosticExitPolicy.severity(exit.reason), emptyMap(), mapOf("subject_build_unknown" to true), null, null, exit.frames, exit.time, true)?.let { buffer.offer(it) }
             }
         } catch (_: Exception) { exitCapability = "read_failed"; exitTrace = "read_failed"; task.cancel(true) }
         finally { exitWorker.shutdownNow() }

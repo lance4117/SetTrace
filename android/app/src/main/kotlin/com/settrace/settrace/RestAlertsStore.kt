@@ -30,7 +30,7 @@ internal object RestClaimReason {
         else -> "condition_mismatch"
     }
 }
-internal data class RestClaimObservation(val reason: String, val claimed: Boolean, val epoch: Long?, val due: Long?, val now: Long)
+internal data class RestClaimObservation(val reason: String, val claimed: Boolean, val epoch: Long?, val due: Long?, val now: Long, val transition: Boolean = false)
 internal class RestStoreUnavailable(val reason: String) : IllegalStateException(reason)
 internal object RestDeliveryPolicy {
     fun withinWindow(now: Long, due: Long) = now >= due && now <= due + 30_000
@@ -121,6 +121,7 @@ internal object RestAlertsStore {
         var epoch: Long? = null
         var claimed = false
         var successful = false
+        var transition = false
         db.beginTransaction()
         try {
             epoch = try { db.rawQuery("SELECT epoch FROM backup_state WHERE id=1", null).use { if (it.moveToFirst()) it.getLong(0) else null } } catch (_: Exception) { null }
@@ -139,6 +140,7 @@ internal object RestAlertsStore {
                 if ((first && !RestDeliveryPolicy.withinWindow(now, at)) || row.getString(2).isBlank()) {
                     reason = if (first && !RestDeliveryPolicy.withinWindow(now, at)) "expired" else "condition_mismatch"
                     db.execSQL("UPDATE rest_alerts SET state='expired', next_delivery_at=NULL WHERE id=?", arrayOf(id))
+                    transition = first
                     return@use null
                 }
                 val next = if (settings.repeat) now + settings.interval * 1000L else null
@@ -161,7 +163,7 @@ internal object RestAlertsStore {
         } finally {
             // An endTransaction exception skips the observer: no false commit.
             db.endTransaction()
-            try { observer(RestClaimObservation(reason, claimed && successful, epoch, due, now)) } catch (_: Exception) {}
+            try { observer(RestClaimObservation(reason, claimed && successful, epoch, due, now, transition && successful)) } catch (_: Exception) {}
         }
     }
 }

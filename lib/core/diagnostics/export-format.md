@@ -1,6 +1,6 @@
-# 诊断包与发布核查（版本1）
+# 诊断包与发布核查（版本1／2）
 
-诊断包是 `settrace.diagnostics`，`format_version=1` 的不加密ZIP，不能恢复业务数据，也不能交给完整备份格式1的解析器。Android后台流式构建；跨平台桥只返回状态、实际文件名、字节数及有限原因码，不返回整个ZIP。
+诊断包是 `settrace.diagnostics`，`format_version=2` 的不加密ZIP，不能恢复业务数据，也不能交给完整备份格式1的解析器。Android后台流式构建；跨平台桥只返回状态、实际文件名、字节数及有限原因码，不返回整个ZIP。
 
 ## 内容与独立校验
 
@@ -34,3 +34,25 @@ API29+使用 `MediaStore.Downloads` 和 `IS_PENDING`；发布前不作为最终�
 例如 `workout.complete committed` 后的 `rest.schedule failed` 表示组已保存、调度后续失败；`history.delete committed` 后的 `history.refresh partial_success` 只应重读；`backup.restore core_committed` 后的 `settings_pending` 按既有备份ledger恢复设置。缺少终态只能标未知。日志不驱动重放事务。
 
 工具 [verify_diagnostics_package.ps1](../../../tool/verify_diagnostics_package.ps1) 可独立核对设备测试包的路径、大小、哈希、事件字段、HMAC对象代号、敏感哨兵和界面缺失原因。真实设备样包及结果见 [实施验收](../../../docs/qa/local-diagnostics-acceptance.md)。测试包中的queue_overflow必须保留，不因验收而修饰成完整成功。
+
+## 版本支持与摘要
+
+| 容器 | 合法事件／incident | 构建归属 |
+| --- | --- | --- |
+| ZIP 1 | 1 | 仅导出环境版本，历史事件构建未知 |
+| ZIP 2 | 1、2 混存 | process_builds 最多 32 项，null 或未列出表示未知；events_with_unknown_build 计数 |
+
+environment.application 仅是导出时安装版本，绝不回填历史。startup.exit 的 process_instance 是观察进程，退出对象构建未知。
+summary 最多 64 个候选操作／32 KiB UTF-8，两个 64 项池优先保留故障，最近归并缓存 256 项，正常 committed／completed 归并。
+摘要显示偏移与 utc_ms；跨时钟域按扫描观察次序呈现，墙钟回拨不能计算跨域耗时。
+候选省略和归并缓存淘汰是摘要资源边界，不能当作原始事件丢失；组数在缓存外可能重复，文本明确披露。
+known_missing／loss_counts 才是实际观察到的证据缺口，缺少终态不推断厂商根因。
+
+独立校验旧包或混合包（原件只读）：
+
+```powershell
+./tool/verify_diagnostics_package.ps1 -Package 'D:/path/SetTrace-diagnostics.zip'
+./tool/verify_diagnostics_package.ps1 -Package 'D:/path/SetTrace-diagnostics.zip' -Result 'D:/path/export-result.json'
+```
+
+格式升级不改变导出 journal 协议；旧进行中导出仍核查原目标和 digest，不重放。

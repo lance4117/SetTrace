@@ -47,6 +47,32 @@ void main() {
     await database.close();
     await dir.delete(recursive: true);
   });
+  test('startup reconciliation without work has an observed terminal, not a commit', () async {
+    final target = BackupCodec().decode(
+      File('test/fixtures/backup/v1-history.settrace.json').readAsBytesSync(),
+    );
+    final backup = BackupCoordinator(
+      db: database.db,
+      writes: writes,
+      preferences: FakeBackupPreferences(target.data.settings),
+      files: FakeBackupFiles(Directory('${dir.path}/recovery-files')),
+      appVersion: () => 'test',
+      diagnostics: client,
+    );
+    try {
+      await backup.reconcileStartup();
+      await client.flush();
+      final recovery = transport.events
+          .where((e) => e['event_name'] == 'backup.recovery')
+          .toList();
+      expect(recovery.first['phase'], 'started');
+      expect(recovery.last['phase'], 'completed');
+      expect(recovery.last['outcome'], 'observed');
+      expect(recovery.where((e) => e['outcome'] == 'committed'), isEmpty);
+    } finally {
+      backup.dispose();
+    }
+  });
   test(
     'business restore and export keep diagnostics disabled and identity local',
     () async {
@@ -194,7 +220,7 @@ void main() {
       );
       expect(complete['outcome'], 'committed');
       expect(sync['parent_operation_id'], complete['operation_id']);
-      expect(schedule['parent_operation_id'], sync['operation_id']);
+      expect(schedule['parent_operation_id'], complete['operation_id']);
       expect(schedule['outcome'], 'unknown');
       expect(transport.events.toString(), isNot(contains('PRIVATE_')));
       final before = await database.db.query('session_sets');
