@@ -1,0 +1,4 @@
+
+    NotificationRecord(0x001d6e3c: pkg=com.settrace.settrace user=UserHandle{0} id=-10001 tag=null importance=2 key=0|com.settrace.settrace|-10001|null|10213: Notification(channel=settrace_training_service_v1 shortcut=null contentView=null vibrate=null sound=null defaults=0 flags=ONGOING_EVENT|ONLY_ALERT_ONCE|NO_CLEAR|FOREGROUND_SERVICE color=0x00000000 category=service groupKey=settrace.training.reminder vis=PRIVATE))
+
+

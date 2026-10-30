@@ -17,17 +17,36 @@ final Object _transactionKey = Object();
 final Object _triggerKey = Object();
 final Object _epochKey = Object();
 final Object _fixedEpochKey = Object();
+final Object _restCancellationKey = Object();
 DiagnosticValue get diagnosticTrigger =>
     Zone.current[_triggerKey] as DiagnosticValue? ?? DiagnosticValue.unknown;
+
+DiagnosticValue get diagnosticRestCancellation =>
+    switch (DiagnosticScope.current?.operation.name) {
+      DiagnosticName.restAcknowledge => DiagnosticValue.acknowledge,
+      DiagnosticName.workoutRestEnd => DiagnosticValue.manual_rest_end,
+      DiagnosticName.workoutRestAdjust => DiagnosticValue.deadline_replaced,
+      DiagnosticName.workoutUndoComplete => DiagnosticValue.undo_complete,
+      DiagnosticName.workoutRestoreSkipped => DiagnosticValue.restore_skipped,
+      DiagnosticName.workoutSkipRemaining => DiagnosticValue.skip_remaining,
+      DiagnosticName.workoutComplete => DiagnosticValue.training_advance,
+      DiagnosticName.workoutSave => DiagnosticValue.workout_saved,
+      DiagnosticName.workoutDiscard => DiagnosticValue.workout_discarded,
+      _ =>
+        Zone.current[_restCancellationKey] as DiagnosticValue? ??
+            DiagnosticValue.platform_cleanup,
+    };
 
 /// Capture before serial queuing. Re-enter only the captured immutable context.
 class DiagnosticContext {
   DiagnosticContext.capture(this.trigger, {int? epoch})
     : scope = DiagnosticScope.current,
+      cancellation = diagnosticRestCancellation,
       epoch = DiagnosticScope.current?.operation.epoch ?? epoch;
   final DiagnosticScope? scope;
   final int? epoch;
   final DiagnosticValue trigger;
+  final DiagnosticValue cancellation;
   Future<T> run<T>(Future<T> Function() action) => runZoned(
     action,
     zoneValues: {
@@ -35,6 +54,7 @@ class DiagnosticContext {
       _triggerKey: trigger,
       _epochKey: epoch,
       _fixedEpochKey: true,
+      _restCancellationKey: cancellation,
     },
   );
 }

@@ -1,0 +1,63 @@
+
+>     RTC_WAKEUP #4: Alarm{296ebf9 type 0 origWhen 1793202619542 whenElapsed 4022694 com.settrace.settrace}
+>       tag=*walarm*:com.settrace.settrace.REST_ENDED
+        type=RTC_WAKEUP origWhen=2026-10-28 15:50:19.542 window=0 exactAllowReason=permission repeatInterval=0 count=0 flags=0x5
+        policyWhenElapsed: requester=+29s49ms app_standby=-582ms device_idle=-- battery_saver=-582ms
+        whenElapsed=+29s49ms maxWhenElapsed=+29s49ms
+>       operation=PendingIntent{1be873e: PendingIntentRecord{348a99f com.settrace.settrace broadcastIntent}}
+        idle-options=Bundle[{android.pendingIntent.backgroundActivityAllowed=2, android:broadcast.temporaryAppAllowlistReasonCode=302, android:broadcast.temporaryAppAllowlistDuration=10000, android:broadcast.temporaryAppAllowlistReason=, android:broadcast.temporaryAppAllowlistType=0, android:broadcast.flags=8}]
+      ELAPSED_WAKEUP #5: Alarm{998daec type 2 origWhen 4096904 whenElapsed 4096904 android}
+        tag=*walarm*:*job.deadline*
+        type=ELAPSED_WAKEUP origWhen=+1m43s259ms window=+4m51s809ms repeatInterval=0 count=0 flags=0x0
+        policyWhenElapsed: requester=+1m43s259ms app_standby=-4m45s820ms device_idle=-- battery_saver=--
+>           type=RTC_WAKEUP tag=*walarm*:com.settrace.settrace.REST_ENDED 
+            policyWhenElapsed: requester=-15m0s804ms app_standby=-15m10s769ms device_idle=-- battery_saver=-15m10s769ms
+        #2: Reason=alarm_cancelled elapsed=-15m12s932ms rtc=2026-10-28 14:37:23.043
+          Snapshot:
+>           type=RTC_WAKEUP tag=*walarm*:com.settrace.settrace.REST_ENDED 
+            policyWhenElapsed: requester=-15m3s45ms app_standby=-15m13s14ms device_idle=-- battery_saver=-15m13s14ms
+        #3: Reason=alarm_cancelled elapsed=-15m20s149ms rtc=2026-10-28 14:37:15.826
+          Snapshot:
+>           type=RTC_WAKEUP tag=*walarm*:com.settrace.settrace.REST_ENDED 
+            policyWhenElapsed: requester=-15m10s565ms app_standby=-15m20s408ms device_idle=-- battery_saver=-15m20s408ms
+        #4: Reason=alarm_cancelled elapsed=-15m26s704ms rtc=2026-10-28 14:37:09.270
+          Snapshot:
+>           type=RTC_WAKEUP tag=*walarm*:com.settrace.settrace.REST_ENDED 
+            policyWhenElapsed: requester=-15m22s738ms app_standby=-15m27s738ms device_idle=-- battery_saver=-15m27s738ms
+        #5: Reason=alarm_cancelled elapsed=-15m28s33ms rtc=2026-10-28 14:37:07.942
+          Snapshot:
+>           type=RTC_WAKEUP tag=*walarm*:com.settrace.settrace.REST_ENDED 
+            policyWhenElapsed: requester=-5m18s111ms app_standby=-15m28s65ms device_idle=-- battery_saver=-15m28s65ms
+        #6: Reason=alarm_cancelled elapsed=-32m3s354ms rtc=2026-10-28 14:20:32.621
+          Snapshot:
+>           type=RTC_WAKEUP tag=*walarm*:com.settrace.settrace.REST_ENDED 
+            policyWhenElapsed: requester=-31m53s418ms app_standby=-32m3s387ms device_idle=-- battery_saver=-32m3s387ms
+        #7: Reason=alarm_cancelled elapsed=-32m5s1ms rtc=2026-10-28 14:20:30.974
+          Snapshot:
+>           type=RTC_WAKEUP tag=*walarm*:com.settrace.settrace.REST_ENDED 
+            policyWhenElapsed: requester=-31m55s92ms app_standby=-32m5s49ms device_idle=-- battery_saver=-32m5s49ms
+        #8: Reason=alarm_cancelled elapsed=-32m12s177ms rtc=2026-10-28 14:20:23.798
+          Snapshot:
+>           type=RTC_WAKEUP tag=*walarm*:com.settrace.settrace.REST_ENDED 
+            policyWhenElapsed: requester=-32m8s192ms app_standby=-32m13s192ms device_idle=-- battery_saver=-32m13s192ms
+        #9: Reason=alarm_cancelled elapsed=-32m13s349ms rtc=2026-10-28 14:20:22.626
+          Snapshot:
+>           type=RTC_WAKEUP tag=*walarm*:com.settrace.settrace.REST_ENDED 
+            policyWhenElapsed: requester=-22m3s396ms app_standby=-32m13s357ms device_idle=-- battery_saver=-32m13s357ms
+        #10: Reason=alarm_cancelled elapsed=-40m2s133ms rtc=2026-10-28 14:12:33.842
+          Snapshot:
+>           type=RTC_WAKEUP tag=*walarm*:com.settrace.settrace.REST_ENDED 
+            policyWhenElapsed: requester=-39m52s200ms app_standby=-40m2s166ms device_idle=-- battery_saver=-40m2s166ms
+    
+    Top Alarms:
+      +3s706ms running, 2 wakeups, 2 alarms: 1000:com.android.settings
+        *walarm*:com.android.settings.battery.action.PERIODIC_JOB_UPDATE
+>   u0a213:com.settrace.settrace +160ms running, 3 wakeups:
+      +160ms 3 wakes 3 alarms, last -15m13s53ms:
+>       *walarm*:com.settrace.settrace.REST_ENDED
+    
+    Alarm manager stats:
+      REORDER_ALARMS_FOR_STANDBY: count=176, total=69.9ms, avg=0.397ms, max calls/s=18 max dur/s=51.7ms max time=51.7ms
+      HAS_SCHEDULE_EXACT_ALARM: count=832, total=83.5ms, avg=0.100ms, max calls/s=7 max dur/s=1.6ms max time=1.2ms
+
+

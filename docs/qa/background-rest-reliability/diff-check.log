@@ -1,0 +1,5 @@
+warning: in the working copy of 'lib/features/backup/data_write_coordinator.dart', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'lib/l10n/app_en.arb', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'lib/l10n/app_zh.arb', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'test/diagnostics/rest_platform_context_test.dart', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tool/verify_diagnostics_package.ps1', LF will be replaced by CRLF the next time Git touches it

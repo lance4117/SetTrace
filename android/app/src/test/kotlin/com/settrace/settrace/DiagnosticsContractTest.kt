@@ -4,6 +4,15 @@ import org.junit.Assert.*
 import org.junit.Test
 
 class DiagnosticsContractTest {
+    @Test fun serviceAndRecoveryFieldsUseVersionTwoPrivacy() {
+        val raw = envelope().apply { put("schema_version",2); put("event_name","rest.service")
+            put("attributes", mapOf("source" to "service_timer", "service_state" to "running", "recovery_decision" to "warm_claim_eligible", "cancel_reason" to "lease_timeout")) }
+        assertTrue(DiagnosticStoredValidator.valid(privacy.sanitize(raw,generation,2000)!!.event,false))
+        raw["attributes"] = mapOf("source" to "content://PRIVATE_URI")
+        assertNull(privacy.sanitize(raw,generation,2000))
+        raw["attributes"] = mapOf("service_state" to "running"); raw["schema_version"]=1
+        assertNull(privacy.sanitize(raw,generation,2000))
+    }
     @Test fun versionTwoIsExplicitAndLegacyCannotUseNewSemantics() {
         val raw = envelope().apply { put("schema_version", 2); put("event_name", "rest.audio")
             put("attributes", mapOf("audio_state" to "failed", "trigger" to "preview", "sound_condition" to "create_failed", "round" to 0, "next_round" to 1)) }

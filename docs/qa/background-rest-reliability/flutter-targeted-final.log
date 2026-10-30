@@ -1,0 +1,140 @@
+{
+  "project": "D:\\000_MyLibrary\\100_code\\110_Project\\5_SetTrace",
+  "sdk": "D:\\ProgramData\\Android_SDK",
+  "avd": "D:\\ProgramData\\Android_AVD",
+  "androidUser": "D:\\ProgramData\\DevCache\\Android",
+  "gradle": "D:\\ProgramData\\DevCache\\Gradle",
+  "pub": "D:\\ProgramData\\DevCache\\Pub",
+  "temp": "D:\\ProgramData\\DevTemp\\settrace-background-rest-reliability",
+  "flutter": "D:\\DevTools\\flutter",
+  "toolConfig": "D:\\ProgramData\\DevCache\\FlutterConfig",
+  "toolLocalCache": "D:\\ProgramData\\DevCache\\LocalAppData",
+  "jdk": "D:\\Program Files\\Android Studio\\jbr",
+  "avd:Pixel_7_Pro": "D:\\ProgramData\\Android_AVD\\Pixel_7_Pro.avd"
+}
+
+┌─────────────────────────────────────────────────────────┐
+│ A new version of Flutter is available!                  │
+│                                                         │
+│ To update to the latest version, run "flutter upgrade". │
+└─────────────────────────────────────────────────────────┘
+00:00 +0: loading D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_alert_repository_test.dart
+00:00 +0: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_alert_repository_test.dart: warm current first round at due + -1 ms
+00:00 +1: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_alert_repository_test.dart: warm current first round at due + -1 ms
+00:00 +2: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_alert_repository_test.dart: warm current first round at due + -1 ms
+00:00 +3: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_alert_repeating_test.dart: each round is claimed once, repeats beyond first 30 second window
+00:00 +4: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_alert_repository_test.dart: warm current first round at due + 0 ms
+00:00 +5: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_alert_repository_test.dart: warm current first round at due + 0 ms
+00:00 +6: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_alert_repeating_test.dart: confirmation failure retains pending confirmation for explicit retry
+00:00 +7: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_alert_repository_test.dart: warm current first round at due + 5000 ms
+00:00 +8: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_alert_repeating_test.dart: interval changes and off/on never replay or alter rest deadline
+00:00 +9: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_alert_repository_test.dart: warm current first round at due + 30000 ms
+00:00 +10: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_alert_repeating_test.dart: late repeat produces one round, restart retains only a future next round
+00:00 +11: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_alert_repository_test.dart: warm current first round at due + 30001 ms
+00:00 +12: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_alert_repository_test.dart: warm current first round at due + 30001 ms
+00:00 +13: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_alert_repeating_test.dart: old confirmation cannot affect a new rest
+00:00 +14: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_alert_repository_test.dart: cold first resumed and settings return never replay first round
+00:00 +15: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog survives repeat and barrier, back only dismisses
+00:00 +16: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog survives repeat and barrier, back only dismisses
+00:00 +17: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog survives repeat and barrier, back only dismisses
+00:01 +18: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog survives repeat and barrier, back only dismisses
+00:01 +19: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog survives repeat and barrier, back only dismisses
+00:01 +20: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog survives repeat and barrier, back only dismisses
+00:01 +21: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog survives repeat and barrier, back only dismisses
+00:01 +22: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog survives repeat and barrier, back only dismisses
+00:01 +23: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog survives repeat and barrier, back only dismisses
+00:01 +24: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog survives repeat and barrier, back only dismisses
+00:01 +25: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog survives repeat and barrier, back only dismisses
+00:01 +26: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog survives repeat and barrier, back only dismisses
+00:01 +27: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog survives repeat and barrier, back only dismisses
+00:01 +28: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog survives repeat and barrier, back only dismisses
+00:01 +29: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog survives repeat and barrier, back only dismisses
+00:01 +30: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog survives repeat and barrier, back only dismisses
+00:01 +31: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog survives repeat and barrier, back only dismisses
+00:02 +32: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog survives repeat and barrier, back only dismisses
+00:02 +33: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog survives repeat and barrier, back only dismisses
+00:02 +34: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog survives repeat and barrier, back only dismisses
+00:02 +35: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog survives repeat and barrier, back only dismisses
+00:02 +36: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog survives repeat and barrier, back only dismisses
+00:02 +37: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog survives repeat and barrier, back only dismisses
+00:02 +38: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog survives repeat and barrier, back only dismisses
+00:02 +39: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog survives repeat and barrier, back only dismisses
+00:02 +40: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog survives repeat and barrier, back only dismisses
+00:02 +41: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog survives repeat and barrier, back only dismisses
+00:02 +42: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog survives repeat and barrier, back only dismisses
+00:02 +43: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog survives repeat and barrier, back only dismisses
+00:02 +44: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog survives repeat and barrier, back only dismisses
+00:02 +45: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog survives repeat and barrier, back only dismisses
+00:02 +46: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog survives repeat and barrier, back only dismisses
+00:02 +47: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_alert_repository_test.dart: elapsed rest cannot be extended by a stale adjustment
+00:02 +48: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: failed acknowledgment stays actionable and retry does not complete a set
+00:03 +49: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: failed acknowledgment stays actionable and retry does not complete a set
+00:03 +50: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: failed acknowledgment stays actionable and retry does not complete a set
+00:03 +51: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: failed acknowledgment stays actionable and retry does not complete a set
+00:03 +52: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: failed acknowledgment stays actionable and retry does not complete a set
+00:03 +53: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: failed acknowledgment stays actionable and retry does not complete a set
+00:03 +54: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: failed acknowledgment stays actionable and retry does not complete a set
+00:03 +55: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: failed acknowledgment stays actionable and retry does not complete a set
+00:03 +56: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: failed acknowledgment stays actionable and retry does not complete a set
+00:03 +57: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: failed acknowledgment stays actionable and retry does not complete a set
+00:04 +58: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: failed acknowledgment stays actionable and retry does not complete a set
+00:04 +59: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: failed acknowledgment stays actionable and retry does not complete a set
+00:04 +60: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: failed acknowledgment stays actionable and retry does not complete a set
+00:04 +61: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: failed acknowledgment stays actionable and retry does not complete a set
+00:04 +62: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: failed acknowledgment stays actionable and retry does not complete a set
+00:04 +63: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: failed acknowledgment stays actionable and retry does not complete a set
+00:04 +64: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: failed acknowledgment stays actionable and retry does not complete a set
+00:04 +65: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: failed acknowledgment stays actionable and retry does not complete a set
+00:04 +66: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: failed acknowledgment stays actionable and retry does not complete a set
+00:05 +67: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: no logs and read failure are distinct; disabled detail does not enable logging
+00:05 +68: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: interval draft cancels, saves, and repeat toggle hides interval
+00:05 +69: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: interval draft cancels, saves, and repeat toggle hides interval
+00:05 +70: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: interval draft cancels, saves, and repeat toggle hides interval
+00:05 +71: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: interval draft cancels, saves, and repeat toggle hides interval
+00:05 +72: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: interval draft cancels, saves, and repeat toggle hides interval
+00:06 +73: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: interval draft cancels, saves, and repeat toggle hides interval
+00:06 +74: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: interval draft cancels, saves, and repeat toggle hides interval
+00:07 +75: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: interval draft cancels, saves, and repeat toggle hides interval
+00:07 +76: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: interval draft cancels, saves, and repeat toggle hides interval
+00:09 +77: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: all primary pages adapt to themes, languages, sizes and large text
+00:09 +78: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: all primary pages adapt to themes, languages, sizes and large text
+00:10 +79: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: all primary pages adapt to themes, languages, sizes and large text
+00:10 +80: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostics_pages_test.dart: all primary pages adapt to themes, languages, sizes and large text
+00:12 +81: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: system sound controls fit four themes, both languages, large text and landscape/tablet
+00:17 +82: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: complete startup ready waits for reminder wiring
+00:18 +83: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: automatic dialog waits for editing and notification confirms after page presentation
+00:20 +84: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: back dismisses only the automatic dialog and page stop remains available
+00:25 +85: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: keyboard confirms once with reduced motion and keeps training progress
+00:26 +86: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 360.0dp short screen 1.6 type zh ThemeColorPreset.teal dark=false
+00:26 +87: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 360.0dp short screen 1.6 type en ThemeColorPreset.teal dark=false
+00:26 +88: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 360.0dp short screen 1.6 type zh ThemeColorPreset.teal dark=true
+00:27 +89: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 360.0dp short screen 1.6 type en ThemeColorPreset.teal dark=true
+00:27 +90: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 360.0dp short screen 1.6 type zh ThemeColorPreset.blue dark=false
+00:27 +91: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 360.0dp short screen 1.6 type en ThemeColorPreset.blue dark=false
+00:27 +92: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 360.0dp short screen 1.6 type zh ThemeColorPreset.blue dark=true
+00:28 +93: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 360.0dp short screen 1.6 type en ThemeColorPreset.blue dark=true
+00:28 +94: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 360.0dp short screen 1.6 type zh ThemeColorPreset.violet dark=false
+00:28 +95: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 360.0dp short screen 1.6 type en ThemeColorPreset.violet dark=false
+00:29 +96: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 360.0dp short screen 1.6 type zh ThemeColorPreset.violet dark=true
+00:29 +97: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 360.0dp short screen 1.6 type en ThemeColorPreset.violet dark=true
+00:29 +98: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 360.0dp short screen 1.6 type zh ThemeColorPreset.graphite dark=false
+00:29 +99: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 360.0dp short screen 1.6 type en ThemeColorPreset.graphite dark=false
+00:30 +100: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 360.0dp short screen 1.6 type zh ThemeColorPreset.graphite dark=true
+00:30 +101: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 360.0dp short screen 1.6 type en ThemeColorPreset.graphite dark=true
+00:30 +102: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 430.0dp short screen 1.6 type zh ThemeColorPreset.teal dark=false
+00:31 +103: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 430.0dp short screen 1.6 type en ThemeColorPreset.teal dark=false
+00:31 +104: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 430.0dp short screen 1.6 type zh ThemeColorPreset.teal dark=true
+00:31 +105: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 430.0dp short screen 1.6 type en ThemeColorPreset.teal dark=true
+00:32 +106: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 430.0dp short screen 1.6 type zh ThemeColorPreset.blue dark=false
+00:32 +107: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 430.0dp short screen 1.6 type en ThemeColorPreset.blue dark=false
+00:32 +108: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 430.0dp short screen 1.6 type zh ThemeColorPreset.blue dark=true
+00:32 +109: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 430.0dp short screen 1.6 type en ThemeColorPreset.blue dark=true
+00:33 +110: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 430.0dp short screen 1.6 type zh ThemeColorPreset.violet dark=false
+00:33 +111: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 430.0dp short screen 1.6 type en ThemeColorPreset.violet dark=false
+00:33 +112: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 430.0dp short screen 1.6 type zh ThemeColorPreset.violet dark=true
+00:33 +113: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 430.0dp short screen 1.6 type en ThemeColorPreset.violet dark=true
+00:34 +114: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 430.0dp short screen 1.6 type zh ThemeColorPreset.graphite dark=false
+00:34 +115: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 430.0dp short screen 1.6 type en ThemeColorPreset.graphite dark=false
+00:34 +116: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 430.0dp short screen 1.6 type zh ThemeColorPreset.graphite dark=true
+00:34 +117: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_reminder_ui_test.dart: dialog fits 430.0dp short screen 1.6 type en ThemeColorPreset.graphite dark=true
+00:35 +118: All tests passed!

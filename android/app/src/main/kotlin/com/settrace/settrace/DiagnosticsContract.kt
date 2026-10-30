@@ -30,14 +30,18 @@ class DiagnosticFailure(val code: String) : java.io.IOException(code)
 
 /** Platform-independent contract. No Android or third-party JSON dependency. */
 object DiagnosticVocabulary {
-    val newEvents = setOf("app.lifecycle", "rest.callback", "rest.transition", "rest.audio")
+    val newEvents = setOf("app.lifecycle", "rest.callback", "rest.transition", "rest.audio", "rest.service")
     val enumFields = mapOf(
-        "trigger" to setOf("startup", "resume", "foreground_poll", "alarm", "delivered_callback", "training_change", "acknowledge", "settings_change", "platform_cleanup", "preview", "unknown"),
+        "trigger" to setOf("service_timer", "startup", "resume", "foreground_poll", "alarm", "delivered_callback", "training_change", "acknowledge", "settings_change", "platform_cleanup", "preview", "unknown"),
         "audio_state" to setOf("requested", "started", "completed", "stopped", "failed", "suppressed", "unknown"),
         "sound_condition" to setOf("allowed", "silent", "zero_volume", "dnd", "channel_silent", "channel_quiet", "unknown", "create_failed", "playback_failed", "busy", "bounded_stop"),
         "before_state" to setOf("pending", "consumed", "expired", "cancelled", "resumed", "inactive", "hidden", "paused", "detached", "unknown"),
+        "source" to setOf("foreground_poll", "warm_resume", "service_timer", "alarm", "cold_recovery", "settings_refresh"),
+        "service_state" to setOf("starting", "running", "stopping", "stopped", "blocked", "failed", "unknown"),
+        "recovery_decision" to setOf("future_kept", "warm_claim_eligible", "cold_history_expired", "window_expired", "repeat_rebased", "invalidated", "guarded", "unknown"),
+        "cancel_reason" to setOf("acknowledge", "manual_rest_end", "deadline_replaced", "undo_complete", "restore_skipped", "skip_remaining", "training_advance", "workout_saved", "workout_discarded", "user_disabled", "restore_guard", "lease_timeout", "permission_lost", "task_removed", "platform_cleanup", "unknown"),
         "after_state" to setOf("pending", "consumed", "expired", "cancelled", "resumed", "inactive", "hidden", "paused", "detached", "unknown"))
-    val newCounts = setOf("next_round", "truncated_count", "ringer_mode", "notification_volume", "interruption_filter", "channel_importance")
+    val newCounts = setOf("lease_expires_elapsed", "next_round", "truncated_count", "ringer_mode", "notification_volume", "interruption_filter", "channel_importance")
     val newFlags = setOf("notification_requested", "sound_requested", "vibration_requested", "identity_unknown", "channel_has_sound", "readings_available", "subject_build_unknown")
     fun eventAllowed(name: Any?, version: Long) = name in events || version == 2L && name in newEvents
     fun attributeAllowed(key: Any?, value: Any?, version: Long): Boolean = when {
@@ -68,7 +72,7 @@ object DiagnosticVocabulary {
         "old_revision", "old_round", "already_acknowledged", "expired", "invalid_session", "restore_guard", "condition_mismatch", "claim_lost",
         "foreground", "background", "user_disabled", "followup_failed", "read_failed", "write_failed", "verification_failed", "publication_unknown",
         "missing", "unsupported", "not_available", "truncated", "sanitization_rejected", "queue_overflow", "rate_limited", "clock_changed",
-        "corrupt_tail", "corrupt_control", "busy", "timeout", "incomplete", "initialization"
+        "corrupt_tail", "corrupt_control", "busy", "timeout", "incomplete", "initialization", "lease_timeout", "permission_lost", "task_removed"
     )
     val objectTypes = setOf("plan", "exercise", "session", "session_exercise", "backup", "rest_alert")
     val counts = setOf("count", "before_count", "after_count", "target_count", "completed_count", "skipped_count", "revision", "round", "due_utc", "actual_utc", "source_epoch", "target_epoch", "duration_ms", "bytes")

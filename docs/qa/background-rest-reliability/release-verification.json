@@ -1,0 +1,28 @@
+{
+  "created_utc": "2026-10-28T16:41:03.6664704Z",
+  "version": "0.3.1+12",
+  "apk": "D:\\000_MyLibrary\\100_code\\110_Project\\5_SetTrace\\build\\background-rest-reliability\\SetTrace-background-rest-reliability-0.3.1+12.apk",
+  "bytes": 53727869,
+  "sha256": "762a13ecf51c05c5a73b022ca71981d42a075905f4be9fbe55fb254af4a32169",
+  "source_commit": "01656d3ae937bb6713139a456878f7cf44e29e69",
+  "source_dirty": true,
+  "mapping": "D:\\000_MyLibrary\\100_code\\110_Project\\5_SetTrace\\build\\background-rest-reliability\\release-symbols\\mapping.txt",
+  "mapping_sha256": "30f29cc6939ee4350a1d519fd0a706f374a04c825188c6f10005b97f8c31b343",
+  "production_signing": false,
+  "device_hearing_verified": false,
+  "physical_xiaomi_verified": false,
+  "permissions": [
+    "package: com.settrace.settrace",
+    "uses-permission: name='android.permission.WRITE_EXTERNAL_STORAGE' maxSdkVersion='28'",
+    "uses-permission: name='android.permission.POST_NOTIFICATIONS'",
+    "uses-permission: name='android.permission.VIBRATE'",
+    "uses-permission: name='android.permission.SCHEDULE_EXACT_ALARM'",
+    "uses-permission: name='android.permission.FOREGROUND_SERVICE'",
+    "uses-permission: name='android.permission.FOREGROUND_SERVICE_SPECIAL_USE'",
+    "uses-permission: name='android.permission.WAKE_LOCK'",
+    "permission: com.settrace.settrace.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION",
+    "uses-permission: name='com.settrace.settrace.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION'"
+  ],
+  "build_label": "B-final",
+  "ui_evidence_scope": "A: detailed lockscreen/task-stop/ack/save; B: final-budget native tests and release smoke recorded separately"
+}

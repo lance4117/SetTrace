@@ -47,6 +47,10 @@ void main() {
       final contexts = calls
           .map((c) => Map<String, Object?>.from(c.arguments as Map))
           .toList();
+      expect(
+        contexts.every((c) => c['cancel_reason'] == 'acknowledge'),
+        isTrue,
+      );
       expect(contexts.every((c) => c['diagnostic_epoch'] == 4), isTrue);
       expect(
         contexts.map((c) => c['diagnostic_operation']).toSet(),

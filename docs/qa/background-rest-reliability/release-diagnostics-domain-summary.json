@@ -1,0 +1,84 @@
+{
+  "scope": "Exported using release build A UI; includes historical debug instrumentation and release events; counts are not release scenario acceptance counts; device clock",
+  "event_counts": [
+    {
+      "Name": "rest.acknowledge",
+      "Count": 6
+    },
+    {
+      "Name": "rest.audio",
+      "Count": 104
+    },
+    {
+      "Name": "rest.callback",
+      "Count": 77
+    },
+    {
+      "Name": "rest.cancel",
+      "Count": 35
+    },
+    {
+      "Name": "rest.claim",
+      "Count": 137
+    },
+    {
+      "Name": "rest.next",
+      "Count": 168
+    },
+    {
+      "Name": "rest.output",
+      "Count": 88
+    },
+    {
+      "Name": "rest.schedule",
+      "Count": 87
+    },
+    {
+      "Name": "rest.service",
+      "Count": 23
+    },
+    {
+      "Name": "rest.synchronize",
+      "Count": 8
+    },
+    {
+      "Name": "rest.transition",
+      "Count": 1
+    }
+  ],
+  "service_states": [
+    {
+      "Name": "running",
+      "Count": 7
+    },
+    {
+      "Name": "starting",
+      "Count": 7
+    },
+    {
+      "Name": "stopped",
+      "Count": 5
+    },
+    {
+      "Name": "stopping",
+      "Count": 4
+    }
+  ],
+  "source_counts": [
+    {
+      "Name": "alarm",
+      "Count": 299
+    },
+    {
+      "Name": "foreground_poll",
+      "Count": 30
+    },
+    {
+      "Name": "service_timer",
+      "Count": 145
+    }
+  ],
+  "coverage_continuous": false,
+  "known_missing": "queue_overflow (13)",
+  "user_hearing_verified": false
+}

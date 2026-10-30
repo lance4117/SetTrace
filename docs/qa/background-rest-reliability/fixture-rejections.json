@@ -1,0 +1,22 @@
+[
+  {
+    "fixture": "unknown-version.zip",
+    "rejected": true,
+    "reason": "Unknown event schema"
+  },
+  {
+    "fixture": "private-source.zip",
+    "rejected": true,
+    "reason": "Privacy sentinel or raw source leakage: events/000.jsonl"
+  },
+  {
+    "fixture": "raw-identity.zip",
+    "rejected": true,
+    "reason": "Raw or invalid business ID"
+  },
+  {
+    "fixture": "bad-hash.zip",
+    "rejected": true,
+    "reason": "Content hash/size mismatch: events/000.jsonl"
+  }
+]

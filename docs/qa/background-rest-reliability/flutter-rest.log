@@ -1,0 +1,55 @@
+{
+  "project": "D:\\000_MyLibrary\\100_code\\110_Project\\5_SetTrace",
+  "sdk": "D:\\ProgramData\\Android_SDK",
+  "avd": "D:\\ProgramData\\Android_AVD",
+  "androidUser": "D:\\ProgramData\\DevCache\\Android",
+  "gradle": "D:\\ProgramData\\DevCache\\Gradle",
+  "pub": "D:\\ProgramData\\DevCache\\Pub",
+  "temp": "D:\\ProgramData\\DevTemp\\settrace-background-rest-reliability",
+  "flutter": "D:\\DevTools\\flutter",
+  "toolConfig": "D:\\ProgramData\\DevCache\\FlutterConfig",
+  "toolLocalCache": "D:\\ProgramData\\DevCache\\LocalAppData",
+  "jdk": "D:\\Program Files\\Android Studio\\jbr",
+  "avd:Pixel_7_Pro": "D:\\ProgramData\\Android_AVD\\Pixel_7_Pro.avd"
+}
+00:00 +0: loading D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_alert_repository_test.dart
+00:00 +0: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_delivery_status_test.dart: partial status distinguishes false, unknown and read failures
+00:00 +1: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_delivery_status_test.dart: unsupported version and invalid availability are rejected
+00:00 +2: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostic_contract_test.dart: version two fields use per-field closed vocabularies
+00:00 +3: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostic_contract_test.dart: Dart and Kotlin event/enum vocabularies stay aligned
+00:00 +4: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostic_contract_test.dart: fields reject user strings, nonfinite values, and negative counters
+00:00 +5: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostic_contract_test.dart: stack contains only approved relative locations
+00:00 +6: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostic_contract_test.dart: commit and failed followup retain identity and original dataset epoch
+00:00 +7: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostic_contract_test.dart: logging remains nonthrowing and bounded when channel fails
+00:00 +8: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostic_contract_test.dart: closed logging and clear cannot revive queued old generation
+00:00 +9: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/diagnostics/diagnostic_contract_test.dart: NoOp supports repository observation without a platform
+00:00 +10: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_alert_repeating_test.dart: each round is claimed once, repeats beyond first 30 second window
+00:00 +11: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_alert_repository_test.dart: warm current first round at due + -1 ms
+00:00 +12: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_alert_repeating_test.dart: acknowledgment cancels future rounds without completing a set
+00:00 +13: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_alert_repository_test.dart: warm current first round at due + 0 ms
+00:00 +14: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_alert_repeating_test.dart: confirmation failure retains pending confirmation for explicit retry
+00:00 +15: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_alert_repository_test.dart: warm current first round at due + 5000 ms
+00:00 +16: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_alert_repeating_test.dart: interval changes and off/on never replay or alter rest deadline
+00:00 +17: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_alert_repository_test.dart: warm current first round at due + 30000 ms
+00:00 +18: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_alert_repository_test.dart: warm current first round at due + 30000 ms
+00:00 +19: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_alert_repeating_test.dart: first late callback expires, and training advancement invalidates repeats
+00:00 +20: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_alert_repository_test.dart: warm current first round at due + 30001 ms
+00:00 +21: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_alert_repeating_test.dart: old confirmation cannot affect a new rest
+00:00 +22: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_alert_repository_test.dart: cold first resumed and settings return never replay first round
+00:00 +23: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_alert_repeating_test.dart: v3 upgrade retains training rows and terminates legacy consumed reminders
+00:00 +24: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_alert_repeating_test.dart: v3 upgrade retains training rows and terminates legacy consumed reminders
+00:00 +25: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_alert_repository_test.dart: settings refresh does not claim an eligible first round
+00:00 +26: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_alert_repository_test.dart: warm recovery and old repeat callback serialize without a burst
+00:01 +27: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_alert_repository_test.dart: language refresh updates existing notification identity without a new round
+00:01 +28: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_alert_repository_test.dart: concurrent service confirmations are idempotent and never complete a set
+00:01 +29: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_alert_repository_test.dart: default does not request permission before a real rest; refusal is remembered
+00:01 +30: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_alert_repository_test.dart: normalization and concurrent observers still deliver at most once
+00:01 +31: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_alert_repository_test.dart: adjustment invalidates old revision; cancel failure cannot revive stale delivery
+00:01 +32: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_alert_repository_test.dart: schedule failure preserves completed set and is separately retryable
+00:01 +33: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_alert_repository_test.dart: preference save failure preserves original setting and events
+00:01 +34: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_alert_repository_test.dart: off/on keeps deadline; restart and late callbacks never replay elapsed reminders
+00:01 +35: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_alert_repository_test.dart: language and next-exercise ordering update content without shifting due date
+00:01 +36: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_alert_repository_test.dart: restoring an ongoing future rest does not prompt during upgrade startup
+00:01 +37: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_alert_repository_test.dart: skip remaining, undo and finish invalidate the old alert
+00:01 +38: D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/rest_alert_repository_test.dart: elapsed rest cannot be extended by a stale adjustment
+00:01 +39: All tests passed!

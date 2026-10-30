@@ -1,0 +1,1 @@
+Stopped only verified readonly Pixel_7_Pro emulator port 5556 and its SDK child processes; base AVD unmodified.

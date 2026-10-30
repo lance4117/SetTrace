@@ -35,6 +35,29 @@ class _Transport implements DiagnosticsTransport {
 }
 
 void main() {
+  test('background delivery fields reject free text', () {
+    expect(
+      diagnosticFields({
+        DiagnosticField.source: DiagnosticValue.service_timer,
+        DiagnosticField.service_state: DiagnosticValue.running,
+        DiagnosticField.recovery_decision: DiagnosticValue.warm_claim_eligible,
+        DiagnosticField.cancel_reason: DiagnosticValue.workout_saved,
+      }),
+      {
+        'source': 'service_timer',
+        'service_state': 'running',
+        'recovery_decision': 'warm_claim_eligible',
+        'cancel_reason': 'workout_saved',
+      },
+    );
+    expect(
+      diagnosticFields({
+        DiagnosticField.source: 'PRIVATE_URI',
+        DiagnosticField.service_state: DiagnosticValue.blue,
+      }),
+      isEmpty,
+    );
+  });
   test('version two fields use per-field closed vocabularies', () {
     expect(
       diagnosticFields({

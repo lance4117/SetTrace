@@ -1,5 +1,7 @@
 {
   "@@locale": "zh",
+  "trainingReminderServiceTitle": "训练提醒运行中",
+  "trainingReminderServiceBody": "返回当前训练；后台提醒仍可能延迟。",
   "languageSelfName": "中文",
   "@languageSelfName": {
     "description": "The language name in its own language, always shown unchanged in the language selector."

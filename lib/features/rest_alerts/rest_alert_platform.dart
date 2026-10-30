@@ -6,6 +6,7 @@ import '../../core/diagnostics/diagnostics_client.dart';
 
 import 'rest_alert_repository.dart';
 import 'rest_alert_options.dart';
+import 'rest_delivery_status.dart';
 
 class RestAlertTap {
   const RestAlertTap(this.sessionId, {this.eventId, this.revision});
@@ -61,6 +62,14 @@ abstract class RestAlertPlatform {
   Future<void> stopPreview() async {}
   Future<void> stopOutput(int id) async {}
   Future<void> refreshNotification(RestAlertEvent event) async {}
+  Future<bool> initialRecoveryIsWarm() async => false;
+  Future<bool> takeSettingsReturn() async => false;
+  Future<void> startTraining(int sessionId, String title, String body) async {}
+  Future<void> reconcileTraining({String? recovery}) async {}
+  Future<void> suspendTraining() async {}
+  Future<void> updateTrainingLabels(String title, String body) async {}
+  Future<RestDeliveryStatus> deliveryStatus() async =>
+      RestDeliveryStatus.unsupported();
   void dispose() {}
 }
 
@@ -76,8 +85,35 @@ class AndroidRestAlertPlatform extends RestAlertPlatform {
             DiagnosticName.restAcknowledge
         ? 'acknowledge'
         : diagnosticTrigger.name,
+    'cancel_reason': diagnosticRestCancellation.name,
   };
   final MethodChannel channel = const MethodChannel('settrace/rest_alerts');
+  @override
+  Future<bool> initialRecoveryIsWarm() async =>
+      await channel.invokeMethod<bool>('initialRecoveryIsWarm') ?? false;
+  @override
+  Future<bool> takeSettingsReturn() async =>
+      await channel.invokeMethod<bool>('takeSettingsReturn') ?? false;
+  @override
+  Future<void> startTraining(int sessionId, String title, String body) =>
+      channel.invokeMethod('startTraining', {
+        'session_id': sessionId,
+        'title': title,
+        'body': body,
+      });
+  @override
+  Future<void> reconcileTraining({String? recovery}) =>
+      channel.invokeMethod('reconcileTraining', {'recovery': recovery});
+  @override
+  Future<void> suspendTraining() => channel.invokeMethod('suspendTraining');
+  @override
+  Future<void> updateTrainingLabels(String title, String body) =>
+      channel.invokeMethod('trainingLabels', {'title': title, 'body': body});
+  @override
+  Future<RestDeliveryStatus> deliveryStatus() async =>
+      RestDeliveryStatus.fromMap(
+        (await channel.invokeMapMethod<String, dynamic>('deliveryStatus'))!,
+      );
   AndroidRestAlertPlatform() {
     channel.setMethodCallHandler((call) async {
       if (call.method == 'notificationTap') {
@@ -121,6 +157,7 @@ class AndroidRestAlertPlatform extends RestAlertPlatform {
         'id': event.id,
         'revision': event.revision,
         'sequence': event.sequence,
+        'dataset_epoch': event.row['dataset_epoch'],
         ..._diagnosticContext,
       });
   @override

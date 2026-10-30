@@ -8,6 +8,7 @@ import 'package:settrace/features/workout/workout_models.dart';
 import 'package:settrace/features/rest_alerts/rest_alert_repository.dart';
 import 'package:settrace/features/rest_alerts/rest_alert_platform.dart';
 import 'package:settrace/features/rest_alerts/rest_alert_service.dart';
+import 'package:settrace/features/rest_alerts/rest_recovery.dart';
 import 'package:settrace/l10n/generated/app_localizations_en.dart';
 import 'package:settrace/l10n/generated/app_localizations_zh.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
@@ -26,6 +27,11 @@ class FakeAlertsPlatform extends RestAlertPlatform {
   Set<int> validIds = {};
   bool failSchedule = false, failCancel = false;
   int permissionCalls = 0;
+  bool warmInitial = false, settingsReturn = false;
+  @override
+  Future<bool> initialRecoveryIsWarm() async => warmInitial;
+  @override
+  Future<bool> takeSettingsReturn() async => settingsReturn;
   @override
   Future<void> initialize(String path, String name, String description) async {}
   @override
@@ -39,7 +45,13 @@ class FakeAlertsPlatform extends RestAlertPlatform {
 
   @override
   Future<void> deliver(RestAlertEvent e) async {
-    if (await repo.consume(e.id, e.revision, sequence: e.sequence) != null) {
+    if (await repo.consume(
+          e.id,
+          e.revision,
+          sequence: e.sequence,
+          datasetEpoch: e.row['dataset_epoch'] as int?,
+        ) !=
+        null) {
       sounds.add(e.id);
       onDelivered?.call(e.body);
     }
@@ -112,6 +124,118 @@ void main() {
     );
     return session;
   }
+
+  for (final offset in [-1, 0, 5000, 30000, 30001]) {
+    test('warm current first round at due + $offset ms', () async {
+      await done();
+      await service.synchronize();
+      final event = (await alerts.pending()).single;
+      now = DateTime.fromMillisecondsSinceEpoch(
+        event.dueAt + offset,
+        isUtc: true,
+      );
+      if (offset >= 0) await workouts.normalizeRest(session.id);
+      await service.synchronize(recovery: RestRecovery.warmCurrent);
+      expect(platform.sounds.length, offset >= 0 && offset <= 30000 ? 1 : 0);
+      expect((await workouts.getSession(session.id))!.completedSets, 1);
+      final stored = (await db.db.query(
+        'rest_alerts',
+        where: 'id=?',
+        whereArgs: [event.id],
+      )).single;
+      expect(stored['due_at'], event.dueAt);
+      expect(
+        stored['state'],
+        offset > 30000
+            ? 'expired'
+            : offset < 0
+            ? 'pending'
+            : 'consumed',
+      );
+    });
+  }
+  test(
+    'cold first resumed and settings return never replay first round',
+    () async {
+      await done();
+      await service.synchronize();
+      now = now.add(const Duration(seconds: 65));
+      await service.configure(AppLocalizationsEn(), expireElapsed: true);
+      await service.resume();
+      expect(platform.sounds, isEmpty);
+      expect(await alerts.active(), isEmpty);
+    },
+  );
+  test(
+    'same native execution reattach preserves warm first-round eligibility',
+    () async {
+      await done();
+      await service.synchronize();
+      now = now.add(const Duration(seconds: 65));
+      platform.warmInitial = true;
+      await service.configure(AppLocalizationsEn(), expireElapsed: true);
+      expect(platform.sounds, hasLength(1));
+    },
+  );
+  test('settings refresh does not claim an eligible first round', () async {
+    await done();
+    await service.synchronize();
+    now = now.add(const Duration(seconds: 65));
+    platform.settingsReturn = true;
+    await service.resume();
+    expect(platform.sounds, isEmpty);
+    expect(await alerts.pending(), hasLength(1));
+  });
+  test('content refresh preserves the captured dataset scope', () async {
+    await done();
+    final event = (await alerts.active()).single;
+    final refreshed = await alerts.setContent(
+      event,
+      'Rest ended',
+      'Updated content',
+    );
+    expect(refreshed.row['dataset_epoch'], event.row['dataset_epoch']);
+    now = DateTime.fromMillisecondsSinceEpoch(refreshed.dueAt, isUtc: true);
+    await platform.deliver(refreshed);
+    expect(platform.sounds, [refreshed.id]);
+  });
+  test(
+    'old dataset content cannot write to or claim the new dataset',
+    () async {
+      await done();
+      final event = (await alerts.active()).single;
+      await db.db.update('backup_state', {'epoch': 1}, where: 'id=1');
+      final rejected = await alerts.setContent(
+        event,
+        'Old dataset title',
+        'Old dataset body',
+      );
+      final current = (await alerts.active()).single;
+      expect(current.title, event.title);
+      expect(current.row['dataset_epoch'], 1);
+      now = DateTime.fromMillisecondsSinceEpoch(current.dueAt, isUtc: true);
+      await platform.deliver(rejected);
+      expect(platform.sounds, isEmpty);
+    },
+  );
+  test(
+    'warm recovery and old repeat callback serialize without a burst',
+    () async {
+      await done();
+      await service.synchronize();
+      now = now.add(const Duration(seconds: 60));
+      await service.synchronize();
+      final old = (await alerts.awaiting()).single;
+      now = now.add(const Duration(seconds: 35));
+      await alerts.restore(recovery: RestRecovery.warmCurrent);
+      expect(
+        await alerts.consume(old.id, old.revision, sequence: old.sequence),
+        isNull,
+      );
+      expect((await alerts.awaiting()).single.deliveryAt, alerts.nowMs + 10000);
+      expect(platform.sounds, hasLength(1));
+    },
+  );
 
   test('language refresh updates existing notification identity without a new round', () async {
     await done();

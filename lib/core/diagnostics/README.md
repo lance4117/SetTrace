@@ -109,3 +109,11 @@ restore 过期和训练取消观察只在事务成功后发出，最多 16 个�
 backup.recovery 核查有 completed／failed／unknown 终态，无任务不是 committed；startup.ready 在备份核查和提醒接线完成后产生。
 正常可核实的 user_requested／user_stopped／self_exit 为 INFO，其他退出保留原分类。
 构建归属见 process_builds；历史缺失不回填，历史退出对象的构建始终未知。
+
+## 后台执行领域扩展（2026-10-28）
+
+复用版本2白名单、写入器、隐私、保留与导出机制。新增 `rest.service` 表达 starting/running/stopping/stopped/blocked/failed/unknown；停止请求与实际服务销毁分开，状态不证明提醒已送达。source区分foreground_poll、warm_resume、service_timer、alarm、cold_recovery、settings_refresh；调度来源与实际领取／输出来源分别观察，不将两个安排请求算两次响铃。
+
+recovery_decision区分future_kept、warm_claim_eligible、cold_history_expired、window_expired、repeat_rebased、invalidated、guarded、unknown。暖返回首轮资格是validation观察，不是committed；过期／重排沿既有事务后correction发出，回滚没有成功转换。cancel_reason限定确认、主动结束、截止替换、两类撤销／跳过、推进、保存／放弃、关闭、恢复保护、租期、权限、任务移除、清理或未知；同步入队捕获因果来源，不能借用后来操作。
+
+本领域仍只记录有限技术字段，不包含通知文案、名称、声音URI或原异常文字。无变化等待不记录心跳、不开新定时唤醒，关闭／队列失败不改变业务。旧v1/v2记录不重写，不补造来源或用户听见的结果。依赖已归档fix-rest-sound-and-diagnostics；证据与小米待验范围见 `docs/qa/background-rest-reliability/README.md`。

@@ -1,0 +1,61 @@
+{
+  "source_commit": "01656d3ae937bb6713139a456878f7cf44e29e69",
+  "modified_tracked": [
+    "android/app/src/androidTest/kotlin/com/settrace/settrace/RestAlertsStoreTest.kt",
+    "android/app/src/debug/AndroidManifest.xml",
+    "android/app/src/main/AndroidManifest.xml",
+    "android/app/src/main/kotlin/com/settrace/settrace/DiagnosticsContract.kt",
+    "android/app/src/main/kotlin/com/settrace/settrace/RestAlertsBridge.kt",
+    "android/app/src/main/kotlin/com/settrace/settrace/RestAlertsStore.kt",
+    "android/app/src/test/kotlin/com/settrace/settrace/DiagnosticsContractTest.kt",
+    "docs/rest-alerts.md",
+    "lib/app/app.dart",
+    "lib/core/diagnostics/README.md",
+    "lib/core/diagnostics/diagnostic_contract.dart",
+    "lib/core/diagnostics/diagnostic_observation.dart",
+    "lib/features/backup/data_write_coordinator.dart",
+    "lib/features/rest_alerts/rest_alert_platform.dart",
+    "lib/features/rest_alerts/rest_alert_repository.dart",
+    "lib/features/rest_alerts/rest_alert_service.dart",
+    "lib/l10n/app_en.arb",
+    "lib/l10n/app_zh.arb",
+    "test/diagnostics/diagnostic_contract_test.dart",
+    "test/diagnostics/rest_platform_context_test.dart",
+    "test/rest_alert_repository_test.dart",
+    "tool/verify_diagnostics_package.ps1"
+  ],
+  "forbidden_scope_changes": [],
+  "main_specs_synced": false,
+  "archived": false,
+  "committed": false,
+  "tests": {
+    "flutter_targeted": 118,
+    "flutter_all": 1263,
+    "android_unit": 71,
+    "android_api36_instrumentation": 31,
+    "analyze": "No issues found",
+    "openspec_strict": "valid"
+  },
+  "partial_tasks": [
+    "7.2 API28/31/33/34 unavailable; API36 only",
+    "7.3 Xiaomi default unavailable",
+    "7.4 Xiaomi unrestricted unavailable",
+    "7.5 release exact post-claim/pre-output death and remaining device fault matrix",
+    "7.6 30min comparative and 4h real resource tests"
+  ],
+  "progress": {
+    "complete": 30,
+    "remaining": 5,
+    "total": 35
+  },
+  "final_release_smoke": {
+    "warm_acknowledge": "one of four sets remains completed",
+    "scope": "API36 readonly emulator, no human hearing or Xiaomi evidence",
+    "lockscreen": "rest id9 and silent service notification",
+    "discard_qa_session": "service and owned notifications cleared",
+    "cold_launch": "no service restart",
+    "apk_sha256": "762a13ecf51c05c5a73b022ca71981d42a075905f4be9fbe55fb254af4a32169",
+    "explicit_start": "specialUse NOT_STICKY",
+    "install": "success"
+  }
+}

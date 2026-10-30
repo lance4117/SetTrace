@@ -134,6 +134,7 @@ class _SetTraceAppState extends State<SetTraceApp> with WidgetsBindingObserver {
   late final NoticePreferences noticePreferences =
       widget.noticePreferences ?? NoticePreferences(widget.preferences);
   bool startupReady = false, presentationRunning = false;
+  bool alertsConfigured = false, leftForeground = false;
 
   bool get foreground {
     final state = WidgetsBinding.instance.lifecycleState;
@@ -235,6 +236,11 @@ class _SetTraceAppState extends State<SetTraceApp> with WidgetsBindingObserver {
     super.initState();
     themeColors.addListener(colorChanged);
     WidgetsBinding.instance.addObserver(this);
+    if (widget.alerts != null && widget.dataWrites != null) {
+      widget.dataWrites!.protectors.add(
+        widget.alerts!.platform.suspendTraining,
+      );
+    }
     if (widget.backupFiles != null && widget.dataWrites != null) {
       widget.dataWrites!.restrict();
       backups = BackupCoordinator(
@@ -279,6 +285,7 @@ class _SetTraceAppState extends State<SetTraceApp> with WidgetsBindingObserver {
         trigger: DiagnosticValue.training_change,
       );
       wiringReady = await setupAlerts(expireElapsed: true);
+      alertsConfigured = wiringReady;
       alertTicker = Timer.periodic(const Duration(seconds: 1), (_) {
         if (WidgetsBinding.instance.lifecycleState ==
             AppLifecycleState.resumed) {
@@ -424,6 +431,10 @@ class _SetTraceAppState extends State<SetTraceApp> with WidgetsBindingObserver {
   AppLifecycleState? _lastLifecycle;
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.paused ||
+        state == AppLifecycleState.hidden) {
+      leftForeground = true;
+    }
     if (_lastLifecycle != state) {
       DiagnosticsClient.instance.event(
         DiagnosticName.appLifecycle,
@@ -441,11 +452,12 @@ class _SetTraceAppState extends State<SetTraceApp> with WidgetsBindingObserver {
     }
     if (state == AppLifecycleState.resumed &&
         backupReady &&
-        widget.dataWrites?.blocked != true) {
+        widget.dataWrites?.blocked != true &&
+        alertsConfigured &&
+        leftForeground) {
+      leftForeground = false;
       schedulePresentation();
-      widget.alerts
-          ?.synchronize(expireElapsed: true, trigger: DiagnosticValue.resume)
-          .catchError((Object _) {});
+      widget.alerts?.resume().catchError((Object _) {});
     }
   }
 
@@ -457,6 +469,11 @@ class _SetTraceAppState extends State<SetTraceApp> with WidgetsBindingObserver {
     alertTicker?.cancel();
     WidgetsBinding.instance.removeObserver(this);
     widget.workouts.onChanged = null;
+    if (widget.alerts != null) {
+      widget.dataWrites?.protectors.remove(
+        widget.alerts!.platform.suspendTraining,
+      );
+    }
     widget.alerts?.removeListener(alertsChanged);
     widget.alerts?.dispose();
     super.dispose();
@@ -676,7 +693,12 @@ class RootTabsState extends State<RootTabs> {
         if (openSessionId == id) {
           await workoutKey?.currentState?.reload();
         } else {
-          unawaited(openWorkout((await widget.workouts.getSession(id))!));
+          unawaited(
+            openWorkout(
+              (await widget.workouts.getSession(id))!,
+              userInitiated: false,
+            ),
+          );
         }
       }
       await WidgetsBinding.instance.endOfFrame;
@@ -692,7 +714,12 @@ class RootTabsState extends State<RootTabs> {
     }
   }
 
-  Future<void> openWorkout(WorkoutSessionData session) async {
+  Future<void> openWorkout(
+    WorkoutSessionData session, {
+    bool userInitiated = true,
+  }) async {
+    if (userInitiated) await widget.alerts?.startTraining(session.id);
+    if (!mounted) return;
     if (openSessionId == session.id) {
       await workoutKey?.currentState?.reload();
       return;

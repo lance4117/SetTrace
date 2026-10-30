@@ -1,0 +1,6 @@
+{
+  "started_utc": "2026-10-28T15:49:51.0498218Z",
+  "serial": "emulator-5556",
+  "build": "release",
+  "scenario": "QA 30 second rest, home, screen off; requests are not hearing evidence"
+}

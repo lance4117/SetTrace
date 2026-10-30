@@ -27,7 +27,9 @@ SQLite v6 是训练与提醒的唯一状态源。每次休息关联独立事件�
 | 编辑／面板／其他弹窗 | 声音继续，提醒弹窗等已有界面关闭后复核再显示 |
 | 推进、取消或关闭提醒 | 训练事务先使旧提醒失效，提交后清理系统输出；旧回调不能复活 |
 | 首次回调迟到超过 30 秒 | 过期；此边界不用于已有效投递的重复轮次 |
-| 进程恢复／回前台 | 未首次投递的已到期事件过期；有效待确认事件只安排未来一轮，不立即补响 |
+| 真冷启动／升级 | 已到期且未首次领取的历史事件清理；首次 resumed 不视为暖返回 |
+| 同运行期回前台 | 当前未领取首轮在原截止至+30秒（含）竞争领取；窗口外清理，不先无条件过期 |
+| 待确认恢复／系统声音设置返回 | 待确认过期重复只移到下一未来轮，不集中补响；系统声音设置能力刷新不主动领取首轮 |
 
 确认、偏好保存失败时保留原状态并提供重试。调度失败单独提示，训练记录与
 绝对截止仍有效。只在成功返回通知所属训练页后确认对应事件；旧通知不停止
@@ -57,6 +59,47 @@ AlarmManager 每次只安排下一轮。准时能力不足时降级非精确调�
 通知冷却及厂商限制可能明显拉长间隔，不承诺后台严格每 10 秒。通知权限不可用
 时保留待确认状态，不持续进行无效后台唤醒；回前台重新核对。强行停止、重启
 与厂商强制限制不保证送达。记录领取先于输出，进程若在两者之间终止可能漏响。
+
+## 原生后台增强与只读状态
+
+用户在可见应用开始／明确继续活动训练，或主动启用提醒时，满足通知、数据与恢复条件后启动
+`TrainingReminderService`。API34+声明specialUse及用途，低版本走适用FGS分支；不借用健康、
+数据同步或媒体类型，不增加传感器／联网／勿扰绕过权限。商店审核资格独立于本地APK运行。
+服务使用START_NOT_STICKY，后台回调、普通启动、开机和回收不自启服务，不启动后台Flutter引擎。
+
+持续通知静默、使用独立服务通道与负ID，点击只返回所属训练，不确认休息；真实提醒仍沿原通道
+和正事件ID、成功导航后才确认。清理只作用于各自所属通知，持续通知不成为声音迁移目标。
+所有来源使用同一个(epoch,id,revision,expectedSequence)条件领取；旧同步不能覆盖已提交下一轮。
+
+单次增强租期最长4小时，用包含休眠的elapsedRealtime计算，墙钟或被动回调不续期；到期首次
+获得执行机会先停增强，不补一次输出。snapshot区分租期过期、stopping与观察到onDestroy后的stopped。
+保存／放弃、关闭、无活动训练、权限失去、恢复保护、DB失败或任务划走停止增强并清理资源。
+单纯租期结束或任务划走保留合法闹钟；确认单次提醒只清该事件，活动训练服务可无轮询待机。
+恢复／撤回保护前主动停止服务，保护阶段和epoch变化继续由原生事务拒绝旧任务。
+
+等待期间不持长CPU锁、不后台逐秒查库／刷新通知；只有当前一次服务任务、一份系统下一轮闹钟
+和租期停止任务。执行领取／输出时短partial锁最多5秒、异常／拒绝／停止均释放，不为下一轮续锁。
+FGS不能阻止所有休眠；Doze／系统配额／HyperOS仍可能延迟，系统闹钟兜底保持原窗口，不用
+setAlarmClock、全屏Intent、屏幕唤醒或循环重启规避。Task Manager停止可能无回调且存量闹钟仍在，
+与force-stop、重启、普通回收分别记录，数据恢复与送达保证分开。
+
+`RestAlertPlatform.deliveryStatus()` / MethodChannel `deliveryStatus` 是版本1纯查询，无授权、
+启动、输出、确认或训练写入副作用。快照包含capturedUtc、当前instance和fields；每字段为
+`{availability: available|unsupported|unknown|read_failed, value, observedUtc, reason}`。
+布尔false是成功读取的真实限制，不与未知混同。当前字段：appNotifications、restChannel、serviceChannel、
+exactAlarm、batteryOptimizationExempt、powerSave、deviceIdle、backgroundRestricted、vendorAutostart、
+vendorBatteryPolicy、service（state／leaseExpiresElapsed／leaseExpired／reason）、currentReminder、
+lastScheduleAccepted、lastServiceScheduled、lastRecovery、lastClaim、lastOutputRequest、alarmArmed和deliveryMode。
+
+厂商自启动／电池策略没有可靠公开API，明确unknown/unsupported；标准电池豁免不代表HyperOS无限制。
+Android没有公开API证明某闹钟当前仍在队列，alarmArmed为unknown；lastScheduleAccepted只是历史请求，
+各观察带原epoch/id/revision/time/source，不得与另一当前提醒拼装成成功。历史为空不代表用户没听到。
+新进程不从磁盘running标记继承运行事实；最小控制记录位于noBackupFilesDir，排除逻辑和平台备份。
+示例（仅示例）：vendorAutostart可为`{availability: unknown, value: null, reason: unsupported}`，
+service当前可为`{state: stopped, leaseExpiresElapsed: null, leaseExpired: null, reason: none}`。
+
+这些接口供后续设置引导与锁屏自测消费，本次没有新增引导／自测页面。运行范围和未验设备见
+[本次证据](qa/background-rest-reliability/README.md)，不以模拟器或请求成功代替小米／真人听感。
 
 ## 迁移与验证
 

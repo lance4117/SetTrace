@@ -1,5 +1,13 @@
 {
   "@@locale": "en",
+  "trainingReminderServiceTitle": "Training reminders running",
+  "@trainingReminderServiceTitle": {
+    "description": "Title of the silent ongoing Android service notification during a user-started workout. It is not a rest-ended alert."
+  },
+  "trainingReminderServiceBody": "Return to your workout. Background reminders may be delayed.",
+  "@trainingReminderServiceBody": {
+    "description": "Silent training service notification body. Explains navigation and scheduling limitations; tapping does not acknowledge a rest reminder."
+  },
   "languageSelfName": "English",
   "@languageSelfName": {
     "description": "Application text in lib/l10n/language_settings.dart. Chinese source context: 中文. Translate whole messages; preserve user names."

@@ -13,6 +13,7 @@ class DataWriteCoordinator {
   Completer<void>? _drained;
   final Object _zoneKey = Object();
   final List<Future<void> Function()> settlers = [];
+  final List<Future<void> Function()> protectors = [];
   int get epoch => _epoch;
   int? get diagnosticEpoch => _epochKnown ? _epoch : null;
   bool get blocked => _exclusive || _restricted;
@@ -60,6 +61,9 @@ class DataWriteCoordinator {
     }
     _exclusive = true;
     try {
+      for (final protect in protectors) {
+        await protect();
+      }
       if (_writers != 0) await (_drained ??= Completer<void>()).future;
       for (final settle in settlers) {
         await settle();

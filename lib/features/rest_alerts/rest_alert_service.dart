@@ -10,6 +10,7 @@ import '../../l10n/generated/app_localizations.dart';
 import 'rest_alert_platform.dart';
 import 'rest_alert_repository.dart';
 import 'rest_alert_options.dart';
+import 'rest_recovery.dart';
 
 class RestAlertService extends ChangeNotifier {
   RestAlertService(this.repository, this.platform, {this.diagnostics}) {
@@ -42,6 +43,33 @@ class RestAlertService extends ChangeNotifier {
   List<RestAlertEvent> awaiting = [];
   void Function(RestAlertTap)? onTapDetails;
   String get localeName => _strings?.localeName ?? 'en';
+
+  Future<void> startTraining(int sessionId) async {
+    final l = _strings;
+    if (l == null || !enabled) return;
+    try {
+      await platform.startTraining(
+        sessionId,
+        l.trainingReminderServiceTitle,
+        l.trainingReminderServiceBody,
+      );
+    } catch (_) {
+      failed = true;
+      if (!_disposed) notifyListeners();
+    }
+  }
+
+  Future<void> resume() async {
+    final settings = await platform.takeSettingsReturn();
+    await synchronize(
+      recovery: settings
+          ? RestRecovery.settingsRefresh
+          : RestRecovery.warmCurrent,
+      trigger: settings
+          ? DiagnosticValue.settings_change
+          : DiagnosticValue.resume,
+    );
+  }
 
   Future<void> setOptions(RestAlertOptions value) async {
     return diagnosticObserve(
@@ -134,18 +162,28 @@ class RestAlertService extends ChangeNotifier {
   Future<void> configure(
     AppLocalizations strings, {
     bool expireElapsed = false,
-  }) {
+  }) async {
     _strings = strings;
-    return synchronize(
-      expireElapsed: expireElapsed,
+    final recovery = expireElapsed
+        ? (await platform.initialRecoveryIsWarm()
+              ? RestRecovery.warmCurrent
+              : RestRecovery.coldHistory)
+        : RestRecovery.observe;
+    await synchronize(
+      recovery: recovery,
       trigger: expireElapsed
           ? DiagnosticValue.startup
           : DiagnosticValue.settings_change,
+    );
+    await platform.updateTrainingLabels(
+      strings.trainingReminderServiceTitle,
+      strings.trainingReminderServiceBody,
     );
   }
 
   Future<void> synchronize({
     bool expireElapsed = false,
+    RestRecovery recovery = RestRecovery.observe,
     bool offerPermission = false,
     DiagnosticValue trigger = DiagnosticValue.training_change,
   }) {
@@ -154,14 +192,19 @@ class RestAlertService extends ChangeNotifier {
       epoch: _diagnostics.datasetEpoch,
     );
     final next = _tail.then(
-      (_) => context.run(() => _synchronize(expireElapsed, offerPermission)),
+      (_) => context.run(
+        () => _synchronize(
+          expireElapsed ? RestRecovery.coldHistory : recovery,
+          offerPermission,
+        ),
+      ),
     );
     // Expose the original failure to callers, while keeping the serial queue usable.
     _tail = next.catchError((Object _) {});
     return next;
   }
 
-  Future<void> _synchronize(bool expireElapsed, bool offerPermission) async {
+  Future<void> _synchronize(RestRecovery recovery, bool offerPermission) async {
     return diagnosticObserve(
       _diagnostics,
       DiagnosticName.restSynchronize,
@@ -174,7 +217,7 @@ class RestAlertService extends ChangeNotifier {
             l.restAlertChannelName,
             l.restAlertChannelDescription,
           );
-          await repository.restore(expireElapsed: expireElapsed);
+          await repository.restore(recovery: recovery);
           final prefs = await repository.preferences();
           enabled = prefs['enabled'] == 1;
           options = RestAlertOptions.fromMap(prefs);
@@ -201,6 +244,27 @@ class RestAlertService extends ChangeNotifier {
             _scheduled.clear();
           }
           var pending = await repository.active();
+          if (recovery == RestRecovery.warmCurrent) {
+            for (final event in pending.where(
+              (event) =>
+                  !event.awaitingConfirmation &&
+                  event.dueAt <= repository.nowMs &&
+                  event.dueAt + 30000 >= repository.nowMs,
+            )) {
+              _diagnostics.event(
+                DiagnosticName.restSynchronize,
+                phase: DiagnosticPhase.validation,
+                fields: {
+                  DiagnosticField.source: DiagnosticValue.warm_resume,
+                  DiagnosticField.recovery_decision:
+                      DiagnosticValue.warm_claim_eligible,
+                  DiagnosticField.revision: event.revision,
+                  DiagnosticField.round: event.sequence,
+                },
+                objects: {DiagnosticObject.rest_alert: event.id},
+              );
+            }
+          }
           if (!enabled || permissionRequested || capability!.notifications) {
             permissionNeeded = false;
           } else if (offerPermission &&
@@ -209,6 +273,14 @@ class RestAlertService extends ChangeNotifier {
           }
           final ids = enabled ? pending.map((e) => e.id).toSet() : <int>{};
           await platform.cancelExcept(ids);
+          await platform.reconcileTraining(
+            recovery: switch (recovery) {
+              RestRecovery.coldHistory => 'cold_history',
+              RestRecovery.warmCurrent => 'warm_current',
+              RestRecovery.settingsRefresh => 'settings_refresh',
+              RestRecovery.observe => null,
+            },
+          );
           _scheduled.removeWhere((id, _) => !ids.contains(id));
           _notificationRevisions.removeWhere((id, _) => !ids.contains(id));
           for (var event in pending) {
@@ -229,7 +301,8 @@ class RestAlertService extends ChangeNotifier {
             final at = event.deliveryAt;
             if (at == null) continue;
             if (at <= repository.nowMs) {
-              if (!expireElapsed) {
+              if (recovery != RestRecovery.coldHistory &&
+                  recovery != RestRecovery.settingsRefresh) {
                 await _observeRequest(
                   event,
                   DiagnosticName.restOutput,
@@ -312,6 +385,17 @@ class RestAlertService extends ChangeNotifier {
         }
         notifyListeners();
         await synchronize(trigger: DiagnosticValue.settings_change);
+        if (value) {
+          final active = await repository.db.query(
+            'workout_sessions',
+            columns: ['id'],
+            where: "status = 'in_progress'",
+            limit: 1,
+          );
+          if (active.isNotEmpty) {
+            await startTraining(active.single['id'] as int);
+          }
+        }
         if (value &&
             !permissionRequested &&
             capability?.notifications != true) {
@@ -335,6 +419,17 @@ class RestAlertService extends ChangeNotifier {
         permissionNeeded = false;
         if (request) await platform.requestNotifications();
         await synchronize(trigger: DiagnosticValue.settings_change);
+        if (request && enabled && capability?.notifications == true) {
+          final sessions = await repository.db.query(
+            'workout_sessions',
+            columns: ['id'],
+            where: "status='in_progress'",
+            limit: 1,
+          );
+          if (sessions.isNotEmpty) {
+            await startTraining(sessions.single['id'] as int);
+          }
+        }
       },
       inferCommitOnSuccess: false,
     );

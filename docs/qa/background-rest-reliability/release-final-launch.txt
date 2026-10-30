@@ -1,0 +1,7 @@
+Starting: Intent { cmp=com.settrace.settrace/.MainActivity }
+Status: ok
+LaunchState: COLD
+Activity: com.settrace.settrace/.MainActivity
+TotalTime: 3732
+WaitTime: 3753
+Complete
