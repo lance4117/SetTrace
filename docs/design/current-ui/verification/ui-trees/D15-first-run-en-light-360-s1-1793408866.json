@@ -1,0 +1,66 @@
+[
+  {
+    "text": "",
+    "description": "Welcome to SetTrace",
+    "bounds": "[192,252][888,345]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "SetTrace is a lightweight, offline workout tracker for creating workout plans, logging sets, and reviewing your workout history.",
+    "bounds": "[192,393][888,681]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "Privacy and connectivity",
+    "bounds": "[192,741][716,813]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "No account is required. SetTrace does not automatically collect or upload personal information and does not initiate network connections. On-device diagnostics are described below. External links, such as the project page, open in your browser and may use the internet.",
+    "bounds": "[192,837][888,1557]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "Local data",
+    "bounds": "[192,1617][415,1689]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "Plans, workouts, settings and recovery copies are stored on this device. Uninstalling or clearing app data removes them from the current installation. Android system backup and device transfer depend on your system settings.",
+    "bounds": "[192,1713][888,2016]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "Got it, get started",
+    "bounds": "[192,2016][888,2184]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "Dismiss",
+    "bounds": "[0,0][1080,2400]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  }
+]

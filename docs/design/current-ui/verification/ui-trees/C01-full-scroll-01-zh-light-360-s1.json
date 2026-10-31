@@ -1,0 +1,98 @@
+[
+  {
+    "text": "",
+    "description": "English",
+    "bounds": "[120,108][960,130]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "中文",
+    "bounds": "[120,130][960,298]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "true"
+  },
+  {
+    "text": "",
+    "description": "休息提醒\n提示音\n使用系统通知音\n提醒间隔\n每 10 秒\n点击通知返回训练，或点击“知道了”，停止本次提醒。\n声音与振动遵循系统设置。\n后台提醒间隔可能受系统调度影响。",
+    "bounds": "[72,346][1008,2091]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "休息结束提醒\n后台提醒可能延迟，可在系统设置开启准时提醒。",
+    "bounds": "[120,574][960,838]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "true"
+  },
+  {
+    "text": "",
+    "description": "试听",
+    "bounds": "[120,1117][370,1261]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "系统通知设置",
+    "bounds": "[394,1117][837,1261]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "振动",
+    "bounds": "[120,1345][960,1513]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "true"
+  },
+  {
+    "text": "",
+    "description": "重复提醒\n未确认时，按设定间隔再次提醒",
+    "bounds": "[120,1561][960,1825]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "true"
+  },
+  {
+    "text": "",
+    "description": "准时提醒设置",
+    "bounds": "[120,2089][478,2091]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "计划",
+    "bounds": "[48,2115][376,2304]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "记录",
+    "bounds": "[376,2115][704,2304]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "设置",
+    "bounds": "[704,2115][1032,2304]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  }
+]

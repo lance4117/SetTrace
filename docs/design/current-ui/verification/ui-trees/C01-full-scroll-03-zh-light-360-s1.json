@@ -1,0 +1,82 @@
+[
+  {
+    "text": "",
+    "description": "诊断与日志\n导出诊断包，帮助排查问题",
+    "bounds": "[72,111][1008,399]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "关于 SetTrace\nSetTrace\n轻量、离线的训练记录工具，专注每一组。\n版本 0.3.1 (12)",
+    "bounds": "[72,399][1008,1863]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "项目主页",
+    "bounds": "[120,1143][960,1311]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "问题反馈",
+    "bounds": "[120,1311][960,1479]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "隐私与数据说明",
+    "bounds": "[120,1479][960,1647]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "第三方开源许可",
+    "bounds": "[120,1647][960,1815]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "数据保存在本机。请导出完整备份以长期保留已保存训练。",
+    "bounds": "[72,1911][1008,2019]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "计划",
+    "bounds": "[48,2115][376,2304]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "记录",
+    "bounds": "[376,2115][704,2304]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "设置",
+    "bounds": "[704,2115][1032,2304]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  }
+]

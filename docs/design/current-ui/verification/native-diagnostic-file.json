@@ -1,0 +1,14 @@
+{
+  "file_name": "SetTrace-diagnostics-2026-10-31-020354-791-2968f6fc3e9f4231858cf9192735a779.zip",
+  "bytes": 15655,
+  "sha256": "e0ff447d403cd2da551f6c585a52a40739b9ecc91849c5dd16e1922a0f9af2c3",
+  "entries": [
+    "environment.json",
+    "state.json",
+    "events/000.jsonl",
+    "summary.txt",
+    "manifest.json"
+  ],
+  "zip_integrity": null,
+  "origin": "fresh public Download output on isolated release emulator"
+}

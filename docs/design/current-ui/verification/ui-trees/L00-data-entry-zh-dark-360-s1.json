@@ -1,0 +1,82 @@
+[
+  {
+    "text": "",
+    "description": "休息提醒\n提示音\n声音受系统设置限制，请检查静音、音量、勿扰和此通知通道。\n提醒间隔\n每 10 秒\n点击通知返回训练，或点击“知道了”，停止本次提醒。\n声音与振动遵循系统设置。\n后台提醒间隔可能受系统调度影响。",
+    "bounds": "[72,108][1008,870]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "通知设置",
+    "bounds": "[120,219][382,363]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "准时提醒设置",
+    "bounds": "[120,363][478,507]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "数据",
+    "bounds": "[72,942][1008,1014]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "备份与恢复\n完整备份、恢复与撤回",
+    "bounds": "[72,1050][1008,1338]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "诊断与日志\n导出诊断包，帮助排查问题",
+    "bounds": "[72,1341][1008,1629]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "关于 SetTrace\nSetTrace\n轻量、离线的训练记录工具，专注每一组。\n版本 0.3.1 (12)",
+    "bounds": "[72,1629][1008,2091]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "计划",
+    "bounds": "[48,2115][376,2304]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "记录",
+    "bounds": "[376,2115][704,2304]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "设置",
+    "bounds": "[704,2115][1032,2304]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  }
+]

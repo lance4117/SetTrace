@@ -1,0 +1,319 @@
+{
+  "created": "2026-10-31T11:22:58.865385+08:00",
+  "method": "sRGB relative luminance on existing Dart token literals; no application colors changed",
+  "source": [
+    "lib/app/theme/app_theme.dart",
+    "lib/app/theme/theme_color_preset.dart"
+  ],
+  "pairs": [
+    {
+      "preset": "teal",
+      "theme": "dark",
+      "pair": "primary",
+      "foreground": "#102A22",
+      "background": "#5DD9B6",
+      "ratio": 8.767,
+      "threshold": 4.5,
+      "passed": true
+    },
+    {
+      "preset": "teal",
+      "theme": "dark",
+      "pair": "primary-pressed",
+      "foreground": "#102A22",
+      "background": "#41C6A3",
+      "ratio": 7.143,
+      "threshold": 4.5,
+      "passed": true
+    },
+    {
+      "preset": "teal",
+      "theme": "dark",
+      "pair": "soft-label",
+      "foreground": "#5DD9B6",
+      "background": "#203B35",
+      "ratio": 6.941,
+      "threshold": 4.5,
+      "passed": true
+    },
+    {
+      "preset": "teal",
+      "theme": "light",
+      "pair": "primary",
+      "foreground": "#FFFFFF",
+      "background": "#087F6B",
+      "ratio": 4.931,
+      "threshold": 4.5,
+      "passed": true
+    },
+    {
+      "preset": "teal",
+      "theme": "light",
+      "pair": "primary-pressed",
+      "foreground": "#FFFFFF",
+      "background": "#076D5C",
+      "ratio": 6.267,
+      "threshold": 4.5,
+      "passed": true
+    },
+    {
+      "preset": "teal",
+      "theme": "light",
+      "pair": "soft-label",
+      "foreground": "#076D5C",
+      "background": "#E2F2ED",
+      "ratio": 5.418,
+      "threshold": 4.5,
+      "passed": true
+    },
+    {
+      "preset": "blue",
+      "theme": "dark",
+      "pair": "primary",
+      "foreground": "#10264D",
+      "background": "#9BBDFF",
+      "ratio": 7.904,
+      "threshold": 4.5,
+      "passed": true
+    },
+    {
+      "preset": "blue",
+      "theme": "dark",
+      "pair": "primary-pressed",
+      "foreground": "#10264D",
+      "background": "#82AAEF",
+      "ratio": 6.36,
+      "threshold": 4.5,
+      "passed": true
+    },
+    {
+      "preset": "blue",
+      "theme": "dark",
+      "pair": "soft-label",
+      "foreground": "#B6CEFF",
+      "background": "#1D3152",
+      "ratio": 8.22,
+      "threshold": 4.5,
+      "passed": true
+    },
+    {
+      "preset": "blue",
+      "theme": "light",
+      "pair": "primary",
+      "foreground": "#FFFFFF",
+      "background": "#245FC7",
+      "ratio": 5.938,
+      "threshold": 4.5,
+      "passed": true
+    },
+    {
+      "preset": "blue",
+      "theme": "light",
+      "pair": "primary-pressed",
+      "foreground": "#FFFFFF",
+      "background": "#1E50AA",
+      "ratio": 7.545,
+      "threshold": 4.5,
+      "passed": true
+    },
+    {
+      "preset": "blue",
+      "theme": "light",
+      "pair": "soft-label",
+      "foreground": "#1E50AA",
+      "background": "#EAF0FC",
+      "ratio": 6.6,
+      "threshold": 4.5,
+      "passed": true
+    },
+    {
+      "preset": "violet",
+      "theme": "dark",
+      "pair": "primary",
+      "foreground": "#2B1648",
+      "background": "#CCB2FF",
+      "ratio": 8.68,
+      "threshold": 4.5,
+      "passed": true
+    },
+    {
+      "preset": "violet",
+      "theme": "dark",
+      "pair": "primary-pressed",
+      "foreground": "#2B1648",
+      "background": "#B89AEF",
+      "ratio": 6.794,
+      "threshold": 4.5,
+      "passed": true
+    },
+    {
+      "preset": "violet",
+      "theme": "dark",
+      "pair": "soft-label",
+      "foreground": "#D8C5FF",
+      "background": "#362746",
+      "ratio": 8.694,
+      "threshold": 4.5,
+      "passed": true
+    },
+    {
+      "preset": "violet",
+      "theme": "light",
+      "pair": "primary",
+      "foreground": "#FFFFFF",
+      "background": "#7046B8",
+      "ratio": 6.447,
+      "threshold": 4.5,
+      "passed": true
+    },
+    {
+      "preset": "violet",
+      "theme": "light",
+      "pair": "primary-pressed",
+      "foreground": "#FFFFFF",
+      "background": "#603AA4",
+      "ratio": 7.959,
+      "threshold": 4.5,
+      "passed": true
+    },
+    {
+      "preset": "violet",
+      "theme": "light",
+      "pair": "soft-label",
+      "foreground": "#603AA4",
+      "background": "#F1EBFA",
+      "ratio": 6.823,
+      "threshold": 4.5,
+      "passed": true
+    },
+    {
+      "preset": "graphite",
+      "theme": "dark",
+      "pair": "primary",
+      "foreground": "#1C252D",
+      "background": "#D6DDE3",
+      "ratio": 11.326,
+      "threshold": 4.5,
+      "passed": true
+    },
+    {
+      "preset": "graphite",
+      "theme": "dark",
+      "pair": "primary-pressed",
+      "foreground": "#1C252D",
+      "background": "#B9C4CD",
+      "ratio": 8.758,
+      "threshold": 4.5,
+      "passed": true
+    },
+    {
+      "preset": "graphite",
+      "theme": "dark",
+      "pair": "soft-label",
+      "foreground": "#D6DDE3",
+      "background": "#30383F",
+      "ratio": 8.684,
+      "threshold": 4.5,
+      "passed": true
+    },
+    {
+      "preset": "graphite",
+      "theme": "light",
+      "pair": "primary",
+      "foreground": "#FFFFFF",
+      "background": "#303A43",
+      "ratio": 11.59,
+      "threshold": 4.5,
+      "passed": true
+    },
+    {
+      "preset": "graphite",
+      "theme": "light",
+      "pair": "primary-pressed",
+      "foreground": "#FFFFFF",
+      "background": "#222B33",
+      "ratio": 14.37,
+      "threshold": 4.5,
+      "passed": true
+    },
+    {
+      "preset": "graphite",
+      "theme": "light",
+      "pair": "soft-label",
+      "foreground": "#303A43",
+      "background": "#E8ECEF",
+      "ratio": 9.755,
+      "threshold": 4.5,
+      "passed": true
+    },
+    {
+      "preset": "shared",
+      "theme": "light",
+      "pair": "body",
+      "foreground": "#19262C",
+      "background": "#F5F7F8",
+      "ratio": 14.423,
+      "threshold": 4.5,
+      "passed": true
+    },
+    {
+      "preset": "shared",
+      "theme": "light",
+      "pair": "secondary",
+      "foreground": "#586970",
+      "background": "#FFFFFF",
+      "ratio": 5.723,
+      "threshold": 4.5,
+      "passed": true
+    },
+    {
+      "preset": "shared",
+      "theme": "light",
+      "pair": "control-border",
+      "foreground": "#71858C",
+      "background": "#FFFFFF",
+      "ratio": 3.863,
+      "threshold": 3,
+      "passed": true
+    },
+    {
+      "preset": "shared",
+      "theme": "dark",
+      "pair": "body",
+      "foreground": "#F0F5F6",
+      "background": "#111518",
+      "ratio": 16.689,
+      "threshold": 4.5,
+      "passed": true
+    },
+    {
+      "preset": "shared",
+      "theme": "dark",
+      "pair": "secondary",
+      "foreground": "#ABB9BF",
+      "background": "#191E22",
+      "ratio": 8.338,
+      "threshold": 4.5,
+      "passed": true
+    },
+    {
+      "preset": "shared",
+      "theme": "dark",
+      "pair": "control-border",
+      "foreground": "#82969D",
+      "background": "#191E22",
+      "ratio": 5.438,
+      "threshold": 3,
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "scope": "Only these opaque semantic color pairs; excludes disabled opacity, every overlay/pixel, system windows and real-device appearance.",
+  "touch_review": {
+    "primary_min_height_dp": 56,
+    "secondary_min_height_dp": 48,
+    "source": "lib/core/widgets/app_button.dart",
+    "code_pattern_present": true,
+    "limits": "Static minimum constraints, not a claim that all hit targets were measured; history month controls have executed 48dp assertions in history_summary_ui_test."
+  }
+}

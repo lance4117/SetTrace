@@ -1,0 +1,138 @@
+[
+  {
+    "text": "",
+    "description": "设置",
+    "bounds": "[72,180][1008,306]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "外观",
+    "bounds": "[72,378][1008,450]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "跟随系统",
+    "bounds": "[120,534][960,702]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "浅色",
+    "bounds": "[120,702][960,870]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "深色",
+    "bounds": "[120,870][960,1038]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "true"
+  },
+  {
+    "text": "",
+    "description": "主题色\n点选即刻切换，自动保存",
+    "bounds": "[72,1086][1008,1635]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "主题色",
+    "bounds": "[120,1314][960,1488]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "青色，默认配色",
+    "bounds": "[120,1314][312,1488]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "蓝色",
+    "bounds": "[336,1314][528,1488]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "紫色",
+    "bounds": "[552,1314][744,1488]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "石墨",
+    "bounds": "[768,1314][960,1488]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "语言",
+    "bounds": "[72,1707][1008,1779]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "English",
+    "bounds": "[120,1863][960,2031]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "中文",
+    "bounds": "[120,2031][960,2091]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "true"
+  },
+  {
+    "text": "",
+    "description": "计划",
+    "bounds": "[48,2115][376,2304]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "记录",
+    "bounds": "[376,2115][704,2304]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "设置",
+    "bounds": "[704,2115][1032,2304]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  }
+]

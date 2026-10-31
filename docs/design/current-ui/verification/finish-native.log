@@ -1,0 +1,40 @@
+{"captured": "B05a-system-picker-stable-zh-dark-360-s1", "controls": 25}
+{"captured": "C01-full-scroll-00-en-light-360-s1", "controls": 16}
+{"captured": "C01-full-scroll-01-en-light-360-s1", "controls": 11}
+{"captured": "C01-full-scroll-02-en-light-360-s1", "controls": 10}
+{"captured": "C01-full-scroll-03-en-light-360-s1", "controls": 10}
+{"sequence": "C01", "frames": 4, "boundary_verified": true}
+{"captured": "B01-full-scroll-00-en-light-360-s1", "controls": 8}
+{"captured": "B01-full-scroll-01-en-light-360-s1", "controls": 8}
+{"sequence": "B01", "frames": 2, "boundary_verified": true}
+{"captured": "B02-full-scroll-00-en-light-360-s1", "controls": 7}
+{"sequence": "B02", "frames": 1, "boundary_verified": true}
+{"captured": "C01-full-scroll-00-en-dark-360-s1", "controls": 16}
+{"captured": "C01-full-scroll-01-en-dark-360-s1", "controls": 11}
+{"captured": "C01-full-scroll-02-en-dark-360-s1", "controls": 10}
+{"captured": "C01-full-scroll-03-en-dark-360-s1", "controls": 10}
+{"sequence": "C01", "frames": 4, "boundary_verified": true}
+{"captured": "B01-full-scroll-00-en-dark-360-s1", "controls": 8}
+{"sequence": "B01", "frames": 1, "boundary_verified": true}
+{"captured": "B02-full-scroll-00-en-dark-360-s1", "controls": 7}
+{"sequence": "B02", "frames": 1, "boundary_verified": true}
+{"captured": "C01-full-scroll-00-zh-light-360-s1", "controls": 17}
+{"captured": "C01-full-scroll-01-zh-light-360-s1", "controls": 12}
+{"captured": "C01-full-scroll-02-zh-light-360-s1", "controls": 9}
+{"captured": "C01-full-scroll-03-zh-light-360-s1", "controls": 10}
+{"sequence": "C01", "frames": 4, "boundary_verified": true}
+{"captured": "B01-full-scroll-00-zh-light-360-s1", "controls": 8}
+{"captured": "B01-full-scroll-01-zh-light-360-s1", "controls": 8}
+{"sequence": "B01", "frames": 2, "boundary_verified": true}
+{"captured": "B02-full-scroll-00-zh-light-360-s1", "controls": 7}
+{"sequence": "B02", "frames": 1, "boundary_verified": true}
+{"captured": "C01-full-scroll-00-zh-dark-360-s1", "controls": 17}
+{"captured": "C01-full-scroll-01-zh-dark-360-s1", "controls": 12}
+{"captured": "C01-full-scroll-02-zh-dark-360-s1", "controls": 9}
+{"captured": "C01-full-scroll-03-zh-dark-360-s1", "controls": 10}
+{"sequence": "C01", "frames": 4, "boundary_verified": true}
+{"captured": "B01-full-scroll-00-zh-dark-360-s1", "controls": 8}
+{"captured": "B01-full-scroll-01-zh-dark-360-s1", "controls": 8}
+{"sequence": "B01", "frames": 2, "boundary_verified": true}
+{"captured": "B02-full-scroll-00-zh-dark-360-s1", "controls": 7}
+{"sequence": "B02", "frames": 1, "boundary_verified": true}

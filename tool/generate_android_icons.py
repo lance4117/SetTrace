@@ -3,7 +3,7 @@
 Run from any directory with Python 3 and Pillow:
     python tool/generate_android_icons.py
 
-The final SVG/PNG in docs/design/settrace-brand-final remain the source of truth.
+The final SVG/PNG in docs/design/current-ui/assets/brand remain the source of truth.
 Adaptive foregrounds use a 108 dp canvas with the 100-unit brand artwork fitted
 to the central 72 dp visible area, so launcher masks preserve the design scale.
 """
@@ -17,7 +17,7 @@ from PIL import Image, ImageDraw
 
 
 ROOT = Path(__file__).resolve().parents[1]
-BRAND = ROOT / "docs/design/settrace-brand-final"
+BRAND = ROOT / "docs/design/current-ui/assets/brand"
 RES = ROOT / "android/app/src/main/res"
 SVG_NS = {"svg": "http://www.w3.org/2000/svg"}
 DENSITIES = {"mdpi": 48, "hdpi": 72, "xhdpi": 96, "xxhdpi": 144, "xxxhdpi": 192}

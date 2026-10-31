@@ -1,0 +1,106 @@
+[
+  {
+    "text": "",
+    "description": "Workout history",
+    "bounds": "[48,180][1032,306]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "1\nWorkouts this week\n1\nWorkouts this month",
+    "bounds": "[48,366][1032,648]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "October 2026 summary\nCompleted sets\n2 sets",
+    "bounds": "[48,684][1032,1287]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "Training time, 9 minutes",
+    "bounds": "[96,843][349,1062]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "Latest workout: UIReference · 9 minutes",
+    "bounds": "[48,1335][1032,1407]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "October 2026",
+    "bounds": "[48,1467][1032,1611]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "Previous month",
+    "bounds": "[48,1467][192,1611]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "Next month",
+    "bounds": "[888,1467][1032,1611]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "Oct 31, 2026",
+    "bounds": "[48,1647][1032,1779]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "UIReference\n9 minutes · 2 exercises · 2 sets",
+    "bounds": "[48,1779][1032,2046]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "Plans",
+    "bounds": "[48,2115][376,2304]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "History",
+    "bounds": "[376,2115][704,2304]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "Settings",
+    "bounds": "[704,2115][1032,2304]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  }
+]

@@ -1,0 +1,82 @@
+[
+  {
+    "text": "",
+    "description": "Diagnostics and logs\nExport diagnostics to help investigate issues",
+    "bounds": "[72,108][1008,411]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "About SetTrace\nSetTrace\nA lightweight, offline workout tracker. Focus on every set.\nVersion 0.3.1 (12)",
+    "bounds": "[72,411][1008,1863]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "Project page",
+    "bounds": "[120,1143][960,1311]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "Report an issue",
+    "bounds": "[120,1311][960,1479]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "Privacy and data",
+    "bounds": "[120,1479][960,1647]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "Third-party licenses",
+    "bounds": "[120,1647][960,1815]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "Stored on this device. Export a full backup to keep your saved workouts.",
+    "bounds": "[72,1911][1008,2019]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "Plans",
+    "bounds": "[48,2115][376,2304]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "History",
+    "bounds": "[376,2115][704,2304]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "Settings",
+    "bounds": "[704,2115][1032,2304]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  }
+]

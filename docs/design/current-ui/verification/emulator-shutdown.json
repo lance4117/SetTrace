@@ -1,0 +1,26 @@
+{
+  "closed_at": "2026-10-31T11:24:20.082858+08:00",
+  "serial": "emulator-5556",
+  "avd": "Pixel_7_Pro",
+  "response": "OK: killing emulator, bye bye\r\r\nOK\r\r\n",
+  "device_absent_after_close": true,
+  "readonly": true,
+  "snapshot_save_disabled": true,
+  "args": [
+    "-avd",
+    "Pixel_7_Pro",
+    "-port",
+    "5556",
+    "-read-only",
+    "-no-snapshot-load",
+    "-no-snapshot-save",
+    "-no-window",
+    "-no-audio",
+    "-no-boot-anim",
+    "-gpu",
+    "swiftshader",
+    "-feature",
+    "-Vulkan"
+  ],
+  "scope": "Closed only the owned readonly AVD instance; -no-snapshot-load/-no-snapshot-save; persistent source userdata protected by -read-only."
+}

@@ -1,6 +1,6 @@
 # SetTrace
 
-<img src="docs/design/settrace-brand-final/settrace-icon/settrace-icon.preview.png" alt="SetTrace 墨绿三线图标" width="112" />
+<img src="docs/design/current-ui/assets/brand/settrace-icon/settrace-icon.preview.png" alt="SetTrace 墨绿三线图标" width="112" />
 
 **选好今天的计划，专心训练，点一下记录每组。**
 
@@ -108,20 +108,20 @@ openspec/changes/archive/ # 已完成的 OpenSpec 变更
 
 ## 设计与规格
 
-- [当前设计入口：A · 专注工具](docs/design/README.md)
-- [最终 Logo 与图标设计](docs/design/settrace-brand-final/README.md)、[Android 图标接入核验](docs/design/android-icon-integration.md)；资源可用 `tool/generate_android_icons.py` 从母版重新生成（需 Python 3 与 Pillow）。
-- [UI 设计规范与 Flutter 映射](docs/design/SetTrace_UI_Design_System_and_Flutter_Spec.md)、[页面与状态](docs/design/screens-and-states.md)、[交互规范](docs/design/interaction-spec.md)、[验收标准](docs/design/acceptance-checklist.md)
-- [完整设计稿与模拟原型](docs/design/prototype/SetTrace-Focus.html)、[训练流程预览](docs/design/previews/overview.png)、[SVG 导入包](docs/design/exports/SetTrace-Focus-SVG.zip)
-- [旧版设计归档](docs/design/archive/legacy-2026-10-14/README.md)
+- [当前设计入口](docs/design/README.md)、[离线 UI 图册](docs/design/current-ui/overview.html)
+- [视觉与组件规范](docs/design/current-ui/specs/visual-and-components.md)、[页面与状态](docs/design/current-ui/screen-inventory.md)、[交互规范](docs/design/current-ui/specs/interaction-spec.md)、[验收标准](docs/design/current-ui/specs/acceptance-checklist.md)
+- [正式 Logo 与图标母版](docs/design/current-ui/assets/brand/README.md)；`tool/generate_android_icons.py` 读取该目录，重新生成需 Python 3 与 Pillow。
+- [构建身份与截图清单](docs/design/current-ui/manifest.json)、[覆盖与待验](docs/design/current-ui/verification/coverage.md)
+- [旧设计、模拟原型与工作稿归档](docs/design/archive/README.md)
 - [计划导入导出验收记录](docs/qa/plan-import-export-acceptance.md)
 - [本次动作排序验收记录](docs/qa/session-exercise-reordering-acceptance.md)
 - [休息提醒和剩余组跳过](docs/rest-alerts.md)、[验收记录](docs/qa/rest-alerts-and-skipping-acceptance.md)
 - [Android MVP 验收记录](docs/qa/android-mvp-acceptance.md)
 - [OpenSpec 能力规格](openspec/specs/)
 
-当前设计基线为 `focus-a-2026-10-14`，已覆盖本地应用 `0.1.3+5` / `da18d62` 的既有功能；A 方案已通过 `redesign-ui-focus` 应用于 Flutter，已于 2026-10-15 同步主规格并[归档](openspec/changes/archive/2026-10-15-redesign-ui-focus/README.md)；实际设备、检查结果及限制见[实施报告](docs/qa/focus-a-redesign-acceptance.md)。HTML 仅为模拟原型，正式要求以当前设计 Markdown 和既有能力规格为准；不新增预计训练时长、备注或逐组重量／次数。
+当前参考对应源码 `306b9bc`、应用 `0.3.1+12` 的独立 release 构建，整合 `focus-a-2026-10-14` 与后续已实施增量。图册明确区分 Android 模拟器原帧、受控 Widget 测试渲染和未验条件；历史 HTML／SVG 仅为来源，不代表当前实装。业务规格与运行资源保持原样。
 
-用户已明确授权并完成本变更的规划、实施、主规格同步及归档。当前未执行 Git 提交或发布；这两项操作仍等待对应授权。设计文档或已有 change 目录本身不代表新增工作授权。
+本次资料整理已获得用户授权。Git 提交、发布及 OpenSpec 归档仍需各自授权；设计文档或已有 change 目录本身不代表新增工作授权。
 
 ## 当前范围
 

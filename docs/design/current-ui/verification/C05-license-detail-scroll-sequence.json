@@ -1,0 +1,17 @@
+{
+  "screen_id": "C05-license-detail",
+  "frames": [
+    "C05-license-detail-full-scroll-00-zh-dark-360-s1",
+    "C05-license-detail-full-scroll-01-zh-dark-360-s1",
+    "C05-license-detail-full-scroll-02-zh-dark-360-s1",
+    "C05-license-detail-full-scroll-03-zh-dark-360-s1",
+    "C05-license-detail-full-scroll-04-zh-dark-360-s1",
+    "C05-license-detail-full-scroll-05-zh-dark-360-s1",
+    "C05-license-detail-full-scroll-06-zh-dark-360-s1",
+    "C05-license-detail-full-scroll-07-zh-dark-360-s1",
+    "C05-license-detail-full-scroll-08-zh-dark-360-s1"
+  ],
+  "ended_at_scroll_boundary": true,
+  "created": "2026-10-31T10:55:21.894812+08:00",
+  "criterion": "body pixel digest unchanged after forward scroll; excludes system bars and scrollbar; original PNGs retained"
+}

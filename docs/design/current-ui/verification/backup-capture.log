@@ -1,0 +1,21 @@
+{
+  "project": "D:\\000_MyLibrary\\100_code\\110_Project\\5_SetTrace",
+  "sdk": "D:\\ProgramData\\Android_SDK",
+  "avd": "D:\\ProgramData\\Android_AVD",
+  "androidUser": "D:\\ProgramData\\DevCache\\Android",
+  "gradle": "D:\\ProgramData\\DevCache\\Gradle",
+  "pub": "D:\\ProgramData\\DevCache\\Pub",
+  "temp": "D:\\ProgramData\\DevTemp\\settrace-ui-reference",
+  "flutter": "D:\\DevTools\\flutter",
+  "jdk": "D:\\Program Files\\Android Studio\\jbr",
+  "toolConfig": "D:\\ProgramData\\DevCache\\FlutterConfig",
+  "localCache": "D:\\ProgramData\\DevCache\\LocalAppData"
+}
+00:00 +0: loading D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/ui_reference_backup_capture_test.dart
+00:00 +0: (setUpAll)
+00:00 +0: backup reference zh dark=false
+00:06 +1: backup reference zh dark=true
+00:11 +2: backup reference en dark=false
+00:17 +3: backup reference en dark=true
+00:21 +4: (tearDownAll)
+00:21 +4: All tests passed!

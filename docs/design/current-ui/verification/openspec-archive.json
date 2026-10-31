@@ -1,0 +1,31 @@
+{
+  "change": "consolidate-design-and-current-ui",
+  "schema": "spec-driven",
+  "archived_at": "2026-10-31T12:48:49.1250936+08:00",
+  "source": "openspec/changes/consolidate-design-and-current-ui",
+  "target": "openspec/changes/archive/2026-10-31-consolidate-design-and-current-ui",
+  "authorization": "User explicitly requested OpenSpec archival after implementation",
+  "completed_tasks": 30,
+  "total_tasks": 30,
+  "delta_specs": 0,
+  "files": [
+    {
+      "path": ".openspec.yaml",
+      "sha256": "a2388f7f2e8033f3e9cc7c648738f7ff3d462b6c8eea8267f8ff598cd1149831"
+    },
+    {
+      "path": "design.md",
+      "sha256": "48951a22328e5184abb7cc889d95475b23037129d20f1b2b411189aa89f54582"
+    },
+    {
+      "path": "proposal.md",
+      "sha256": "81572e7e3a9953ae782a273247dd4ac8e0ebeb748b12a70bfc6c5a7f93a95ce4"
+    },
+    {
+      "path": "tasks.md",
+      "sha256": "1ab76792255b393f9906fbcbec061bd44f90a585f90f71f773bd04549abbbf91"
+    }
+  ],
+  "original_file_hashes_preserved": true,
+  "git_commit_executed": false
+}

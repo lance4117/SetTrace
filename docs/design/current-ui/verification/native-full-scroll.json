@@ -1,0 +1,15 @@
+{
+  "finished": "2026-10-31T11:08:23.696917+08:00",
+  "combinations": [
+    "en-light",
+    "en-dark",
+    "zh-light",
+    "zh-dark"
+  ],
+  "pages": [
+    "C01",
+    "B01",
+    "B02"
+  ],
+  "method": "original segments; body pixel boundary checked; license detail separate"
+}

@@ -1,0 +1,12 @@
+{
+  "screen_id": "C01",
+  "frames": [
+    "C01-full-scroll-00-zh-dark-360-s1",
+    "C01-full-scroll-01-zh-dark-360-s1",
+    "C01-full-scroll-02-zh-dark-360-s1",
+    "C01-full-scroll-03-zh-dark-360-s1"
+  ],
+  "ended_at_scroll_boundary": true,
+  "created": "2026-10-31T11:07:42.689082+08:00",
+  "criterion": "body pixel digest unchanged after forward scroll; excludes system bars and scrollbar; original PNGs retained"
+}

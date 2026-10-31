@@ -1,0 +1,105 @@
+{
+  "created": "2026-10-31T12:50:17.027444+08:00",
+  "baseline_id": "306b9bc-0.3.1+12-2026-10-31",
+  "result": "passed-current",
+  "checks": [
+    {
+      "check": "migration-original-hashes",
+      "result": "passed-current",
+      "errors": [],
+      "files": 633,
+      "unique_sources": 633
+    },
+    {
+      "check": "protected-production-business-history",
+      "result": "passed-current",
+      "errors": [],
+      "files": 1302,
+      "authorized_archive_additions": 4
+    },
+    {
+      "check": "current-links-and-anchors",
+      "result": "passed-current",
+      "errors": [],
+      "files": 26,
+      "local_links": 1029,
+      "anchors": 0,
+      "pre_existing_unchanged": [
+        {
+          "source": "README.md",
+          "link": "docs/windows-development.md",
+          "reason": "missing-target"
+        }
+      ]
+    },
+    {
+      "check": "required-historical-compatibility",
+      "result": "passed-current",
+      "errors": [],
+      "entries": 9,
+      "historical_references": 52
+    },
+    {
+      "check": "capture-manifest-and-images",
+      "result": "passed-current",
+      "errors": [],
+      "captures": 596,
+      "orphan_images": 0
+    },
+    {
+      "check": "principal-four-combination-capture-matrix",
+      "result": "passed-current",
+      "errors": [],
+      "screen_ids": 72,
+      "scope": "Images only; release and widget sources explicit; platform-only states and fault conditions separately scoped"
+    },
+    {
+      "check": "results-evidence",
+      "result": "passed-current",
+      "errors": [],
+      "checks": 611,
+      "path_base": "current-ui"
+    },
+    {
+      "check": "scroll-sequence-original-frames",
+      "result": "passed-current",
+      "errors": [],
+      "sequences": 16,
+      "derived_images": 0
+    },
+    {
+      "check": "brand-inputs-parse-without-generation",
+      "result": "passed-current",
+      "errors": [],
+      "svg_files": 2,
+      "runtime_resources_regenerated": false
+    },
+    {
+      "check": "build-source-identity",
+      "result": "passed-current",
+      "errors": [],
+      "source_commit": "306b9bc024460897e0d101a9d75c6b60db7a8564",
+      "apk_sha256": "ebd9b53b25f51af01ea10de5318734ec031b09956e9e448a622edd4dcb6bbd98"
+    },
+    {
+      "check": "single-current-home",
+      "result": "passed-current",
+      "errors": [],
+      "home": "docs/design/current-ui"
+    },
+    {
+      "check": "openspec-current-reading-paths",
+      "result": "passed-current",
+      "errors": []
+    },
+    {
+      "check": "current-json-syntax",
+      "result": "passed-current",
+      "errors": [],
+      "files": 159
+    }
+  ],
+  "historical_policy": "Archived originals are byte-preserved; original relative-link context and pre-existing failures are recorded separately, not asserted repaired.",
+  "pre_existing_broken_links": "pre-existing-broken-links.json",
+  "errors": 0
+}

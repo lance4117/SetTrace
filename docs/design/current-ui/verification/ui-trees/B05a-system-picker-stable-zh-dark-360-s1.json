@@ -1,0 +1,202 @@
+[
+  {
+    "text": "Images",
+    "description": "",
+    "bounds": "[72,252][369,396]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "Audio",
+    "description": "",
+    "bounds": "[393,252][659,396]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "Videos",
+    "description": "",
+    "bounds": "[683,252][970,396]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "Documents",
+    "description": "",
+    "bounds": "[994,252][1080,396]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "Recent files",
+    "description": "",
+    "bounds": "[72,396][864,576]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "Grid view",
+    "bounds": "[864,414][1008,558]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "Show roots",
+    "bounds": "[0,108][168,252]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "Recent",
+    "description": "",
+    "bounds": "[216,139][402,220]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "Search",
+    "bounds": "[792,108][936,252]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "More options",
+    "bounds": "[936,108][1080,252]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "SetTrace-diagnostics-2026-10-31-020354-791-2968f6fc3e9f4231858cf9192735a779.zip",
+    "description": "",
+    "bounds": "[216,621][816,686]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "2:03 AM, 15.65 kB, ZIP archive",
+    "description": "",
+    "bounds": "[216,698][699,747]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "Preview the file SetTrace-diagnostics-2026-10-31-020354-791-2968f6fc3e9f4231858cf9192735a779.zip",
+    "bounds": "[864,576][1080,792]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "SetTrace-diagnostics-2026-10-25-142631-799-8f9393bce6b14c2a88b5b801061176a4.zip",
+    "description": "",
+    "bounds": "[216,840][816,905]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "Oct 25, 16.49 kB, ZIP archive",
+    "description": "",
+    "bounds": "[216,917][672,966]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "Preview the file SetTrace-diagnostics-2026-10-25-142631-799-8f9393bce6b14c2a88b5b801061176a4.zip",
+    "bounds": "[864,795][1080,1011]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "SetTrace-diagnostics-2026-10-24-053107-450-9f75510c403948ca9ad8fb38cadcc32b.zip",
+    "description": "",
+    "bounds": "[216,1059][816,1124]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "Oct 24, 12.26 kB, ZIP archive",
+    "description": "",
+    "bounds": "[216,1136][672,1185]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "Preview the file SetTrace-diagnostics-2026-10-24-053107-450-9f75510c403948ca9ad8fb38cadcc32b.zip",
+    "bounds": "[864,1014][1080,1230]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "SetTrace-diagnostics-2026-10-24-040909-380-34a5cca27da5480fa415bc8037a6211a.zip",
+    "description": "",
+    "bounds": "[216,1278][816,1343]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "Oct 24, 7.93 kB, ZIP archive",
+    "description": "",
+    "bounds": "[216,1355][652,1404]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "Preview the file SetTrace-diagnostics-2026-10-24-040909-380-34a5cca27da5480fa415bc8037a6211a.zip",
+    "bounds": "[864,1233][1080,1449]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "SetTrace-backup-2026-10-17-073323-545-20a976c4255d6bf9e3517a1d12f6b140.settrace.json",
+    "description": "",
+    "bounds": "[216,1497][816,1562]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "Oct 17, 2.92 kB, JSON document",
+    "description": "",
+    "bounds": "[216,1574][736,1623]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "Preview the file SetTrace-backup-2026-10-17-073323-545-20a976c4255d6bf9e3517a1d12f6b140.settrace.json",
+    "bounds": "[864,1452][1080,1668]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  }
+]

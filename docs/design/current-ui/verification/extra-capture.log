@@ -1,0 +1,49 @@
+{
+  "project": "D:\\000_MyLibrary\\100_code\\110_Project\\5_SetTrace",
+  "sdk": "D:\\ProgramData\\Android_SDK",
+  "avd": "D:\\ProgramData\\Android_AVD",
+  "androidUser": "D:\\ProgramData\\DevCache\\Android",
+  "gradle": "D:\\ProgramData\\DevCache\\Gradle",
+  "pub": "D:\\ProgramData\\DevCache\\Pub",
+  "temp": "D:\\ProgramData\\DevTemp\\settrace-ui-reference",
+  "flutter": "D:\\DevTools\\flutter",
+  "jdk": "D:\\Program Files\\Android Studio\\jbr",
+  "toolConfig": "D:\\ProgramData\\DevCache\\FlutterConfig",
+  "localCache": "D:\\ProgramData\\DevCache\\LocalAppData"
+}
+00:00 +0: loading D:/000_MyLibrary/100_code/110_Project/5_SetTrace/test/ui_reference_extra_capture_test.dart
+00:00 +0: (setUpAll)
+00:00 +0: extra reference D15 zh dark=false
+00:01 +1: extra reference D16 zh dark=false
+00:01 +2: extra reference D18 zh dark=false
+00:02 +3: extra reference LD01 zh dark=false
+00:02 +4: extra reference LE02 zh dark=false
+00:02 +5: extra reference L05-enabled zh dark=false
+00:02 +6: extra reference L07 zh dark=false
+00:03 +7: extra reference C05-licenses zh dark=false
+00:03 +8: extra reference D15 zh dark=true
+00:03 +9: extra reference D16 zh dark=true
+00:03 +10: extra reference D18 zh dark=true
+00:04 +11: extra reference LD01 zh dark=true
+00:04 +12: extra reference LE02 zh dark=true
+00:04 +13: extra reference L05-enabled zh dark=true
+00:04 +14: extra reference L07 zh dark=true
+00:04 +15: extra reference C05-licenses zh dark=true
+00:05 +16: extra reference D15 en dark=false
+00:05 +17: extra reference D16 en dark=false
+00:05 +18: extra reference D18 en dark=false
+00:06 +19: extra reference LD01 en dark=false
+00:06 +20: extra reference LE02 en dark=false
+00:06 +21: extra reference L05-enabled en dark=false
+00:06 +22: extra reference L07 en dark=false
+00:06 +23: extra reference C05-licenses en dark=false
+00:06 +24: extra reference D15 en dark=true
+00:07 +25: extra reference D16 en dark=true
+00:07 +26: extra reference D18 en dark=true
+00:07 +27: extra reference LD01 en dark=true
+00:07 +28: extra reference LE02 en dark=true
+00:08 +29: extra reference L05-enabled en dark=true
+00:08 +30: extra reference L07 en dark=true
+00:08 +31: extra reference C05-licenses en dark=true
+00:08 +32: (tearDownAll)
+00:08 +32: All tests passed!

@@ -1,0 +1,9 @@
+{
+  "screen_id": "B02",
+  "frames": [
+    "B02-full-scroll-00-zh-light-360-s1"
+  ],
+  "ended_at_scroll_boundary": true,
+  "created": "2026-10-31T11:07:06.148790+08:00",
+  "criterion": "body pixel digest unchanged after forward scroll; excludes system bars and scrollbar; original PNGs retained"
+}

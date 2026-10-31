@@ -1,118 +1,14 @@
-# SetTrace 当前设计：A · 专注工具
+# SetTrace 设计资料
 
-最新确认设计：[诊断与日志 UI](diagnostics/README.md)（`diagnostics-ui-2026-10-23`，**UI 已确认并纳入设计依据，待实现**）。设置以用户提供的最新完整设置界面为基础，仅在数据卡片中增加与备份同级的“诊断与日志”；诊断主页、导出、详细诊断及故障状态沿用已确认草图。后续实现先读[完整交互说明](diagnostics/ui-spec.md)及[实现对接说明](diagnostics/implementation-handoff.md)。本次为设计文档同步，没有实施应用功能或同步 OpenSpec 业务规格。
+当前 UI 参考以源码 **306b9bc**、应用 **0.3.1+12** 的重新构建与采集为依据，整理日期为 2026-10-31。
 
-已实施设计：[记录页统计排版](history-summary/README.md)（2026-10-22 设计、2026-10-23 实施，**Flutter 已实现，自动化及 Android 模拟器已验证，真实 TalkBack 待验**）。采用“两张次数卡 → 通栏月度汇总 → 最近训练 → 月份切换 → 记录”的顺序，包含文字规范、确认草图与浅深色预览；仅调整记录页呈现，沿用现有统计口径。
+- [当前 UI 参考与使用说明](current-ui/README.md)
+- [离线 UI 图册](current-ui/overview.html)：实际 Android 原帧与测试渲染分开标记。
+- [页面／状态目录](current-ui/screen-inventory.md)、[视觉与组件规范](current-ui/specs/visual-and-components.md)、[交互规范](current-ui/specs/interaction-spec.md)
+- [验收标准](current-ui/specs/acceptance-checklist.md)、[覆盖与待验](current-ui/verification/coverage.md)、[差异](current-ui/verification/discrepancies.md)
+- [正式品牌资源](current-ui/assets/brand/README.md)
+- [历史归档与迁移清单](archive/README.md)
 
-新增设计：[备份与恢复 UI](backup/README.md)（2026-10-16，实施更新 2026-10-17）。包含可点击原型、中英文浅深主题、整份恢复与撤回流程、异常状态及原型核验；Flutter 代码已实现，人工与故障验收剩余项见本文末尾的独立验收记录；原型核验不改变下述既有功能的实施状态。
+业务含义以 OpenSpec 主规格为准，当前实现与画面以已标识源码／APK 为准。截图只证明各自的采集条件；真机、TalkBack 和故障恢复等验证范围须查阅结果。
 
-| 项目 | 状态 |
-| --- | --- |
-| 设计版本 | `focus-a-2026-10-14` |
-| 最新 UI 增量 | `diagnostics-ui-2026-10-23`；界面已确认，程序待实现 |
-| 当前方向 | A · 专注工具；替代旧版视觉与布局方案 |
-| 功能基线 | 应用 `0.1.3+5`，提交 `da18d62` |
-| 本次交付 | A 方案 Flutter 实施、分阶段回归与 Android 验收证据 |
-| 应用实施 | **已实施并归档**；见[实施报告](../qa/focus-a-redesign-acceptance.md) |
-| 后续授权 | 规划、实施、主规格同步及归档已由用户授权完成；Git 提交和发布仍需对应授权 |
-
-设计资料整理完成后，用户已明确要求规划并实施 `redesign-ui-focus`。当前 Flutter 实施及验证结果见[实施报告](../qa/focus-a-redesign-acceptance.md)；各项设备与证据边界以报告为准。五份主规格已同步，变更已于 2026-10-15 [归档](../../openspec/changes/archive/2026-10-15-redesign-ui-focus/README.md)；尚未执行 Git 提交或发布。
-
-用户后续明确请求某项规划或开发工作，本身即授权其明确要求的范围，无需重复询问；授权不自动扩展到未要求的下一阶段。
-
-## 阅读入口
-
-最新确认 UI 增量为[诊断与日志](diagnostics/README.md)；[记录页统计排版](history-summary/README.md)及既有[休息提醒增强](#休息提醒增强已实现待真机验收)的实施与待验状态保持各自记录。
-
-代理处理 SetTrace UI 相关工作时，先实际读取下列 Markdown；仅知道路径、浏览图片或运行原型不等于已读取规范。
-
-1. [主规范：视觉、组件与 Flutter 映射](SetTrace_UI_Design_System_and_Flutter_Spec.md)。
-2. [页面与状态：基线画面、后续增量及功能覆盖](screens-and-states.md)。
-3. [交互规范：可见条件、状态转换、返回与错误处理](interaction-spec.md)。
-4. [验收标准：可检查的设计与实现要求](acceptance-checklist.md)。
-5. 按所涉及能力读取 [现有 OpenSpec 规格](../../openspec/specs/)、当前源代码及对应验收记录。现有能力包括 `training-plans`、`workout-session`、`workout-history`、`app-experience`、`app-localization`。
-6. 打开 [完整设计稿及模拟原型](prototype/SetTrace-Focus.html) 对照画面。原型不依赖网络或外部资源，可直接用浏览器打开。
-7. 涉及 H01/H03/H05 的历史列表与统计排版时，继续读取[记录页统计排版规范](history-summary/README.md)。本增量的文字规范和确认草图指导后续布局；旧历史页原型不代表本增量已经实施。
-8. 涉及设置数据入口或诊断日志时，读取[诊断 UI 规范](diagnostics/ui-spec.md)和[实现对接说明](diagnostics/implementation-handoff.md)，对照[最新设置完整长图](diagnostics/00-settings-latest-full.png)及对应 L/LD/LE 状态。旧设置预览、简化片段或旧 HTML 不能替代此增量的最新设置布局；交互见 INT-13，验收见 LOGUI-01–12。
-
-## 依据与冲突处理
-
-- **功能和数据含义**沿用现有 OpenSpec 规格及已确认的业务规则；发现代码与规格不一致，明确报告，不能借重设计静默修改业务。
-- **目标视觉与交互呈现**以本目录当前 Markdown 为准，HTML、PNG 和 SVG用于对照；Flutter 实施状态由当前变更和验收报告记录；静态稿不能代替运行证据。
-- Markdown 与示意图不一致时，使用 Markdown 中的明确规则，并记录画面差异；不根据示例推导新功能、默认值或数据校验。
-- 旧设计仅在 [历史归档](archive/legacy-2026-10-14/README.md) 中供追溯。旧版 Figma 页面、旧稿的颜色、Picker 排他要求、备注和预计时长等示意，不再指导新的 UI 工作。
-- 后续如确需修改既有行为要求，先说明冲突并等待用户确认，再在获批范围内通过 OpenSpec 规划；本次不改业务规格以迎合示意图。
-
-### 已消除的两处歧义
-
-1. `X01` 选中两个计划表示用户取消选择后的**示例状态**。正式导出流程仍默认全选；空选择禁止复制和保存。
-2. A 方案增加显式加减操作以提高可发现性，同时保留现有规格要求的 Picker 滑动、有效档位吸附和跨档轻反馈。HTML 仅模拟按钮，不证明 Flutter 的 Picker 手势已实现或取消。
-
-## 视觉资料
-
-- [训练流程总览](previews/overview.png)。
-- 计划：[浅色中文](previews/plans-light-zh.png) / [深色英文](previews/plans-dark-en.png)。
-- 训练与休息：[浅色中文](previews/training-light-zh.png) / [深色英文](previews/training-dark-en.png)。
-- 本次编辑与换序：[浅色中文](previews/session-tools-light-zh.png) / [深色英文](previews/session-tools-dark-en.png)。
-- 导入导出：[浅色中文](previews/transfer-light-zh.png) / [深色英文](previews/transfer-dark-en.png)。
-- 历史与设置：[浅色中文](previews/history-settings-light-zh.png) / [深色英文](previews/history-settings-dark-en.png)。
-- 设置与诊断最新设计：[完整设置长图](diagnostics/00-settings-latest-full.png)、[数据入口放大](diagnostics/00-settings-latest-focus.png)、[主要流程](diagnostics/01-main-flow.png)、[导出与深色](diagnostics/02-export-and-dark.png)、[辅助及故障](diagnostics/03-support-states.png)。设置新增入口以这些图和诊断文字规范为准；其余既有设置能力不删减，图内数值均为示例。
-- 记录页最新确认排版：[浅色中文](history-summary/previews/history-light-zh.png) / [深色中文](history-summary/previews/history-dark-zh.png)；应用已实现，验证范围见[独立验收](../qa/history-summary-layout-acceptance.md)，规则见[独立规范](history-summary/README.md)。
-- 弹窗：[浅色中文](previews/dialogs-light-zh.png) / [深色英文](previews/dialogs-dark-en.png)。
-- 适配：[浅色中文](previews/adaptation-light-zh.png) / [深色英文](previews/adaptation-dark-en.png)。
-- [SVG 导入包](exports/SetTrace-Focus-SVG.zip)：222 个矢量文件，包含页面与弹窗的四种外观／语言组合、长内容展开稿和补充样本；不是 222 个独立功能页面。`*-full.svg` 是完整滚动内容，不是设备屏幕高度。
-- 应用图标维持本目录原图标资源，不在本次视觉替换范围内。
-- 当前选定的品牌方向为 **A · 组间节奏（三线 / 深墨绿）**，正式设计见[最终品牌设计](settrace-brand-final/README.md)与[使用规范](settrace-brand-final/design-guide.md)，包含轮廓 SVG、透明 PNG、横竖 Logo、分层图标源文件和小尺寸导出；已按用户要求替换 Android 启动器资源，构建结果及限制见[图标接入核验](android-icon-integration.md)。[五方向草图](logo-exploration-abcde/index.html)和后续配色讨论稿保留供追溯。此前的错位训练记录与哑铃方案为未选用的早期候选。
-
-## 原型与 Figma 的边界
-
-截至本设计版本，原 Figma 文件因 Starter MCP 额度限制未更新为这套完整稿。旧文件中的 A/B 概念页不能替代本目录的新规范。SVG 可导入为图形与文本，但不携带 Figma 原生组件、变量、自动布局或原型连接。
-
-HTML 是浏览器中的静态设计与模拟交互，不执行真实剪贴板、文件、授权、通知或数据库操作；成功提示和训练数据均为示例。原型对默认选择、计划排序持久化、系统设置、返回栈、主题偏好与数据写入的简化不能当作产品规则。系统字体回退和浏览器字号样本也不等同于 Flutter 字体或 Android 适配已验收。
-
-原型中的“动作名称随界面语言保持原文”、固定主动作、长文换行等用于说明目标效果。实际 ARB 文案、单位和时间格式、系统控件、屏幕阅读器与业务状态仍按文字规范及既有能力实施。
-
-## 验证证据
-
-[设计资料核验说明](verification/README.md)区分浏览器原型检查、文档接入检查与 Flutter 实施验收。已有 Android 功能证据仍位于 `docs/qa/`，不因本次设计更新改写。
-
-文档来源：初版 `5570b90`；本次换序 `dfe28f0`；计划传输 `7bf1f03`；记录删除 `00ef2a3`；本地化 `31a8d8f` / `e41967c`；提醒与跳过 `da18d62`。图像对应各能力的最新可用验收批次，不宣称每张截图都来自同一提交。
-
-## 关于与首次说明增量
-
-`add-app-about-and-first-run-notice` 在既有 A 方案上补充 C05（设置底部关于）、D15（首次说明）、D16（重看说明）和计划列表图标。主题、组件与品牌保持现行规范，新增交互见 INT-11、验收见 FLOW-17–19 / DATA-01。实施结果与已验证平台见 [独立验收记录](../qa/app-about-notice-acceptance.md)，不改写早期重设计证据。
-
-本增量已于 2026-10-15 同步 `app-experience`／`app-localization` 主规格并[归档](../../openspec/changes/archive/2026-10-15-add-app-about-and-first-run-notice/README.md)，21/21 项任务完成；未执行 Git 提交或发布。
-
-## 主题色增量
-
-`add-theme-color-presets` 在 A 方案上增加设置内即时主题色选择：青色（默认）、蓝色、紫色、石墨，深浅配对且独立于明暗模式。卡片、配色和状态规则已补充至主规范第 10 节、C01/C02/C04 与 INT-10；检查见 COLOR-01–05，实际验证范围见 [主题色验收](../qa/theme-color-presets-acceptance.md)。已于 2026-10-15 同步 `app-experience`／`app-localization` 主规格并[归档](../../openspec/changes/archive/2026-10-15-add-theme-color-presets/README.md)，16/16 项任务完成；未执行 Git 提交或发布。
-
-## 休息提醒增强（已实现，待真机验收）
-
-2026-10-16 确认前台弹窗与暗色遮罩、后台通知、较明显提示音及可设置间隔的重复提醒。[设计总览](previews/rest-reminders-2026-10-16.png)展示浅深弹窗、提醒设置与间隔选择；文字规则优先，图中数据、导航图标与布局细节仍以既有规范为准。
-
-视觉见[主规范第 11 节](SetTrace_UI_Design_System_and_Flutter_Spec.md#11-休息提醒增强已实现待真机验收)，画面见页面清单 D17–D19，行为见 INT-12，待验收项见 REM-01–06。此增量已实现前台弹窗、后台重复、确认与设置；Widget／原生与模拟器证据见[独立验收](../qa/rest-reminders-acceptance.md)。真人听感、触感及设备矩阵剩余项待验；OpenSpec 主规格已同步并[归档](../../openspec/changes/archive/2026-10-16-enhance-rest-reminders/README.md)，3 项待验保持未完成，旧 HTML 与原图仍是示意。
-
-
-## 完整备份实施进展
-
-`add-full-data-backup-restore` 已完成代码实现，三个主规格已同步并于2026-10-17[归档](../../openspec/changes/archive/2026-10-17-add-full-data-backup-restore/README.md)，43/45项完成，人工与故障验收两项保持未完成；设置入口位于适用提醒之后、关于之前。
-设计仍采用 focus-a 与四主题色。Flutter、原生单元测试和设备验收分别记录在
-[备份实施验收](../qa/backup-restore-acceptance.md)；现有 HTML 证据保留，不能代替真机结果。
-
-## 诊断与日志设计增量（2026-10-23，已确认，待实现）
-
-版本 `diagnostics-ui-2026-10-23`。确认范围包括按最新设置截图修订的 L00 和此前保留的 L01–L08、LD01、LE01/LE02 及其分支；完整页面目录、设计默认值、隐私表达、失败恢复和实现状态见[诊断设计入口](diagnostics/README.md)。
-
-设置保留外观→主题色→语言→适用提醒→数据→关于，数据卡片内依次为“备份与恢复”和“诊断与日志”，仅增加第二行及分隔线。界面沿用现行四主题色、Material 线框图标、两语、字号与安全区规则；诊断导出允许训练进行中使用，和完整备份的活动会话限制分别处理。
-
-主规范 §14、页面增量、INT-13、LOGUI-01–12 与[实现对接说明](diagnostics/implementation-handoff.md)共同指导后续程序设计。图像是静态草图，应用尚未实现；文档核查见[设计验证入口](verification/README.md)，不将文档接入记为 Flutter／Android 功能通过。
-
-## 系统声音增量（2026-10-27，已归档，平台／真机待验）
-
-`rest-system-sound-2026-10-27` 仅替代 D19 和 C01/C02/C04 声音行：系统音状态、独立试听／停止和系统通知设置。
-沿用 focus-a、四主题色与 INT-12／REM-04/06；D17、D18、C03 及诊断数据入口保留。
-代码和自动化证据见 [本次验收](../qa/rest-system-sound/acceptance.md)，真人听感、TalkBack 和未实测设备单列待验。
-
-该增量已于 2026-10-28 同步 app-experience／app-diagnostics 主规格并[归档](../../openspec/changes/archive/2026-10-28-fix-rest-sound-and-diagnostics/README.md)，任务保持 26/30；迁移工况、跨版本及小米真机验收仍待完成，未执行 Git 提交或发布。
+旧路径仅为历史引用保留兼容入口，旧原型与工作稿均已归档；不再作为当前设计主版本。[整理前设计首页原件](archive/2026-10-31-design-history/docs/design/README.md)仍可追溯。此处不改变任何后续工作授权边界。

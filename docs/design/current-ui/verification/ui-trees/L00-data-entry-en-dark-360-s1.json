@@ -1,0 +1,82 @@
+[
+  {
+    "text": "",
+    "description": "Rest reminders\nReminder sound\nSound is limited by system settings. Check silent mode, volume, Do Not Disturb and this notification channel.\nReminder interval\nEvery 10 seconds\nTap the notification to return to your workout, or acknowledge the dialog, to stop this reminder.\nSound and vibration follow system settings.\nBackground reminder intervals may be delayed by the system.",
+    "bounds": "[72,108][1008,1309]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "Repeat reminders\nRepeat at the selected interval until acknowledged",
+    "bounds": "[120,108][960,334]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "true"
+  },
+  {
+    "text": "",
+    "description": "Notification settings",
+    "bounds": "[120,598][633,742]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "Accurate reminder settings",
+    "bounds": "[120,742][781,886]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "Data",
+    "bounds": "[72,1381][1008,1453]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "Backup & restore\nFull backup, restore and undo",
+    "bounds": "[72,1489][1008,1777]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "Diagnostics and logs\nExport diagnostics to help investigate issues",
+    "bounds": "[72,1780][1008,2091]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "Plans",
+    "bounds": "[48,2115][376,2304]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "History",
+    "bounds": "[376,2115][704,2304]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "Settings",
+    "bounds": "[704,2115][1032,2304]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  }
+]

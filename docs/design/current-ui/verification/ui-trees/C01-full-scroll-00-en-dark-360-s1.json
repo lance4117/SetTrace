@@ -1,0 +1,130 @@
+[
+  {
+    "text": "",
+    "description": "Settings",
+    "bounds": "[72,180][1008,306]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "Appearance",
+    "bounds": "[72,378][1008,450]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "System default",
+    "bounds": "[120,534][960,702]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "Light",
+    "bounds": "[120,702][960,870]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "Dark",
+    "bounds": "[120,870][960,1038]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "true"
+  },
+  {
+    "text": "",
+    "description": "Theme color\nChanges apply instantly and save automatically.",
+    "bounds": "[72,1086][1008,1698]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "Theme color",
+    "bounds": "[120,1314][960,1488]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "Teal, default color",
+    "bounds": "[120,1314][312,1488]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "Blue",
+    "bounds": "[336,1314][528,1488]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "Purple",
+    "bounds": "[552,1314][744,1488]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "Graphite",
+    "bounds": "[768,1314][960,1488]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "Language",
+    "bounds": "[72,1770][1008,1842]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "English",
+    "bounds": "[120,1926][960,2091]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "true"
+  },
+  {
+    "text": "",
+    "description": "Plans",
+    "bounds": "[48,2115][376,2304]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "History",
+    "bounds": "[376,2115][704,2304]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "Settings",
+    "bounds": "[704,2115][1032,2304]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  }
+]

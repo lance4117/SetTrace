@@ -1,0 +1,58 @@
+[
+  {
+    "text": "",
+    "description": "End this workout?",
+    "bounds": "[192,734][888,827]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "UIReference",
+    "bounds": "[192,875][456,947]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "You have completed 2 sets. Save them to view in your history.",
+    "bounds": "[192,983][888,1199]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "Resume workout",
+    "bounds": "[453,1271][888,1415]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "Discard",
+    "bounds": "[654,1415][888,1559]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "Save completed sets",
+    "bounds": "[366,1559][888,1703]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "Dismiss",
+    "bounds": "[0,0][1080,2400]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  }
+]

@@ -2,17 +2,17 @@ schema: spec-driven
 
 context: |
   SetTrace（训练本）是 Flutter / Dart 的 Android 离线训练记录工具，使用 SQLite 保存计划、会话快照和历史。
-  当前设计基线为 focus-a-2026-10-14（A · 专注工具），覆盖应用 0.1.3+5 / da18d62 的全部既有功能。
+  当前 UI 参考集中在 docs/design/current-ui，源码基线 306b9bc、应用 0.3.1+12；独立构建身份与截图来源见 manifest.json 和 verification/build.json。视觉沿用 focus-a-2026-10-14（A · 专注工具）与后续已实施增量。
   A 方案已在 redesign-ui-focus 中实施，实际验证范围见 docs/qa/focus-a-redesign-acceptance.md；五份主规格已同步，变更已于 2026-10-15 归档至 openspec/changes/archive/2026-10-15-redesign-ui-focus，尚未执行 Git 提交或发布。设计确认、文档更新或已有 change 目录本身不构成新增工作授权。
   创建或扩写提案、生成开发任务、实施或发布前，必须得到用户对相应范围的明确确认；未授权时仅阅读和说明。
   用户后续明确请求某项工作本身即授权其要求的范围，无需重复询问；授权不自动扩展到未要求的下一阶段。
   UI 工作必须先实际读取 docs/design/README.md，再读取以下文件，不能只浏览示意图：
-  - docs/design/SetTrace_UI_Design_System_and_Flutter_Spec.md：语义主题、组件、排版、适配与 Flutter 职责映射。
-  - docs/design/screens-and-states.md：P/W/S/X/H/C/D/A 页面与状态编号、功能覆盖及来源。
-  - docs/design/interaction-spec.md：INT-01 至 INT-10 的条件、数据范围、状态转换、返回与错误反馈。
-  - docs/design/acceptance-checklist.md：DOC/VIS/FLOW/ADAPT 验收编号与未验证边界。
+  - docs/design/current-ui/specs/visual-and-components.md：语义主题、组件、排版、适配与 Flutter 职责映射。
+  - docs/design/current-ui/screen-inventory.md：P/W/S/X/H/C/D/A 页面与状态编号、功能覆盖及来源。
+  - docs/design/current-ui/specs/interaction-spec.md：INT-01 至 INT-13 的条件、数据范围、状态转换、返回与错误反馈。
+  - docs/design/current-ui/specs/acceptance-checklist.md：DOC/VIS/FLOW/ADAPT 验收编号与未验证边界。
   依所涉及能力完整读取 openspec/specs 中的现有规格和当前代码；业务含义不得因重设计改变，数据库与既有功能保持。
-  目标视觉与呈现以当前设计 Markdown 为准；docs/design/prototype/SetTrace-Focus.html、previews、exports 是对照资料。
+  目标视觉与呈现以当前设计 Markdown 为准；docs/design/current-ui/overview.html 为离线当前 UI 图册，verification/coverage.md 说明实际覆盖和待验。旧 prototype、previews、exports 及工作稿已移至 docs/design/archive，仅供历史追溯。
   原型是静态模拟，示例选择、数值、日期、提示成功、系统行为与字体回退都不是实现依据。
   导出仍默认全选；显式加减与现有 Picker 滑动、吸附、跨有效档位反馈并存，不按原型删掉现有要求。
   docs/design/archive 下旧设计及旧 Figma 页仅历史参考；不要将旧 UI 规则混回当前设计。

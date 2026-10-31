@@ -1,0 +1,74 @@
+[
+  {
+    "text": "",
+    "description": "Back",
+    "bounds": "[12,120][156,264]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "Logging and privacy",
+    "bounds": "[216,161][703,224]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "Logs contain necessary technical state, key operation stages and error evidence. They exclude plan names, exercise names, input text, weights and complete workout records. Regular and detailed modes use the same privacy rules.",
+    "bounds": "[72,276][1008,420]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "Kept for up to 7 days or 20 MiB, whichever limit is reached first.",
+    "bounds": "[72,492][1008,654]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "On-device logs are retained for up to 7 days and 20 MiB. Manual full backups exclude diagnostics and diagnostic preferences. The diagnostic directory uses Android storage excluded from system backup; vendor transfer behavior can vary.",
+    "bounds": "[72,654][1008,1110]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "Before sharing",
+    "bounds": "[72,1182][1008,1263]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "You choose when to export. The ZIP is not encrypted and is never automatically uploaded or sent. Sanitized information may still reveal usage times and habits; share only with people you trust.",
+    "bounds": "[72,1263][1008,1647]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "Clear on-device logs",
+    "bounds": "[72,1719][1008,1800]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "Turning logging off stops new records. Clearing removes on-device diagnostics only. Exported files in Downloads are managed by you and remain after retention cleanup, clearing logs or uninstalling the app.",
+    "bounds": "[72,1800][1008,2256]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  }
+]

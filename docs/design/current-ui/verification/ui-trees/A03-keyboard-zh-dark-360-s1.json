@@ -1,0 +1,58 @@
+[
+  {
+    "text": "",
+    "description": "返回",
+    "bounds": "[12,120][156,264]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "导入计划",
+    "bounds": "[216,153][432,231]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "取消",
+    "bounds": "[915,120][1080,264]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "粘贴别人分享的计划文本，或选择本地计划文件。",
+    "bounds": "[72,312][1008,456]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "粘贴",
+    "bounds": "[843,1032][1008,1044]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "从文件选择",
+    "bounds": "[72,1083][1008,1251]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "预览计划",
+    "bounds": "[72,1287][1008,1455]",
+    "clickable": "false",
+    "enabled": "false",
+    "checked": "false"
+  }
+]

@@ -1,0 +1,96 @@
+{
+  "created": "2026-10-31T11:28:35.550937+08:00",
+  "baseline_id": "306b9bc-0.3.1+12-2026-10-31",
+  "path_base": "current-ui",
+  "result": "passed-current",
+  "scope": "资料交付通过；不表示所有产品验收、设备条件和故障分支通过。",
+  "checks": [
+    {
+      "id": "REF-01",
+      "title": "唯一入口与资料层级",
+      "result": "passed-current",
+      "observed": "根设计入口、项目README及OpenSpec指引已切换到current-ui；历史只留9个必要兼容入口。",
+      "evidence": [
+        "README.md",
+        "../README.md",
+        "../archive/README.md"
+      ]
+    },
+    {
+      "id": "REF-02",
+      "title": "来源保全",
+      "result": "passed-current",
+      "observed": "633个原文件逐项存在且SHA-256与整理前一致；重复关系保留；旧归档原件未改。",
+      "evidence": [
+        "../archive/migration-manifest.json",
+        "verification/documentation-checks.json"
+      ]
+    },
+    {
+      "id": "REF-03",
+      "title": "完整状态目录",
+      "result": "passed-current",
+      "observed": "122个页面／状态条目；120个有图；D19被替代；E04保留具体缺口。入口、条件、操作、返回、失败、实施与验收映射可查。",
+      "evidence": [
+        "screen-inventory.md",
+        "manifest.json",
+        "verification/coverage.md"
+      ]
+    },
+    {
+      "id": "REF-04",
+      "title": "源码、构建与原帧身份",
+      "result": "passed-current",
+      "observed": "固定306b9bc源码重新构建0.3.1+12 release，独立APK哈希与安装核对；120张Android原帧、476张测试渲染分别标识。",
+      "evidence": [
+        "verification/build.json",
+        "manifest.json",
+        "verification/capture-registration-corrections.json"
+      ]
+    },
+    {
+      "id": "REF-05",
+      "title": "正常画面、四组合与长页",
+      "result": "passed-current",
+      "observed": "主页面四组合矩阵检查通过；设置／备份四组合与许可正文完整滚动原帧，恢复预览／副本详情有top/bottom；28个适配渲染场景；危险／平台缺口未冒充通过。",
+      "evidence": [
+        "verification/documentation-checks.json",
+        "verification/native-full-scroll.json",
+        "verification/C05-license-detail-scroll-sequence.json",
+        "verification/adaptation-captures.json"
+      ]
+    },
+    {
+      "id": "REF-06",
+      "title": "结论有据且范围可读",
+      "result": "passed-current",
+      "observed": "475项既有回归通过；296项采集测试通过（其中包含字体修正后重采与受控状态，非独立业务总覆盖）；30个现有语义色对计算通过；实际诊断ZIP与通知返回有独立证据；设备／故障待验保留。",
+      "evidence": [
+        "verification/results.json",
+        "verification/current-observations.md",
+        "verification/visual-measurements.json",
+        "verification/discrepancies.md"
+      ]
+    },
+    {
+      "id": "REF-07",
+      "title": "离线与路径可达",
+      "result": "passed-current",
+      "observed": "596张图册本地file URL筛选、详情、Esc与手机宽度通过；图片、哈希、JSON、当前新增链接与历史必需引用通过；母版解析有效且未重新生成。",
+      "evidence": [
+        "verification/browser-qa.json",
+        "verification/documentation-checks.json"
+      ]
+    },
+    {
+      "id": "REF-08",
+      "title": "范围保护与环境收尾",
+      "result": "passed-current",
+      "observed": "1302个生产、业务规格、运行资源、历史QA和归档OpenSpec文件哈希未变；只读模拟器已退出且不保存快照；未执行提交、发布或OpenSpec归档。",
+      "evidence": [
+        "verification/documentation-checks.json",
+        "verification/emulator-shutdown.json"
+      ]
+    }
+  ]
+}

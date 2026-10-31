@@ -1,0 +1,314 @@
+[
+  {
+    "text": "SetTrace",
+    "description": "",
+    "bounds": "[204,719][345,768]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "•",
+    "description": "",
+    "bounds": "[357,719][369,768]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "now",
+    "description": "",
+    "bounds": "[381,719][449,768]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "Alerted",
+    "bounds": "[467,728][503,764]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "Collapse",
+    "bounds": "[864,660][1032,828]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "休息结束",
+    "description": "",
+    "bounds": "[204,810][984,880]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "可以开始 ReferenceRow 第 2 / 2 组。",
+    "description": "",
+    "bounds": "[204,898][984,959]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "Set a screen lock",
+    "description": "",
+    "bounds": "[204,1085][521,1142]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "•",
+    "description": "",
+    "bounds": "[533,1091][545,1140]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "1 hour ago",
+    "description": "",
+    "bounds": "[557,1091][597,1140]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "For added security, set a PIN, pattern, or password for this device.",
+    "description": "",
+    "bounds": "[204,1148][864,1208]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "Expand",
+    "bounds": "[864,1025][1032,1274]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "Silent",
+    "description": "",
+    "bounds": "[60,1328][236,1472]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "Clear all silent notifications",
+    "bounds": "[876,1328][1020,1472]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "训练提醒运行中",
+    "description": "",
+    "bounds": "[204,1538][498,1600]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "•",
+    "description": "",
+    "bounds": "[510,1548][522,1597]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "12 minutes ago",
+    "description": "",
+    "bounds": "[534,1548][606,1597]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "返回当前训练；后台提醒仍可能延迟。",
+    "description": "",
+    "bounds": "[204,1606][864,1666]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "Expand",
+    "bounds": "[864,1478][1032,1732]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "Virtual SD card",
+    "description": "",
+    "bounds": "[204,1798][482,1855]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "•",
+    "description": "",
+    "bounds": "[494,1804][506,1853]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "1 hour ago",
+    "description": "",
+    "bounds": "[518,1804][558,1853]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "For storing photos, videos, music and more",
+    "description": "",
+    "bounds": "[204,1861][864,1921]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "Expand",
+    "bounds": "[864,1738][1032,1987]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "Manage",
+    "description": "Manage",
+    "bounds": "[96,2029][368,2173]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "Clear all",
+    "description": "Clear all notifications.",
+    "bounds": "[715,2029][984,2173]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "Internet, AndroidWifi",
+    "description": "Internet,AndroidWifi",
+    "bounds": "[48,144][528,324]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "Internet",
+    "description": "",
+    "bounds": "[191,205][397,262]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "Bluetooth, On",
+    "description": "Bluetooth.",
+    "bounds": "[552,144][1032,324]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "Bluetooth",
+    "description": "",
+    "bounds": "[695,205][901,262]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "Flashlight, Camera in use",
+    "description": "",
+    "bounds": "[48,348][528,528]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "Flashlight",
+    "description": "",
+    "bounds": "[191,409][457,466]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "Modes, No active modes",
+    "description": "Modes. No active modes",
+    "bounds": "[552,348][1032,528]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "Modes",
+    "description": "",
+    "bounds": "[695,409][901,466]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "2:24",
+    "description": "2:24 AM",
+    "bounds": "[50,12][140,156]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "Wifi signal full.",
+    "bounds": "[769,61][814,106]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "T-Mobile, signal full.",
+    "bounds": "[814,51][859,117]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "Battery charging, 100 percent.",
+    "bounds": "[880,59][1020,108]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "100%",
+    "description": "",
+    "bounds": "[903,59][1020,108]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  }
+]

@@ -1,0 +1,26 @@
+[
+  {
+    "capture_id": "B16-startup-checking-saved-results-en-light-360-s1-registration-corrected",
+    "requested_id": "D15",
+    "observed_id": "B16",
+    "basis": "stored UI hierarchy and visual inspection; original PNG bytes retained",
+    "original_capture_id": "D15-first-run-en-light-360-s1",
+    "original_path": "screenshots/about/D15-first-run-en-light-360-s1.png"
+  },
+  {
+    "capture_id": "D11-permission-explanation-en-light-360-s1-registration-corrected",
+    "requested_id": "W03",
+    "observed_id": "D11",
+    "basis": "stored UI hierarchy and visual inspection; original PNG bytes retained",
+    "original_capture_id": "W03-between-sets-en-light-360-s1",
+    "original_path": "screenshots/workout/W03-between-sets-en-light-360-s1.png"
+  },
+  {
+    "capture_id": "D17-rest-due-en-light-360-s1-registration-corrected",
+    "requested_id": "W04",
+    "observed_id": "D17",
+    "basis": "stored UI hierarchy and visual inspection; original PNG bytes retained",
+    "original_capture_id": "W04-between-exercises-en-light-360-s1",
+    "original_path": "screenshots/workout/W04-between-exercises-en-light-360-s1.png"
+  }
+]

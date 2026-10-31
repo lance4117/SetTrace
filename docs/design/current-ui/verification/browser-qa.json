@@ -1,0 +1,50 @@
+{
+  "created": "2026-10-31T03:25:32.975Z",
+  "browser": "Chrome / existing managed Playwright",
+  "browser_plugin": "Absent: Browser plugin and browser skill not listed in session",
+  "dependency_location": "Read-only application-managed runtime; no installation; browser profile and TEMP on D:",
+  "flow": "offline atlas -> source/language/theme/search filters -> screenshot detail -> Escape -> mobile",
+  "checks": [
+    {
+      "name": "identity",
+      "passed": true,
+      "url": "file:///D:/000_MyLibrary/100_code/110_Project/5_SetTrace/docs/design/current-ui/overview.html"
+    },
+    {
+      "name": "not-blank",
+      "passed": true,
+      "cards": 596
+    },
+    {
+      "name": "source-filter",
+      "passed": true,
+      "count": 120
+    },
+    {
+      "name": "combined-filter",
+      "passed": true,
+      "count": 1
+    },
+    {
+      "name": "modal-detail",
+      "passed": true
+    },
+    {
+      "name": "escape-closes",
+      "passed": true
+    },
+    {
+      "name": "mobile-no-overflow",
+      "passed": true
+    },
+    {
+      "name": "local-image-load",
+      "passed": true
+    },
+    {
+      "name": "console-health",
+      "passed": true,
+      "errors": []
+    }
+  ]
+}

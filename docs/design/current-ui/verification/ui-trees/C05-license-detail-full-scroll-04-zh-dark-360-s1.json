@@ -1,0 +1,42 @@
+[
+  {
+    "text": "",
+    "description": "返回",
+    "bounds": "[12,120][156,264]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "Flutter",
+    "bounds": "[216,161][375,224]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "Copyright 2014 The Flutter Authors. All rights reserved.\r\n\nRedistribution and use in source and binary forms, with or without modification,\r are permitted provided that the following conditions are met:\r\n\n* Redistributions of source code must retain the above copyright\r\n\nnotice, this list of conditions and the following disclaimer.\r * Redistributions in binary form must reproduce the above\r\n\ncopyright notice, this list of conditions and the following\r disclaimer in the documentation and/or other materials provided\r with the distribution.\r * Neither the name of Google Inc. nor the names of its\r\n\ncontributors may be used to endorse or promote products derived\r from this software without specific prior written permission.\r\n\nTHIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\" AND\r ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED\r WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\r DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR\r ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES\r (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;\r LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON\r ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT\r (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS\r SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\r",
+    "description": "",
+    "bounds": "[72,276][1008,727]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "Copyright 2019 The Flutter Authors. All rights reserved. Use of this source code is governed by a BSD-style license that can be found in the LICENSE file.",
+    "description": "",
+    "bounds": "[72,871][1008,1159]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "License for the Ahem font embedded below is from: https://www.w3.org/Style/CSS/Test/Fonts/Ahem/COPYING\n\nThe Ahem font in this directory belongs to the public domain. In jurisdictions that do not recognize public domain ownership of these files, the following Creative Commons Zero declaration applies:\n\n<http://labs.creativecommons.org/licenses/zero-waive/1.0/us/legalcode>\n\nwhich is quoted below:\n\nThe person who has associated a work with this document (the \"Work\") affirms that he or she (the \"Affirmer\") is the/an author or owner of the Work. The Work may be any work of authorship, including a database.\n\nThe Affirmer hereby fully, permanently and irrevocably waives and relinquishes all of her or his copyright and related or neighboring legal rights in the Work available under any federal or state law, treaty or contract, including but not limited to moral rights, publicity and privacy rights, rights protecting against unfair competition and any rights protecting the extraction, dissemination and reuse of data, whether such rights are present or future, vested or contingent (the \"Waiver\"). The Affirmer makes the Waiver for the benefit of the public at large and to the detriment of the Affirmer's heirs or successors.\n\nThe Affirmer understands and intends that the Waiver has the effect of eliminating and entirely removing from the Affirmer's control all the copyright and related or neighboring legal rights previously held by the Affirmer in the Work, to that extent making the Work freely available to the public for any and all uses and purposes without restriction of any kind, including commercial use and uses in media and formats or by methods that have not yet been invented or conceived. Should the Waiver for any reason be judged legally ineffective in any jurisdiction, the Affirmer hereby grants a free, full, permanent, irrevocable, nonexclusive and worldwide license for all her or his copyright and related or neighboring legal rights in the Work.",
+    "description": "",
+    "bounds": "[72,1303][1008,2400]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  }
+]

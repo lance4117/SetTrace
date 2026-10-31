@@ -1,0 +1,50 @@
+[
+  {
+    "text": "",
+    "description": "Rest is over",
+    "bounds": "[192,894][888,1002]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "Your next set is ready",
+    "bounds": "[192,1026][888,1098]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "ReferencePress",
+    "bounds": "[192,1170][888,1260]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "Set 1 of 4",
+    "bounds": "[192,1272][888,1344]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "Repeats every 10 seconds until acknowledged",
+    "bounds": "[192,1392][888,1518]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "Got it, stop reminders",
+    "bounds": "[192,1578][888,1746]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  }
+]

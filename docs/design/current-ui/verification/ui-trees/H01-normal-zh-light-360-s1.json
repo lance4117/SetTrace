@@ -1,0 +1,106 @@
+[
+  {
+    "text": "",
+    "description": "训练记录",
+    "bounds": "[48,180][1032,306]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "1\n本周训练\n1\n本月训练",
+    "bounds": "[48,366][1032,648]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "2026年10月汇总\n完成组数\n2 组",
+    "bounds": "[48,684][1032,1296]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "训练时长，9 分钟",
+    "bounds": "[96,846][267,1065]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "最近训练：UIReference · 9 分钟",
+    "bounds": "[48,1344][1032,1422]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "2026年10月",
+    "bounds": "[48,1482][1032,1626]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "上个月",
+    "bounds": "[48,1482][192,1626]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "下个月",
+    "bounds": "[888,1482][1032,1626]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "2026年10月31日",
+    "bounds": "[48,1662][1032,1800]",
+    "clickable": "false",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "UIReference\n9 分钟 · 2 个动作 · 2 组",
+    "bounds": "[48,1800][1032,2073]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "计划",
+    "bounds": "[48,2115][376,2304]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "记录",
+    "bounds": "[376,2115][704,2304]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  },
+  {
+    "text": "",
+    "description": "设置",
+    "bounds": "[704,2115][1032,2304]",
+    "clickable": "true",
+    "enabled": "true",
+    "checked": "false"
+  }
+]
